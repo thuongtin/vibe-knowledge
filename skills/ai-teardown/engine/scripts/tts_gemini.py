@@ -159,13 +159,14 @@ def to_wav(data, mime, dest):
 
 
 def strip_cues(text):
+    text = unicodedata.normalize("NFC", text)   # chuẩn hoá trước khi tính vị trí cue: văn bản NFD (dấu tách rời) đổi độ dài sau NFC
     out, cues, pos = [], {}, 0
     for m in CUE_RE.finditer(text):
         out.append(text[pos:m.start()])
         cues[m.group(1)] = sum(len(p) for p in out)
         pos = m.end()
     out.append(text[pos:])
-    return unicodedata.normalize("NFC", "".join(out)), cues
+    return "".join(out), cues
 
 
 def apply_lexicon(text, lexicon):
