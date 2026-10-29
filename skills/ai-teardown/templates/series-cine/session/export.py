@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""把真实会话的每一轮（turnN.jsonl，stream-json）整理成课程画面用的 turnN.json：
-提示词、逐条工具调用（名字 + 一句话说明 + 相对秒数）、它写的文字、这一轮的用时和折算费用。
-路径里的本机用户名一律换成 ~（录屏打码规矩）。
-用法：python3 session/export.py [轮次…]（默认全部）"""
+"""Chỉnh từng lượt của phiên thật (turnN.jsonl, stream-json) thành turnN.json dùng cho hình ảnh bài học:
+câu lệnh, từng lần gọi công cụ (tên + giải thích một câu + số giây tương đối), văn bản nó viết, thời gian dùng của lượt này và chi phí quy đổi.
+Tên người dùng máy trong đường dẫn luôn đổi thành ~ (quy tắc che khi quay màn hình).
+Cách dùng: python3 session/export.py [lượt…] (mặc định tất cả)"""
 import glob
 import json
 import os
@@ -20,7 +20,7 @@ HOME = os.path.expanduser("~")
 def scrub(s):
     cfg = env().get("SESSION_CONFIG", "")
     if cfg and cfg != os.path.expanduser("~/.claude"):
-        s = s.replace(cfg + "/skills/", "~/.claude/skills/")   # 课程实例里的 skill 软链，对学员显示成标准位置
+        s = s.replace(cfg + "/skills/", "~/.claude/skills/")   # symlink skill trong ví dụ khoá học, hiển thị cho học viên thành vị trí chuẩn
     s = s.replace(HOME, "~")
     return re.sub(r"/Users/[A-Za-z0-9._-]+", "~", s)
 
@@ -63,7 +63,7 @@ def export(n):
                     texts.append(scrub(c["text"]))
         elif d.get("type") == "result":
             result = {k: d.get(k) for k in ("duration_ms", "num_turns", "total_cost_usd", "is_error", "subtype")}
-    # 相对时间：stream-json 没有逐条时间戳，用会话记录（config/projects 下的 jsonl）里的时间补上
+    # Thời gian tương đối: stream-json không có dấu thời gian từng mục, dùng thời gian trong bản ghi phiên (jsonl dưới config/projects) để bổ sung
     proj = [str(p) for p in project_logs()]
     stamps = []
     if proj:
@@ -76,7 +76,7 @@ def export(n):
                         stamps.append(round(ts(d) - t0, 1))
     for i, e in enumerate(events):
         e["t"] = stamps[i] if i < len(stamps) else None
-    # --continue 时每轮 result 里的 total_cost_usd 是整个会话的累计值：这一轮的花费 = 本轮累计 − 上一轮累计
+    # Khi dùng --continue, total_cost_usd trong result mỗi lượt là giá trị luỹ kế của cả phiên: chi phí lượt này = luỹ kế lượt này − luỹ kế lượt trước
     prev = HERE / f"turn{n - 1}.jsonl"
     if result.get("total_cost_usd") is not None:
         result["cum_cost_usd"] = result["total_cost_usd"]
@@ -101,4 +101,4 @@ if __name__ == "__main__":
     for n in ns:
         o = export(n)
         if o:
-            print(f"turn{n}: {len(o['events'])} 条事件，用时 {o.get('duration_ms', 0) / 1000:.0f}s，折算 ${o.get('total_cost_usd') or 0:.2f}")
+            print(f"turn{n}: {len(o['events'])} sự kiện, mất {o.get('duration_ms', 0) / 1000:.0f}s, quy đổi ${o.get('total_cost_usd') or 0:.2f}")

@@ -1,26 +1,26 @@
-# 像素 · PIXEL
+# Pixel · PIXEL
 
-> 类别：视觉系统　|　风格图：`still.jpg`　|　样片源码：`_samples/styles_film.js → pixel()`
+> Loại: hệ thống thị giác | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles_film.js → pixel()`
 
-**一句话**：16-bit 游戏关卡：像素场景、关卡名、金币和 Boss。
+**Một câu**: Màn chơi game 16-bit: cảnh pixel, tên màn, đồng xu và Boss.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 好玩、有闯关感，适合刷题和方法论。 |
-| 材质 / 画法 | 240×135 画布放大 8 倍（image-rendering:pixelated）；角色可用 pixel-mv 流程生成再像素化。 |
-| 配色逻辑 | 限色板：夜空渐变 6 档 + 土黄 + 朱红 + 金 #ffd23f。 |
-| 字体 | 等宽粗体 + 4px 硬阴影模拟像素字。 |
-| 动态 | 按整像素移动、金币弹跳、Boss 被击中闪白；数字按格跳。 |
-| 镜头语法 | 横版卷轴平移，关卡切换用像素擦除。 |
-| 声音 | 8-bit 芯片音乐、跳跃 / 金币 / 暴击音效。 |
-| 标志镜头 | 「STAGE 1-1」关卡名 + 金币计数 + 最终 Boss 秘籍总表。 |
+| Ý đồ đạo diễn | Vui, có cảm giác vượt màn, hợp với làm đề và phương pháp luận. |
+| Chất liệu / Cách vẽ | Canvas 240×135 phóng to 8 lần (image-rendering:pixelated); nhân vật có thể tạo bằng quy trình pixel-mv rồi pixel hóa. |
+| Logic phối màu | Bảng màu hạn chế: bầu trời đêm chuyển sắc 6 mức + vàng đất + đỏ son + vàng #ffd23f. |
+| Phông chữ | Monospace đậm + bóng cứng 4px mô phỏng chữ pixel. |
+| Chuyển động | Di chuyển theo từng pixel nguyên, đồng xu nảy, Boss bị đánh thì chớp trắng; số nhảy theo ô. |
+| Ngữ pháp máy quay | Cuộn ngang theo màn hình, chuyển màn dùng hiệu ứng xóa pixel. |
+| Âm thanh | Nhạc chip 8-bit, hiệu ứng nhảy / đồng xu / chí mạng. |
+| Cảnh đặc trưng | Tên màn "STAGE 1-1" + đếm đồng xu + bảng tổng hợp bí kíp Boss cuối. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换色板、关卡名、角色
-- **一改就变味**：提高分辨率（变成扁平插画）
-- **不能改**：去掉游戏 UI 和关卡结构
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi bảng màu, tên màn, nhân vật
+- **Sửa là mất chất**: tăng độ phân giải (thành minh họa phẳng)
+- **Không được sửa**: bỏ giao diện game và cấu trúc màn chơi
 
-## 搭配
-- 适合母版：E 闯关片（最佳）
-- 不适合：严肃沉重的历史悲剧
-- 增强档 Renoise 前缀：`16-bit pixel art, side view game scene, bold limited palette, crisp pixels, no text, no UI`
+## Kết hợp
+- Bản gốc phù hợp: E phim vượt màn (tốt nhất)
+- Không phù hợp: bi kịch lịch sử nghiêm túc nặng nề
+- Tiền tố Renoise bản nâng cao: `16-bit pixel art, side view game scene, bold limited palette, crisp pixels, no text, no UI`

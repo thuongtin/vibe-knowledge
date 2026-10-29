@@ -1,40 +1,40 @@
-# 14 · 制作踩坑清单（按环节）
+# 14 · Danh sách bẫy khi sản xuất (theo khâu)
 
-每条都是真实踩过的坑：现象 → 原因 → 做法。风格相关的坑（MJ 把「青花」画成碗、年代词带偏服饰、ESRGAN 分块错位、画布等解码、Vision 投影）见 12-style-families.md。
+Mỗi mục đều là bẫy đã thực sự dẫm phải: hiện tượng → nguyên nhân → cách làm. Các bẫy liên quan đến phong cách (MJ vẽ "men lam" thành cái bát, từ chỉ niên đại làm lệch trang phục, ESRGAN chia khối bị lệch, canvas chờ giải mã, chiếu Vision) xem ở 12-style-families.md.
 
-## 生成（Renoise）
+## Tạo ảnh (Renoise)
 
-- **AI 画的器物结构不对**（04b 冰鉴图多了玻璃窗）：文物、仪器、机械这类「结构就是知识点」的东西，AI 图容易画错。做法：这类镜头改用 know.js 的 `cutaway` 代码画线稿剖面，画面标「代码示意」，脚注写文物出处。AI 图只用来交代场景和氛围。
-- **Wan 3.0 报 `InvalidParameter: Failed to download <url>`**：首帧图的链接临时拉不到。做法：换一个新的 idempotency key 原样重提一次，一般就过了；失败那次是否退回积分，用 get_account 前后对比确认。
-- **Wan 出片自带上下黑边**（1282×718 里上下各约 40px）：`clip2frames.py` 会自动裁掉，info.json 里有 crop 记录；`vclip` 按 cover 铺满，不用另外处理。
+- **AI vẽ sai cấu trúc đồ vật** (hình băng giám 04b thừa cửa sổ kính): cổ vật, dụng cụ, máy móc, những thứ mà "cấu trúc chính là điểm kiến thức" thì ảnh AI dễ vẽ sai. Cách làm: cảnh này đổi sang dùng `cutaway` của know.js để vẽ mặt cắt nét bằng code, trên hình ghi "Minh họa bằng code", chú thích cuối ghi xuất xứ cổ vật. Ảnh AI chỉ dùng để dựng bối cảnh và không khí.
+- **Wan 3.0 báo `InvalidParameter: Failed to download <url>`**: liên kết của ảnh khung đầu tạm thời không tải được. Cách làm: đổi idempotency key mới rồi gửi lại nguyên xi, thường là qua; lần thất bại đó có hoàn điểm hay không thì dùng get_account so sánh trước sau để xác nhận.
+- **Phim Wan xuất ra tự có viền đen trên dưới** (trong 1282×718 mỗi bên trên dưới khoảng 40px): `clip2frames.py` sẽ tự cắt bỏ, trong info.json có ghi crop; `vclip` phủ đầy theo kiểu cover, không cần xử lý thêm.
 
-## 配音（MiMo）
+## Lồng tiếng (MiMo)
 
-- **同一拍里重复出现的词会让逐字对齐断掉**（04b：「二之日 / 三之日」各出现两次，`check_timings.py` 报错）。做法：改写成不重复的说法（「换成今天的说法：腊月凿冰，正月入窖」），不要硬调对齐。
-- **lexicon 把一个词换成同音字后，也可能让对齐断**（「凌阴」替换后对不上）。做法：先不加 lexicon 配一次，回读真读错了再加。
-- **单拍偏慢**（<5 字/秒）或回读 <95%：删掉 `build/audio/<拍>.*` 单独重配，一般一两次就正常。
+- **Từ lặp lại trong cùng một nhịp sẽ làm căn chỉnh từng chữ bị đứt** (04b: "nhị chi nhật / tam chi nhật" mỗi cái xuất hiện hai lần, `check_timings.py` báo lỗi). Cách làm: viết lại thành cách nói không lặp ("đổi sang cách nói ngày nay: tháng Chạp đục băng, tháng Giêng cất vào hầm"), đừng cố chỉnh căn chỉnh.
+- **Sau khi lexicon đổi một từ thành chữ đồng âm, căn chỉnh cũng có thể đứt** ("lăng âm" sau khi thay thì không khớp). Cách làm: trước hết lồng tiếng một lần không có lexicon, đọc lại thấy thực sự đọc sai rồi mới thêm.
+- **Một nhịp chậm** (<5 chữ/giây) hoặc đọc lại <95%: xóa `build/audio/<nhịp>.*` rồi lồng lại riêng, thường một hai lần là bình thường.
 
-## 编排（film.js）
+## Dàn cảnh (film.js)
 
-- **`css(node, { background: "" })` 会把底色整个清掉**，方块只剩边框。条件样式一律写成「两个分支都给完整值」：`background: melted ? "transparent" : FILL`。
-- **大片纯黑底**：章节中间留下的空背景（印章、计数器那几秒）要垫一层压暗的场景图（brightness 0.3 + blur），不然一看就像漏了镜头。
-- **小字号副标题**：keyword 的 `sub` 只有主字号的 0.28 倍，1080p 上 20px 左右，看不清。需要读的副句就单独再放一个 keyword（≥44px）。
-- **画在冷雾、亮光上的字**会被吃掉：加 `text-shadow: 0 2px 18px rgba(0,0,0,0.9)`，或者换成金色等高对比色。
+- **`css(node, { background: "" })` sẽ xóa sạch màu nền**, khối chỉ còn viền. Style có điều kiện luôn viết thành "cả hai nhánh đều cho giá trị đầy đủ": `background: melted ? "transparent" : FILL`.
+- **Nền đen thuần diện rộng**: phần nền trống còn lại giữa chương (mấy giây của con dấu, bộ đếm) phải lót một lớp ảnh cảnh làm tối (brightness 0.3 + blur), nếu không nhìn vào sẽ tưởng bị sót cảnh.
+- **Phụ đề cỡ chữ nhỏ**: `sub` của keyword chỉ bằng 0,28 lần cỡ chữ chính, ở 1080p khoảng 20px, không đọc rõ. Câu phụ cần đọc thì đặt thêm một keyword riêng (≥44px).
+- **Chữ vẽ trên sương lạnh, ánh sáng chói** sẽ bị nuốt mất: thêm `text-shadow: 0 2px 18px rgba(0,0,0,0.9)`, hoặc đổi sang màu tương phản cao như vàng kim.
 
-## 渲染
+## Render
 
-- **cine/queue.txt 被几个会话共用**。用 `>` 覆盖写，或者在已有 queue.sh 运行时再起一个，都会让两路 record.py 同时写同一个 picture.mp4，结果是长时间冻结，或者 H.264 数据直接损坏（04b 第一版冻了 80 秒）。做法：只用 `>>` 追加；先 `pgrep -f cine/tools/queue.sh`，有队列在跑就交给它；也可以绕开队列，直接按顺序跑 record.py → finish.py → deliver.sh。
-- **只换配乐不用重录画面**：改 film.js 的 music 后，只跑 finish.py + deliver.sh（约 1 分钟）。picture.mp4 不动。
-- **交付前一定跑 qa.py**：现在会报 >3 秒的静止画面；>10 秒的冻结基本就是录制出事了。
+- **cine/queue.txt được nhiều phiên dùng chung**. Ghi đè bằng `>`, hoặc khởi động thêm một cái khi queue.sh đang chạy, đều làm hai tiến trình record.py cùng ghi vào một picture.mp4, kết quả là đóng băng lâu, hoặc dữ liệu H.264 bị hỏng thẳng (bản đầu của 04b bị đóng băng 80 giây). Cách làm: chỉ dùng `>>` để nối thêm; trước hết `pgrep -f cine/tools/queue.sh`, nếu có hàng đợi đang chạy thì giao cho nó; cũng có thể bỏ qua hàng đợi, chạy trực tiếp tuần tự record.py → finish.py → deliver.sh.
+- **Chỉ đổi nhạc nền không cần quay lại hình**: sau khi sửa music trong film.js, chỉ chạy finish.py + deliver.sh (khoảng 1 phút). picture.mp4 không động.
+- **Trước khi giao nhất định chạy qa.py**: hiện sẽ báo hình tĩnh >3 giây; đóng băng >10 giây về cơ bản là quá trình ghi hình có sự cố.
 
-## 配乐
+## Nhạc nền
 
-- **BGM 是强制的**：finish.py 的 bgm_force 钩子会自动补 vibe-bgm、停用其他整段配乐、按人声校准音量（说话时比人声低 10 dB）。用户要求换曲才换：音乐条目写 `bgm: true, user_request: "用户原话"`。新系列由 new_film.py 打钩子；老系列手动跑 `python3 tools/bgm_force.py --patch <系列目录>`。
-- **手写 gain_curve 的绝对值不算数**：04b 原来写 −11 dB，实测说话时 BGM 只比人声低 7.7 dB，偏响；现在一律由校准决定（10-28 先定 14 dB，用户嫌轻，改成 10 dB），曲线只管起伏。
-- **成片里有没有 BGM，qa.py 会核对**：拿成片开头跟原曲开头做相关，≥0.12 才算有（有 BGM 的成片实测 0.18–0.38，没有的 ≤0.08）。
-- **BGM 变响后，cover_first 重编码 AAC 峰值会冲到 −0.9 dB**：限幅已收到 0.79（约 −2 dBFS），编码后真峰值 −1.2 到 −1.4 dB。
+- **BGM là bắt buộc**: hook bgm_force của finish.py sẽ tự bổ sung vibe-bgm, vô hiệu các bản nhạc nguyên đoạn khác, hiệu chỉnh âm lượng theo giọng người (khi nói thấp hơn giọng người 10 dB). Chỉ khi người dùng yêu cầu đổi bài mới đổi: mục nhạc ghi `bgm: true, user_request: "nguyên văn người dùng"`. Series mới do new_film.py gắn hook; series cũ chạy thủ công `python3 tools/bgm_force.py --patch <thư mục series>`.
+- **Giá trị tuyệt đối của gain_curve viết tay không có giá trị**: 04b trước đây viết −11 dB, đo thực tế khi nói BGM chỉ thấp hơn giọng người 7,7 dB, hơi to; giờ luôn do hiệu chỉnh quyết định (10-28 chốt 14 dB trước, người dùng chê nhẹ, đổi thành 10 dB), đường cong chỉ lo phần lên xuống.
+- **Thành phẩm có BGM hay không, qa.py sẽ đối chiếu**: lấy đoạn đầu thành phẩm tương quan với đoạn đầu bản nhạc gốc, ≥0,12 mới tính là có (thành phẩm có BGM đo thực tế 0,18–0,38, không có thì ≤0,08).
+- **Sau khi BGM to lên, cover_first mã hóa lại AAC đỉnh có thể vọt tới −0,9 dB**: limiter đã thu về 0,79 (khoảng −2 dBFS), sau mã hóa true peak −1,2 đến −1,4 dB.
 
-## 交付
+## Bàn giao
 
-- **封面接成开头帧**（cover_first.py）会重新编码 AAC，峰值会被抬高 0.5–1 dB；工具里已经加了限幅（约 −1.4 dBFS）。交付前用 ebur128 再看一眼真峰值是否 ≤ −1 dBTP。
-- **只换了音频也要重新接封面**：deliver.sh 会输出不带封面的版本，覆盖交付文件夹前记得再跑一次 cover_first.py。
+- **Ghép ảnh bìa thành khung hình đầu** (cover_first.py) sẽ mã hóa lại AAC, đỉnh bị nâng lên 0,5–1 dB; công cụ đã thêm limiter (khoảng −1,4 dBFS). Trước khi giao dùng ebur128 xem lại true peak có ≤ −1 dBTP không.
+- **Chỉ đổi âm thanh cũng phải ghép lại ảnh bìa**: deliver.sh sẽ xuất bản không có ảnh bìa, trước khi ghi đè thư mục bàn giao nhớ chạy lại cover_first.py một lần.

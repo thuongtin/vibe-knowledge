@@ -1,26 +1,26 @@
-# 等轴测剖面 · ISOMETRIC
+# Mặt cắt đẳng cự · ISOMETRIC
 
-> 家族：图解与设计　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles3_film.js → iso()`
+> Họ: Đồ giải và thiết kế | Cấp độ: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã phim mẫu: `_samples/styles3_film.js → iso()`
 
-**一句话**：浅灰纸上的等轴测小城，只高亮正在讲的部件，四角读数，最后零件真的动起来。
+**Một câu**: Thành phố nhỏ đẳng cự trên giấy xám nhạt, chỉ làm sáng bộ phận đang nói, số đọc bốn góc, cuối cùng chi tiết thật sự chuyển động.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 把机制做成一台可运行的小模型：观众看到因果真的在动。 |
-| 材质 / 画法 | 纯代码 SVG 等轴测方块（顶面亮、两侧面两档暗）+ 画家排序；四角 HUD 读数（mono）。 |
-| 配色逻辑 | 纸 #EEF1F4 · 结构灰三档 · 唯一强调 #FF7A1A（正在讲的部件）· 警示 #E12D39 |
-| 字体 | GeistMono 读数 + NotoSC 800 标签 |
-| 动态 | 场景整体落位 → 路线虚线画出 → 只给当前部件上强调色 → 小人走过去时读数同步变化。 |
-| 镜头语法 | 锁定等轴测视角；需要时整体平移到下一个系统。 |
-| 声音 | 机械嗒嗒、UI 提示音；极简电子。 |
-| 标志镜头 | 一个人扛起木头沿路走向北门，右下角 PROGRESS 0% → 100%，左下 TAKERS 0 → 1。 |
+| Ý đồ đạo diễn | Biến cơ chế thành một mô hình nhỏ chạy được: khán giả thấy nhân quả thật sự đang chuyển động. |
+| Chất liệu / cách vẽ | Khối đẳng cự SVG thuần mã (mặt trên sáng, hai mặt bên hai mức tối) + sắp xếp kiểu hoạ sĩ; số đọc HUD bốn góc (mono). |
+| Logic phối màu | Giấy #EEF1F4 · xám cấu trúc ba mức · nhấn duy nhất #FF7A1A (bộ phận đang nói) · cảnh báo #E12D39 |
+| Phông chữ | GeistMono số đọc + NotoSC 800 nhãn |
+| Chuyển động | Cả cảnh rơi vào vị trí → đường nét đứt tuyến vẽ ra → chỉ tô màu nhấn cho bộ phận hiện tại → khi người nhỏ đi tới số đọc đổi đồng bộ. |
+| Ngữ pháp ống kính | Khoá góc nhìn đẳng cự; khi cần thì tịnh tiến cả khối sang hệ thống kế tiếp. |
+| Âm thanh | Cơ khí lách cách, âm báo UI; điện tử tối giản. |
+| Cảnh đặc trưng | Một người vác khúc gỗ đi dọc đường về Bắc Môn, góc dưới phải PROGRESS 0% → 100%, góc dưới trái TAKERS 0 → 1. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换强调色、换 HUD 字段
-- **一改就变味**：多个部件同时高亮
-- **不能改**：用透视视角（会失去等轴测的「图解」感）
+## Có thể sửa đến mức nào (dùng khi làm thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi màu nhấn, đổi trường HUD
+- **Sửa là mất vị**: nhiều bộ phận cùng sáng một lúc
+- **Không được sửa**: dùng góc nhìn phối cảnh (sẽ mất cảm giác "đồ giải" của đẳng cự)
 
-## 搭配
-- 适合母版：痛点原理 C、一条主线 D
-- 不适合：抽象哲学、情绪向
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Cách phối
+- Mẫu gốc phù hợp: nguyên lý điểm đau C, một mạch chính D
+- Không phù hợp: triết học trừu tượng, hướng cảm xúc
+- Tiền tố Renoise cấp tăng cường: `(cấp cơ bản không cần)`

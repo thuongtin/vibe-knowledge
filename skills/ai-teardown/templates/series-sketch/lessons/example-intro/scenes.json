@@ -1,7 +1,7 @@
 {
  "n": "导学",
- "title": "导学：课程地图",
- "series": "WorkBuddy 上手课",
+ "title": "Dẫn nhập: Bản đồ khoá học",
+ "series": "Khoá nhập môn WorkBuddy",
  "theme": "paper",
  "engine": "sketch",
  "skin": "notion",
@@ -13,27 +13,27 @@
   {
    "t": "cover",
    "at": "B01",
-   "title": "WorkBuddy 上手课\n导学：课程地图",
-   "eyebrow": "WorkBuddy 上手课 · 导学",
-   "question": "开讲之前，先说声感谢",
+   "title": "Khoá nhập môn WorkBuddy\nDẫn nhập: Bản đồ khoá học",
+   "eyebrow": "Khoá nhập môn WorkBuddy · Dẫn nhập",
+   "question": "Trước khi vào bài, xin nói lời cảm ơn",
    "questionAt": "B01.thanks",
    "iconImg": "host-avatar",
    "illus": "ip-14-187",
    "props": [
     [
      "📚",
-     "系列",
-     "WorkBuddy 上手课 · 导学"
+     "Series",
+     "Khoá nhập môn WorkBuddy · Dẫn nhập"
     ],
     [
      "👤",
-     "作者",
+     "Tác giả",
      "@Berryxia"
     ],
     [
      "📖",
-     "素材",
-     "《WorkBuddy 实战蓝皮书》· MIT"
+     "Tư liệu",
+     "Sách xanh thực chiến WorkBuddy · MIT"
     ]
    ]
   },
@@ -43,25 +43,25 @@
    "illus": "ip-11-137",
    "pose": "cheer",
    "lines": [
-    "特别感谢",
+    "Đặc biệt cảm ơn",
     {
-     "text": "*苍何*老师",
+     "text": "Thầy *苍何*",
      "at": "B01.canghe+0.8"
     },
     {
-     "text": "蓝皮书作者之一 · 我的朋友",
+     "text": "Một trong các tác giả sách xanh · bạn của tôi",
      "at": "B01@朋友"
     }
    ],
    "tips": [
     {
-     "text": "无私又厉害的大佬 👍",
+     "text": "Bậc cao thủ vô tư và giỏi giang 👍",
      "at": "B02.praise",
      "until": "B02.follow",
      "pose": "thumbsup"
     },
     {
-     "text": "各大社媒都能关注他",
+     "text": "Theo dõi thầy được trên các mạng xã hội lớn",
      "at": "B02.follow",
      "pose": "point"
     }
@@ -70,9 +70,9 @@
   {
    "t": "stickers",
    "at": "B02.all",
-   "title": "感谢《WorkBuddy 实战蓝皮书》的作者们",
+   "title": "Cảm ơn các tác giả của Sách xanh thực chiến WorkBuddy",
    "pose": "thumbsup",
-   "src": "作者名单：《WorkBuddy 实战蓝皮书》README · MIT",
+   "src": "Danh sách tác giả: README của Sách xanh thực chiến WorkBuddy · MIT",
    "items": [
     {
      "emoji": "icon-park:user",
@@ -88,13 +88,13 @@
      "emoji": "icon-park:user",
      "label": "袋鼠帝",
      "at": "B02@袋鼠",
-     "sub": "AI 客栈"
+     "sub": "AI Quán trọ"
     },
     {
      "emoji": "icon-park:like",
      "label": "苍何",
      "at": "B02@袋鼠+0.8",
-     "sub": "我的朋友"
+     "sub": "Bạn của tôi"
     },
     {
      "emoji": "icon-park:user",
@@ -103,18 +103,18 @@
     }
    ],
    "caption": {
-    "text": "免费开源 · MIT 协议",
+    "text": "Miễn phí mã nguồn mở · giấy phép MIT",
     "at": "B02.open"
    }
   },
   {
    "t": "kinetic",
    "at": "B03",
-   "chapter": "① 这是什么",
+   "chapter": "① Đây là gì",
    "pose": "idea",
    "lines": [
     {
-     "text": "这本蓝皮书讲什么？",
+     "text": "Cuốn sách xanh này nói về gì?",
      "size": 60,
      "y": -170,
      "color": "gray",
@@ -122,13 +122,13 @@
      "at": "B03.what"
     },
     {
-     "text": "从*第一项任务*",
+     "text": "Từ *nhiệm vụ đầu tiên*",
      "size": 100,
      "y": -30,
      "at": "B03.line"
     },
     {
-     "text": "到*一支 AI 团队*",
+     "text": "đến *một đội ngũ AI*",
      "size": 100,
      "y": 110,
      "at": "B03.line+1.6"
@@ -138,42 +138,42 @@
   {
    "t": "quote",
    "at": "B03.not",
-   "text": "这不是官方功能说明书的改写，而是一本以真实任务为主线的实战读本。",
-   "from": "《WorkBuddy 实战蓝皮书》README",
+   "text": "Đây không phải bản viết lại của sách hướng dẫn tính năng chính thức, mà là một cuốn sách thực chiến lấy các nhiệm vụ thật làm mạch chính.",
+   "from": "README của Sách xanh thực chiến WorkBuddy",
    "emoji": "memo",
    "textAt": "B03.not+0.3"
   },
   {
    "t": "compare",
    "at": "B04",
-   "chapter": "② 为什么学",
+   "chapter": "② Vì sao nên học",
    "neutral": true,
    "left": {
-    "title": "问一句、答一句",
+    "title": "Hỏi một câu, đáp một câu",
     "emoji": "speech-balloon",
     "at": "B04.chat",
     "items": [
      {
-      "text": "它回答问题",
+      "text": "Nó trả lời câu hỏi",
       "at": "B04.chat+0.8"
      },
      {
-      "text": "活还得你自己干",
+      "text": "Việc vẫn phải tự bạn làm",
       "at": "B04.chat+1.8"
      }
     ]
    },
    "right": {
-    "title": "交代目标、交付成果",
+    "title": "Giao mục tiêu, nhận thành quả",
     "emoji": "robot",
     "at": "B04.deliver",
     "items": [
      {
-      "text": "找资料 · 拆步骤",
+      "text": "Tìm tài liệu · chia nhỏ các bước",
       "at": "B04@找资料"
      },
      {
-      "text": "去执行 · 交给你*验收*",
+      "text": "Đi thực hiện · giao bạn *nghiệm thu*",
       "at": "B04@去执行"
      }
     ]
@@ -185,7 +185,7 @@
    "pose": "idea",
    "lines": [
     {
-     "text": "这门课的目的",
+     "text": "Mục đích của khoá học này",
      "size": 60,
      "y": -130,
      "color": "gray",
@@ -193,7 +193,7 @@
      "at": "B04.goal"
     },
     {
-     "text": "把 AI *真正用进工作*",
+     "text": "Đưa AI *thực sự vào công việc*",
      "size": 110,
      "y": 40,
      "at": "B04.goal+1"
@@ -203,45 +203,45 @@
   {
    "t": "stickers",
    "at": "B05",
-   "chapter": "③ 课程地图",
-   "title": "课程地图：25 节，分四站走",
+   "chapter": "③ Bản đồ khoá học",
+   "title": "Bản đồ khoá học: 25 bài, đi qua bốn chặng",
    "arrows": true,
    "pose": "point",
    "items": [
     {
      "emoji": "icon-park:rocket-one",
-     "label": "① 入门",
-     "sub": "第 0–3 节\n安装 · 首个任务\nSkill · 专家团",
+     "label": "① Nhập môn",
+     "sub": "Bài 0–3\nCài đặt · nhiệm vụ đầu tiên\nSkill · nhóm chuyên gia",
      "at": "B05.s1"
     },
     {
      "emoji": "icon-park:connection",
-     "label": "② 连接 · 自动化",
-     "sub": "第 4–8 节\n连接器 · 微信 · 飞书\n定时任务",
+     "label": "② Kết nối · Tự động hoá",
+     "sub": "Bài 4–8\nConnector · WeChat · Feishu\nTác vụ định kỳ",
      "at": "B05.s2"
     },
     {
      "emoji": "icon-park:list-checkbox",
-     "label": "③ 场景实战",
-     "sub": "第 9–18 节\n办公 · 生活 · 会议\n投资 · 自媒体 · GEO",
+     "label": "③ Thực chiến theo tình huống",
+     "sub": "Bài 9–18\nVăn phòng · đời sống · họp\nĐầu tư · truyền thông cá nhân · GEO",
      "at": "B06.s3"
     },
     {
      "emoji": "icon-park:level",
-     "label": "④ 进阶 · 路线图",
-     "sub": "第 19–24 节\n打造 Skill · 多 Agent\n岗位行业 · 速查",
+     "label": "④ Nâng cao · Lộ trình",
+     "sub": "Bài 19–24\nXây dựng Skill · đa Agent\nVị trí ngành nghề · tra nhanh",
      "at": "B06.s4"
     }
    ],
    "tips": [
     {
-     "text": "按顺序学，一站一站走",
+     "text": "Học theo thứ tự, đi từng chặng một",
      "at": "B05.map",
      "until": "B05.s2",
      "pose": "talk"
     },
     {
-     "text": "场景课可以挑着看",
+     "text": "Các bài tình huống có thể chọn xem",
      "at": "B06.list+2",
      "until": "B06.s4",
      "pose": "idea"
@@ -251,34 +251,34 @@
   {
    "t": "checklist",
    "at": "B07",
-   "chapter": "④ 学完能掌握",
-   "title": "学完你能掌握四件事",
+   "chapter": "④ Học xong nắm được gì",
+   "title": "Học xong bạn nắm được bốn việc",
    "numbered": true,
    "cols": 1,
    "rowH": 130,
    "items": [
     {
      "emoji": "icon-park:write",
-     "label": "写清楚任务说明",
-     "sub": "让它一次交付到位",
+     "label": "Viết rõ mô tả nhiệm vụ",
+     "sub": "Để nó giao việc đạt yêu cầu ngay lần đầu",
      "at": "B07.g1"
     },
     {
      "emoji": "icon-park:connection",
-     "label": "用好 Skill、专家和连接器",
-     "sub": "接进你手边的工具",
+     "label": "Dùng tốt Skill, chuyên gia và connector",
+     "sub": "Kết nối vào các công cụ bạn đang dùng",
      "at": "B07.g2"
     },
     {
      "emoji": "icon-park:alarm-clock",
-     "label": "重复的活变成定时自动化",
-     "sub": "按时自己干活",
+     "label": "Biến việc lặp lại thành tự động hoá định kỳ",
+     "sub": "Tự làm việc đúng giờ",
      "at": "B07.g3"
     },
     {
      "emoji": "icon-park:protect",
-     "label": "关键步骤由人确认",
-     "sub": "守住安全边界",
+     "label": "Bước then chốt do con người xác nhận",
+     "sub": "Giữ vững ranh giới an toàn",
      "at": "B07.g4"
     }
    ]
@@ -286,36 +286,36 @@
   {
    "t": "stickers",
    "at": "B08",
-   "title": "怎么学最有效",
+   "title": "Học thế nào hiệu quả nhất",
    "pose": "idea",
    "items": [
     {
      "emoji": "icon-park:time",
-     "label": "每节 4–7 分钟",
+     "label": "Mỗi bài 4–7 phút",
      "at": "B08.short"
     },
     {
      "emoji": "icon-park:thinking-problem",
-     "label": "暂停想一想",
-     "sub": "先自己想，再看答案",
+     "label": "Tạm dừng nghĩ một chút",
+     "sub": "Tự nghĩ trước, rồi mới xem đáp án",
      "at": "B08.pause"
     },
     {
      "emoji": "icon-park:click",
-     "label": "互动版",
-     "sub": "点图看原文出处",
+     "label": "Bản tương tác",
+     "sub": "Bấm vào hình để xem nguồn gốc",
      "at": "B08.inter"
     },
     {
      "emoji": "icon-park:hand-right",
-     "label": "马上动手",
-     "sub": "挑一件小事试一次",
+     "label": "Bắt tay làm ngay",
+     "sub": "Chọn một việc nhỏ thử một lần",
      "at": "B08.do"
     }
    ],
    "tips": [
     {
-     "text": "看完一节，就动手试 💪",
+     "text": "Xem xong một bài, thì bắt tay thử ngay 💪",
      "at": "B08.do+1",
      "pose": "cheer"
     }
@@ -327,13 +327,13 @@
    "illus": "ip-16-218",
    "pose": "wave",
    "lines": [
-    "准备好了吗？",
+    "Sẵn sàng chưa?",
     {
-     "text": "从*第 0 节*开始",
+     "text": "Bắt đầu từ *bài 0*",
      "at": "B09.l0"
     },
     {
-     "text": "下载 · 安装 · 登录",
+     "text": "Tải về · cài đặt · đăng nhập",
      "at": "B09.l0+1.2"
     }
    ]
@@ -341,23 +341,23 @@
   {
    "t": "outro",
    "at": "B09.bye",
-   "next": "下一节：第 0 节 · 下载、安装、登录与更新",
+   "next": "Bài sau: Bài 0 · Tải về, cài đặt, đăng nhập và cập nhật",
    "thanksAt": "B09.bye",
-   "thanks": "感谢苍何老师和《WorkBuddy 实战蓝皮书》的作者们",
+   "thanks": "Cảm ơn thầy 苍何 và các tác giả của Sách xanh thực chiến WorkBuddy",
    "pose": "cheer",
    "tips": [
     {
-     "text": "我们第 0 节见 👋",
+     "text": "Hẹn gặp lại ở bài 0 👋",
      "at": "B09.bye+2",
      "pose": "wave"
     }
    ],
    "credits": [
-    "内容：《WorkBuddy 实战蓝皮书》（MIT）",
+    "Nội dung: Sách xanh thực chiến WorkBuddy (MIT)",
     "github.com/AlephAITech/WorkBuddyGuide",
-    "插画：IconPark 插画库（字节跳动）· 图标：IconPark、Noto Emoji",
-    "动效：lottie-web · rough.js（MIT）",
-    "讲解小人：@Berryxia 像素头像 · 配音：小米 MiMo（AI 生成）"
+    "Minh hoạ: thư viện minh hoạ IconPark (ByteDance) · Icon: IconPark, Noto Emoji",
+    "Hiệu ứng: lottie-web · rough.js (MIT)",
+    "Nhân vật que giảng bài: avatar pixel @Berryxia · Lồng tiếng: Xiaomi MiMo (do AI tạo)"
    ]
   }
  ],

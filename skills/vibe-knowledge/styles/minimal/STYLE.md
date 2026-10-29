@@ -1,26 +1,26 @@
-# 留白极简 · MINIMAL ZEN
+# Chừa trắng tối giản · MINIMAL ZEN
 
-> 家族：东方　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles5_film.js → minimal()`
+> Họ: Phương Đông | Mức: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles5_film.js → minimal()`
 
-**一句话**：暖白纸上一笔墨圈，圈里一次只放一个字，底下一行小字，大片留白。
+**Một câu**: Trên giấy trắng ấm có một nét mực vòng tròn, trong vòng mỗi lần chỉ đặt một chữ, bên dưới một dòng chữ nhỏ, khoảng trắng rộng lớn.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 原研哉 / 侘寂式留白：一屏一个字，让字自己说话。 |
-| 材质 / 画法 | #F4F1EA 纸底；SVG 一笔圆相（墨色 16px 圆头）；宋体单字居中。 |
-| 配色逻辑 | 纸 #F4F1EA · 墨 #2A2622 · 小字 #6E675C · 唯一朱红 #B23A2E（只在最后一个印章） |
-| 字体 | 宋体 600，单字 200–250px；小字宋体 44px 字距 18 |
-| 动态 | 圆相 1.1 秒一笔画完；字 0.22 秒由糊变清进场、0.12 秒退场；全程 3% 极慢推近。 |
-| 镜头语法 | 锁定 + 极慢推近。 |
-| 声音 | 几乎无配乐：一声磬、风声。 |
-| 标志镜头 | 圆相里依次出现「木」「十」「无」「五十」，最后右下角落一枚朱红小印「信」。 |
+| Ý đồ đạo diễn | Chừa trắng kiểu Hara Kenya / wabi-sabi: một màn hình một chữ, để chữ tự lên tiếng. |
+| Chất liệu / cách vẽ | Nền giấy #F4F1EA; SVG vòng tròn Enso một nét (mực 16px đầu tròn); chữ đơn Tống thể căn giữa. |
+| Logic phối màu | Giấy #F4F1EA · mực #2A2622 · chữ nhỏ #6E675C · son đỏ duy nhất #B23A2E (chỉ ở con dấu cuối cùng) |
+| Phông chữ | Song (Tống thể) 600, chữ đơn 200–250px; chữ nhỏ Tống thể 44px giãn chữ 18 |
+| Chuyển động | Vòng Enso vẽ xong một nét trong 1,1 giây; chữ từ mờ thành rõ vào trong 0,22 giây, rút ra trong 0,12 giây; suốt phim đẩy tới cực chậm 3%. |
+| Ngữ pháp ống kính | Khóa + đẩy tới cực chậm. |
+| Âm thanh | Gần như không có nhạc nền: một tiếng khánh, tiếng gió. |
+| Cảnh đặc trưng | Trong vòng Enso lần lượt hiện "Mộc", "Thập", "Vô", "Ngũ thập", cuối cùng ở góc dưới bên phải rơi một con dấu son nhỏ "Tín". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换圆相为方框 / 一笔横线、换印章字
-- **一改就变味**：一屏两个以上的大字
-- **不能改**：加第二种强调色
+## Có thể sửa đến mức nào (dùng khi làm thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi vòng Enso thành khung vuông / một nét ngang, đổi chữ trên con dấu
+- **Sửa là mất vị**: một màn hình có từ hai chữ lớn trở lên
+- **Không được sửa**: thêm màu nhấn thứ hai
 
-## 搭配
-- 适合母版：猜谜概念 A、六面轮转 F
-- 不适合：信息量大的数据片
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Cách phối
+- Bản mẫu gốc phù hợp: khái niệm đoán đố A, sáu mặt xoay vòng F
+- Không phù hợp: phim dữ liệu có nhiều thông tin
+- Tiền tố Renoise cấp tăng cường: `(cấp cơ bản không cần)`

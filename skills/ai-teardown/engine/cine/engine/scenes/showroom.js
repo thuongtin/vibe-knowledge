@@ -1,10 +1,10 @@
-// 展厅：三件展品（铬结、玻璃多面体、橙色光球），用来演示「推近 / 甩镜 / 环绕」。
-// 反射用的环境图是代码搭的影棚（橙色主光、青色轮廓光、顶部柔光箱）烘成 PMREM。
+// Phòng trưng bày: ba món trưng bày (nút crôm, khối đa diện thuỷ tinh, quả cầu sáng màu cam), dùng để minh hoạ "đẩy gần / quật máy / vòng quanh".
+// Ảnh môi trường dùng cho phản chiếu là studio dựng bằng mã (đèn chính màu cam, đèn viền màu lục lam, softbox phía trên) nướng thành PMREM.
 import * as THREE from "three";
 
 export class Showroom {
   constructor(renderer) {
-    // 影棚环境
+    // Môi trường studio
     const env = new THREE.Scene();
     const sky = new THREE.Mesh(new THREE.SphereGeometry(50, 32, 16), new THREE.ShaderMaterial({ side: THREE.BackSide, glslVersion: THREE.GLSL3,
       vertexShader: `out vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
@@ -29,15 +29,15 @@ export class Showroom {
     this.scene.add(world);
     const chrome = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 1, roughness: 0.08 });
     const dark = new THREE.MeshStandardMaterial({ color: 0x141318, metalness: 0.6, roughness: 0.35 });
-    // 展品 A：铬结
+    // Trưng bày A: nút crôm
     this.a = new THREE.Mesh(new THREE.TorusKnotGeometry(110, 34, 320, 48), chrome);
-    // 展品 B：玻璃多面体 + 橙色内核
+    // Trưng bày B: khối đa diện thuỷ tinh + lõi cam
     this.b = new THREE.Group();
     const glass = new THREE.Mesh(new THREE.IcosahedronGeometry(140, 0), new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 0, roughness: 0.04, transmission: 1, thickness: 120, ior: 1.6, iridescence: 0.6, iridescenceIOR: 1.3, flatShading: true }));
     const core = new THREE.Mesh(new THREE.SphereGeometry(42, 48, 24), new THREE.MeshBasicMaterial({ color: new THREE.Color(2.0, 0.62, 0.18) }));
     this.b.add(glass, core);
     this.glass = glass;
-    // 展品 C：光球 + 两道铬环
+    // Trưng bày C: quả cầu sáng + hai vòng crôm
     this.c = new THREE.Group();
     const orb = new THREE.Mesh(new THREE.SphereGeometry(86, 64, 32), new THREE.MeshStandardMaterial({ color: 0x1a0802, emissive: new THREE.Color(1.25, 0.38, 0.1), roughness: 0.3, metalness: 0.2 }));
     this.r1 = new THREE.Mesh(new THREE.TorusGeometry(150, 5, 16, 200), chrome);
@@ -54,7 +54,7 @@ export class Showroom {
       lip.rotation.x = Math.PI / 2; lip.position.set((i - 1) * 760, 60.5, 0);
       world.add(lip);
     });
-    // 镜面地板：把整组物体上下翻一份放到地板下面，地板半透明盖在上面
+    // Sàn gương: lật cả nhóm vật thể lên xuống một bản đặt dưới sàn, sàn trong suốt một phần phủ lên trên
     this.mirror = world.clone(true);
     this.mirror.scale.y = -1;
     this.scene.add(this.mirror);
@@ -65,7 +65,7 @@ export class Showroom {
     this.cam = new THREE.PerspectiveCamera(38, 16 / 9, 5, 20000);
   }
 
-  // s.cam = {pos:[x,y,z], look:[x,y,z]}；t 控制展品自转
+  // s.cam = {pos:[x,y,z], look:[x,y,z]}; t điều khiển độ tự xoay của các món trưng bày
   render(renderer, target, t, s) {
     const spin = (root) => {
       const [a, b, c] = [root.children[0], root.children[3], root.children[6]];

@@ -1,26 +1,26 @@
-# 综艺花字 · VARIETY CAPTIONS
+# Chữ hoa tạp kỹ · VARIETY CAPTIONS
 
-> 家族：明亮流行　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles3_film.js → variety()`
+> Họ: Sáng thịnh hành | Cấp độ: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã phim mẫu: `_samples/styles3_film.js → variety()`
 
-**一句话**：亮黄旋转放射底上，粗白描边加深色厚投影的花字一个个弹出来，贴纸、对话泡、金币雨。
+**Một câu**: Trên nền vàng sáng toả tia xoay, chữ hoa viền trắng dày kèm bóng đổ đậm bật ra từng chữ, kèm nhãn dán, bong bóng thoại, mưa xu vàng.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 热闹、亲切、包袱感强：每个包袱都要「弹」一下，像综艺后期在替观众起哄。 |
-| 材质 / 画法 | 纯色亮底 + 旋转放射条纹 + 白色圆点网；SVG 贴纸（白描边 + 深色厚投影）；SVG 对话泡。 |
-| 配色逻辑 | 底 #FFD23F（高潮换 #FF6B3D）· 主字 #FF3B5C · 副字 #2D6BFF · 描边 #fff · 投影 #2B1B5A · 金 #FFD200 |
-| 字体 | NotoSC 900，字号 90–260；描边用 18 方向 text-shadow 环（不要用 -webkit-text-stroke，会吃字） |
-| 动态 | eOutBack 弹入（0.3–0.35 秒）、贴纸上下漂浮、放射条纹慢转；高潮一次 5% 缩放顿挫 + 金币雨。 |
-| 镜头语法 | 机位锁定，只在最大的包袱上顿一下（hit 衰减），不整段抖。 |
-| 声音 | 弹跳 pop、哨子、金币叮当；配乐明亮 house / 综艺 BGM。 |
-| 标志镜头 | 「没人动……」对话泡 + 汗滴；数字变「50 金!!」时背景换色、爆炸星、金币雨。 |
+| Ý đồ đạo diễn | Náo nhiệt, thân thiện, đậm chất gây cười: mỗi màn gây cười đều phải "bật" một cái, như hậu kỳ tạp kỹ đang hò reo thay khán giả. |
+| Chất liệu / cách vẽ | Nền sáng màu đặc + sọc toả tia xoay + lưới chấm tròn trắng; nhãn dán SVG (viền trắng + bóng đổ đậm); bong bóng thoại SVG. |
+| Logic phối màu | Nền #FFD23F (cao trào đổi #FF6B3D) · chữ chính #FF3B5C · chữ phụ #2D6BFF · viền #fff · bóng đổ #2B1B5A · vàng #FFD200 |
+| Phông chữ | NotoSC 900, cỡ chữ 90–260; viền dùng vòng text-shadow 18 hướng (đừng dùng -webkit-text-stroke, sẽ ăn mất chữ) |
+| Chuyển động | Bật vào eOutBack (0,3–0,35 giây), nhãn dán nổi lên xuống, sọc toả tia xoay chậm; cao trào một lần khựng phóng 5% + mưa xu vàng. |
+| Ngữ pháp ống kính | Máy cố định, chỉ khựng một cái ở màn gây cười lớn nhất (hit suy giảm), không rung cả đoạn. |
+| Âm thanh | Pop nảy, tiếng còi, tiếng xu leng keng; nhạc nền house / BGM tạp kỹ tươi sáng. |
+| Cảnh đặc trưng | Bong bóng thoại "Không ai động đậy……" + giọt mồ hôi; khi con số thành "50 vàng!!" nền đổi màu, sao nổ, mưa xu vàng. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换主色、换贴纸内容、换对话泡文案
-- **一改就变味**：字不加描边投影（就成了普通字幕）；一屏超过两组花字
-- **不能改**：去掉「弹」的节奏
+## Có thể sửa đến mức nào (dùng khi làm thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi màu chính, đổi nội dung nhãn dán, đổi lời trong bong bóng thoại
+- **Sửa là mất vị**: chữ không có viền và bóng đổ (thành phụ đề thường); một màn hơn hai nhóm chữ hoa
+- **Không được sửa**: bỏ nhịp "bật"
 
-## 搭配
-- 适合母版：生活冷知识 C、六面轮转 F
-- 不适合：严肃历史、灾难、讣闻类选题
-- 增强档 Renoise 前缀：`（基础档不需要；要贴纸用 Codex 生贴纸，见 feedback-codex-stickers）`
+## Cách phối
+- Mẫu gốc phù hợp: kiến thức vặt đời sống C, xoay sáu mặt F
+- Không phù hợp: đề tài lịch sử nghiêm túc, thảm hoạ, cáo phó
+- Tiền tố Renoise cấp tăng cường: `(cấp cơ bản không cần; muốn nhãn dán thì dùng Codex sinh nhãn dán, xem feedback-codex-stickers)`

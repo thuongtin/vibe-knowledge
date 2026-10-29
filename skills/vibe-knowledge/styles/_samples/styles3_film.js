@@ -1,12 +1,12 @@
-// 风格样片集 · 第三批「补空白家族」：8 套 0 积分代码风格，同一段开场（复用第 01 期 B01 旁白）。
-// 明亮流行：综艺花字、孟菲斯波普；图解与设计学派：粉笔黑板、蓝图专利图、等轴测剖面、瑞士网格动态字；印刷：孔版印刷；暗场：深色数学。
-// 每套不只换皮，也换讲法（见各函数头注释）。时间轴由 tools/style_reel.py 生成：ten≈h+2.36 nobody≈h+3.12 fifty≈h+3.82。
+// Tuyển tập mẫu phong cách · đợt 3 "bù họ trống": 8 phong cách code 0 điểm, cùng một đoạn mở đầu (dùng lại lời dẫn B01 của kỳ 01).
+// Sáng và đại chúng: Chữ hoa tạp kỹ, Memphis pop; trường phái Minh hoạ và thiết kế: Bảng phấn, Bản vẽ blueprint bằng sáng chế, Mặt cắt đẳng cự, Chữ động lưới Thuỵ Sĩ; In ấn: In stencil; Nền tối: Toán học nền tối.
+// Mỗi bộ không chỉ đổi lớp áo mà còn đổi cách kể (xem chú thích đầu mỗi hàm). Trục thời gian do tools/style_reel.py tạo: ten≈h+2.36 nobody≈h+3.12 fifty≈h+3.82.
 import { clamp, lerp, eOutCubic, eInOutCubic, eOutQuint, eInCubic, eOutBack, hit, el, css, rng } from "../../cine/engine/util.js";
 import { bg } from "../../cine/engine/know.js";
 
 export const COLD = 0;
 export const TAIL = 3.0;
-export const meta = { title: "风格样片集 · 补空白家族", n: "styles3" };
+export const meta = { title: "Tuyển tập mẫu phong cách · Bù họ trống", n: "styles3" };
 export let hits = [], blur = [], clips = [], music = [];
 export const sfx = [], sections = [];
 
@@ -23,22 +23,22 @@ const wipe = (n, t, a, d) => { const k = clamp((t - a) / d); css(n, { clipPath: 
 const KAI = "font-family:'Kaiti SC','STKaiti','KaiTi',serif;";
 const SONG = "font-family:'Songti SC','STSong',serif;";
 
-// ── 1 综艺花字：亮黄旋转放射底，粗白描边 + 深色厚投影的花字弹出，贴纸、对话泡、金币雨。讲法：每个包袱一个「弹」 ──
+// ── 1 Chữ hoa tạp kỹ: nền vàng sáng tia xoay, chữ hoa viền trắng dày + bóng đổ tối dày bật ra, sticker, bong bóng thoại, mưa đồng vàng. Cách kể: mỗi tình tiết một cú "bật" ──
 function variety(s, h, z, B) {
   const sky = el(s, "abs", "inset:0;background:#FFD23F;");
   const burst = el(s, "abs", "left:-460px;top:-1000px;width:2840px;height:2840px;border-radius:50%;background:repeating-conic-gradient(rgba(255,255,255,0.30) 0deg 9deg,rgba(255,255,255,0) 9deg 18deg);");
   el(s, "abs", "inset:0;background-image:radial-gradient(rgba(255,255,255,0.38) 3px,transparent 3.6px);background-size:34px 34px;");
   const stage = el(s, "abs", "inset:0;");
-  const tag = el(stage, "abs cn", "left:90px;top:70px;padding:10px 30px;border-radius:40px;background:#FF3B5C;color:#fff;font-size:40px;font-weight:900;transform:rotate(-4deg);box-shadow:0 8px 0 #2B1B5A;", "南门 · 搬木头挑战");
+  const tag = el(stage, "abs cn", "left:90px;top:70px;padding:10px 30px;border-radius:40px;background:#FF3B5C;color:#fff;font-size:40px;font-weight:900;transform:rotate(-4deg);box-shadow:0 8px 0 #2B1B5A;", "Cổng Nam · Thử thách khiêng khúc gỗ");
   const star = svgBox(stage, "left:40px;top:150px;width:1000px;height:700px;", `<svg width="1000" height="700" viewBox="0 0 1000 700"><path d="${[...Array(24)].map((_, i) => { const r = i % 2 ? 250 : 360, a = (i / 24) * 6.2832; return `${i ? "L" : "M"}${(500 + r * 1.3 * Math.cos(a)).toFixed(0)} ${(350 + r * Math.sin(a)).toFixed(0)}`; }).join(" ")}Z" fill="#FFE14D" stroke="#2B1B5A" stroke-width="10" stroke-linejoin="round"/></svg>`);
   const log = svgBox(stage, "left:1330px;top:160px;width:360px;height:780px;", `<svg width="360" height="780" viewBox="0 0 360 780"><g transform="rotate(8 180 390)"><rect x="104" y="34" width="152" height="712" rx="64" fill="#2B1B5A" transform="translate(10 14)"/><rect x="104" y="34" width="152" height="712" rx="64" fill="#fff"/><rect x="118" y="48" width="124" height="684" rx="54" fill="#C27A3E"/><path d="M152 130 L152 660 M182 100 L182 700 M212 150 L212 630" stroke="#8C5226" stroke-width="8" stroke-linecap="round"/><ellipse cx="180" cy="84" rx="58" ry="28" fill="#EDB97F" stroke="#8C5226" stroke-width="6"/><ellipse cx="180" cy="84" rx="26" ry="12" fill="none" stroke="#8C5226" stroke-width="5"/></g></svg>`);
   const drop = svgBox(stage, "left:1290px;top:150px;width:90px;height:120px;", `<svg width="90" height="120"><path d="M45 8 Q80 64 70 88 Q58 114 30 106 Q8 96 16 70 Q24 46 45 8Z" fill="#7FD3FF" stroke="#2B1B5A" stroke-width="6"/></svg>`);
   const flower = (txt, size, fill, x, y) => el(stage, "abs cn", `left:${x}px;top:${y}px;font-size:${size}px;font-weight:900;color:${fill};white-space:nowrap;line-height:1.05;text-shadow:${ring(11, "#fff")},${ring(12, "#2B1B5A", 15)};transform-origin:30% 60%;`, txt);
-  const t1 = flower("一根木头", 160, "#FF3B5C", 120, 250), t2 = flower("南门 ➜ 北门", 96, "#2D6BFF", 132, 470);
+  const t1 = flower("Một khúc gỗ", 160, "#FF3B5C", 120, 250), t2 = flower("Cổng Nam ➜ Cổng Bắc", 96, "#2D6BFF", 132, 470);
   const num = flower("", 210, "#FF3B5C", 110, 250);
-  const bub = svgBox(stage, "left:600px;top:560px;width:640px;height:300px;", `<svg width="640" height="300"><path d="M40 30 H600 Q620 30 620 50 V200 Q620 220 600 220 H200 L120 290 L140 220 H40 Q20 220 20 200 V50 Q20 30 40 30Z" fill="#fff" stroke="#2B1B5A" stroke-width="9" stroke-linejoin="round"/><text x="320" y="160" text-anchor="middle" font-family="NotoSC" font-weight="900" font-size="96" fill="#2B1B5A">没人动……</text></svg>`);
-  const x5 = flower("直接翻五倍！", 84, "#2D6BFF", 150, 560);
-  const R = rng(21), coins = [...Array(18)].map(() => ({ x: 80 + R() * 1760, d: R() * 0.9, v: 900 + R() * 500, r: R() * 360, n: el(s, "abs cn", "width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF3A0,#FFC400 55%,#D99400);border:6px solid #8A5A00;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900;color:#8A5A00;", "金") }));
+  const bub = svgBox(stage, "left:600px;top:560px;width:640px;height:300px;", `<svg width="640" height="300"><path d="M40 30 H600 Q620 30 620 50 V200 Q620 220 600 220 H200 L120 290 L140 220 H40 Q20 220 20 200 V50 Q20 30 40 30Z" fill="#fff" stroke="#2B1B5A" stroke-width="9" stroke-linejoin="round"/><text x="320" y="160" text-anchor="middle" font-family="NotoSC" font-weight="900" font-size="96" fill="#2B1B5A">Không ai động đậy...</text></svg>`);
+  const x5 = flower("Gấp thẳng năm lần!", 84, "#2D6BFF", 150, 560);
+  const R = rng(21), coins = [...Array(18)].map(() => ({ x: 80 + R() * 1760, d: R() * 0.9, v: 900 + R() * 500, r: R() * 360, n: el(s, "abs cn", "width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF3A0,#FFC400 55%,#D99400);border:6px solid #8A5A00;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900;color:#8A5A00;", "Vàng") }));
   return (t) => {
     const F = t >= B.fifty;
     css(sky, { background: F ? "#FF6B3D" : "#FFD23F" });
@@ -50,7 +50,7 @@ function variety(s, h, z, B) {
     css(t2, { opacity: String(p2 > 0 ? 1 : 0), transform: `scale(${p2.toFixed(3)}) rotate(3deg)` });
     css(log, { transform: `translateY(${(Math.sin((t - h) * 3) * 10).toFixed(1)}px) scale(${pop(t, h + 0.05).toFixed(3)})` });
     const pn = F ? pop(t, B.fifty, 0.3) : pop(t, B.ten, 0.3);
-    num.textContent = F ? `${val(t, B)} 金!!` : `赏 ${val(t, B)} 金！`;
+    num.textContent = F ? `${val(t, B)} vàng!!` : `Thưởng ${val(t, B)} vàng!`;
     css(num, { opacity: String(t >= B.ten ? 1 : 0), color: F ? "#FFD200" : t >= B.nobody ? "#B9A7C9" : "#FF3B5C", transform: `scale(${pn.toFixed(3)}) rotate(${F ? -4 : -6}deg)`, top: F ? "250px" : "250px", fontSize: F ? "260px" : "210px" });
     css(star, { opacity: String(F ? 1 : 0), transform: `scale(${pop(t, B.fifty, 0.4).toFixed(3)}) rotate(${((t - B.fifty) * 6).toFixed(1)}deg)` });
     const pb = pop(t, B.nobody, 0.3); css(bub, { opacity: String(t >= B.nobody && t < B.fifty + 0.1 ? 1 : 0), transform: `scale(${pb.toFixed(3)})`, transformOrigin: "20% 100%" });
@@ -60,7 +60,7 @@ function variety(s, h, z, B) {
   };
 }
 
-// ── 2 孟菲斯波普：奶油底 + 漂浮的几何碎片，积木拼的城门，黑白斜纹木杆，硬投影大字；五十金变沃霍尔四色格。讲法：形状拼出场景、色块翻转 ──
+// ── 2 Memphis pop: nền kem + mảnh hình học trôi nổi, cổng thành ghép bằng khối gỗ, cột gỗ sọc chéo đen trắng, chữ lớn bóng đổ cứng; năm mươi vàng biến thành lưới bốn màu kiểu Warhol. Cách kể: hình khối ghép thành cảnh, mảng màu lật ──
 function memphis(s, h, z, B) {
   el(s, "abs", "inset:0;background:#FFF4E0;");
   const D = [
@@ -81,10 +81,10 @@ function memphis(s, h, z, B) {
     <g fill="#fff">${[...Array(12)].map((_, i) => `<circle cx="${210 + (i % 6) * 60}" cy="${230 + Math.floor(i / 6) * 50}" r="8"/>`).join("")}</g></svg>`);
   const pole = el(s, "abs", "left:930px;top:250px;width:54px;height:610px;background:repeating-linear-gradient(-45deg,#111 0 20px,#fff 20px 40px);border:7px solid #111;box-shadow:14px 14px 0 #FF5D8F;");
   const lab = (txt, x, y, size, bgc = "#111", c = "#fff", rot = -3) => el(s, "abs cn", `left:${x}px;top:${y}px;padding:6px 24px;background:${bgc};color:${c};font-size:${size}px;font-weight:900;white-space:nowrap;box-shadow:10px 10px 0 #FF5D8F;transform:rotate(${rot}deg);`, txt);
-  const l1 = lab("一根木头", 120, 300, 110), l2 = lab("南门 → 北门", 140, 480, 76, "#FFC93C", "#111", 2);
+  const l1 = lab("Một khúc gỗ", 120, 300, 110), l2 = lab("Cổng Nam → Cổng Bắc", 140, 480, 76, "#FFC93C", "#111", 2);
   const num = el(s, "abs", "left:110px;top:220px;font-family:Geist;font-size:330px;font-weight:900;letter-spacing:-12px;color:#FF5D8F;-webkit-text-stroke:0;text-shadow:16px 16px 0 #111;white-space:nowrap;line-height:1;");
-  const kin = el(s, "abs cn", "left:120px;top:560px;font-size:120px;font-weight:900;color:#111;", "金");
-  const nob = lab("没人动", 140, 720, 96, "#111", "#fff", -7);
+  const kin = el(s, "abs cn", "left:120px;top:560px;font-size:120px;font-weight:900;color:#111;", "vàng");
+  const nob = lab("Không ai động", 140, 720, 96, "#111", "#fff", -7);
   const CC = ["#FF5D8F", "#FFC93C", "#2E86DE", "#2EC4B6"];
   const grid = CC.map((c, i) => el(s, "abs", `left:${1080 + (i % 2) * 330}px;top:${230 + Math.floor(i / 2) * 330}px;width:310px;height:310px;background:${c};border:7px solid #111;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-family:Geist;font-size:170px;font-weight:900;color:#fff;text-shadow:9px 9px 0 #111;`, "50"));
   return (t) => {
@@ -101,7 +101,7 @@ function memphis(s, h, z, B) {
   };
 }
 
-// ── 3 粉笔黑板：墨绿板、粉笔颗粒线条一笔笔画，字晚半拍写出来，圈重点，列算式。讲法：说一句写一句，板书累积 ──
+// ── 3 Bảng phấn: bảng xanh đen, nét phấn hạt vẽ từng nét một, chữ viết trễ nửa nhịp, khoanh trọng điểm, liệt kê phép tính. Cách kể: nói một câu viết một câu, bảng viết cộng dồn ──
 function chalk(s, h, z, B) {
   el(s, "abs", "inset:0;background:radial-gradient(ellipse at 30% 25%,#2C5E54 0,#1F4A42 45%,#173A34 100%);");
   el(s, "abs", "left:180px;top:100px;width:760px;height:240px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,255,255,0.08),rgba(255,255,255,0) 70%);filter:blur(10px);");
@@ -122,8 +122,8 @@ function chalk(s, h, z, B) {
   const P = [...g.querySelectorAll(".p")], RG = g.querySelector(".r"), UL = g.querySelector(".u");
   prep([...P, RG, UL]);
   const wr = (txt, x, y, size, color = W) => el(s, "abs", `left:${x}px;top:${y}px;${KAI}font-size:${size}px;font-weight:700;color:${color};white-space:nowrap;filter:url(#chk3);`, txt);
-  const title = wr("一根木头 · 搬过去", 160, 90, 84), sn = wr("南门", 340, 836, 56), bn = wr("北门", 1610, 836, 56);
-  const w10 = wr("赏 10 金", 1040, 210, 120, "#F5D76E"), wno = wr("没人动", 1080, 380, 112, "#F28B82"), w50 = wr("10 × 5 =", 1000, 500, 104, "#F5D76E"), w50b = wr("50 金", 1440, 500, 104, "#F5D76E");
+  const title = wr("Một khúc gỗ · Khiêng sang", 160, 90, 84), sn = wr("Cổng Nam", 340, 836, 56), bn = wr("Cổng Bắc", 1610, 836, 56);
+  const w10 = wr("Thưởng 10 vàng", 1040, 210, 120, "#F5D76E"), wno = wr("Không ai động", 1080, 380, 112, "#F28B82"), w50 = wr("10 × 5 =", 1000, 500, 104, "#F5D76E"), w50b = wr("50 vàng", 1440, 500, 104, "#F5D76E");
   return (t) => {
     drawAt(P[0], t, h, 0.6); drawAt(P[1], t, h + 0.1, 0.9); drawAt(P[2], t, h + 0.55, 0.5); drawAt(P[3], t, h + 0.9, 0.6); drawAt(P[4], t, h + 1.3, 0.7);
     wipe(title, t, h + 0.25, 0.7); wipe(sn, t, h + 0.75, 0.3); wipe(bn, t, h + 1.45, 0.3);
@@ -132,7 +132,7 @@ function chalk(s, h, z, B) {
   };
 }
 
-// ── 4 蓝图专利图：普鲁士蓝方格纸，先构造线、再物体线、最后尺寸；标号、图框、红铅笔批注。讲法：把事件当一件发明来「出图」 ──
+// ── 4 Bản vẽ blueprint bằng sáng chế: giấy ô vuông xanh Phổ, trước hết là đường dựng, sau đó đường vật thể, cuối cùng là kích thước; đánh số, khung hình, chú thích bút chì đỏ. Cách kể: coi sự kiện như một phát minh để "ra bản vẽ" ──
 function blueprint(s, h, z, B) {
   el(s, "abs", "inset:0;background-color:#123F74;background-image:linear-gradient(rgba(255,255,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.06) 1px,transparent 1px),linear-gradient(rgba(255,255,255,0.14) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.14) 1px,transparent 1px);background-size:40px 40px,40px 40px,200px 200px,200px 200px;");
   el(s, "abs", "left:40px;top:40px;width:1834px;height:994px;border:3px solid rgba(234,242,255,0.85);box-sizing:border-box;");
@@ -154,24 +154,24 @@ function blueprint(s, h, z, B) {
   prep([...O, RG, X]);
   const mono = (txt, x, y, size, c = W, extra = "") => el(s, "abs mono", `left:${x}px;top:${y}px;font-size:${size}px;color:${c};white-space:nowrap;letter-spacing:2px;${extra}`, txt);
   const n1 = mono("1", 1052, 364, 26), n2 = mono("2", 322, 404, 26);
-  const dim = mono("三丈 ≈ 6.9 m", 1312, 600, 30, W, "transform:rotate(-90deg);transform-origin:0 0;");
-  const head = mono("PATENT FIG. 1 · 徙木立信", 90, 80, 28);
+  const dim = mono("3 trượng ≈ 6.9 m", 1312, 600, 30, W, "transform:rotate(-90deg);transform-origin:0 0;");
+  const head = mono("PATENT FIG. 1 · Dời gỗ lập tín", 90, 80, 28);
   const tb = el(s, "abs mono", `left:1380px;top:700px;width:450px;border:3px solid ${W};font-size:26px;color:${W};`);
   const row = (k) => { const r = el(tb, "", `display:flex;border-bottom:2px solid rgba(234,242,255,0.6);height:62px;align-items:center;padding:0 16px;position:relative;`); el(r, "", "width:150px;opacity:0.75;", k); return el(r, "cn", "font-size:28px;white-space:nowrap;"); };
   const rFig = row("FIG."), rSrc = row("SOURCE"), rRew = row("REWARD"), rTak = row("TAKERS");
   const strike = el(tb, "abs", `left:166px;top:206px;width:0;height:4px;background:${RD};`);
   const red = (txt, x, y, size) => el(s, "abs", `left:${x}px;top:${y}px;${KAI}font-size:${size}px;font-weight:700;color:${RD};white-space:nowrap;`, txt);
-  const noT = red("无人应募", 1220, 170, 50), x5 = red("× 5", 1530, 560, 54);
+  const noT = red("Không ai ứng tuyển", 1220, 170, 50), x5 = red("× 5", 1530, 560, 54);
   const type = (n, txt, t, a, cps = 22) => { const k = Math.max(0, Math.floor((t - a) * cps)); n.textContent = t < a ? "" : txt.slice(0, k); };
   return (t) => {
     css(C, { opacity: String(0.5 * clamp((t - h) / 0.4)) });
     O.forEach((p, i) => drawAt(p, t, h + 0.25 + i * 0.16, 0.55));
     css(Dm, { opacity: String(clamp((t - h - 1.4) / 0.3)) }); css(dim, { opacity: String(clamp((t - h - 1.7) / 0.3)) });
     css(K, { opacity: String(clamp((t - h - 1.1) / 0.3)) }); css(n1, { opacity: String(clamp((t - h - 1.1) / 0.3)) }); css(n2, { opacity: String(clamp((t - h - 1.2) / 0.3)) });
-    type(head, "PATENT FIG. 1 · 徙木立信", t, h + 0.1, 30);
+    type(head, "PATENT FIG. 1 · Dời gỗ lập tín", t, h + 0.1, 30);
     css(tb, { opacity: String(clamp((t - h - 0.3) / 0.3)) });
-    type(rFig, "1 · 立木南门", t, h + 0.5); type(rSrc, "史记·商君列传", t, h + 0.9);
-    type(rRew, t < B.fifty + 0.35 ? "10 金" : "10 金 → 50 金", t, B.ten, 18);
+    type(rFig, "1 · Dựng gỗ cổng Nam", t, h + 0.5); type(rSrc, "Sử ký · Thương Quân liệt truyện", t, h + 0.9);
+    type(rRew, t < B.fifty + 0.35 ? "10 vàng" : "10 vàng → 50 vàng", t, B.ten, 18);
     css(rRew, { color: t >= B.fifty + 0.35 ? RD : W });
     css(strike, { width: `${(clamp((t - B.fifty) / 0.25) * 74).toFixed(1)}px` });
     type(rTak, t < B.fifty + 1.4 ? "0" : "1", t, B.nobody, 30); css(rTak, { color: t < B.fifty + 1.4 ? RD : W });
@@ -180,7 +180,7 @@ function blueprint(s, h, z, B) {
   };
 }
 
-// ── 5 等轴测剖面：浅灰纸上的等轴测小城，南门→北门一条路；四角读数；只高亮正在讲的部件，最后有人扛着木头真走过去。讲法：机制模拟 ──
+// ── 5 Mặt cắt đẳng cự: thành phố nhỏ đẳng cự trên giấy xám nhạt, một con đường từ cổng Nam → cổng Bắc; số đọc ở bốn góc; chỉ làm nổi bộ phận đang được kể, cuối cùng có người vác khúc gỗ đi qua thật. Cách kể: mô phỏng cơ chế ──
 function iso(s, h, z, B) {
   el(s, "abs", "inset:0;background:linear-gradient(180deg,#F3F5F8,#E4E8ED);");
   const U = 62, CX = 690, CY = 400, P = (x, y, zz) => [CX + (x - y) * U * 0.866, CY + (x + y) * U * 0.5 - zz * U];
@@ -195,10 +195,10 @@ function iso(s, h, z, B) {
   const R = rng(5), crowd = [...Array(11)].map((_, i) => ({ x: 1.6 + R() * 3.2, y: i < 8 ? 2.1 + R() * 1.6 : -1.6 + R() * 0.9 }));
   crowd[0] = { x: 3.1, y: 2.3 };
   const lab = (txt, x, y, zz) => { const [sx, sy] = P(x, y, zz); return el(s, "abs cn", `left:${sx}px;top:${sy}px;transform:translate(-50%,-100%);padding:4px 14px;border-radius:8px;background:#1F2933;color:#fff;font-size:30px;font-weight:800;white-space:nowrap;`, txt); };
-  const LS = lab("南门", 0.4, 0.9, 3.4), LN = lab("北门", 11.8, 0.9, 3.4);
+  const LS = lab("Cổng Nam", 0.4, 0.9, 3.4), LN = lab("Cổng Bắc", 11.8, 0.9, 3.4);
   const qs = [1, 3, 5].map((i) => { const [sx, sy] = P(crowd[i].x, crowd[i].y, 1.45); return el(s, "abs", `left:${sx - 14}px;top:${sy - 40}px;font-family:Geist;font-size:40px;font-weight:800;color:#FF7A1A;`, "?"); });
   const hud = (x, y, k, align) => { const d = el(s, "abs mono", `${align}:${x}px;top:${y}px;text-align:${align};color:#1F2933;`); el(d, "", "font-size:20px;letter-spacing:4px;color:#7B8794;", k); return el(d, "", "font-size:56px;font-weight:700;white-space:nowrap;"); };
-  const hT = hud(80, 70, "ISO · 徙木立信", "left"), hR = hud(80, 70, "REWARD 赏金", "right"), hK = hud(80, 900, "TAKERS 应募", "left"), hD = hud(80, 900, "PROGRESS 南→北", "right");
+  const hT = hud(80, 70, "ISO · Dời gỗ lập tín", "left"), hR = hud(80, 70, "REWARD Tiền thưởng", "right"), hK = hud(80, 900, "TAKERS Người ứng tuyển", "left"), hD = hud(80, 900, "PROGRESS Nam→Bắc", "right");
   hT.textContent = "SIM 01";
   const person = (x, y, c) => { const [hx, hy] = P(x, y, 1.08); return box(x - 0.17, y - 0.17, 0, 0.34, 0.34, 0.78, c) + `<circle cx="${hx.toFixed(1)}" cy="${hy.toFixed(1)}" r="${(0.2 * U).toFixed(1)}" fill="${c[0]}" stroke="${c[2]}" stroke-width="2"/>`; };
   return (t) => {
@@ -216,29 +216,29 @@ function iso(s, h, z, B) {
     items.sort((p, q) => p.d - q.d);
     dyn.innerHTML = `<svg width="1920" height="1080" style="opacity:${clamp((t - h - 0.2) / 0.3).toFixed(2)}">${items.map((i) => i.s).join("")}</svg>`;
     qs.forEach((q, i) => css(q, { opacity: String(t >= B.nobody + i * 0.08 && t < B.fifty ? 1 : 0) }));
-    hR.textContent = `${val(t, B)} 金`; css(hR, { color: t >= B.fifty ? "#FF7A1A" : "#1F2933" });
+    hR.textContent = `${val(t, B)} vàng`; css(hR, { color: t >= B.fifty ? "#FF7A1A" : "#1F2933" });
     hK.textContent = t < a2 ? "0" : "1"; css(hK, { color: t >= B.nobody && t < a2 ? "#E12D39" : "#1F2933" });
     hD.textContent = `${Math.round(100 * (t > a2 ? eInOutCubic(clamp((t - a2) / (a3 - a2))) : 0))}%`;
   };
 }
 
-// ── 6 瑞士网格动态字：米白底、12 栏网格、超大无衬线黑字压在栏线上，红色色块推拉；字在重音砸进来、退场比进场快。讲法：字就是画面 ──
+// ── 6 Chữ động lưới Thuỵ Sĩ: nền trắng ngà, lưới 12 cột, chữ đen không chân cỡ siêu lớn đè lên đường cột, mảng đỏ kéo đẩy; chữ đập vào ở trọng âm, rút lui nhanh hơn tiến vào. Cách kể: chữ chính là hình ảnh ──
 function swiss(s, h, z, B) {
   el(s, "abs", "inset:0;background:#F2F1EC;");
   for (let i = 0; i <= 12; i++) el(s, "abs", `left:${120 + i * 140}px;top:0;width:1px;height:1080px;background:rgba(227,0,27,0.14);`);
   el(s, "abs", "left:120px;top:170px;width:1680px;height:2px;background:#111;");
   const SW = `font-family:"Helvetica Neue","Geist","PingFang SC","NotoSC",sans-serif;`;
   el(s, "abs", `left:120px;top:110px;${SW}font-size:24px;font-weight:800;color:#111;`, "01");
-  el(s, "abs", `left:260px;top:110px;${SW}font-size:24px;font-weight:500;color:#111;`, "徙木立信 — Moving the Log");
-  el(s, "abs", `right:120px;top:110px;${SW}font-size:24px;font-weight:500;color:#111;`, "史记 · 卷六十八");
+  el(s, "abs", `left:260px;top:110px;${SW}font-size:24px;font-weight:500;color:#111;`, "Dời gỗ lập tín — Moving the Log");
+  el(s, "abs", `right:120px;top:110px;${SW}font-size:24px;font-weight:500;color:#111;`, "Sử ký · Quyển sáu mươi tám");
   const mw = (txt, x, y, size, color = "#111", extra = "") => { const w = el(s, "abs", `left:${x}px;top:${y}px;overflow:hidden;`); const i = el(w, "", `${SW}font-size:${size}px;font-weight:900;color:${color};line-height:1;white-space:nowrap;letter-spacing:${-size * 0.03}px;padding:0.06em 0;${extra}`, txt); return { w, i }; };
   const ms = (m, t, a, b, dIn = 0.36, dOut = 0.16) => { const k = eOutQuint(clamp((t - a) / dIn)), o = b == null ? 0 : eInCubic(clamp((t - b) / dOut)); css(m.i, { transform: `translateY(${((1 - k) * 105 - o * 105).toFixed(1)}%)` }); css(m.w, { opacity: String(t < a ? 0 : 1) }); };
-  const w1 = mw("一根木头", 120, 230, 230), w2 = mw("南门 → 北门", 120, 590, 100);
+  const w1 = mw("Một khúc gỗ", 120, 230, 230), w2 = mw("Cổng Nam → Cổng Bắc", 120, 590, 100);
   const bar = el(s, "abs", "left:120px;top:540px;height:20px;background:#E3001B;");
-  const meta2 = el(s, "abs", `left:120px;top:200px;${SW}font-size:22px;font-weight:700;letter-spacing:4px;color:#E3001B;`, "REWARD / 赏金");
-  const n10 = mw("10", 100, 210, 600), n50 = mw("50", 100, 210, 600), kin = mw("金", 940, 560, 220, "#E3001B");
+  const meta2 = el(s, "abs", `left:120px;top:200px;${SW}font-size:22px;font-weight:700;letter-spacing:4px;color:#E3001B;`, "REWARD / Tiền thưởng");
+  const n10 = mw("10", 100, 210, 600), n50 = mw("50", 100, 210, 600), kin = mw("vàng", 940, 560, 220, "#E3001B");
   const blk = el(s, "abs", "left:1240px;top:172px;width:680px;height:908px;background:#E3001B;");
-  const nob = el(blk, "abs", `left:120px;top:110px;${SW}writing-mode:vertical-rl;font-size:190px;font-weight:900;color:#fff;letter-spacing:10px;`, "没人动");
+  const nob = el(blk, "abs", `left:120px;top:110px;${SW}writing-mode:vertical-rl;font-size:190px;font-weight:900;color:#fff;letter-spacing:10px;`, "Không ai động");
   const x5 = mw("×5", 1260, 300, 300, "#E3001B");
   return (t) => {
     ms(w1, t, h + 0.15, B.ten - 0.15); ms(w2, t, h + 0.8, B.ten - 0.15);
@@ -251,7 +251,7 @@ function swiss(s, h, z, B) {
   };
 }
 
-// ── 7 孔版印刷：米色纸、荧光粉 + 蓝两色叠印（正片叠底出紫）、半调网点；8 帧/秒定格，套色错位，五十金那一下「对准版」。讲法：手作印刷感 ──
+// ── 7 In stencil: giấy màu be, in chồng hai màu hồng huỳnh quang + xanh (nhân chồng ra tím), chấm bán sắc; dừng hình 8 khung/giây, lệch màu in, cú năm mươi vàng thì "khớp bản". Cách kể: cảm giác in thủ công ──
 function riso(s, h, z, B) {
   el(s, "abs", "inset:0;background:#F4EFE4;");
   const PK = "#FF48B0", BL = "#0078BF", YL = "#FFE800";
@@ -265,9 +265,9 @@ function riso(s, h, z, B) {
   const crowd = svgBox(pB, "left:60px;top:740px;width:1800px;height:200px;", `<svg width="1800" height="200">${[...Array(16)].map((_, i) => { const x = 40 + i * 112 + (i % 3) * 14, y = 60 + (i % 2) * 22; return `<circle cx="${x}" cy="${y}" r="26" fill="${BL}"/><path d="M${x - 52} 200 Q${x - 50} ${y + 36} ${x} ${y + 34} Q${x + 50} ${y + 36} ${x + 52} 200Z" fill="${BL}"/>`; }).join("")}</svg>`);
   css(crowd, { opacity: "0.82" });
   const big = (p, txt, x, y, size, c) => el(p, "abs", `left:${x}px;top:${y}px;font-family:Geist,NotoSC;font-size:${size}px;font-weight:900;color:${c};white-space:nowrap;line-height:1;letter-spacing:-6px;`, txt);
-  const i1 = big(pB, "一根木头", 110, 250, 150, BL), i2 = big(pP, "南门 → 北门", 120, 440, 90, PK);
-  const num = big(pP, "", 100, 200, 340, PK), kin = big(pB, "金", 120, 540, 170, BL);
-  const stamp = el(pB, "abs cn", `left:150px;top:660px;padding:4px 26px;border:9px solid ${BL};color:${BL};font-size:100px;font-weight:900;transform:rotate(-8deg);`, "没人动");
+  const i1 = big(pB, "Một khúc gỗ", 110, 250, 150, BL), i2 = big(pP, "Cổng Nam → Cổng Bắc", 120, 440, 90, PK);
+  const num = big(pP, "", 100, 200, 340, PK), kin = big(pB, "vàng", 120, 540, 170, BL);
+  const stamp = el(pB, "abs cn", `left:150px;top:660px;padding:4px 26px;border:9px solid ${BL};color:${BL};font-size:100px;font-weight:900;transform:rotate(-8deg);`, "Không ai động");
   const marks = [[60, 60], [1800, 60], [60, 960], [1800, 960]];
   for (const p of [pP, pB]) for (const [x, y] of marks) el(p, "abs", `left:${x}px;top:${y}px;width:56px;height:56px;border:3px solid ${p === pP ? PK : BL};border-radius:50%;box-sizing:border-box;background:linear-gradient(${p === pP ? PK : BL},${p === pP ? PK : BL}) center/3px 100% no-repeat,linear-gradient(${p === pP ? PK : BL},${p === pP ? PK : BL}) center/100% 3px no-repeat;`);
   svgBox(s, "left:0;top:0;width:1920px;height:1080px;mix-blend-mode:multiply;opacity:0.35;pointer-events:none;", `<svg width="1920" height="1080"><filter id="grn7"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="11"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 0.5"/></feComponentTransfer></filter><rect width="1920" height="1080" filter="url(#grn7)"/></svg>`);
@@ -285,12 +285,12 @@ function riso(s, h, z, B) {
   };
 }
 
-// ── 8 深色数学：近黑底，只放正在讲的东西；木头这条线直接变成数轴，金点滑过去，×5 的弧箭头；先把问题写在最上面。讲法：一个对象形变成下一个，几乎不切 ──
+// ── 8 Toán học nền tối: nền gần đen, chỉ đặt thứ đang được kể; đường khúc gỗ biến thẳng thành trục số, điểm vàng trượt qua, mũi tên cung ×5; viết câu hỏi lên trên cùng trước. Cách kể: một đối tượng biến hình thành đối tượng tiếp theo, gần như không cắt ──
 function manim(s, h, z, B) {
   el(s, "abs", "inset:0;background:#0F1014;");
   const BL = "#58C4DD", YL = "#F4D35E", RD = "#FC6255", WH = "#ECECEC";
   const X = (v) => 360 + v * 24;
-  const q = el(s, "abs", `left:0;width:1920px;top:110px;text-align:center;${SONG}font-size:64px;color:${WH};`, "要多少钱，才有人动？");
+  const q = el(s, "abs", `left:0;width:1920px;top:110px;text-align:center;${SONG}font-size:64px;color:${WH};`, "Cần bao nhiêu tiền thì mới có người động?");
   const g = svgBox(s, "left:0;top:0;width:1920px;height:1080px;", `<svg width="1920" height="1080" fill="none" stroke-linecap="round">
     <line class="L" stroke="${BL}" stroke-width="7"/>
     <g class="T" stroke="${WH}" stroke-width="3">${[0, 10, 20, 30, 40, 50].map((v) => `<line x1="${X(v)}" y1="626" x2="${X(v)}" y2="654"/>`).join("")}</g>
@@ -301,10 +301,10 @@ function manim(s, h, z, B) {
   prep([Ar, AH]);
   const tl = [0, 10, 20, 30, 40, 50].map((v) => el(s, "abs mono", `left:${X(v) - 40}px;top:668px;width:80px;text-align:center;font-size:30px;color:${WH};`, String(v)));
   const lab = (txt, size, c) => el(s, "abs", `${SONG}font-size:${size}px;color:${c};white-space:nowrap;transform:translate(-50%,-50%);`, txt);
-  const lLog = lab("一根木头", 46, BL), lS = lab("南门", 34, WH), lN = lab("北门", 34, WH), lD = lab("", 48, YL), lX = lab("× 5", 52, YL);
+  const lLog = lab("Một khúc gỗ", 46, BL), lS = lab("Cổng Nam", 34, WH), lN = lab("Cổng Bắc", 34, WH), lD = lab("", 48, YL), lX = lab("× 5", 52, YL);
   css(lX, { left: `${(X(10) + X(50)) / 2}px`, top: "450px" });
   const row = el(s, "abs", `left:360px;top:770px;${SONG}font-size:44px;color:${WH};white-space:nowrap;`);
-  el(row, "", "display:inline-block;margin-right:28px;", "愿意搬的人");
+  el(row, "", "display:inline-block;margin-right:28px;", "Người sẵn lòng khiêng");
   const cnt = el(row, "", "display:inline-block;font-family:Geist;font-size:64px;font-weight:600;");
   return (t) => {
     wipe(q, t, h + 0.05, 0.8);
@@ -317,7 +317,7 @@ function manim(s, h, z, B) {
     css(Tk, { opacity: String(clamp((t - h - 2.0) / 0.25)) }); tl.forEach((n, i) => css(n, { opacity: String(clamp((t - h - 2.0 - i * 0.04) / 0.2)) }));
     const dv = t < B.ten ? 0 : t < B.fifty + 0.1 ? 10 * eInOutCubic(clamp((t - B.ten) / 0.4)) : lerp(10, 50, eInOutCubic(clamp((t - B.fifty - 0.1) / 0.6)));
     Dt.setAttribute("cx", X(dv).toFixed(1)); Dt.setAttribute("cy", "640"); css(Dt, { opacity: String(t >= B.ten - 0.05 ? 1 : 0) });
-    lD.textContent = t < B.fifty + 0.4 ? "赏 10 金" : "50 金"; css(lD, { left: `${X(dv)}px`, top: `${t < B.fifty ? 570 : lerp(570, 720, eOutCubic(clamp((t - B.fifty - 0.4) / 0.3)))}px`, opacity: String(t >= B.ten + 0.2 ? 1 : 0) });
+    lD.textContent = t < B.fifty + 0.4 ? "Thưởng 10 vàng" : "50 vàng"; css(lD, { left: `${X(dv)}px`, top: `${t < B.fifty ? 570 : lerp(570, 720, eOutCubic(clamp((t - B.fifty - 0.4) / 0.3)))}px`, opacity: String(t >= B.ten + 0.2 ? 1 : 0) });
     drawAt(Ar, t, B.fifty, 0.5); drawAt(AH, t, B.fifty + 0.45, 0.15); css(lX, { opacity: String(clamp((t - B.fifty - 0.3) / 0.25)) });
     css(row, { opacity: String(clamp((t - B.nobody) / 0.25)) });
     const one = t >= B.fifty + 1.7; cnt.textContent = one ? "1" : "0"; css(cnt, { color: one ? BL : RD });
@@ -325,14 +325,14 @@ function manim(s, h, z, B) {
 }
 
 const STY = [
-  { name: "综艺花字", en: "VARIETY CAPTIONS", fit: "轻松科普 · 生活冷知识 · 年轻受众", th: { bg: 0xFFD23F, ink: "#2B1B5A", dim: "#7A5A2A", accent: "#FF3B5C", light: true }, make: variety },
-  { name: "孟菲斯波普", en: "MEMPHIS POP", fit: "消费 · 潮流文化 · 设计史", th: { bg: 0xFFF4E0, ink: "#111111", dim: "#6B6257", accent: "#FF5D8F", light: true }, make: memphis },
-  { name: "粉笔黑板", en: "CHALKBOARD", fit: "公式 · 推导 · 物理 · 一步步讲清", th: { bg: 0x1E463F, ink: "#EEECE3", dim: "#9DB5AD", accent: "#F5D76E" }, make: chalk },
-  { name: "蓝图专利图", en: "BLUEPRINT", fit: "发明 · 古代机械 · 结构原理", th: { bg: 0x123F74, ink: "#EAF2FF", dim: "#9DB8DA", accent: "#FF6B5B" }, make: blueprint },
-  { name: "等轴测剖面", en: "ISOMETRIC", fit: "机制 · 流程 · 系统怎么运转", th: { bg: 0xEEF1F4, ink: "#1F2933", dim: "#7B8794", accent: "#FF7A1A", light: true }, make: iso },
-  { name: "瑞士网格动态字", en: "SWISS KINETIC", fit: "观点 · 数据 · 金句（字就是画面）", th: { bg: 0xF2F1EC, ink: "#111111", dim: "#777777", accent: "#E3001B", light: true }, make: swiss },
-  { name: "孔版印刷", en: "RISOGRAPH", fit: "文化 · 艺术 · 小众冷知识", th: { bg: 0xF4EFE4, ink: "#1D1D1D", dim: "#7A7468", accent: "#FF48B0", light: true }, make: riso },
-  { name: "深色数学", en: "DARK MATH", fit: "数学 · 统计 · AI（一个对象变成下一个）", th: { bg: 0x0F1014, ink: "#ECECEC", dim: "#8A8F98", accent: "#58C4DD" }, make: manim },
+  { name: "Chữ hoa tạp kỹ", en: "VARIETY CAPTIONS", fit: "Khoa học nhẹ nhàng · mẹo vặt đời sống · khán giả trẻ", th: { bg: 0xFFD23F, ink: "#2B1B5A", dim: "#7A5A2A", accent: "#FF3B5C", light: true }, make: variety },
+  { name: "Memphis pop", en: "MEMPHIS POP", fit: "Tiêu dùng · văn hoá thịnh hành · lịch sử thiết kế", th: { bg: 0xFFF4E0, ink: "#111111", dim: "#6B6257", accent: "#FF5D8F", light: true }, make: memphis },
+  { name: "Bảng phấn", en: "CHALKBOARD", fit: "Công thức · suy dẫn · vật lý · giảng rõ từng bước", th: { bg: 0x1E463F, ink: "#EEECE3", dim: "#9DB5AD", accent: "#F5D76E" }, make: chalk },
+  { name: "Bản vẽ blueprint bằng sáng chế", en: "BLUEPRINT", fit: "Phát minh · máy móc cổ đại · nguyên lý cấu trúc", th: { bg: 0x123F74, ink: "#EAF2FF", dim: "#9DB8DA", accent: "#FF6B5B" }, make: blueprint },
+  { name: "Mặt cắt đẳng cự", en: "ISOMETRIC", fit: "Cơ chế · quy trình · hệ thống vận hành thế nào", th: { bg: 0xEEF1F4, ink: "#1F2933", dim: "#7B8794", accent: "#FF7A1A", light: true }, make: iso },
+  { name: "Chữ động lưới Thuỵ Sĩ", en: "SWISS KINETIC", fit: "Quan điểm · dữ liệu · câu vàng (chữ chính là hình ảnh)", th: { bg: 0xF2F1EC, ink: "#111111", dim: "#777777", accent: "#E3001B", light: true }, make: swiss },
+  { name: "In stencil", en: "RISOGRAPH", fit: "Văn hoá · nghệ thuật · kiến thức lạ ít người biết", th: { bg: 0xF4EFE4, ink: "#1D1D1D", dim: "#7A7468", accent: "#FF48B0", light: true }, make: riso },
+  { name: "Toán học nền tối", en: "DARK MATH", fit: "Toán học · thống kê · AI (một đối tượng biến thành đối tượng tiếp theo)", th: { bg: 0x0F1014, ink: "#ECECEC", dim: "#8A8F98", accent: "#58C4DD" }, make: manim },
 ];
 
 export async function build(ctx) {
@@ -348,7 +348,7 @@ export async function build(ctx) {
       el(s, "abs", `inset:0;background:#${st.th.bg.toString(16).padStart(6, "0")};`);
       const no = el(s, "abs", `left:0;width:1920px;top:340px;text-align:center;font-family:Geist;font-size:26px;letter-spacing:10px;color:${st.th.dim};`, `NEW STYLE ${i + 1} / ${STY.length} · ${st.en}`);
       const nm = el(s, "abs cn", `left:0;width:1920px;top:400px;text-align:center;font-size:150px;font-weight:900;color:${st.th.ink};letter-spacing:12px;`, st.name);
-      const ft = el(s, "abs cn", `left:0;width:1920px;top:600px;text-align:center;font-size:40px;color:${st.th.accent};letter-spacing:3px;`, `适合：${st.fit}`);
+      const ft = el(s, "abs cn", `left:0;width:1920px;top:600px;text-align:center;font-size:40px;color:${st.th.accent};letter-spacing:3px;`, `Phù hợp: ${st.fit}`);
       return { s, ns: [no, nm, ft] };
     }, (t, u) => {
       bg(ctx, st.th, { bloom: st.th.light ? 0 : 0.4, vig: st.th.light ? 0.15 : 0.5 });
@@ -360,9 +360,9 @@ export async function build(ctx) {
   add(END, END + TAIL, (root) => {
     const s = el(root, "shot");
     el(s, "abs", "inset:0;background:#0B0A0C;");
-    el(s, "abs cn", "left:0;width:1920px;top:300px;text-align:center;font-size:84px;font-weight:900;color:#f6f2ea;", "风格库 +8：补齐空白家族");
+    el(s, "abs cn", "left:0;width:1920px;top:300px;text-align:center;font-size:84px;font-weight:900;color:#f6f2ea;", "Thư viện phong cách +8: lấp đầy họ trống");
     STY.forEach((st, i) => el(s, "abs cn", `left:${170 + (i % 4) * 400}px;top:${470 + Math.floor(i / 4) * 140}px;width:370px;padding:22px 0;text-align:center;border-radius:16px;font-size:38px;font-weight:800;color:${st.th.ink};background:#${st.th.bg.toString(16).padStart(6, "0")};border:3px solid ${st.th.accent};`, st.name));
-    el(s, "abs cn", "left:0;width:1920px;top:800px;text-align:center;font-size:30px;color:#a8a29a;", "全部代码画面 · 0 积分 · 每套都能叠「一镜到底 / 尺度穿越 / 数据叙事」等手法");
+    el(s, "abs cn", "left:0;width:1920px;top:800px;text-align:center;font-size:30px;color:#a8a29a;", "Toàn bộ hình ảnh bằng code · 0 điểm · mỗi bộ đều có thể chồng các thủ pháp như \"một ống kính tiếp sức / xuyên thang đo / kể bằng dữ liệu\"");
     return { s };
   }, () => bg(ctx, { bg: 0x0b0a0c }, { bloom: 0.3 }));
   return shots;

@@ -1,42 +1,42 @@
-# 11 · 实战课：真实成片 + 一次真实会话 + 行业拆片
+# 11 · Khóa thực chiến: phim thật + một phiên làm việc thật + phân tích phim theo ngành
 
-「Opus 5.5 宣传片实战课」的做法（导学 + 8 节 + 5 节加餐，cine 引擎）。适合「用 AI 做某类作品」的课：主角是真实交付过的作品，一条贯穿线是一次真实会话，再按行业补几支概念片拆给学员看。说明书原件在 `templates/series-cine/examples-briefs/`。
+Cách làm của "Khóa thực chiến phim quảng bá Opus 5.5" (dẫn nhập + 8 bài + 5 bài bổ sung, engine cine). Phù hợp với các khóa kiểu "dùng AI làm một loại tác phẩm": nhân vật chính là các tác phẩm đã bàn giao thật, một mạch xuyên suốt là một phiên làm việc thật, rồi bổ sung theo ngành vài phim khái niệm để phân tích cho học viên xem. Bản gốc của các bản hướng dẫn nằm trong `templates/series-cine/examples-briefs/`.
 
-## 先定（确认点）
-- 对象、节数、两条路线怎么讲（例如 skill + Remotion 讲清授权，或纯网页代码）。
-- **作品墙只用最终版本**：逐个项目找最后交付的那一版（文件名、修改时间、交付记录三方核对），列成「分类 | 作品 | 文件」表写进 BRIEF；旧版只在讲改版故事时出现，并标「旧版」。
-- 哪些作品能放：客户作品要用户确认可展示；用户点名不要的一律不出现（包括导学片墙、课程页、旁白）。
-- 按行业分类：先把已有作品归类，缺的行业用「行业概念片」补（下面）。
-- 真实会话录几次（通常 1 次、5 轮左右），录前报预计用量。
+## Chốt trước (điểm xác nhận)
+- Đối tượng, số bài, hai lộ trình giảng thế nào (ví dụ skill + Remotion nói rõ giấy phép, hoặc mã web thuần).
+- **Tường tác phẩm chỉ dùng bản cuối**: tìm bản được bàn giao sau cùng của từng dự án (đối chiếu ba bên: tên file, thời gian sửa, nhật ký bàn giao), liệt kê thành bảng "phân loại | tác phẩm | file" ghi vào BRIEF; bản cũ chỉ xuất hiện khi kể chuyện chỉnh sửa phiên bản, và đánh dấu "bản cũ".
+- Tác phẩm nào được đưa lên: tác phẩm của khách hàng phải được người dùng xác nhận là cho phép trình chiếu; người dùng nêu tên là không muốn thì tuyệt đối không xuất hiện (bao gồm tường phim dẫn nhập, trang khóa học, lời dẫn).
+- Phân loại theo ngành: trước hết xếp các tác phẩm có sẵn vào nhóm, ngành còn thiếu thì dùng "phim khái niệm ngành" để bù (bên dưới).
+- Ghi phiên làm việc thật mấy lần (thường 1 lần, khoảng 5 lượt), trước khi ghi báo mức tiêu thụ dự kiến.
 
-## 真实会话（`session/`，见 README）
-- 独立的课程实例（独立配置目录、关自动更新、不带日常模型路由），登录由用户本人完成；要用的 skill 软链进实例。
-- 用虚构产品 + 本地演示官网，避免拿真实公司演示；第一句话尽量短（「用 X 给 Y 做一支 30 秒宣传片，官网 …」）。
-- 每轮 `turn.sh` → `export.py` 出 turnN.json（提示词、工具调用和相对秒数、它写的文字、用时、费用），全程 `usage.py`。课里每节放对应那一步：终端按记录重绘，路径用户名写成 `~`。
-- 实测参考：5 轮约 16 分钟、48 次模型调用、52 次工具调用、按 API 价折算约 3.4 美元。
-- 坑：`-p` 模式后台渲染随会话结束被杀；`total_cost_usd` 是累计值；用量按 message id 去重；缓存写按 1 小时缓存价（输入价 2 倍）。
+## Phiên làm việc thật (`session/`, xem README)
+- Phiên bản khóa học độc lập (thư mục cấu hình riêng, tắt tự động cập nhật, không mang định tuyến mô hình dùng hằng ngày), đăng nhập do chính người dùng thực hiện; skill cần dùng thì tạo liên kết mềm vào phiên bản đó.
+- Dùng sản phẩm hư cấu + website chính thức demo cục bộ, tránh lấy công ty thật để demo; câu đầu tiên cố gắng ngắn ("Dùng X làm cho Y một phim quảng bá 30 giây, website chính thức …").
+- Mỗi lượt `turn.sh` → `export.py` xuất turnN.json (prompt, lần gọi công cụ và số giây tương đối, chữ nó viết ra, thời gian dùng, chi phí), toàn bộ quá trình dùng `usage.py`. Trong khóa mỗi bài đặt bước tương ứng: terminal vẽ lại theo bản ghi, đường dẫn viết tên người dùng thành `~`.
+- Tham chiếu thực đo: 5 lượt khoảng 16 phút, 48 lần gọi mô hình, 52 lần gọi công cụ, quy đổi theo giá API khoảng 3,4 USD.
+- Lỗi: ở chế độ `-p`, render nền bị giết khi phiên kết thúc; `total_cost_usd` là giá trị tích lũy; mức dùng khử trùng theo message id; ghi cache tính theo giá cache 1 giờ (gấp 2 lần giá đầu vào).
 
-## 行业概念片（BRIEF-行业概念片.md）
-- 每个行业挑一个代表品牌，一个助手一支，按 promo-video skill 从官网一路做到成片（28–30 秒）。
-- 品牌素材只来自官网（Logo、产品图、字体、文案），屏幕上每个数字记下原句和页面；Codex 只画氛围，**不画产品、门店、Logo**，不伪造任何真实物件。
-- 片尾声明「非官方概念片 · 仅用于课程演示 · 与 X 官方无关」；旁白和课程页都说「概念片」，不说客户、交付。
-- 每支片写 `DECISIONS.md`：选型卡原文、分镜表、配乐和 BPM、素材来源 URL、事实出处、AI 生图清单、审片改过的问题（改前 → 改后）。这份文件就是后面拆片课的事实来源。
-- 交付前母带到 RMS 约 −17 dBFS、峰值 −1 dBFS（promo-video `master_audio.py`）。
+## Phim khái niệm ngành (BRIEF-nganh-khai-niem.md)
+- Mỗi ngành chọn một thương hiệu đại diện, một trợ lý làm một phim, theo promo-video skill làm từ website chính thức cho đến thành phẩm (28–30 giây).
+- Tư liệu thương hiệu chỉ lấy từ website chính thức (Logo, ảnh sản phẩm, phông chữ, nội dung chữ), mỗi con số trên màn hình đều ghi lại câu gốc và trang; Codex chỉ vẽ bầu không khí, **không vẽ sản phẩm, cửa hàng, Logo**, không làm giả bất kỳ vật thể thật nào.
+- Cuối phim tuyên bố "Phim khái niệm không chính thức · chỉ dùng để minh họa khóa học · không liên quan đến X chính thức"; lời dẫn và trang khóa học đều nói "phim khái niệm", không nói khách hàng, bàn giao.
+- Mỗi phim viết `DECISIONS.md`: nguyên văn thẻ chọn phương án, bảng phân cảnh, nhạc nền và BPM, URL nguồn tư liệu, nguồn sự kiện, danh sách ảnh do AI tạo, các vấn đề đã sửa sau khi duyệt phim (trước → sau). File này chính là nguồn sự kiện cho các bài phân tích phim về sau.
+- Trước khi bàn giao, bản master về RMS khoảng −17 dBFS, đỉnh −1 dBFS (promo-video `master_audio.py`).
 
-## 正课每节（BRIEF-宣传片实战课.md）
-- 开场 5–8 秒真片段快剪 + 代码做的课名，卡在配乐拍点上；每节讲三件事 + 一拍暂停 + 回顾导图 + 预告。
-- 配乐每节分一首、不重复，`pick_music.py --hit-at` 把主段落对到课名，短曲 `loopbed.py` 接长；录课前备份 `~/.cache/promo-video/music-usage.json`，全部做完还原。
-- 讲规则引 skill 原文（文件 + 小节名），讲案例引交付记录；社区提示词一次 ≤15 个英文单词、带作者和链接。
+## Mỗi bài chính khóa (BRIEF-phim-quang-cao-thuc-chien.md)
+- Mở đầu 5–8 giây dựng nhanh đoạn phim thật + tên khóa học do mã tạo, khớp điểm nhịp nhạc nền; mỗi bài nói ba việc + một nhịp tạm dừng + sơ đồ ôn lại + giới thiệu bài sau.
+- Nhạc nền mỗi bài một bài hát, không lặp lại, `pick_music.py --hit-at` căn đoạn chính vào tên khóa học, bài ngắn thì `loopbed.py` nối dài; trước khi ghi khóa học sao lưu `~/.cache/promo-video/music-usage.json`, làm xong hết thì khôi phục.
+- Giảng quy tắc thì trích nguyên văn skill (file + tên tiểu mục), giảng ví dụ thì trích nhật ký bàn giao; prompt cộng đồng mỗi lần ≤15 từ tiếng Anh, kèm tác giả và liên kết.
 
-## 加餐：按行业拆一支片（BRIEF-加餐拆片课.md）
-- 开场完整放一遍概念片（带原声，旁白留空），课名「加餐 · <行业>：拆<品牌>」+ 小标签「非官方概念片 · 仅用于课程演示」。
-- 三件事：官网素材 → 片中画面和选卡理由；分镜、配乐、最出彩的镜头（片段 + 代码节选）；审片改了什么、合规怎么守。
-- 只讲 DECISIONS.md、代码和样帧里看得到的；推断说「可能」。最后一节说「加餐到这里结束」。
+## Bài bổ sung: phân tích một phim theo ngành (BRIEF-bo-sung-phan-tich-phim.md)
+- Mở đầu phát trọn một lượt phim khái niệm (kèm âm thanh gốc, lời dẫn để trống), tên khóa học "Bổ sung · <ngành>: phân tích <thương hiệu>" + nhãn nhỏ "Phim khái niệm không chính thức · chỉ dùng để minh họa khóa học".
+- Ba việc: tư liệu website chính thức → hình ảnh trong phim và lý do chọn thẻ; phân cảnh, nhạc nền, góc máy xuất sắc nhất (đoạn phim + trích đoạn mã); duyệt phim đã sửa gì, giữ tuân thủ thế nào.
+- Chỉ giảng những gì nhìn thấy được trong DECISIONS.md, mã và khung mẫu; suy đoán thì nói "có thể". Bài cuối nói "bài bổ sung đến đây là hết".
 
-## 课程页
-- `series.json` 的 `stages` 分段（导学 / 正课 / 加餐），`sample` 放真实会话的成片；`tools/update_series.py --prefix p` 填视频、封面、时长和上线状态；`scripts/course_page.py` 出页面；同一个 Artifact 原地更新（同一个文件路径）。
-- 页脚写清：真实作品经客户同意展示；概念片非官方；演示产品是虚构的。
+## Trang khóa học
+- `stages` của `series.json` chia đoạn (dẫn nhập / chính khóa / bổ sung), `sample` đặt thành phẩm của phiên làm việc thật; `tools/update_series.py --prefix p` điền video, ảnh bìa, thời lượng và trạng thái lên mạng; `scripts/course_page.py` xuất trang; cập nhật tại chỗ cùng một Artifact (cùng một đường dẫn file).
+- Chân trang ghi rõ: tác phẩm thật được khách hàng đồng ý cho trình chiếu; phim khái niệm không chính thức; sản phẩm demo là hư cấu.
 
-## 致谢与署名
-- 致谢只放导学和最后一节；中间各节不致谢。
-- 授权要讲清：例如 Remotion 个人、≤3 人营利公司、非营利免费，其余要公司授权；Mixkit 曲库不能用于电视电台广播、游戏，不能单独再分发音乐。
+## Cảm ơn và ghi công
+- Lời cảm ơn chỉ đặt ở bài dẫn nhập và bài cuối; các bài ở giữa không cảm ơn.
+- Giấy phép phải nói rõ: ví dụ Remotion cá nhân, công ty vì lợi nhuận ≤3 người, phi lợi nhuận thì miễn phí, còn lại cần giấy phép công ty; thư viện nhạc Mixkit không được dùng cho truyền hình, phát thanh, trò chơi, không được phân phối lại riêng phần nhạc.

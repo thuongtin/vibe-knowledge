@@ -1,13 +1,13 @@
 /**
- * MindMap 思维导图（收尾用）：中心主题弹出，分支曲线从中心长出去，节点带自画图标、标签打字；最后撒一把小星星。
- * 以原点为中心；render 是纯函数。
+ * MindMap sơ đồ tư duy (dùng để kết bài): chủ đề trung tâm bật ra, các đường cong nhánh mọc ra từ tâm, nút có biểu tượng tự vẽ, nhãn gõ chữ dần; cuối cùng rắc một nắm sao nhỏ.
+ * Lấy gốc tọa độ làm tâm; render là hàm thuần.
  *
  * params
  *   center {label, icon, color, at}
  *   branches [{label, sub, icon, color, at, side: "l"|"r", y}]
- *   spread      节点中心到原点的水平距离（默认 560）
- *   node {w}    节点宽（默认 360）
- *   celebrate   撒星星的时刻（可选）
+ *   spread      khoảng cách ngang từ tâm nút đến gốc tọa độ (mặc định 560)
+ *   node {w}    bề rộng nút (mặc định 360)
+ *   celebrate   thời điểm rắc sao (tùy chọn)
  *   out
  */
 import { h, s, setStyle, setAttr } from "../runtime/dom.js";
@@ -52,7 +52,7 @@ export default {
     center.append(cLab);
     el.append(center);
     const tyC = mountTyping(cLab, C.label, { cps: 10, seed: 3 });
-    // 中心宽度要等字体排好才知道，先按字数估
+    // Bề rộng phần tâm phải chờ phông chữ dàn xong mới biết, tạm ước lượng theo số chữ
     const cHalf = 44 + (cIcon ? 43 : 0) + 25 * Array.from(C.label).length;
 
     const brs = p.branches.map((b, i) => {

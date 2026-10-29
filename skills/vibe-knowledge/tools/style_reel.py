@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""风格样片集的时间轴和旁白：把第 01 期 B01 开场（「一根木头…五十金」）复制 N 遍，每段前留风格名卡。
-用法（在 <系列>/lessons 下）：python3 style_reel.py styles3 8 [--src 01] [--card 1.8] [--tail 0.6]
-产出：<名>/build/timings.json（B01…BNN，cue ten/nobody/fifty 跟着平移）+ <名>/build/narration.wav。
-film.js 里每段：a = i*SEG，h = a+card（演示开始），z = (i+1)*SEG；SEG = END / N。"""
+"""Trục thời gian và lời dẫn của tuyển tập phim mẫu phong cách: sao chép đoạn mở đầu B01 của tập 01 ("一根木头…五十金") N lần, trước mỗi đoạn chừa một thẻ tên phong cách.
+Cách dùng (trong <loạt-bài>/lessons):python3 style_reel.py styles3 8 [--src 01] [--card 1.8] [--tail 0.6]
+Đầu ra: <tên>/build/timings.json (B01…BNN, cue ten/nobody/fifty dịch chuyển theo) + <tên>/build/narration.wav.
+Mỗi đoạn trong film.js: a = i*SEG, h = a+card (bắt đầu trình diễn), z = (i+1)*SEG; SEG = END / N."""
 import copy, json, subprocess, sys
 from pathlib import Path
 
@@ -29,4 +29,4 @@ fc = f"[0:a]asplit={nseg}" + "".join(f"[i{i}]" for i in range(nseg)) + ";" + ";"
 ) + ";" + "".join(f"[s{i}]" for i in range(nseg)) + f"concat=n={nseg}:v=0:a=1[o]"
 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{SRC}/build/narration.wav", "-filter_complex", fc, "-map", "[o]", "-ar", "48000", f"{name}/build/narration.wav"], check=True)
 c = b["cues"]
-print(f"SEG {SEG:.2f}s  total {out['total']}s  每段：卡 {CARD}s → 演示 h；ten=h+{c['ten']-a0:.2f} nobody=h+{c['nobody']-a0:.2f} fifty=h+{c['fifty']-a0:.2f} 旁白止 h+{a1-a0:.2f}")
+print(f"SEG {SEG:.2f}s  total {out['total']}s  mỗi đoạn: thẻ {CARD}s → trình diễn h; ten=h+{c['ten']-a0:.2f} nobody=h+{c['nobody']-a0:.2f} fifty=h+{c['fifty']-a0:.2f} lời dẫn dừng ở h+{a1-a0:.2f}")

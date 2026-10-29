@@ -1,11 +1,11 @@
-// 风格样片集 · 第七批「增强档」：长卷、铜版博物。同一段开场（复用第 01 期 B01 旁白）。
-// 长卷：Nano Banana 2 出 4:1 全卷 + 16:9 局部（12 积分/张）；铜版：mj-v8.2 图版 + 标本页（4 积分/张）。展卷、横移、放大镜、刻线显影、淡彩渗入、翻页全是代码。
+// Tuyển tập phim mẫu phong cách · đợt 7 "cấp tăng cường": cuộn dài, bản khắc đồng bác vật. Cùng một đoạn mở đầu (dùng lại lời dẫn B01 của tập 01).
+// Cuộn dài: Nano Banana 2 tạo toàn cuộn 4:1 + chi tiết 16:9 (12 điểm/ảnh); khắc đồng: bản vẽ mj-v8.2 + trang mẫu vật (4 điểm/ảnh). Mở cuộn, dịch ngang, kính lúp, nét khắc hiện hình, màu nhạt thấm vào, lật trang đều bằng mã.
 import { clamp, lerp, eOutCubic, eInOutCubic, eOutQuint, eOutBack, el, css, rng } from "../../cine/engine/util.js";
 import { bg } from "../../cine/engine/know.js";
 
 export const COLD = 0;
 export const TAIL = 2.6;
-export const meta = { title: "风格样片集 · 第七批增强档", n: "styles7" };
+export const meta = { title: "Tuyển tập phim mẫu phong cách · đợt 7 cấp tăng cường", n: "styles7" };
 export let hits = [], blur = [], clips = [], music = [];
 export const sfx = [], sections = [];
 
@@ -15,10 +15,10 @@ const VK = (window.__vk ||= { pend: [], async wait() { while (this.pend.length) 
 const URLOF = (f) => new URL(`./assets/img/${f}`, import.meta.url).href;
 const IMG = (f) => { const im = new Image(); im.src = URLOF(f); const p = im.decode().catch(() => {}); VK.pend.push(() => p); return im; };
 const redraw = (ims, fn, t) => { if (ims.some((i) => !i.complete || !i.naturalWidth)) VK.pend.push(async () => { await Promise.all(ims.map((i) => i.decode().catch(() => {}))); fn(t); }); };
-const aiTag = (s) => el(s, "abs mono", "left:40px;bottom:34px;font-size:18px;letter-spacing:2px;padding:4px 10px;border-radius:6px;color:#3a342c;background:rgba(255,255,255,0.6);z-index:6;", "AI 示意图");
+const aiTag = (s) => el(s, "abs mono", "left:40px;bottom:34px;font-size:18px;letter-spacing:2px;padding:4px 10px;border-radius:6px;color:#3a342c;background:rgba(255,255,255,0.6);z-index:6;", "Hình minh họa AI");
 const wipeV = (n, t, a, d) => { const k = clamp((t - a) / d); css(n, { clipPath: `inset(-5% -20% ${((1 - k) * 100).toFixed(1)}% -20%)`, opacity: String(t < a ? 0 : 1) }); };
 
-// ── 1 长卷：木轴从右往左展开绢本长卷（右端南门立木），题签竖排贴上；五十金时画卷继续往左卷动，放大镜推到「扛木人」局部。讲法：展卷 + 局部放大 ──
+// ── 1 Cuộn dài: trục gỗ mở cuộn lụa từ phải sang trái (đầu bên phải là cây gỗ ở cổng nam), nhãn đề dọc dán lên; đến "năm mươi vàng" cuộn tranh tiếp tục cuộn sang trái, kính lúp đẩy tới chi tiết "người vác gỗ". Cách giảng: mở cuộn + phóng to chi tiết ──
 function scroll(s, h, z, B) {
   el(s, "abs", "inset:0;background:radial-gradient(ellipse at 50% 40%,#3a2a1c,#1d140c);");
   const W = 4354, X0 = -(W - 1920);
@@ -49,7 +49,7 @@ function scroll(s, h, z, B) {
   };
 }
 
-// ── 2 铜版博物：先用 45° 排线把灰度铜版一道道刻出来，淡彩晚一拍渗进去；左页铜版体图注逐条出现；五十金翻到「标本页」，代码给标本编号。讲法：刻线显影 + 图注 ──
+// ── 2 Khắc đồng bác vật: trước hết dùng nét đan 45° khắc từng đường bản đồng xám, màu nhạt thấm vào chậm một nhịp; chú thích kiểu chữ khắc đồng ở trang trái hiện từng dòng; đến "năm mươi vàng" lật sang "trang mẫu vật", mã đánh số mẫu vật. Cách giảng: nét khắc hiện hình + chú thích ──
 function copper(s, h, z, B) {
   el(s, "abs", "inset:0;background:#2a2118;");
   const A = IMG("copper1.jpg"), Bm = IMG("copper2.jpg");
@@ -87,8 +87,8 @@ function copper(s, h, z, B) {
 }
 
 const STY = [
-  { name: "长卷", en: "HANDSCROLL", fit: "一条时间线 · 城市生活 · 东亚史", th: { bg: 0x241910, ink: "#F3E7CF", dim: "#B49A78", accent: "#C08A52" }, make: scroll, cost: "2 张 Nano Banana 2（4:1 全卷 + 局部，24 积分）" },
-  { name: "铜版博物", en: "COPPERPLATE", fit: "动植物 · 博物学 · 器物与发明", th: { bg: 0xEFE6D2, ink: "#3A2E22", dim: "#8A7A60", accent: "#7A1E14", light: true }, make: copper, cost: "2 张 Midjourney V8.2（图版 + 标本页，8 积分）" },
+  { name: "Cuộn tranh dài", en: "HANDSCROLL", fit: "Một dòng thời gian · Đời sống đô thị · Lịch sử Đông Á", th: { bg: 0x241910, ink: "#F3E7CF", dim: "#B49A78", accent: "#C08A52" }, make: scroll, cost: "2 ảnh Nano Banana 2 (toàn cuộn 4:1 + chi tiết, 24 điểm)" },
+  { name: "Bản khắc đồng bác vật", en: "COPPERPLATE", fit: "Động thực vật · Bác vật học · Đồ vật và phát minh", th: { bg: 0xEFE6D2, ink: "#3A2E22", dim: "#8A7A60", accent: "#7A1E14", light: true }, make: copper, cost: "2 ảnh Midjourney V8.2 (bản vẽ + trang mẫu vật, 8 điểm)" },
 ];
 
 export async function build(ctx) {
@@ -104,8 +104,8 @@ export async function build(ctx) {
       el(s, "abs", `inset:0;background:#${st.th.bg.toString(16).padStart(6, "0")};`);
       const no = el(s, "abs", `left:0;width:1920px;top:340px;text-align:center;font-family:Geist;font-size:26px;letter-spacing:10px;color:${st.th.dim};`, `ENHANCED STYLE ${i + 1} / ${STY.length} · ${st.en}`);
       const nm = el(s, "abs cn", `left:0;width:1920px;top:400px;text-align:center;font-size:150px;font-weight:900;color:${st.th.ink};letter-spacing:12px;`, st.name);
-      const ft = el(s, "abs cn", `left:0;width:1920px;top:600px;text-align:center;font-size:40px;color:${st.th.accent};letter-spacing:3px;`, `适合：${st.fit}`);
-      const cr = el(s, "abs cn", `left:0;width:1920px;top:680px;text-align:center;font-size:26px;color:${st.th.dim};`, `增强档 · ${st.cost}，动效全部代码`);
+      const ft = el(s, "abs cn", `left:0;width:1920px;top:600px;text-align:center;font-size:40px;color:${st.th.accent};letter-spacing:3px;`, `Phù hợp: ${st.fit}`);
+      const cr = el(s, "abs cn", `left:0;width:1920px;top:680px;text-align:center;font-size:26px;color:${st.th.dim};`, `Cấp tăng cường · ${st.cost}, hiệu ứng hoàn toàn bằng mã`);
       return { s, ns: [no, nm, ft, cr] };
     }, (t, u) => {
       bg(ctx, st.th, { bloom: 0, vig: st.th.light ? 0.12 : 0.4 });
@@ -117,8 +117,8 @@ export async function build(ctx) {
   add(END, END + TAIL, (root) => {
     const s = el(root, "shot");
     el(s, "abs", "inset:0;background:#0B0A0C;");
-    el(s, "abs cn", "left:0;width:1920px;top:360px;text-align:center;font-size:84px;font-weight:900;color:#f6f2ea;", "风格库 +2：长卷 · 铜版博物");
-    el(s, "abs cn", "left:0;width:1920px;top:520px;text-align:center;font-size:32px;color:#a8a29a;", "共 37 套 · 8 个家族 · 其中 6 套增强档");
+    el(s, "abs cn", "left:0;width:1920px;top:360px;text-align:center;font-size:84px;font-weight:900;color:#f6f2ea;", "Thư viện phong cách +2: cuộn dài · khắc đồng bác vật");
+    el(s, "abs cn", "left:0;width:1920px;top:520px;text-align:center;font-size:32px;color:#a8a29a;", "Tổng 37 bộ · 8 họ · trong đó 6 bộ cấp tăng cường");
     return { s };
   }, () => bg(ctx, { bg: 0x0b0a0c }, { bloom: 0.3 }));
   return shots;

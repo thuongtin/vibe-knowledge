@@ -1,26 +1,26 @@
-# 默片字卡 · SILENT FILM
+# Thẻ chữ phim câm · SILENT FILM
 
-> 家族：电影感　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles6_film.js → silent()`
+> Họ: Điện ảnh | Bậc: Bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn bản mẫu: `_samples/styles6_film.js → silent()`
 
-**一句话**：棕褐黑白胶片，颗粒、闪烁、划痕、18 帧/秒抖动；画面和花边字卡交替，光圈开合。
+**Một câu**: Phim đen trắng nâu sepia, có hạt, nhấp nháy, vết xước, rung 18 khung hình/giây; hình ảnh và thẻ chữ viền hoa xen kẽ, khẩu độ đóng mở.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 默片的叙事语法：画面负责演，字卡负责说，一句话一张卡。 |
-| 材质 / 画法 | 剪影场景 SVG（棕褐渐变天空）+ 黑底花边字卡（双框 + 四角花饰）+ 光圈遮罩 + 暗角 + 灰尘点 + 竖划痕。 |
-| 配色逻辑 | 胶片黑 #0B0A08 · 棕褐 #D8C9A8 · 剪影 #1D1812 · 字卡白 #E9E1CF（整体再过 sepia 0.35） |
-| 字体 | 宋体 700，字卡 96px，字距 14 |
-| 动态 | 18 帧/秒量化的抖动和亮度闪烁；字卡硬切；开场光圈打开 0.6 秒，结尾收拢；高潮后剪影人扛木走出画面。 |
-| 镜头语法 | 锁定（抖动来自胶片）。 |
-| 声音 | 放映机转动声、钢琴伴奏（ragtime）。 |
-| 标志镜头 | 黑底花边字卡「——无人敢动。」，下一张「赏金加至 五十金！」。 |
+| Ý đồ đạo diễn | Ngữ pháp kể chuyện của phim câm: hình ảnh lo diễn, thẻ chữ lo nói, một câu một thẻ. |
+| Chất liệu / cách vẽ | Cảnh bóng đen SVG (bầu trời chuyển sắc nâu sepia) + thẻ chữ viền hoa nền đen (khung đôi + hoa văn bốn góc) + mặt nạ khẩu độ + tối góc + đốm bụi + vết xước dọc. |
+| Logic phối màu | Đen phim #0B0A08 · nâu sepia #D8C9A8 · bóng đen #1D1812 · trắng thẻ chữ #E9E1CF (toàn bộ qua thêm sepia 0.35) |
+| Phông chữ | Font Tống thể 700, thẻ chữ 96px, giãn chữ 14 |
+| Chuyển động | Rung và nhấp nháy độ sáng lượng tử hóa ở 18 khung hình/giây; thẻ chữ cắt cứng; mở đầu khẩu độ mở ra trong 0,6 giây, cuối phim thu lại; sau cao trào bóng người vác gỗ đi ra khỏi khung hình. |
+| Ngữ pháp ống kính | Cố định (rung đến từ cuộn phim). |
+| Âm thanh | Tiếng máy chiếu quay, đàn piano đệm (ragtime). |
+| Cảnh đặc trưng | Thẻ chữ viền hoa nền đen “— Không ai dám động vào.”, thẻ kế tiếp “Tiền thưởng tăng lên năm mươi lượng vàng!”. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换字卡花边、换棕褐 / 纯黑白
-- **一改就变味**：用平滑 60 帧动画（失去胶片感）
-- **不能改**：字直接压在画面上（默片是字卡交替）
+## Có thể sửa đến mức nào (dùng khi đổi thành “phong cách của tôi”)
+- **Cứ yên tâm sửa**: đổi viền hoa thẻ chữ, đổi nâu sepia / đen trắng thuần
+- **Sửa là mất chất**: dùng hoạt họa mượt 60 khung hình (mất cảm giác phim)
+- **Không được sửa**: để chữ đè thẳng lên hình (phim câm là thẻ chữ xen kẽ)
 
-## 搭配
-- 适合母版：两难选择 B、一条主线 D
-- 不适合：现代科技、数据新闻
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Phối hợp
+- Phù hợp bản gốc: lựa chọn khó xử B, một mạch chính D
+- Không phù hợp: công nghệ hiện đại, tin tức dữ liệu
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

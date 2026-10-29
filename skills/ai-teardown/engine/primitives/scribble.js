@@ -1,13 +1,13 @@
 /**
- * Doodles 涂鸦讲解：在画面上「边讲边画」——手绘风格的圈、下划线、方框、箭头、勾、叉，旁边配手写批注（手札体）。
- * 坐标是舞台坐标（原点在画面中心，x 向右、y 向下，单位像素）；场景模板会把「终端第几行第几列」「截图的几成位置」换算过来。
+ * Doodles giải thích bằng nét vẽ: "vừa nói vừa vẽ" trên màn hình: vòng tròn, gạch chân, khung, mũi tên, dấu tick, dấu x vẽ tay, kèm chú thích viết tay (kiểu chữ sổ tay).
+ * Tọa độ là tọa độ sân khấu (gốc ở giữa khung hình, x sang phải, y xuống dưới, đơn vị pixel); mẫu cảnh sẽ quy đổi "dòng thứ mấy cột thứ mấy của terminal", "vị trí bao nhiêu phần của ảnh chụp màn hình" sang tọa độ này.
  *
  * params
  *   marks [{kind, box: [x0, y0, x1, y1], at, dur, until, color, note: {text, side, dx, dy, size}}]
- *     kind   circle 圈 · underline 下划线 · box 方框 · arrow 箭头（从批注指向 box）· check 勾 · cross 叉 · bracket 竖括号
- *     note   手写批注：side 放在 box 的哪一边（right / left / top / bottom），dx/dy 微调；有 note 时 arrow 从批注画向目标
+ *     kind   circle vòng tròn · underline gạch chân · box khung · arrow mũi tên (từ chú thích chỉ tới box) · check dấu tick · cross dấu x · bracket ngoặc dọc
+ *     note   chú thích viết tay: side đặt ở cạnh nào của box (right / left / top / bottom), dx/dy tinh chỉnh; khi có note, arrow vẽ từ chú thích tới đích
  *   out
- * 笔画用 pathLength + dashoffset 一笔画出来；抖动用固定种子，同一时刻画面永远一样。render(t) 只依赖 t。
+ * Nét bút dùng pathLength + dashoffset để vẽ liền một nét; độ rung dùng seed cố định, cùng một thời điểm thì hình luôn giống nhau. render(t) chỉ phụ thuộc t.
  */
 import { h, s, setStyle, setAttr } from "../runtime/dom.js";
 import { appear, UI } from "../runtime/spring.js";
@@ -78,7 +78,7 @@ export const Doodles = {
         noteEl = h("div", { class: "dd-note", text: n.text, style: { fontSize: `${size}px`, color,
           left: `${nx + 960}px`, top: `${ny + 540}px`, transform: `translate(${side === "left" ? "-100%" : side === "right" ? "0" : "-50%"},-50%) rotate(${n.rot ?? -3}deg)` } });
         el.append(noteEl);
-        // 箭头从批注靠近目标的一侧出发
+        // Mũi tên xuất phát từ phía chú thích gần đích
         anchor = { right: [nx - 10, ny], left: [nx + 10, ny], top: [nx, ny + 26], bottom: [nx, ny - 26] }[side];
       }
       const ds = [...paths(m.kind === "arrow" ? "" : m.kind, box, r)];
@@ -105,7 +105,7 @@ export const Doodles = {
         setStyle(el, "opacity", (1 - clamp01((t - out) / 0.3)).toFixed(3));
         for (const q of items) {
           const at = q.m.at, gone = q.m.until != null ? 1 - clamp01((t - q.m.until) / 0.3) : 1;
-          // 批注先写出来（0.35 秒），笔画一笔接一笔画
+          // Chú thích được viết trước (0,35 giây), các nét bút vẽ nối tiếp nhau
           let t0 = at;
           if (q.noteEl) {
             const a = appear(t, at, UI);

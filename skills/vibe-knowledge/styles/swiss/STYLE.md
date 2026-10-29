@@ -1,26 +1,26 @@
-# 瑞士网格动态字 · SWISS KINETIC
+# Chữ động lưới Thuỵ Sĩ · SWISS KINETIC
 
-> 家族：图解与设计　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles3_film.js → swiss()`
+> Họ: Đồ giải và thiết kế | Mức: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles3_film.js → swiss()`
 
-**一句话**：米白底 12 栏网格，超大黑字压在栏线上，红色色块推拉；字在重音砸进来，退场比进场快。
+**Một câu**: nền trắng ngà lưới 12 cột, chữ đen siêu lớn đè lên đường cột, khối màu đỏ đẩy kéo; chữ đập vào ở trọng âm, lúc rút ra nhanh hơn lúc vào.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 国际主义平面设计：字就是画面，网格就是秩序，红色只出现在最重要的地方。 |
-| 材质 / 画法 | #F2F1EC 底 + 12 栏淡红栏线 + 黑色粗横线；遮罩上滑的大字；整块红色色块。 |
-| 配色逻辑 | 底 #F2F1EC · 字 #111 · 唯一强调 #E3001B |
-| 字体 | Helvetica Neue / Geist 900，主字 200–600px，字距 -3%；小字 22–24px 做页眉 |
-| 动态 | 遮罩上滑进场（eOutQuint 0.36 秒）、加速下滑退场（0.16 秒）；红块从右推入、推出；数字替换用上下遮罩。 |
-| 镜头语法 | 锁定，构图对齐栏线。 |
-| 声音 | 短促打击、Minimal Techno。 |
-| 标志镜头 | 巨大的「10」占半屏，红块推入竖排「没人动」，然后「10」被「50」顶掉，右侧砸下「×5」。 |
+| Ý đồ đạo diễn | Thiết kế đồ hoạ phong cách quốc tế: chữ chính là hình ảnh, lưới chính là trật tự, màu đỏ chỉ xuất hiện ở chỗ quan trọng nhất. |
+| Chất liệu / Cách vẽ | Nền #F2F1EC + đường cột đỏ nhạt 12 cột + đường ngang đen đậm; chữ lớn trượt lên qua mặt nạ; khối màu đỏ nguyên tấm. |
+| Logic màu | Nền #F2F1EC · chữ #111 · điểm nhấn duy nhất #E3001B |
+| Phông chữ | Helvetica Neue / Geist 900, chữ chính 200–600px, giãn chữ -3%; chữ nhỏ 22–24px làm đầu trang |
+| Chuyển động | Vào cảnh bằng mặt nạ trượt lên (eOutQuint 0.36 giây), rút ra bằng trượt xuống tăng tốc (0.16 giây); khối đỏ đẩy vào, đẩy ra từ bên phải; thay số dùng mặt nạ trên dưới. |
+| Ngữ pháp ống kính | Cố định, bố cục căn theo đường cột. |
+| Âm thanh | Tiếng đập ngắn gọn, Minimal Techno. |
+| Cảnh đặc trưng | Số "10" khổng lồ chiếm nửa màn hình, khối đỏ đẩy vào dòng chữ dọc "Không ai động", rồi "10" bị "50" đẩy bật đi, bên phải đập xuống "×5". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换强调色、换页眉信息
-- **一改就变味**：字不对齐栏线、出现第三种颜色
-- **不能改**：用衬线体或手写体
+## Có thể sửa đến mức nào (dùng khi chuyển thành "phong cách của tôi")
+- **Sửa thoải mái**: đổi màu nhấn, đổi thông tin đầu trang
+- **Sửa là mất chất**: chữ không căn theo đường cột, xuất hiện màu thứ ba
+- **Không được sửa**: dùng chữ có chân hoặc chữ viết tay
 
-## 搭配
-- 适合母版：猜谜概念 A、六面轮转 F
-- 不适合：需要大量插画场景的叙事
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Mẫu gốc phù hợp: đố vui khái niệm A, xoay sáu mặt F
+- Không phù hợp: kể chuyện cần nhiều cảnh minh hoạ
+- Tiền tố Renoise của mức nâng cao: `(mức cơ bản không cần)`

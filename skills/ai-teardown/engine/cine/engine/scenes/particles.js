@@ -1,5 +1,5 @@
-// 26 万个粒子：所有队形（爆炸云、标题、中文、水平线、星尘）都是顶点着色器里关于时间的解析式，
-// 所以任意时刻都能直接算出来——可以倒放、可以跳帧，逐帧渲染完全确定。
+// 260.000 hạt: mọi đội hình (đám mây nổ, tiêu đề, tiếng Trung, đường ngang, bụi sao) đều là biểu thức giải tích theo thời gian trong vertex shader,
+// nên có thể tính trực tiếp tại bất kỳ thời điểm nào: tua ngược được, nhảy khung được, render từng khung hoàn toàn xác định.
 import * as THREE from "three";
 import { NOISE } from "../glsl.js";
 import { rng } from "../util.js";
@@ -7,7 +7,7 @@ import { rng } from "../util.js";
 const SIDE = 512, N = SIDE * SIDE;
 export const F = { POINT: 0, CLOUD: 1, TITLE: 2, CN: 3, LINE: 4, DUST: 5 };
 
-// 把文字画到画布上，在笔画内部随机取 N 个点；少量点散在笔画周围做光晕
+// Vẽ chữ lên canvas, lấy ngẫu nhiên N điểm bên trong nét chữ; một số ít điểm rải quanh nét làm quầng sáng
 function sampleText(draw, cw, ch, n, seed, o) {
   const c = document.createElement("canvas");
   c.width = cw; c.height = ch;
@@ -53,8 +53,8 @@ vec3 sph(vec2 r){ float z = r.x * 2.0 - 1.0; float a = r.y * 6.2831853; float s 
 vec4 form(int id){
   if (id == 0) return vec4((aRand.xyz - 0.5) * 3.0, 0.15);
   if (id == 1) {
-    // 爆炸：初速 1200–9000、强阻尼，0.1 秒就飞出几百单位，之后悬停成一个球壳；扰动幅度随半径增大，中心不打旋
-    // 七成粒子速度几乎一样 → 一圈向外扩散的冲击波球壳；三成是速度各异的火星
+    // Vụ nổ: vận tốc đầu 1200–9000, giảm chấn mạnh, 0,1 giây đã bay ra vài trăm đơn vị, sau đó lơ lửng thành một vỏ cầu; biên độ nhiễu tăng theo bán kính, tâm không xoáy
+    // 70% hạt có vận tốc gần như nhau → vỏ cầu sóng xung kích lan ra ngoài; 30% là tia lửa với vận tốc khác nhau
     vec3 dir = sph(aRand.xy); float k = 4.2; float tt = max(uBurst, 0.0);
     float sp = aRand.z < 0.7 ? mix(2500.0, 2900.0, aRand.z / 0.7) : mix(700.0, 9000.0, pow((aRand.z - 0.7) / 0.3, 1.5));
     vec3 p = dir * sp * (1.0 - exp(-k * tt)) / k;
@@ -86,7 +86,7 @@ void main(){
   pos += snoise3(pos * 0.011 + vec3(0.0, 0.0, uTime * 0.4)) * 1.4;
   vec4 mv = modelViewMatrix * vec4(pos, 1.0);
   gl_Position = projectionMatrix * mv;
-  float rs = fract(sin(dot(aRand, vec4(12.9898, 78.233, 37.719, 4.581))) * 43758.5453);   // 和位置无关的随机数，决定大小
+  float rs = fract(sin(dot(aRand, vec4(12.9898, 78.233, 37.719, 4.581))) * 43758.5453);   // số ngẫu nhiên không phụ thuộc vị trí, quyết định kích thước
   gl_PointSize = clamp(uSize * (0.6 + 0.8 * rs) * (1712.0 / max(-mv.z, 40.0)), 0.6, 48.0);
   float m = mix(A.w, B.w, e);
   float tw = 0.9 + 0.1 * sin(uTime * 5.3 + rs * 97.0);
@@ -126,14 +126,14 @@ export class Particles {
   }
 
   build() {
-    // 标题：小字 CLAUDE + 大字 Opus 5.5（颜色从象牙白渐变到橙）
+    // Tiêu đề: chữ nhỏ CLAUDE + chữ lớn Opus 5.5 (màu chuyển dần từ trắng ngà sang cam)
     this.u.uTitle.value = dataTex(sampleText((g, w, h) => {
       g.fillStyle = "#fff"; g.textAlign = "center"; g.textBaseline = "alphabetic";
       g.font = "600 92px Geist"; g.letterSpacing = "34px"; g.fillText("CLAUDE", w / 2 + 17, 200);
       g.letterSpacing = "-6px"; g.font = "800 330px Geist"; g.fillText("Opus 5.5", w / 2, 520);
     }, 1800, 620, N, 11, { scale: 1, depth: 36, halo: 0.08, haloR: 40, haloZ: 240, oy: 30,
       mix: (x, y, R, halo) => (y < 0.37 ? 0.06 : Math.min(1, Math.max(0, (x - 0.18) / 0.72)) * 0.95 + (halo ? 0.2 : 0)) }));
-    // 中文：每一帧，都是代码
+    // Tiếng Trung: "每一帧，都是代码" (Mỗi khung hình đều là code)
     this.u.uCN.value = dataTex(sampleText((g, w, h) => {
       g.fillStyle = "#fff"; g.textAlign = "center"; g.textBaseline = "middle";
       g.font = "900 196px NotoSC"; g.fillText("每一帧，都是代码", w / 2, h / 2 + 6);
@@ -141,8 +141,8 @@ export class Particles {
       mix: (x, y, R, halo) => (x > 0.745 ? 0.88 + R() * 0.12 : 0.03 + R() * 0.08) }));
   }
 
-  // 自定义文字队形：slot 是 "title" 或 "cn"（对应 F.TITLE / F.CN）。lines: [{text, font: "900 196px NotoSC", y, spacing}]，
-  // 画布 w×h 居中摆字；hot(xr, yr) 返回 0..1（0 象牙白、1 橙色），默认整行象牙白、最后 25% 橙色
+  // Đội hình chữ tùy chỉnh: slot là "title" hoặc "cn" (tương ứng F.TITLE / F.CN). lines: [{text, font: "900 196px NotoSC", y, spacing}]，
+  // chữ được đặt giữa canvas w×h; hot(xr, yr) trả về 0..1 (0 trắng ngà, 1 cam), mặc định cả dòng trắng ngà, 25% cuối màu cam
   setText(slot, { lines, w = 1800, h = 420, hot = (x) => (x > 0.75 ? 0.9 : 0.06), seed = 31, oy = 30 }) {
     const tex = dataTex(sampleText((g, cw, ch) => {
       g.fillStyle = "#fff"; g.textAlign = "center"; g.textBaseline = "middle";

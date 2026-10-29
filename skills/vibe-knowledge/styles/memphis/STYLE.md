@@ -1,26 +1,26 @@
-# 孟菲斯波普 · MEMPHIS POP
+# Memphis Pop · MEMPHIS POP
 
-> 家族：明亮流行　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles3_film.js → memphis()`
+> Họ: Tươi sáng đại chúng | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles3_film.js → memphis()`
 
-**一句话**：奶油底上漂着锯齿、圆点、三角，积木拼出的城门，硬投影大字，高潮变沃霍尔四色格。
+**Một câu**: Trên nền kem trôi nổi các đường răng cưa, chấm tròn, tam giác, cổng thành xếp bằng khối gỗ, chữ lớn đổ bóng cứng, đến cao trào biến thành lưới bốn màu kiểu Warhol.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 80 年代孟菲斯 + 波普：形状本身就是乐子，信息用色块和硬投影说话。 |
-| 材质 / 画法 | 平涂几何（锯齿线、点阵、空心三角、实心圆、斜纹圆）+ 粗黑描边 + 硬投影（不模糊）。 |
-| 配色逻辑 | 底 #FFF4E0 · 粉 #FF5D8F · 青 #2EC4B6 · 黄 #FFC93C · 蓝 #2E86DE · 黑 #111 |
-| 字体 | 数字 Geist 900（330px，字距 -12）；中文 NotoSC 900 放黑底标签里 |
-| 动态 | 碎片错开弹入后各自漂、慢转；场景积木从下往上弹进；「没人动」时城门抖；高潮四色格错开 0.09 秒弹出。 |
-| 镜头语法 | 锁定。转场用色块翻转。 |
-| 声音 | 木琴、拍手、弹簧；复古合成器 BGM。 |
-| 标志镜头 | 同一个「50」排成粉黄蓝青四色格（沃霍尔）。 |
+| Ý đồ đạo diễn | Memphis thập niên 80 + Pop: bản thân hình khối đã là niềm vui, thông tin lên tiếng bằng mảng màu và bóng đổ cứng. |
+| Chất liệu / Cách vẽ | Hình học phẳng (đường răng cưa, ma trận chấm, tam giác rỗng, hình tròn đặc, hình tròn sọc chéo) + viền đen dày + bóng đổ cứng (không làm mờ). |
+| Logic phối màu | Nền #FFF4E0 · hồng #FF5D8F · xanh ngọc #2EC4B6 · vàng #FFC93C · xanh dương #2E86DE · đen #111 |
+| Phông chữ | Số Geist 900 (330px, giãn chữ -12); chữ Trung NotoSC 900 đặt trong nhãn nền đen |
+| Chuyển động | Các mảnh bật vào lệch nhịp rồi mỗi mảnh tự trôi, xoay chậm; khối gỗ của cảnh bật từ dưới lên; khi "không ai nhúc nhích" thì cổng thành rung; cao trào lưới bốn màu bật ra lệch nhau 0,09 giây. |
+| Ngữ pháp máy quay | Cố định. Chuyển cảnh bằng lật mảng màu. |
+| Âm thanh | Mộc cầm, vỗ tay, lò xo; BGM synth retro. |
+| Cảnh đặc trưng | Cùng một số "50" xếp thành lưới bốn màu hồng vàng xanh ngọc (Warhol). |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换四个主色、换碎片形状
-- **一改就变味**：去掉粗黑描边和硬投影（会变扁平插画）
-- **不能改**：用渐变和柔和阴影
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi bốn màu chủ đạo, đổi hình dạng các mảnh
+- **Sửa là mất chất**: bỏ viền đen dày và bóng đổ cứng (sẽ thành minh họa phẳng)
+- **Không được sửa**: dùng gradient và bóng đổ mềm
 
-## 搭配
-- 适合母版：消费、品牌、设计史 C / A
-- 不适合：需要写实画面的历史叙事
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Bản gốc phù hợp: tiêu dùng, thương hiệu, lịch sử thiết kế C / A
+- Không phù hợp: tự sự lịch sử cần hình ảnh chân thực
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

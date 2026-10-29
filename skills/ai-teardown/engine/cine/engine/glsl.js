@@ -1,4 +1,4 @@
-// 共用的 GLSL 片段：3D simplex 噪声（Ashima Arts / Stefan Gustavson 的经典写法，MIT）与 curl 噪声
+// Các đoạn GLSL dùng chung: nhiễu simplex 3D (cách viết kinh điển của Ashima Arts / Stefan Gustavson, MIT) và nhiễu curl
 export const NOISE = /* glsl */ `
 vec3 mod289(vec3 x){ return x - floor(x * (1.0 / 289.0)) * 289.0; }
 vec4 mod289(vec4 x){ return x - floor(x * (1.0 / 289.0)) * 289.0; }

@@ -1,43 +1,43 @@
-# 04 · 单形状 UI 变形（Morph）
+# 04 · Biến hình UI một hình dạng (Morph)
 
-一个形状从头到尾不切：尺寸、圆角、描边颜色都由弹簧驱动；每个状态的内容用短模糊进出，光标用真实的点击推动变化。移植自 promo-video 的 one-shape 模式（`references/one-shape.md`、`spring.ts`、`examples/morph-loop`、`morph-promo`），实现在 `primitives/morph.js`。
+Một hình dạng từ đầu đến cuối không bị cắt: kích thước, bo góc, màu viền đều do lò xo điều khiển; nội dung của mỗi trạng thái vào ra bằng hiệu ứng mờ ngắn, con trỏ dùng cú nhấp thật để thúc đẩy thay đổi. Chuyển từ chế độ one-shape của promo-video (`references/one-shape.md`, `spring.ts`, `examples/morph-loop`, `morph-promo`), cài đặt nằm trong `primitives/morph.js`.
 
-## 教学版和宣传片版的差别
+## Khác biệt giữa bản giảng dạy và bản phim quảng bá
 
-| | 宣传片版（promo-video） | 教学版（拆机课） |
+| | Bản phim quảng bá (promo-video) | Bản giảng dạy (bài phân tích tháo máy) |
 |---|---|---|
-| 节奏 | 一拍一个动作，严格 7 小节 | **速览**：两拍一个状态（120 BPM 约 1 秒），一句旁白带过整条流程；**讲解**：每个状态至少一小节，按旁白长度取整到小节 |
-| 起止 | 首帧 = 末帧，整片循环 | 从总图节点长出（`from` = 节点几何），演完缩回；节点用 `open/close` 让位；单独导出循环版时才要求首末帧一致 |
-| 状态从哪来 | 按卖点拟 | 必须是产品的真实步骤，每个状态挂事实；角落标「界面示意」 |
-| 颜色 | 黑白加一个强调色 | 描边按「谁在动」走角色色：用户蓝、模型紫、工具绿、边界橙 |
-| 声音 | UI 音效是主角 | 按实测峰值对齐，压在旁白下面（-12 到 -22 dB） |
-| 字体 | Geist，中文回落苹方 | Geist + 思源黑体（可变字重，本地文件） |
+| Nhịp điệu | Mỗi nhịp một động tác, đúng 7 ô nhịp | **Xem nhanh**: hai nhịp một trạng thái (120 BPM khoảng 1 giây), một câu lời dẫn lướt qua cả quy trình; **giảng giải**: mỗi trạng thái ít nhất một ô nhịp, làm tròn thành ô nhịp theo độ dài lời dẫn |
+| Bắt đầu và kết thúc | Khung đầu = khung cuối, cả phim lặp vòng | Mọc ra từ nút trên sơ đồ tổng (`from` = hình học của nút), diễn xong co lại; nút dùng `open/close` để nhường chỗ; chỉ khi xuất riêng bản lặp vòng mới yêu cầu khung đầu cuối giống nhau |
+| Trạng thái từ đâu ra | Soạn theo điểm bán hàng | Phải là các bước thật của sản phẩm, mỗi trạng thái gắn một sự thật; góc ghi "minh họa giao diện" |
+| Màu sắc | Đen trắng thêm một màu nhấn | Viền theo màu vai trò "ai đang hành động": người dùng xanh lam, mô hình tím, công cụ xanh lục, ranh giới cam |
+| Âm thanh | Âm thanh UI là nhân vật chính | Căn theo đỉnh đo thực tế, đặt dưới lời dẫn (-12 đến -22 dB) |
+| Phông chữ | Geist, tiếng Trung quay về PingFang | Geist + Source Han Sans (độ đậm biến thiên, file cục bộ) |
 
-## 时间怎么定（Spike 里跑通的做法）
+## Cách định thời gian (cách đã chạy thông trong Spike)
 
-1. 旁白逐项点名每个状态，并在前面插 cue：`从你这边看：[[input]]你下任务，[[run]]它开跑，[[term]]跑命令……`
-2. 配音后，cue 时刻就是状态切换点；再四舍五入到 0.25 秒网格（120 BPM 的半拍），画面和旁白的偏差不超过 0.125 秒。
-3. 形状在第一个状态前 0.45 秒从节点长出，在最后一句结束前 0.8 秒缩回。
-4. 镜头每个状态 zoom-to-fit：`z = min(0.52·W / w, 0.46·H / h, 2.0)`，焦点比形状中心低 34 px，让形状落在字幕带上方。
-5. 光标至少提前 0.5 秒到达要按的位置（临界阻尼，不过冲），按下 0.12 秒；形状同时轻压到 0.985。
+1. Lời dẫn gọi tên từng trạng thái, và chèn cue ở phía trước: `Nhìn từ phía bạn: [[input]]bạn giao nhiệm vụ, [[run]]nó bắt đầu chạy, [[term]]chạy lệnh……`
+2. Sau khi lồng tiếng, thời điểm cue chính là điểm chuyển trạng thái; sau đó làm tròn về lưới 0,25 giây (nửa nhịp của 120 BPM), độ lệch giữa hình và lời dẫn không quá 0,125 giây.
+3. Hình dạng mọc ra từ nút 0,45 giây trước trạng thái đầu tiên, co lại 0,8 giây trước khi câu cuối kết thúc.
+4. Mỗi trạng thái của máy quay zoom-to-fit: `z = min(0.52·W / w, 0.46·H / h, 2.0)`, tiêu điểm thấp hơn tâm hình dạng 34 px, để hình dạng nằm phía trên dải phụ đề.
+5. Con trỏ đến vị trí cần nhấn sớm ít nhất 0,5 giây (giảm chấn tới hạn, không vọt quá), nhấn 0,12 giây; hình dạng đồng thời bị ép nhẹ xuống 0,985.
 
-## 状态库
+## Thư viện trạng thái
 
-| 种类 | 用途 | 参数 | 状态 |
+| Loại | Công dụng | Tham số | Trạng thái |
 |---|---|---|---|
-| `input` | 输入需求 | `text`、`typeAt`、`cps`、`sendAt` | ✅ |
-| `loader` | 开跑、等待 | — | ✅ |
-| `terminal` | 跑命令 | `lines[{kind,text,at}]`、`title` | ✅ |
-| `diff` | 改代码 | `file`、`lines[{k,text,at}]` | ✅ |
-| `approve` | 审批开关 | `text`、`toggleAt`（圆钮两边走 LEAD/TRAIL 弹簧） | ✅ |
-| `toast` | 通知、交付 | `title`、`sub`、`icon` | ✅ |
-| `chat` | 对话流式输出 | `messages[]` | ○ |
-| `button` / `check` / `island` / `player` / `scrub` / `slider` / `tabs` / `chart` / `cmdk` | 通用 UI 状态（promo 两个示例里都有，按需重写） | 见 promo `Reel.tsx` | ○ |
+| `input` | Nhập yêu cầu | `text`, `typeAt`, `cps`, `sendAt` | ✅ |
+| `loader` | Bắt đầu chạy, chờ | — | ✅ |
+| `terminal` | Chạy lệnh | `lines[{kind,text,at}]`, `title` | ✅ |
+| `diff` | Sửa code | `file`, `lines[{k,text,at}]` | ✅ |
+| `approve` | Công tắc phê duyệt | `text`, `toggleAt` (nút tròn hai bên chạy lò xo LEAD/TRAIL) | ✅ |
+| `toast` | Thông báo, bàn giao | `title`, `sub`, `icon` | ✅ |
+| `chat` | Hội thoại xuất theo dòng chảy | `messages[]` | ○ |
+| `button` / `check` / `island` / `player` / `scrub` / `slider` / `tabs` / `chart` / `cmdk` | Trạng thái UI thông dụng (cả hai ví dụ promo đều có, viết lại khi cần) | xem `Reel.tsx` của promo | ○ |
 
-新增种类：在 `KINDS` 里加 `build(state, ctx) → {el, render(dt)}`，`dt` 是进入该状态后的秒数。
+Thêm loại mới: thêm `build(state, ctx) → {el, render(dt)}` vào `KINDS`, `dt` là số giây kể từ khi vào trạng thái đó.
 
-## 已知缺口
+## Khoảng trống đã biết
 
-- 图标形变（播放 ↔ 暂停这类）：没有现成实现。
-- 9:16 布局：形状尺寸和镜头要按竖屏重算。
-- 速览模式下，改代码这类状态只停 0.75 秒左右，读不完；这是有意的（速览只建立顺序感），要看清就用讲解模式或独立的 CodeDiff。
+- Biến hình biểu tượng (kiểu phát ↔ tạm dừng): chưa có cài đặt sẵn.
+- Bố cục 9:16: kích thước hình dạng và máy quay phải tính lại cho màn hình dọc.
+- Ở chế độ xem nhanh, các trạng thái như sửa code chỉ dừng khoảng 0,75 giây, đọc không kịp; đây là chủ ý (xem nhanh chỉ để tạo cảm giác thứ tự), muốn nhìn rõ thì dùng chế độ giảng giải hoặc CodeDiff độc lập.

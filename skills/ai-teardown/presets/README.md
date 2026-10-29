@@ -1,6 +1,6 @@
-# presets（自备）
+# presets (tự chuẩn bị)
 
-开源版不带作者本人的声音样本和讲解小人形象。需要时自己放：
+Bản mã nguồn mở không kèm mẫu giọng nói và hình nhân vật thuyết minh của tác giả. Khi cần, tự đặt vào:
 
-- `voice/host-ref.wav`：10–30 秒、干净的单人录音，用来让小米 MiMo 克隆音色（只用你本人或已获授权的声音）。不放的话，vibe-knowledge 默认用 `skills/vibe-knowledge/assets/voice/default-voice-ref.wav`（MiMo 音色设计生成的 AI 声音）。
-- `presenter/*.png` + `presenter/images.presenter.json`：sketch 风格的讲解小人（10 个动作 × 8 帧）。cine 引擎（知识大赏用的）不需要。
+- `voice/host-ref.wav`: bản ghi âm một người, sạch, dài 10–30 giây, dùng để Xiaomi MiMo nhân bản giọng (chỉ dùng giọng của chính bạn hoặc giọng đã được cấp phép). Nếu không đặt, vibe-knowledge mặc định dùng `skills/vibe-knowledge/assets/voice/default-voice-ref.wav` (giọng AI do MiMo thiết kế giọng tạo ra).
+- `presenter/*.png` + `presenter/images.presenter.json`: nhân vật thuyết minh phong cách sketch (10 động tác × 8 khung). Engine cine (dùng cho Vibe Tri Thức Đại Thưởng) không cần.

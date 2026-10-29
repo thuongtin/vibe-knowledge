@@ -1,23 +1,23 @@
-# 09 · 隐私、版权与密钥
+# 09 · Quyền riêng tư, bản quyền và khóa API
 
-## 密钥
-- MiMo 密钥只放 `~/.config/ai-teardown/mimo.env`（600 权限）。不写进项目、narration、页面、日志摘录、记忆或 skill。
-- 录屏、截图里不能出现 auth.json、API key、Token、AppID/Secret、账号邮箱。
+## Khóa API
+- Khóa MiMo chỉ đặt trong `~/.config/ai-teardown/mimo.env` (quyền 600). Không ghi vào dự án, narration, trang, đoạn trích nhật ký, bộ nhớ hay skill.
+- Trong quay màn hình và ảnh chụp không được xuất hiện auth.json, API key, Token, AppID/Secret, email tài khoản.
 
-## 截图与录屏
-- 裁掉或不用：个人姓名账号（书中作者署名可保留）、手机号、二维码、群号、邀请码、邮箱、本机路径里的用户名、公司/客户内部名称、会议号。
-- 需要局部遮盖时另存打码版图片再引用。
-- 终端录屏：term_frames 打码 + rec_scan 扫描，发布前必做；发现一帧露出用户名也要撤下重渲。
-- 录屏会动到用户本机配置时：先备份、录完恢复，并告诉用户。
+## Ảnh chụp và quay màn hình
+- Cắt bỏ hoặc không dùng: tên tài khoản cá nhân (tên tác giả ký trong sách có thể giữ), số điện thoại, mã QR, số nhóm, mã mời, email, tên người dùng trong đường dẫn máy, tên nội bộ của công ty/khách hàng, số cuộc họp.
+- Khi cần che cục bộ thì lưu riêng một ảnh đã che rồi mới trích dẫn.
+- Quay màn hình terminal: term_frames che mờ + rec_scan quét, bắt buộc làm trước khi phát hành; phát hiện dù chỉ một khung lộ tên người dùng cũng phải gỡ xuống và render lại.
+- Khi quay màn hình đụng đến cấu hình trên máy người dùng: sao lưu trước, quay xong khôi phục, và báo cho người dùng.
 
-## 内容边界
-- 不编造：原文没写的功能、数字、步骤不补；推断要标明。
-- 投资/医疗/法律类：按原文提醒边界；投资课不念个股名、价格、评级、操作建议，结尾逐字引用「不构成投资建议」一类声明。
-- 不教绕过地区限制、不教规避平台规则。
-- 讲解小人可加简短安全提醒（「连账号前，看清授权范围」），但不替作者发表观点。
+## Ranh giới nội dung
+- Không bịa: chức năng, con số, các bước mà bản gốc không viết thì không bổ sung; suy đoán phải ghi rõ.
+- Loại đầu tư/y tế/pháp lý: theo ranh giới nhắc nhở trong bản gốc; bài đầu tư không đọc tên cổ phiếu cụ thể, giá, xếp hạng, lời khuyên giao dịch, phần kết trích nguyên văn các tuyên bố kiểu "không cấu thành lời khuyên đầu tư".
+- Không dạy lách hạn chế khu vực, không dạy né quy tắc của nền tảng.
+- Nhân vật giảng giải có thể thêm lời nhắc an toàn ngắn ("trước khi liên kết tài khoản, hãy xem rõ phạm vi ủy quyền"), nhưng không phát biểu quan điểm thay tác giả.
 
-## 版权与署名
-- 开源书/仓库：确认许可（如 MIT），逐处标章节出处，片尾写仓库地址。
-- 图标、插画、动效、配音来源在片尾统一致谢。
-- 网上图片记来源与许可；许可不清的不用。
-- 致谢具体的人时，措辞与事实一致（多位作者写「作者之一」，并列出其他作者）。
+## Bản quyền và ghi công
+- Sách/kho mã nguồn mở: xác nhận giấy phép (như MIT), ghi nguồn chương ở từng chỗ, cuối phim ghi địa chỉ kho mã.
+- Nguồn của biểu tượng, hình minh họa, hiệu ứng động, lồng tiếng được cảm ơn thống nhất ở cuối phim.
+- Ảnh trên mạng ghi nguồn và giấy phép; giấy phép không rõ thì không dùng.
+- Khi cảm ơn một người cụ thể, cách diễn đạt phải khớp với sự thật (có nhiều tác giả thì viết "một trong các tác giả", và liệt kê các tác giả còn lại).

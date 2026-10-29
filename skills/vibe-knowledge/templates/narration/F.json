@@ -1,6 +1,6 @@
 {
- "_template": "母版 F · 六面轮转片 · 45–60 秒 · 约 180–240 字",
- "_how": "把每拍 narration 换成正式旁白（口语、短句、每句 ≤22 字），保留需要的 [[cue]]（只用小写字母数字下划线），删掉 _guide。旁白里英文名不要带连字符。",
+ "_template": "Khuôn F · Phim xoay sáu mặt · 45–60 giây · khoảng 180–240 chữ",
+ "_how": "Thay narration của mỗi nhịp bằng lời dẫn chính thức (khẩu ngữ, câu ngắn, mỗi câu ≤22 chữ), giữ lại các [[cue]] cần thiết (chỉ dùng chữ thường, chữ số, gạch dưới), xóa _guide. Tên tiếng Anh trong lời dẫn không có dấu gạch nối.",
  "voice": {
   "engine": "mimo",
   "clone": "../../voice/host-ref.wav",
@@ -12,48 +12,48 @@
  "beats": [
   {
    "id": "B01",
-   "_guide": "大问题（≤20 字）[[q]]",
-   "narration": "（待写）大问题（≤20 字）[[q]]"
+   "_guide": "Câu hỏi lớn (≤20 chữ)[[q]]",
+   "narration": "(chưa viết) Câu hỏi lớn (≤20 chữ)[[q]]"
   },
   {
    "id": "B02",
-   "_guide": "「有人给过六种答案。」[[six]]",
-   "narration": "（待写）「有人给过六种答案。」[[six]]"
+   "_guide": "\"Có người từng đưa ra sáu đáp án.\"[[six]]",
+   "narration": "(chưa viết) \"Có người từng đưa ra sáu đáp án.\"[[six]]"
   },
   {
    "id": "B03",
-   "_guide": "答案 1：人名 · 书名 · 年份 + 一句原话（≤30 字）[[a1]]",
-   "narration": "（待写）答案 1：人名 · 书名 · 年份 + 一句原话（≤30 字）[[a1]]"
+   "_guide": "Đáp án 1: tên người · tên sách · năm + một câu nguyên văn (≤30 chữ)[[a1]]",
+   "narration": "(chưa viết) Đáp án 1: tên người · tên sách · năm + một câu nguyên văn (≤30 chữ)[[a1]]"
   },
   {
    "id": "B04",
-   "_guide": "答案 2（≤30 字）[[a2]]",
-   "narration": "（待写）答案 2（≤30 字）[[a2]]"
+   "_guide": "Đáp án 2 (≤30 chữ)[[a2]]",
+   "narration": "(chưa viết) Đáp án 2 (≤30 chữ)[[a2]]"
   },
   {
    "id": "B05",
-   "_guide": "答案 3（≤30 字）[[a3]]",
-   "narration": "（待写）答案 3（≤30 字）[[a3]]"
+   "_guide": "Đáp án 3 (≤30 chữ)[[a3]]",
+   "narration": "(chưa viết) Đáp án 3 (≤30 chữ)[[a3]]"
   },
   {
    "id": "B06",
-   "_guide": "答案 4（≤30 字）[[a4]]",
-   "narration": "（待写）答案 4（≤30 字）[[a4]]"
+   "_guide": "Đáp án 4 (≤30 chữ)[[a4]]",
+   "narration": "(chưa viết) Đáp án 4 (≤30 chữ)[[a4]]"
   },
   {
    "id": "B07",
-   "_guide": "答案 5（≤30 字）[[a5]]",
-   "narration": "（待写）答案 5（≤30 字）[[a5]]"
+   "_guide": "Đáp án 5 (≤30 chữ)[[a5]]",
+   "narration": "(chưa viết) Đáp án 5 (≤30 chữ)[[a5]]"
   },
   {
    "id": "B08",
-   "_guide": "答案 6（≤30 字）[[a6]]",
-   "narration": "（待写）答案 6（≤30 字）[[a6]]"
+   "_guide": "Đáp án 6 (≤30 chữ)[[a6]]",
+   "narration": "(chưa viết) Đáp án 6 (≤30 chữ)[[a6]]"
   },
   {
    "id": "B09",
-   "_guide": "收束 + 回问（≤35 字）：没有一面是纯色的……你，转到哪一面了？[[ask]]",
-   "narration": "（待写）收束 + 回问（≤35 字）：没有一面是纯色的……你，转到哪一面了？[[ask]]"
+   "_guide": "Thu lại + hỏi ngược (≤35 chữ): không có mặt nào là màu thuần...... bạn, đã xoay đến mặt nào rồi?[[ask]]",
+   "narration": "(chưa viết) Thu lại + hỏi ngược (≤35 chữ): không có mặt nào là màu thuần...... bạn, đã xoay đến mặt nào rồi?[[ask]]"
   }
  ]
 }

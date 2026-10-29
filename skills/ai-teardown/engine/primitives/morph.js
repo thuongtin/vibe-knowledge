@@ -1,16 +1,16 @@
 /**
- * Morph 单形状变形：一个形状从头到尾不切，尺寸、圆角、描边颜色都由弹簧驱动；
- * 每个状态的内容用短模糊进出，进出窗口错开，新旧文字不会重叠。
- * 形状从一个总图节点长出（from），演完缩回它；颜色跟着「谁在动」走语义色。
+ * Morph biến hình một hình dạng: một hình dạng từ đầu đến cuối không bị cắt, kích thước, bo góc, màu viền đều do lò xo điều khiển;
+ * nội dung mỗi trạng thái vào ra bằng hiệu ứng mờ ngắn, cửa sổ vào ra lệch nhau nên chữ cũ và mới không chồng lên nhau.
+ * Hình dạng mọc ra từ một nút của sơ đồ tổng (from), diễn xong co lại vào đó; màu theo "ai đang hành động" dùng màu ngữ nghĩa.
  *
  * params
- *   from     {w, h, r, role}          起止形状，应与锚定节点一致，交接才无缝
- *   states   [{kind, t, w, h, r, role, ...内容参数}]   t 为本地秒
- *   end      缩回 from 的时刻
- *   presses  [[t0, t1]]               形状被按下的时刻（轻微缩放）
+ *   from     {w, h, r, role}          hình dạng bắt đầu và kết thúc, cần khớp với nút neo thì bàn giao mới liền mạch
+ *   states   [{kind, t, w, h, r, role, ...tham số nội dung}]   t tính bằng giây cục bộ
+ *   end      thời điểm co lại về from
+ *   presses  [[t0, t1]]               thời điểm hình dạng bị nhấn (thu phóng nhẹ)
  *
- * 内容种类（状态库）：input · loader · terminal · diff · approve · toast
- * 新增种类：在 KINDS 里加一个 build(state) → {el, render(dt)}，dt 为进入该状态后的秒数。
+ * Các loại nội dung (thư viện trạng thái): input · loader · terminal · diff · approve · toast
+ * Thêm loại mới: thêm một build(state) → {el, render(dt)} vào KINDS, dt là số giây kể từ khi vào trạng thái đó.
  */
 import { h, s, setStyle, setText, icon } from "../runtime/dom.js";
 import { track, trackColor, trackCfg, step, UI, PRESS, LEAD, TRAIL } from "../runtime/spring.js";
@@ -73,7 +73,7 @@ const KINDS = {
   },
   terminal(st) {
     const el = h("div", { class: "mo-layer mo-term" });
-    const head = h("div", { class: "mo-head" }, h("i"), h("i"), h("i"), h("span", { text: st.title ?? "终端" }));
+    const head = h("div", { class: "mo-head" }, h("i"), h("i"), h("i"), h("span", { text: st.title ?? "Terminal" }));
     el.append(head);
     const lines = st.lines.map((ln) => {
       const d = h("div", { class: `mo-line ${ln.kind ?? "out"}` });
@@ -117,7 +117,7 @@ const KINDS = {
     const toggle = h("div", { class: "mo-toggle" });
     const knob = h("div", { class: "mo-knob" });
     toggle.append(knob);
-    el.append(h("span", { text: st.text ?? "批准改动" }), toggle);
+    el.append(h("span", { text: st.text ?? "Phê duyệt thay đổi" }), toggle);
     const off = ctx.theme.line.startsWith("#") ? ctx.theme.line : "#2A3963";
     const on = ctx.theme.tool;
     return {

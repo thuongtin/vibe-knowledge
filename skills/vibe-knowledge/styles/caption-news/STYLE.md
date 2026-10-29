@@ -1,26 +1,26 @@
-# 字幕新闻 · CAPTION NEWS
+# Tin tức phụ đề · CAPTION NEWS
 
-> 类别：剪辑与纪实（新增，思路参考 Lemo-Opuscar）　|　风格图：`still.jpg`　|　样片源码：`_samples/styles2_film.js → captionNews()；组件 capNews / srcChip`
+> Loại: Dựng phim và phi hư cấu (mới thêm, ý tưởng tham khảo Lemo-Opuscar) | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles2_film.js → captionNews()`; thành phần capNews / srcChip
 
-**一句话**：关掉声音也能看懂：超大字幕当主角，关键词压黄块，数字滚动，来源滑入。
+**Một câu**: tắt tiếng vẫn xem hiểu được: phụ đề siêu lớn làm nhân vật chính, từ khoá đè lên khối vàng, số chạy, nguồn trượt vào.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 快、抓眼、信息清楚；信息流里一眼看懂。 |
-| 材质 / 画法 | 真实或生成的现场画面压暗（brightness 0.38）当底；大字压在上面。 |
-| 配色逻辑 | 底：压暗画面 · 字 #ffffff · 黄块 #ffd600（只压关键词）· 黑字 #111 在黄块上。 |
-| 字体 | NotoSC 900，字号 110–150，一屏一句。 |
-| 动态 | 逐词弹入（错开 0.16 秒），黄块从左往右刷满；数字跳到位；来源标签横向滑入。 |
-| 镜头语法 | 底图慢推，字幕硬切换句。 |
-| 声音 | 紧凑电子节拍或无配乐，嘀嗒音效卡每个关键词。 |
-| 标志镜头 | 关键词压黄块 + 旁边滑入来源标签。 |
+| Ý đồ đạo diễn | Nhanh, bắt mắt, thông tin rõ ràng; lướt feed là hiểu ngay. |
+| Chất liệu / Cách vẽ | Hình ảnh hiện trường thật hoặc do AI tạo được làm tối (brightness 0.38) làm nền; chữ lớn đè lên trên. |
+| Logic màu | Nền: hình ảnh đã làm tối · chữ #ffffff · khối vàng #ffd600 (chỉ đè từ khoá) · chữ đen #111 trên khối vàng. |
+| Phông chữ | NotoSC 900, cỡ chữ 110–150, một câu mỗi màn hình. |
+| Chuyển động | Từng từ bật vào (lệch nhau 0.16 giây), khối vàng quét đầy từ trái sang phải; số nhảy vào vị trí; nhãn nguồn trượt vào theo chiều ngang. |
+| Ngữ pháp ống kính | Ảnh nền đẩy gần chậm, phụ đề cắt cứng khi đổi câu. |
+| Âm thanh | Nhịp điện tử dồn dập hoặc không nhạc nền, hiệu ứng tích tắc đánh dấu từng từ khoá. |
+| Cảnh đặc trưng | Từ khoá đè lên khối vàng + nhãn nguồn trượt vào bên cạnh. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换黄块颜色（品牌色）、换角标栏目名、底图
-- **一改就变味**：一屏放两句以上（失去静音可读性）
-- **不能改**：去掉超大字幕
+## Có thể sửa đến mức nào (dùng khi chuyển thành "phong cách của tôi")
+- **Sửa thoải mái**: đổi màu khối vàng (màu thương hiệu), đổi tên chuyên mục ở góc, ảnh nền
+- **Sửa là mất chất**: một màn hình đặt từ hai câu trở lên (mất khả năng đọc khi tắt tiếng)
+- **Không được sửa**: bỏ phụ đề siêu lớn
 
-## 搭配
-- 适合母版：热点快讯、有反转的 B、数据型 A；可叠在任何视觉系统上做「快讯栏目」
-- 不适合：需要大量画面叙事的长片
-- 增强档 Renoise 前缀：`（底图用对应视觉系统的前缀，压暗后使用）`
+## Kết hợp
+- Mẫu gốc phù hợp: tin nóng nhanh, B có đảo chiều, A dạng dữ liệu; có thể chồng lên bất kỳ hệ thống hình ảnh nào để làm "chuyên mục tin nhanh"
+- Không phù hợp: phim dài cần kể chuyện bằng nhiều hình ảnh
+- Tiền tố Renoise của mức nâng cao: `(ảnh nền dùng tiền tố của hệ thống hình ảnh tương ứng, làm tối rồi mới dùng)`

@@ -1,36 +1,36 @@
-# 06 · 视觉素材
+# 06 · Tư liệu hình ảnh
 
-## 图标三层分工
+## Phân công ba lớp icon
 
-1. **IconPark 线条图标**（Apache 2.0）：界面、流程、清单。写 `icon-park:robot`，名字必须在 `assets/iconsets/icon-park.json` 里（先查再用；缺的用 `lucide:` / `tabler:` / `iconoir:`）。自动一笔笔描线 + Notion 配色轮换。
-2. **Noto emoji**（Google，CC BY 4.0）：主角、情绪、物件。`python3 scripts/noto_emoji.py <课目录> robot light-bulb …`（小写连字符英文名）。有官方动画的会把 lottie.json 放进课目录 `lottie/`，场景里写同名自动播动画；静态 SVG 已去掉 DTD/ENTITY（否则 Artifact 拒收）。某个动画效果不好（如 stop-sign 缩成红点）就删掉那个 lottie 文件改用静态。
-3. **IconPark 插画库**（88 张，22 个专辑，字节跳动）：`assets/illustrations/iconpark/`（`catalog.json`、`_sheet.html` 总览）。`python3 scripts/illus.py <课目录> ip-6-52 …`，场景 `say`/`cover` 写 `"illus": "ip-6-52"`。每节 2–4 张，尽量不和前几节重复（先 grep 已用过的 id）。注意：插画库不是开源许可（站点条款为标准授权），用户已确认可用于本系列；给别的项目用要重新确认。
+1. **Icon nét IconPark** (Apache 2.0): giao diện, quy trình, danh sách. Viết `icon-park:robot`, tên phải có trong `assets/iconsets/icon-park.json` (tra trước rồi mới dùng; thiếu thì dùng `lucide:` / `tabler:` / `iconoir:`). Tự động vẽ nét từng nét một + luân phiên bảng màu Notion.
+2. **Noto emoji** (Google, CC BY 4.0): nhân vật chính, cảm xúc, đồ vật. `python3 scripts/noto_emoji.py <thư mục bài> robot light-bulb …` (tên tiếng Anh chữ thường nối bằng gạch ngang). Loại có hoạt hình chính thức sẽ đặt lottie.json vào `lottie/` của thư mục bài, trong cảnh ghi cùng tên là tự phát hoạt hình; SVG tĩnh đã bỏ DTD/ENTITY (nếu không Artifact sẽ từ chối). Hoạt hình nào hiệu ứng không đẹp (như stop-sign co thành chấm đỏ) thì xoá tệp lottie đó và dùng bản tĩnh.
+3. **Thư viện minh hoạ IconPark** (88 hình, 22 album, ByteDance): `assets/illustrations/iconpark/` (`catalog.json`, `_sheet.html` tổng quan). `python3 scripts/illus.py <thư mục bài> ip-6-52 …`, trong cảnh `say`/`cover` ghi `"illus": "ip-6-52"`. Mỗi bài 2–4 hình, cố gắng không trùng với các bài trước (grep các id đã dùng trước). Lưu ý: thư viện minh hoạ không phải giấy phép mã nguồn mở (điều khoản của trang là cấp phép tiêu chuẩn), người dùng đã xác nhận được dùng cho series này; dùng cho dự án khác phải xác nhận lại.
 
-## 流程图：AntV X6（MIT）
+## Sơ đồ quy trình: AntV X6 (MIT)
 
-`assets/vendor/x6.min.js`（v3.1.8 UMD，`async:false` 同步渲染保证逐帧确定）；manhattan 路由 + 圆角连线；节点弹出 → 连线画出 → 虚线流动。字段见 04-scenes-sketch。
+`assets/vendor/x6.min.js` (v3.1.8 UMD, `async:false` render đồng bộ đảm bảo xác định theo từng khung hình); định tuyến manhattan + nét nối bo góc; nút bật ra → nét nối được vẽ → nét đứt chảy. Các trường xem 04-scenes-sketch.
 
-## 动效
+## Hiệu ứng chuyển động
 
-- Lottie 一律用 **canvas 渲染器**（SVG 渲染器逐帧不确定，同一帧 15 次有 13 次不一致）。
-- `primitives/motion.js`：lottie、icon 描线、illus 描线+淡入、diagram、count 数字滚动、bars、line、dotmap（Natural Earth 陆地点阵，不画国界）、kinetic 逐字弹出。
+- Lottie luôn dùng **bộ render canvas** (bộ render SVG không xác định theo khung hình, cùng một khung hình 15 lần có 13 lần không nhất quán).
+- `primitives/motion.js`: lottie, vẽ nét icon, vẽ nét illus + hiện dần, diagram, count số chạy, bars, line, dotmap (chấm lưới đất liền Natural Earth, không vẽ biên giới quốc gia), kinetic bật ra từng chữ.
 
-## 截图与录屏素材
+## Tư liệu ảnh chụp và quay màn hình
 
-- 书 / 仓库章节配图：`python3 scripts/wb_import.py <课目录> "<章节目录名>" --prefix wbNN`。截图导入为 `wbNN-XX.png` 并登记账本；GIF 拆成 8fps 去重的帧序列 `flip-<prefix>-gXX-NNN.jpg` + `data/flip-*.json`，场景用 `shot.clip` 播放（字段叫 `clip`，**不能叫 flip**——编译器用 `s.flip` 表示翻页转场）；生成 `build/chapter_sheet.jpg` 总览。
-- mp4 素材不自动导入：ffmpeg 截一段按 8fps 出帧，照同样命名做成 clip。
-- 网上抓图：`scripts/fetch_images.py`，记来源与许可；优先 Wikimedia Commons、博物馆开放馆藏、官方新闻图。外链图会被 Artifact CSP 拦，必须本地化。
-- 图片账本 `assets/img/images.json`：每张图有 id、file、尺寸、artist、license、source、credit；并行写用 `scripts/ledger.py`（fcntl 加锁）。截图 credit 写「截图出处：《书名》第 X 章 · MIT」，画面自动标。
-- 需要遮盖的截图另存一份打码版（如 `wb10b-03m.png`），场景引用打码版。
+- Ảnh minh hoạ chương của sách / kho: `python3 scripts/wb_import.py <thư mục bài> "<tên thư mục chương>" --prefix wbNN`. Ảnh chụp được nhập thành `wbNN-XX.png` và ghi vào sổ cái; GIF được tách thành chuỗi khung hình 8fps đã loại trùng `flip-<prefix>-gXX-NNN.jpg` + `data/flip-*.json`, cảnh phát bằng `shot.clip` (trường tên là `clip`, **không được gọi là flip** — trình biên dịch dùng `s.flip` để chỉ chuyển cảnh lật trang); tạo `build/chapter_sheet.jpg` để xem tổng quan.
+- Tư liệu mp4 không tự động nhập: dùng ffmpeg cắt một đoạn xuất khung hình 8fps, đặt tên giống như vậy để làm thành clip.
+- Tải ảnh trên mạng: `scripts/fetch_images.py`, ghi nguồn và giấy phép; ưu tiên Wikimedia Commons, bộ sưu tập mở của bảo tàng, ảnh tin tức chính thức. Ảnh liên kết ngoài sẽ bị CSP của Artifact chặn, bắt buộc phải đưa về cục bộ.
+- Sổ cái ảnh `assets/img/images.json`: mỗi ảnh có id, file, kích thước, artist, license, source, credit; ghi song song dùng `scripts/ledger.py` (khoá bằng fcntl). Credit của ảnh chụp ghi "Nguồn ảnh chụp: «tên sách» chương X · MIT", hình sẽ tự động ghi nhãn.
+- Ảnh chụp cần che thì lưu riêng một bản đã làm mờ (như `wb10b-03m.png`), cảnh tham chiếu bản làm mờ.
 
-## 讲解小人
+## Nhân vật que giảng bài
 
-- `presets/presenter/`：`hp-<pose>-1..8.png`（10 个动作）、`host-avatar.png`（封面头像）、账本条目、`生图提示词.md`（补新动作时给用户用的提示词和尺寸要求）。
-- 新动作入账前按「头发顶 → 底边」的高度统一缩放到与 talk 一致。
-- 默认动作：shot→point、pause→think、checklist→check、outro→wave；tips 默认 idea；场景 `pose`、tips 里的 `pose` 可覆盖。
+- `presets/presenter/`: `hp-<pose>-1..8.png` (10 động tác), `host-avatar.png` (avatar ảnh bìa), mục trong sổ cái, `生图提示词.md` (prompt và yêu cầu kích thước đưa cho người dùng khi bổ sung động tác mới).
+- Trước khi ghi động tác mới vào sổ cái, co giãn thống nhất theo chiều cao "đỉnh tóc → mép dưới" sao cho khớp với talk.
+- Động tác mặc định: shot→point, pause→think, checklist→check, outro→wave; tips mặc định idea; `pose` của cảnh và `pose` trong tips có thể ghi đè.
 
-## 署名规则（用户定的）
+## Quy tắc ghi nguồn (do người dùng quy định)
 
-- 图标、插画库、动效库、配音的来源**只在片尾 outro 的 credits 里标一次**。
-- 书中内容和截图的出处**逐处标**（`src` 或账本 credit）。
-- credits 每行不超过 40 字，常用 5 行：内容来源（章节 + MIT）/ 仓库地址 / 插画与图标 / 流程图与动效库 / 讲解小人与配音（AI 生成）。
+- Nguồn của icon, thư viện minh hoạ, thư viện hiệu ứng, lồng tiếng **chỉ ghi một lần trong credits của outro cuối phim**.
+- Nguồn của nội dung và ảnh chụp trong sách **ghi ở từng chỗ** (`src` hoặc credit trong sổ cái).
+- Mỗi dòng credits không quá 40 ký tự, thường dùng 5 dòng: nguồn nội dung (chương + MIT) / địa chỉ kho / minh hoạ và icon / sơ đồ và thư viện hiệu ứng / nhân vật que giảng bài và lồng tiếng (do AI tạo).

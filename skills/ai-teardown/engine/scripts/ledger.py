@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""图片账本 images.json 的加锁读写（几个助手同时往里加图时不会互相覆盖）。
-用法（在 Python 里）：
+"""Đọc ghi có khoá sổ ảnh images.json (khi nhiều trợ lý cùng thêm ảnh vào sẽ không ghi đè lên nhau).
+Cách dùng (trong Python):
     from ledger import add_images
-    add_images(系列目录, [{"id": ..., "file": ..., "width": ..., "height": ..., "credit": ...}, ...])
+    add_images(thư mục series, [{"id": ..., "file": ..., "width": ..., "height": ..., "credit": ...}, ...])
 """
 import fcntl, json
 from pathlib import Path

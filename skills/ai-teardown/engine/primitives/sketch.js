@@ -1,20 +1,20 @@
 /**
- * 手绘图元层（runtime/sketch.js 用）：一个场景 = 一张清单，清单里每一项是一样会在画面上「画出来 / 贴上去 / 写出来」的东西。
- * 线条用 rough.js（MIT）生成手绘路径，固定种子，同一时刻画面永远一样；render(t) 只依赖 t。
+ * Lớp phần tử vẽ tay (dùng cho runtime/sketch.js): một cảnh = một danh sách, mỗi mục trong danh sách là một thứ sẽ được “vẽ ra / dán lên / viết ra” trên màn hình.
+ * Đường nét dùng rough.js (MIT) sinh đường vẽ tay, hạt giống cố định, cùng một thời điểm thì hình ảnh luôn giống nhau; render(t) chỉ phụ thuộc vào t.
  *
- * 皮肤（useSkin）：
- *   paper   手账白板：米白方格纸、霞鹜文楷、3D 贴纸、便利贴 + 胶带 + 小角度、荧光笔、拍立得截图
- *   notion  Notion 极简：纯白、无衬线、扁平彩色 emoji、Notion 底色块（callout）、细边框、文字底色高亮、平放截图；线条只留一点手绘感
+ * Skin (useSkin):
+ *   paper   bảng trắng sổ tay: giấy ô vuông trắng ngà, font LXGW WenKai, sticker 3D, giấy nhớ + băng dính + góc nghiêng nhỏ, bút dạ quang, ảnh chụp kiểu Polaroid
+ *   notion  Notion tối giản: trắng tinh, không chân, emoji màu phẳng, khối nền kiểu Notion (callout), viền mảnh, tô nền chữ để làm nổi, ảnh chụp đặt phẳng; đường nét chỉ giữ một chút cảm giác vẽ tay
  *
- * items（坐标都是舞台坐标：原点在画面中心，x 向右、y 向下）
- *   {k:"ink",  shape, color, width, fill, fillStyle, roughness, at, dur, until, seed}      手绘线条，一笔笔画出来
+ * items(tọa độ đều là tọa độ sân khấu: gốc ở giữa màn hình, x hướng sang phải, y hướng xuống)
+ *   {k:"ink",  shape, color, width, fill, fillStyle, roughness, at, dur, until, seed}      đường vẽ tay, vẽ ra từng nét một
  *        shape: {type:"rect",x,y,w,h} | {type:"ellipse",cx,cy,w,h} | {type:"line",x1,y1,x2,y2}
  *               | {type:"curve",pts} | {type:"arrow",pts,head} | {type:"wave",x,y,w} | {type:"check",x,y,s} | {type:"cross",x,y,s}
- *   {k:"note", x,y,w,h, color, rot, tape, at, until}                                       卡片 / 便利贴（中心坐标）
- *   {k:"box",  x,y,w,h, bg, radius, border, at, until}                                     纯色块（Notion 封面带、分隔线）
- *   {k:"text", x,y,w, text, size, weight, color, align, anchor, at, cps, hl, lh, font, rot} 字；*词* 画高亮；cps=0 整段淡入
- *   {k:"img",  src, x,y,w,h, at, rot, frame, crop, tape, bob, until, pop}                  贴纸 / 截图
- *   {k:"chip", x,y, text, color, bg, size, rot, at, anchor, stamp}                         标签 / 印章
+ *   {k:"note", x,y,w,h, color, rot, tape, at, until}                                       thẻ / giấy nhớ (tọa độ tâm)
+ *   {k:"box",  x,y,w,h, bg, radius, border, at, until}                                     khối màu thuần (dải bìa Notion, đường phân cách)
+ *   {k:"text", x,y,w, text, size, weight, color, align, anchor, at, cps, hl, lh, font, rot} chữ; *từ* được vẽ tô nổi; cps=0 thì cả đoạn mờ hiện dần
+ *   {k:"img",  src, x,y,w,h, at, rot, frame, crop, tape, bob, until, pop}                  sticker / ảnh chụp
+ *   {k:"chip", x,y, text, color, bg, size, rot, at, anchor, stamp}                         nhãn / con dấu
  */
 import rough from "../assets/vendor/rough.esm.js";
 import { h, s, setStyle, setAttr } from "../runtime/dom.js";
@@ -38,13 +38,13 @@ export const SKINS = {
     name: "notion", font: SANS, emoji: "noto", rough: 0.55, rot: 0, photo: "plain", pad: [0, 0], tape: false,
     noteBorder: "css", noteRadius: "10px", noteShadow: "0 1px 2px rgba(15,15,15,.04),0 8px 22px rgba(15,15,15,.05)",
     hlSize: "100%", hlPos: "0 0", chipRadius: "6px", tag: true,
-    // Notion 的文字色与底色（浅色模式）
+    // Màu chữ và màu nền của Notion (chế độ sáng)
     colors: { yellow: "#CB912F", coral: "#D9730D", teal: "#448361", blue: "#337EA9", purple: "#9065B0", pink: "#C14C8A", green: "#448361", ink: "#37352F", gray: "#787774", red: "#D44C47", sub: "#6F6E69" },
     notes: { yellow: "#FBF3DB", pink: "#FAF1F5", mint: "#EDF3EC", blue: "#E7F3F8", purple: "#F6F3F9", peach: "#FBECDD", white: "#FFFFFF", gray: "#F1F1EF" },
     hl: { yellow: "rgba(236,191,66,.30)", pink: "rgba(193,76,138,.16)", mint: "rgba(68,131,97,.16)", blue: "rgba(51,126,169,.15)", coral: "rgba(217,115,13,.17)" },
   },
 };
-/** 当前皮肤；模板读 COLORS / NOTES（原地换值，import 进来的引用一直有效） */
+/** Skin hiện tại; mẫu đọc COLORS / NOTES (đổi giá trị tại chỗ, tham chiếu đã import luôn còn hiệu lực) */
 export let K = SKINS.paper;
 export const COLORS = { ...K.colors };
 export const NOTES = { ...K.notes };
@@ -54,7 +54,7 @@ export function useSkin(name) {
   Object.assign(COLORS, K.colors); Object.assign(NOTES, K.notes); Object.assign(HL, K.hl);
   return K;
 }
-/** 兼容旧写法：INK 取当前皮肤的正文色 */
+/** Tương thích cách viết cũ: INK lấy màu chữ chính của skin hiện tại */
 export const INK = "#2B2A33";
 
 const GEN = rough.generator();
@@ -79,7 +79,7 @@ const css = () => `
 .sk .chip{white-space:nowrap;font-weight:${K.name === "notion" ? 600 : 700};border-radius:${K.chipRadius}}
 `;
 
-/** rough.js 形状 → [{d, stroke, sw, fill}]（固定种子） */
+/** Hình dạng rough.js → [{d, stroke, sw, fill}] (hạt giống cố định) */
 function roughPaths(shape, o) {
   const opt = { seed: o.seed, roughness: o.roughness ?? K.rough, bowing: o.bowing ?? (K.name === "notion" ? 0.6 : 1.1), stroke: o.color ?? COLORS.ink, strokeWidth: o.width ?? 3,
     fill: o.fill, fillStyle: o.fillStyle ?? "hachure", hachureGap: o.hachureGap ?? 11, fillWeight: o.fillWeight ?? 2.2, hachureAngle: o.hachureAngle ?? -41,
@@ -109,7 +109,7 @@ function roughPaths(shape, o) {
   return dr.flatMap((d) => GEN.toPaths(d)).map((p) => ({ d: p.d, stroke: p.stroke, sw: p.strokeWidth, fill: p.fill }));
 }
 
-/** 文本里的 *词* → [{t, hl}] */
+/** *từ* trong văn bản → [{t, hl}] */
 const segs = (text) => String(text).split(/(\*[^*]+\*)/).filter(Boolean).map((x) => (x.startsWith("*") && x.endsWith("*") ? { t: x.slice(1, -1), hl: true } : { t: x, hl: false }));
 
 export const SketchLayer = {
@@ -125,7 +125,7 @@ export const SketchLayer = {
       sfx: items.flatMap((q) => q.sfx ?? []),
       render(t) {
         const vis = t <= out + 0.45;
-        // 用 display 而不是 visibility：子元素自己写了 visibility:visible（录屏帧、小人帧）会穿透父层的 hidden
+        // Dùng display chứ không dùng visibility: phần tử con tự ghi visibility:visible (khung quay màn hình, khung nhân vật) sẽ xuyên qua hidden của lớp cha
         setStyle(el, "display", vis ? "block" : "none");
         if (!vis) return;
         setStyle(el, "opacity", (1 - clamp01((t - out) / 0.35)).toFixed(3));
@@ -170,11 +170,11 @@ function build(el, it, i) {
       },
     };
   }
-  /** 贴纸组：一张白边卡（可选）+ 子元素一起「按上去」——放大、倾斜、投影大 → 落定回弹、投影收紧，再划过一道高光。
-   *  子元素坐标相对组中心；filter:"diecut" 给整组描一圈白边（插画、emoji 变成模切贴纸） */
-  /** 视频片段（放在贴纸组里当「视频贴纸」）。reps = 循环播放的每一遍 [{vid, start, dur}]。
-   *  HyperFrames 渲染时：hf_host 已在 index.html 里静态声明 <video data-vclip>（它在编译期静态扫描媒体），这里把它们搬进来，帧由 HyperFrames 逐帧注入；
-   *  浏览器预览 / 互动版：只用一个 video 元素，按时间取模跳帧。 */
+  /** Nhóm sticker: một thẻ viền trắng (tùy chọn) + các phần tử con cùng “ấn xuống” — phóng to, nghiêng, bóng đổ lớn → hạ xuống rồi nảy lại, bóng đổ thu hẹp, rồi quét qua một vệt sáng.
+   *  Tọa độ phần tử con tính theo tâm nhóm; filter:"diecut" viền trắng quanh cả nhóm (hình minh họa, emoji biến thành sticker cắt khuôn) */
+  /** Đoạn video (đặt trong nhóm sticker làm “sticker video”). reps = mỗi lượt phát lặp lại [{vid, start, dur}].
+   *  Khi HyperFrames render: hf_host đã khai báo tĩnh <video data-vclip> trong index.html (nó quét tĩnh media ở thời điểm biên dịch), ở đây chuyển chúng vào, khung hình do HyperFrames chèn từng khung;
+   *  Xem trước trên trình duyệt / bản tương tác: chỉ dùng một phần tử video, nhảy khung theo thời gian lấy modulo. */
   if (it.k === "video") {
     const box = h("div", { class: "it", style: { left: `${it.x - it.w / 2}px`, top: `${it.y - it.h / 2}px`, width: `${it.w}px`, height: `${it.h}px`,
       overflow: "hidden", borderRadius: `${it.radius ?? 20}px`, background: it.bg ?? "#0b0b0b" } });
@@ -201,7 +201,7 @@ function build(el, it, i) {
         const local = Math.max(0, Math.min(t - r.start, r.dur - 0.05));
         const dt = t - lastT;
         lastT = t;
-        const playing = dt > 0 && dt < 0.25 && t >= r.start && t < r.start + r.dur;   // 播放器在连续往前走
+        const playing = dt > 0 && dt < 0.25 && t >= r.start && t < r.start + r.dur;   // trình phát đang chạy liên tục về phía trước
         if (solo.readyState < 1) return;
         if (playing) {
           if (Math.abs(solo.currentTime - local) > 0.3) solo.currentTime = local;
@@ -293,7 +293,7 @@ function build(el, it, i) {
         const n = cps > 0 ? typedCount(all, it.at, cps, t, seed) : t >= it.at ? acc : 0;
         const fade = cps > 0 ? (t >= it.at ? 1 : 0) : clamp01((t - it.at) / 0.35);
         setStyle(box, "opacity", (fade * g).toFixed(3));
-        // 没打出来的字用透明占位：版面从第一帧起就不跳
+        // Chữ chưa gõ ra dùng chỗ giữ trong suốt: bố cục không nhảy từ khung đầu tiên
         for (const q of parts) {
           const L = Array.from(q.t), shown = Math.max(0, Math.min(L.length, n - q.n0));
           if (q.shown !== shown) {
@@ -337,7 +337,7 @@ function build(el, it, i) {
   }
   if (it.k === "chip") {
     const size = it.size ?? 28;
-    // Notion 皮肤：实心色标签改成 Notion 标签样式（浅底 + 同色字）
+    // Skin Notion: nhãn màu đặc đổi thành kiểu nhãn Notion (nền nhạt + chữ cùng màu)
     let fg = it.color ?? "#fff", bg = it.bg ?? COLORS.ink;
     if (K.tag && !it.stamp && /^#[0-9A-Fa-f]{6}$/.test(bg)) { fg = bg; bg = tint(bg, 0.86); }
     const box = h("div", { class: "it chip", text: it.text, style: { font: `${K.name === "notion" ? 600 : 700} ${size}px/1.1 ${K.font}`, padding: `${size * 0.32}px ${size * 0.55}px`,
@@ -346,16 +346,16 @@ function build(el, it, i) {
     const [ax, ay] = { tl: [0, 0], tc: [-50, 0], tr: [-100, 0], c: [-50, -50], ml: [0, -50], mr: [-100, -50] }[it.anchor ?? "c"];
     return pop(box, { ...it, base: `translate(${ax}%, ${ay}%)` }, seed, [], K.name === "notion" ? 0.9 : 0.55);
   }
-  throw new Error(`手绘层不认识这一项：${it.k}`);
+  throw new Error(`Lớp vẽ tay không nhận ra mục này: ${it.k}`);
 }
 
-/** 与白色混合成不透明浅底（压在截图上也清楚） */
+/** Trộn với màu trắng thành nền nhạt không trong suốt (đè lên ảnh chụp vẫn rõ) */
 function tint(hex, k) {
   const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).map((v) => Math.round(v + (255 - v) * k));
   return `rgb(${c.join(",")})`;
 }
 
-/** 进场：弹簧缩放（Notion 皮肤只轻轻放大一点）+ 定格小角度；bob 让贴纸轻轻浮动 */
+/** Vào cảnh: co giãn kiểu lò xo (skin Notion chỉ phóng to nhẹ một chút) + dừng ở góc nghiêng nhỏ; bob làm sticker trôi nhẹ */
 function pop(box, it, seed, sfx, from = 0.55) {
   const rot = (it.rot ?? 0) * K.rot;
   const tilt = K.rot ? 8 : 0;

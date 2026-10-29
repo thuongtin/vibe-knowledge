@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""混音：旁白 + 背景乐（旁白时自动让位）+ 音效（按实测峰值对齐），整体响度归一。
+"""Trộn âm: lời dẫn + nhạc nền (tự nhường khi có lời dẫn) + hiệu ứng âm thanh (căn theo đỉnh đo thực), chuẩn hoá độ lớn tổng thể.
 
-用法：python3 scripts/mix.py <narration.wav> <cues.json> <out.wav> [--bgm 文件[,文件2,...]] [--bgm-gain -22] [--lufs -14]
-cues.json: {"duration": 秒, "sfx": [{"t": 秒, "name": "click", "gain": -12}]}
-音效文件取 promo-video 的免费可商用音效库；背景乐默认取它的 Mixkit 曲库。
+Cách dùng: python3 scripts/mix.py <narration.wav> <cues.json> <out.wav> [--bgm file[,file2,...]] [--bgm-gain -22] [--lufs -14]
+cues.json: {"duration": giây, "sfx": [{"t": giây, "name": "click", "gain": -12}]}
+File hiệu ứng lấy từ thư viện hiệu ứng miễn phí dùng thương mại của promo-video; nhạc nền mặc định lấy từ kho nhạc Mixkit của nó.
 """
 import json, subprocess, sys
 from pathlib import Path
@@ -23,7 +23,7 @@ def main():
     bgm_gain = float(arg("--bgm-gain", "-22"))
     lufs = float(arg("--lufs", "-14"))
     if len(bgms) > 1:
-        # 多首背景乐：依次交叉淡入淡出接成一条（长课单曲循环容易听腻）
+        # Nhiều bài nhạc nền: lần lượt crossfade nối thành một bản (bài học dài mà lặp một bài dễ nhàm)
         joined = out.with_suffix(".bgm.wav")
         ins = sum([["-i", str(b)] for b in bgms], [])
         chain, last = [], "[0:a]"
@@ -40,14 +40,14 @@ def main():
         "[0:a]aresample=48000,aformat=channel_layouts=stereo,asplit=2[vo][key]",
         f"[1:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:{dur},volume={bgm_gain}dB,"
         f"afade=t=in:d=1.2,afade=t=out:st={max(0, dur - 1.8)}:d=1.8[bgm0]",
-        # 旁白出现时背景乐压低约 8 dB
+        # khi lời dẫn xuất hiện nhạc nền bị hạ khoảng 8 dB
         "[bgm0][key]sidechaincompress=threshold=0.03:ratio=6:attack=40:release=450:makeup=1[bgm]",
     ]
     mixes = ["[vo]", "[bgm]"]
     for i, c in enumerate(cues.get("sfx", [])):
         fn = LIB / "sfx" / f"{c['name']}.wav"
         if not fn.exists():
-            print(f"跳过缺失音效 {fn.name}", file=sys.stderr)
+            print(f"Bỏ qua hiệu ứng bị thiếu {fn.name}", file=sys.stderr)
             continue
         start = max(0.0, c["t"] - PEAK.get(c["name"], 0.0))
         idx = 2 + len(mixes) - 2
@@ -60,7 +60,7 @@ def main():
     pre = out.with_suffix(".pre.wav")
     subprocess.run(["ffmpeg", "-y", "-v", "error", *inputs, "-filter_complex", ";".join(f), "-map", "[out]",
                     "-ar", "48000", "-ac", "2", str(pre)], check=True)
-    # 两遍 loudnorm：先测量，再按测量值线性归一（单遍会差 1 LU 以上）
+    # loudnorm hai lượt: đo trước, rồi chuẩn hoá tuyến tính theo giá trị đo (một lượt sẽ lệch hơn 1 LU)
     ln = f"loudnorm=I={lufs}:TP=-2.0:LRA=11"
     r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(pre), "-af", f"{ln}:print_format=json", "-f", "null", "-"],
                        capture_output=True, text=True)
@@ -74,7 +74,7 @@ def main():
     r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(out), "-af", "ebur128=peak=true", "-f", "null", "-"],
                        capture_output=True, text=True)
     summary = [l.strip() for l in r.stderr.splitlines() if l.strip().startswith(("I:", "Peak:", "LRA:"))]
-    print(f"{len(mixes) - 2} 个音效 → {out}  ", " · ".join(summary[-3:]))
+    print(f"{len(mixes) - 2} hiệu ứng → {out}  ", " · ".join(summary[-3:]))
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,4 @@
-# 03 · 旁白与配音
+# 03 · Lời dẫn và lồng tiếng
 
 ## narration.json
 
@@ -14,37 +14,39 @@
 }
 ```
 
-- `clone` 路径相对于课目录；预设音色写 `"voice": "白桦"` 之类。
-- **一节**：18–28 拍，1200–2200 字（1.15 倍速后 4–7 分钟）。导学类 9–10 拍、约 750 字 ≈ 2.5 分钟。
-- **一拍**：40–130 字，2–4 个 `[[cue]]`（小写英文/数字/下划线，放在分句开头）。画面元素用 `"B03.cue"` 或 `"B03@某个词"` 对齐到读到那个字的时刻。
-- 口语、短句、第二人称。开头接上一节，结尾预告下一节 + 感谢原作者 + 「我们下节见」。
-- 至少一个「暂停想一想」：一拍提问，下一拍 `[[answer]]` 揭晓。
-- 不编造：数字、功能、界面文字、步骤以原文为准；原文没写的不补。引用逐字。
+(Ví dụ trên giữ nguyên tiếng Trung vì `style` và `narration` là nội dung đưa cho TTS đọc bằng tiếng Trung. Ý nghĩa của `style`: "Bạn đang thu một bài nhập môn phần mềm cho người đi làm. Như một blogger khoa học thân thiện, dứt khoát, tốc độ thong thả, mỗi câu nói rõ ràng, giữa các câu chừa chỗ ngắt, từ trọng điểm nhấn nhẹ hơn".)
 
-## MiMo 配音要点
+- Đường dẫn `clone` tương đối so với thư mục bài học; giọng có sẵn thì viết kiểu `"voice": "白桦"`.
+- **Một bài**: 18–28 nhịp, 1200–2200 chữ (sau khi tăng tốc 1,15 lần là 4–7 phút). Loại dẫn nhập 9–10 nhịp, khoảng 750 chữ ≈ 2,5 phút.
+- **Một nhịp**: 40–130 chữ, 2–4 `[[cue]]` (chữ thường tiếng Anh/chữ số/gạch dưới, đặt ở đầu mệnh đề). Phần tử hình ảnh dùng `"B03.cue"` hoặc `"B03@một-từ-nào-đó"` để căn đến thời điểm đọc đến chữ đó.
+- Khẩu ngữ, câu ngắn, ngôi thứ hai. Phần đầu nối với bài trước, phần cuối báo trước bài sau + cảm ơn tác giả gốc + "hẹn gặp lại ở bài sau".
+- Ít nhất một lần "tạm dừng suy nghĩ": một nhịp đặt câu hỏi, nhịp sau `[[answer]]` công bố đáp án.
+- Không bịa: con số, tính năng, chữ trên giao diện, các bước theo bản gốc; bản gốc không viết thì không bổ sung. Trích dẫn đúng từng chữ.
 
-- 接口是 chat/completions：正文放 assistant 消息，语气说明放 user 消息；返回 24kHz 单声道 WAV（base64）。
-- 预设音色：mimo_default、冰糖、茉莉（女）、苏打、白桦（男）；英文 Mia、Chloe、Milo、Dean。voicedesign 可按描述造音色，voiceclone 要参照音频。
-- **必须加讲课语气说明**：不加时每秒 5–6.5 字，太赶；加了约 4 字/秒，再用 `scenes.speed: 1.15` 变速（atempo，音调不变）。
-- 没有逐词时间戳 → 每拍整段合成后用 whisper-cli 取 token 时间：先 small 模型，对不齐再用 medium；**一定要带 `--prompt 原文`**（否则出繁体、对齐率 65%）；token 可能切在多字节字符中间，要增量 UTF-8 解码。
-- 并发 2–3 路，429 限流会自动退避重试（慢是正常的）。
+## Điểm chính khi lồng tiếng MiMo
 
-## 读音坑与 lexicon
+- Giao diện là chat/completions: nội dung đặt trong tin nhắn assistant, mô tả ngữ khí đặt trong tin nhắn user; trả về WAV mono 24kHz (base64).
+- Giọng có sẵn: mimo_default, 冰糖, 茉莉 (nữ), 苏打, 白桦 (nam); tiếng Anh Mia, Chloe, Milo, Dean. voicedesign có thể tạo giọng theo mô tả, voiceclone cần âm thanh mẫu.
+- **Bắt buộc thêm mô tả ngữ khí giảng bài**: không thêm thì mỗi giây 5–6,5 chữ, quá vội; thêm vào thì khoảng 4 chữ/giây, rồi dùng `scenes.speed: 1.15` đổi tốc độ (atempo, cao độ không đổi).
+- Không có mốc thời gian từng từ → mỗi nhịp tổng hợp nguyên đoạn rồi dùng whisper-cli lấy thời gian token: dùng mô hình small trước, căn không được thì dùng medium; **nhất định phải kèm `--prompt văn-bản-gốc`** (nếu không sẽ ra chữ phồn thể, tỷ lệ căn 65%); token có thể bị cắt giữa ký tự đa byte, phải giải mã UTF-8 tăng dần.
+- Song song 2–3 luồng, bị giới hạn 429 sẽ tự động lùi thời gian chờ và thử lại (chậm là bình thường).
 
-- **罗马数字**：全由 I V X L C D M 组成的大写缩写会被念成数字（CLI→一百五十一、MD→一千五百、CC→二百）。`tts_mimo.py` 已自动拆成单个字母（ROMANISH 规则）；小写 cli/md 也会念歪，写进 lexicon。
-- 版本号写成「0 点 155 点 1」。
-- 英文专名念歪的（GitHub、GEO、NLP、自造词）加进 lexicon 拆字母或加空格。
-- 回读 QA 的 `odd_numbers`：回读里出现原文没有的 ≥100 的数字会 ⚠ 报出来。
+## Bẫy cách đọc và lexicon
 
-## 回读质检（每节必看 voice.log）
+- **Số La Mã**: từ viết tắt in hoa chỉ gồm I V X L C D M sẽ bị đọc thành số (CLI→一百五十一, MD→一千五百, CC→二百). `tts_mimo.py` đã tự động tách thành từng chữ cái (quy tắc ROMANISH); cli/md viết thường cũng bị đọc lệch, hãy ghi vào lexicon.
+- Số phiên bản viết thành "0 点 155 点 1" (chữ 点 là cách đọc dấu chấm trong tiếng Trung).
+- Tên riêng tiếng Anh bị đọc lệch (GitHub, GEO, NLP, từ tự đặt) thì thêm vào lexicon, tách chữ cái hoặc thêm dấu cách.
+- `odd_numbers` của kiểm tra đọc lại: con số ≥100 xuất hiện trong bản đọc lại mà văn bản gốc không có sẽ được báo bằng ⚠.
 
-- 每拍一行：时长、字数、字/秒、对齐率、合成耗时、回读相似度、差异。
-- 回读 < 95% 或有 ⚠：删 `build/audio/<拍>.*` 再跑 voice，只重合成这几拍；两次都低就改措辞（换同义词、拆长句）再合成。
-- 差异全是同音字 / 专名被 ASR 听错时，用本地 whisper 复听确认（`whisper-cli -m <medium> -l zh -nt -f build/audio/B07.wav`，可加 `--prompt "专名"`）；念对了就不用重来。人名务必复听（例：苍何 → 回读「仓颉」可疑，复听是「苍和」= cāng hé，正确）。
-- MiMo 偶尔会多念、重复或多加一个否定词（「不」），意思反了必须重来。
+## Kiểm tra chất lượng đọc lại (bài nào cũng phải xem voice.log)
 
-## 英文版
+- Mỗi nhịp một dòng: thời lượng, số chữ, chữ/giây, tỷ lệ căn, thời gian tổng hợp, độ tương đồng đọc lại, khác biệt.
+- Đọc lại < 95% hoặc có ⚠: xóa `build/audio/<nhịp>.*` rồi chạy lại voice, chỉ tổng hợp lại những nhịp này; hai lần đều thấp thì sửa cách diễn đạt (đổi từ đồng nghĩa, tách câu dài) rồi tổng hợp lại.
+- Khi khác biệt toàn là chữ đồng âm / tên riêng bị ASR nghe sai, dùng whisper cục bộ nghe lại để xác nhận (`whisper-cli -m <medium> -l zh -nt -f build/audio/B07.wav`, có thể thêm `--prompt "tên riêng"`); đọc đúng rồi thì không cần làm lại. Tên người nhất định phải nghe lại (ví dụ: 苍何 → đọc lại ra 仓颉 là đáng ngờ, nghe lại là 苍和 = cāng hé, đúng).
+- MiMo thỉnh thoảng đọc thừa, lặp lại hoặc thêm một từ phủ định ("不"), nghĩa bị ngược thì bắt buộc làm lại.
 
-- narration：`voice.lang = "en"`，预设 `Dean`（美式男声），whisper `-l en`，按词分段。
-- scenes：`"lang": "en"`（界面文字表切英文、字幕按句断、52 字符宽）、`"inlineCredits": false`、`"videoOnly": true`（只出片）、`shotCredit` 写英文出处。
-- MiMo 英文偶发多念/重复一句：回读 < 95% 就重合成。
+## Bản tiếng Anh
+
+- narration: `voice.lang = "en"`, giọng có sẵn `Dean` (nam Mỹ), whisper `-l en`, chia đoạn theo từ.
+- scenes: `"lang": "en"` (bảng chữ giao diện chuyển sang tiếng Anh, phụ đề ngắt theo câu, rộng 52 ký tự), `"inlineCredits": false`, `"videoOnly": true` (chỉ xuất phim), `shotCredit` viết nguồn bằng tiếng Anh.
+- MiMo tiếng Anh thỉnh thoảng đọc thừa/lặp một câu: đọc lại < 95% thì tổng hợp lại.

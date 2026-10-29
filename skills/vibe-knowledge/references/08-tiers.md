@@ -1,49 +1,49 @@
-# 08 · 两档制作：基础档（0 积分）/ 增强档（按镜头挑）
+# 08 · Hai mức sản xuất: mức cơ bản (0 điểm) / mức nâng cao (chọn theo cảnh quay)
 
-用户定的原则：**能用代码做的都用代码做，Renoise 只补代码做不好的镜头**；配音一律用小米 MiMo（当前限免，不花钱）。
-每期在确认 1（选题）时就问清楚做哪一档；增强档在确认 2 之前列出「增强镜头清单 + 预估积分」。
+Nguyên tắc do người dùng đặt ra: **cái gì làm được bằng code thì làm bằng code, Renoise chỉ bổ sung những cảnh code làm không tốt**; lồng tiếng luôn dùng Xiaomi MiMo (hiện đang miễn phí, không tốn tiền).
+Mỗi kỳ hỏi rõ làm mức nào ngay ở xác nhận 1 (chọn chủ đề); với mức nâng cao thì trước xác nhận 2 liệt kê "danh sách cảnh quay nâng cao + điểm ước tính".
 
-## 基础档 · 0 积分
+## Mức cơ bản · 0 điểm
 
-| 层 | 用什么 |
+| Lớp | Dùng gì |
 |---|---|
-| 旁白 | 小米 MiMo 克隆音色（用户本人，voice/host-ref.wav）+ voice_post.py 人声后期 |
-| 画面主体 | **Opus 直接写 SVG 插画**（扁平矢量人物 / 建筑 / 器物 / 地图轮廓），用 `layers` 分远中近三层做视差推移；cine 的粒子、3D 镜头、着色器（Particles、Tunnel、Liquid…）做抽象概念 |
-| 数据与信息 | know.js：counter、bars、spread、trail、vquote、keyword、chapter、foot |
-| 配乐 | **默认：skill 自带 vibe-bgm**（`tools/fit_bgm.py <out.wav> --lesson <期目录>` 按片长按小节裁剪，两档通用）；需要换曲时才用 promo-video 曲库（`python3.12 ~/.claude/skills/promo-video/scripts/pick_music.py <out.wav> --mood … --seconds … --hit-at <片名秒>`，需要 numpy，用 python3.12 跑）；或 cine 的 bed.py 按 sections 合成 |
-| 音效 | cine 内置（slam whoosh riser impact chime tick shutter card …，写进 sfx） |
-| 素材 | 公有领域 / CC 素材（Wikimedia Commons 古画、古籍书影、NASA 图）可以用，署名写进片尾和 facts.md；不用来路不明的图 |
+| Lời dẫn | Giọng nhân bản Xiaomi MiMo (chính người dùng, voice/host-ref.wav) + voice_post.py hậu kỳ giọng nói |
+| Hình ảnh chính | **Opus viết trực tiếp minh hoạ SVG** (nhân vật vector phẳng / kiến trúc / đồ vật / đường viền bản đồ), dùng `layers` chia ba lớp xa, giữa, gần để tạo chuyển động thị sai; hạt, camera 3D, shader của cine (Particles, Tunnel, Liquid…) dùng cho khái niệm trừu tượng |
+| Dữ liệu và thông tin | know.js: counter, bars, spread, trail, vquote, keyword, chapter, foot |
+| Nhạc nền | **Mặc định: vibe-bgm đi kèm skill** (`tools/fit_bgm.py <out.wav> --lesson <thư mục kỳ>` cắt theo ô nhịp phù hợp độ dài phim, dùng chung cho cả hai mức); chỉ khi cần đổi bài mới dùng thư viện nhạc promo-video (`python3.12 ~/.claude/skills/promo-video/scripts/pick_music.py <out.wav> --mood … --seconds … --hit-at <giây hiện tên phim>`, cần numpy, chạy bằng python3.12); hoặc dùng bed.py của cine để tổng hợp theo sections |
+| Hiệu ứng âm thanh | Tích hợp sẵn trong cine (slam whoosh riser impact chime tick shutter card …, ghi vào sfx) |
+| Tư liệu | Có thể dùng tư liệu phạm vi công cộng / CC (tranh cổ Wikimedia Commons, ảnh sách cổ, ảnh NASA), ghi tên tác giả vào cuối phim và facts.md; không dùng ảnh không rõ nguồn gốc |
 
-**基础档怎么做到精品**：
-- 每个场景至少三层 SVG（远景剪影、中景主体、前景遮挡物），推移时有景深。
-- 人物用「几何化无五官」造型（Iwanau 那种），Opus 画得稳、整期统一，也没有肖像风险。
-- 每章一个「代码王炸」镜头：粒子聚字、光点变形、地图扩散、3D 镜头穿梭，代替增强档的动态镜头。
-- 色板严格按视觉系统（03-visual-systems.md），颗粒和暗角统一由 `bg()` 控制。
+**Làm thế nào để mức cơ bản đạt chất lượng cao**:
+- Mỗi cảnh có ít nhất ba lớp SVG (bóng hình viễn cảnh, chủ thể trung cảnh, vật che tiền cảnh), khi chuyển động có chiều sâu.
+- Nhân vật dùng kiểu "hình học hoá không ngũ quan" (kiểu Iwanau), Opus vẽ ổn định, cả kỳ thống nhất, cũng không có rủi ro về chân dung.
+- Mỗi chương một cảnh "bom tấn bằng code": hạt tụ thành chữ, điểm sáng biến hình, bản đồ lan toả, camera 3D xuyên qua, thay cho cảnh động của mức nâng cao.
+- Bảng màu tuân thủ nghiêm hệ thống hình ảnh (03-visual-systems.md), hạt nhiễu và vignette do `bg()` kiểm soát thống nhất.
 
-## 增强档 · 按镜头挑，积分可控
+## Mức nâng cao · chọn theo cảnh quay, điểm kiểm soát được
 
-**判断哪些镜头值得用 Renoise**（满足任意一条）：
-1. 写实场景代码画不出来：历史现场、自然现象（雷暴、洪水、星云）、真实材质（青铜、丝绸、古籍纸纹）。
-2. 全片最需要被记住的 1–3 个时刻：冷开场、反转、高潮。
-3. 需要真实运动：人群、水流、火、机械运转。
+**Xác định cảnh nào đáng dùng Renoise** (thoả mãn bất kỳ điều nào):
+1. Cảnh tả thực mà code không vẽ được: hiện trường lịch sử, hiện tượng tự nhiên (bão sấm, lũ lụt, tinh vân), chất liệu thật (đồng thau, lụa, vân giấy sách cổ).
+2. 1–3 khoảnh khắc cần được nhớ nhất trong cả phim: mở đầu lạnh, đảo chiều, cao trào.
+3. Cần chuyển động thật: đám đông, dòng nước, lửa, máy móc vận hành.
 
-其余镜头（数据、地图、文字、图表、抽象概念、示意动画）**仍用代码**。
+Các cảnh còn lại (dữ liệu, bản đồ, chữ, biểu đồ, khái niệm trừu tượng, hoạt hình minh hoạ) **vẫn dùng code**.
 
-| 增强等级 | 内容 | 预估积分 |
+| Cấp nâng cao | Nội dung | Điểm ước tính |
 |---|---|---|
-| 轻 | 3–8 张关键配图（MJ）+ 2–5 个音效（配乐用默认 BGM，不再生成） | ≈ 15–35 |
-| 标准 | 6–10 张配图 + 2 个动态镜头（Wan 3.0 720p 8s，首帧用配图）+ 6 个音效 | ≈ 240–290 |
-| 旗舰 | 10–14 张配图 + 3 Wan + 1 Seedance 2.5（高潮镜头）+ 8 个音效 | ≈ 590–690 |
+| Nhẹ | 3–8 ảnh minh hoạ then chốt (MJ) + 2–5 hiệu ứng âm thanh (nhạc nền dùng BGM mặc định, không tạo thêm) | ≈ 15–35 |
+| Chuẩn | 6–10 ảnh minh hoạ + 2 cảnh động (Wan 3.0 720p 8s, khung đầu dùng ảnh minh hoạ) + 6 hiệu ứng âm thanh | ≈ 240–290 |
+| Cao cấp | 10–14 ảnh minh hoạ + 3 Wan + 1 Seedance 2.5 (cảnh cao trào) + 8 hiệu ứng âm thanh | ≈ 590–690 |
 
-单价见 04-renoise.md（Midjourney 4/张、GPT Image 13/张、Wan 720p 8s 96、Seedance 720p 8s 256、Lyria 4/首、音效 0.4/秒）。
-每次生成前照常报价、等用户确认；生成的图和视频优先放在已经用代码搭好的镜头里「替换底图」，不改镜头结构，这样增强档和基础档可以共用同一份 film.js（`const ENH = true` 时用 plate/vclip，否则用 layers）。
+Đơn giá xem 04-renoise.md (Midjourney 4/ảnh, GPT Image 13/ảnh, Wan 720p 8s 96, Seedance 720p 8s 256, Lyria 4/bài, hiệu ứng âm thanh 0.4/giây).
+Trước mỗi lần tạo vẫn báo giá như thường và chờ người dùng xác nhận; ảnh và video tạo ra ưu tiên đặt vào các cảnh đã dựng bằng code để "thay ảnh nền", không đổi cấu trúc cảnh, nhờ vậy mức nâng cao và mức cơ bản có thể dùng chung một film.js (khi `const ENH = true` thì dùng plate/vclip, ngược lại dùng layers).
 
-## 一份 film.js 两档通用的写法
+## Cách viết để một film.js dùng chung cho cả hai mức
 
 ```js
-const ENH = false;   // 增强档改成 true（assets/ 里有对应文件）
+const ENH = false;   // mức nâng cao đổi thành true (assets/ có tệp tương ứng)
 const scene01 = (s) => ENH
-  ? plate(s, { src: A("img/a01.jpg") })                                   // Renoise 配图
-  : layers(s, [{ svg: SVG_SKY, depth: 0.15 }, { svg: SVG_PALACE, depth: 0.5 }, { svg: SVG_FG, depth: 1 }]);   // Opus 手画三层
-// render 里两者的 update 签名一样：x.update(t, t0, t1, { … })
+  ? plate(s, { src: A("img/a01.jpg") })                                   // ảnh minh hoạ Renoise
+  : layers(s, [{ svg: SVG_SKY, depth: 0.15 }, { svg: SVG_PALACE, depth: 0.5 }, { svg: SVG_FG, depth: 1 }]);   // ba lớp do Opus vẽ tay
+// trong render, chữ ký update của hai nhánh giống nhau: x.update(t, t0, t1, { … })
 ```

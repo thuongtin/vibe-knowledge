@@ -1,53 +1,53 @@
-# 致谢与参考声明 / Acknowledgements
+# Lời cảm ơn và tuyên bố tham khảo / Acknowledgements
 
-vibe-knowledge 的代码、风格样片和文档都是本项目原创编写的。做的过程中，我们调研、参考过下面这些开源项目。为尊重原作者、避免误会，这里逐一列出：参考了什么、用在哪里、对方用什么许可证。
+Code, phong cách mẫu và tài liệu của vibe-knowledge đều do dự án này tự viết. Trong quá trình làm, chúng tôi đã khảo sát và tham khảo các dự án mã nguồn mở dưới đây. Để tôn trọng tác giả gốc và tránh hiểu lầm, ở đây liệt kê từng cái: tham khảo gì, dùng ở đâu, bên kia dùng giấy phép gì.
 
-如果你是其中某个项目的作者，觉得这里写得不准确，或者希望补充、修改说明，请开 issue 或直接联系 [@Berryxia](https://x.com/berryxia)，我们会第一时间更正。
+Nếu bạn là tác giả của một trong các dự án này, thấy ở đây viết chưa chính xác, hoặc muốn bổ sung, sửa lời giải thích, xin hãy mở issue hoặc liên hệ trực tiếp [@Berryxia](https://x.com/berryxia), chúng tôi sẽ sửa ngay lập tức.
 
-## 一、借鉴了做法或实现思路（MIT 许可，注明来源）
+## I. Mượn cách làm hoặc ý tưởng triển khai (giấy phép MIT, ghi rõ nguồn)
 
-这一类项目都是 MIT 许可。我们借鉴了它们的方法和规则，**用本项目自己的代码和文字重新实现**，没有拷贝它们的源码、提示词原文或素材。
+Các dự án loại này đều dùng giấy phép MIT. Chúng tôi mượn phương pháp và quy tắc của họ, **triển khai lại bằng code và văn bản của chính dự án này**, không sao chép mã nguồn, nguyên văn prompt hay tư liệu của họ.
 
-| 项目 | 作者 | 许可 | 我们参考了什么 | 用在本仓库哪里 |
+| Dự án | Tác giả | Giấy phép | Chúng tôi tham khảo gì | Dùng ở đâu trong kho này |
 |---|---|---|---|---|
-| [lemo-opuscar](https://github.com/lemomo-ai/lemo-opuscar) | Lemomo（lemomo-ai） | MIT | 「风格 = 风格说明 + 一支代码样片」的组织方式；「把风格改成你自己的」风格工作室流程；「剪辑与纪实」这一类风格的分类思路（字幕新闻、视觉调查）；结语「风格只是载体，内容才是最重要的」 | `references/09-style-studio.md`、`styles/caption-news`、`styles/investigation`、`styles/_samples/styles2_film.js`、`styles/INDEX.md` |
-| [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) | alchaincyf（花叔） | MIT | 9 种解说语法（尺度穿行、桌面材料、白板、3b1b 形变等）；「镜头是标点」等镜头规则。花叔形象与 Clawd 角色不在借鉴范围内，本项目没有使用 | `references/11-absorbed.md` 第一、二节 |
-| [bang-motion](https://github.com/bangtutorial/bang-motion) | bangtutorial | MIT | 「画外音提到的人、物、书必须出图」 | `references/11-absorbed.md` |
-| [khan-explainer](https://github.com/haiderfarooq3/khan-explainer) | haiderfarooq3 | MIT | 边讲边写的板书语法，启发了「粉笔黑板」风格 | `styles/chalk` |
-| [paper2video](https://github.com/Lunamos/paper2video) | Lunamos | MIT | 3Blue1Brown 式深色数据画面；「出处台账」写法 | `styles/darkmath`、事实清单 `facts.md` 结构 |
-| [anatomy-explainer](https://github.com/gnipbao/anatomy-explainer) | gnipbao | MIT | 等轴测机械剖面的画面思路 | `styles/isometric` |
-| [Paper-Cut](https://github.com/aijiduonadegou/Paper-Cut) | aijiduonadegou | MIT | 生图定稿 → 原图拆层 → 代码驱动拼贴动画的做法 | `styles/collage`（半调拼贴，增强档） |
-| [SketchNarrator](https://github.com/qingyabailu-git/SketchNarrator) | qingyabailu-git | MIT | 中文手绘讲解的画面语法 | `styles/chalk`、`styles/sketch` |
-| [vibe-knowledge-video-skill](https://github.com/LuZhong-Li/vibe-knowledge-video-skill) | LuZhong-Li | MIT | 对抖音「Vibe 知识大赏」作品的实测结论（比如 7 部作品都没有旁白）；竖屏底部避让、概念命名环节、片尾三件套、「外部评审意见要先核验再改」等流程建议 | `references/11-absorbed.md` 第一、三、四节 |
-| [earshot](https://github.com/Leonxlnx/earshot) | Leonxlnx | MIT | 代码生成音效。**不随仓库分发**，用户按需自行安装 | `references/10-earshot.md`、`tools/earshot_render.py`、`tools/patch_earshot.py` |
+| [lemo-opuscar](https://github.com/lemomo-ai/lemo-opuscar) | Lemomo (lemomo-ai) | MIT | Cách tổ chức "phong cách = mô tả phong cách + một đoạn mẫu bằng code"; quy trình studio phong cách "đổi phong cách thành của riêng bạn"; cách phân loại nhóm phong cách "dựng phim và phi hư cấu" (tin tức phụ đề, điều tra trực quan); lời kết "phong cách chỉ là vật chuyên chở, nội dung mới là quan trọng nhất" | `references/09-style-studio.md`, `styles/caption-news`, `styles/investigation`, `styles/_samples/styles2_film.js`, `styles/INDEX.md` |
+| [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) | alchaincyf (Hoa Thúc) | MIT | 9 loại ngữ pháp giảng giải (xuyên thang đo, tư liệu trên bàn, bảng trắng, biến hình kiểu 3b1b, v.v.); các quy tắc ống kính như "ống kính là dấu câu". Hình tượng Hoa Thúc và nhân vật Clawd không nằm trong phạm vi mượn, dự án này không sử dụng | `references/11-absorbed.md` mục I, II |
+| [bang-motion](https://github.com/bangtutorial/bang-motion) | bangtutorial | MIT | "Người, vật, sách được nhắc tới trong lời dẫn bắt buộc phải có hình" | `references/11-absorbed.md` |
+| [khan-explainer](https://github.com/haiderfarooq3/khan-explainer) | haiderfarooq3 | MIT | Ngữ pháp bảng viết vừa nói vừa viết, gợi cảm hứng cho phong cách "bảng đen phấn trắng" | `styles/chalk` |
+| [paper2video](https://github.com/Lunamos/paper2video) | Lunamos | MIT | Hình ảnh dữ liệu nền tối kiểu 3Blue1Brown; cách viết "sổ cái xuất xứ" | `styles/darkmath`; cấu trúc danh sách sự thật `facts.md` |
+| [anatomy-explainer](https://github.com/gnipbao/anatomy-explainer) | gnipbao | MIT | Ý tưởng hình ảnh mặt cắt cơ khí đẳng cự | `styles/isometric` |
+| [Paper-Cut](https://github.com/aijiduonadegou/Paper-Cut) | aijiduonadegou | MIT | Cách làm: chốt ảnh tạo ra → tách lớp từ ảnh gốc → hoạt ảnh cắt dán điều khiển bằng code | `styles/collage`(cắt dán bán sắc, bản nâng cao) |
+| [SketchNarrator](https://github.com/qingyabailu-git/SketchNarrator) | qingyabailu-git | MIT | Ngữ pháp hình ảnh của giảng giải vẽ tay bằng tiếng Trung | `styles/chalk`, `styles/sketch` |
+| [vibe-knowledge-video-skill](https://github.com/LuZhong-Li/vibe-knowledge-video-skill) | LuZhong-Li | MIT | Kết luận đo thực tế về các tác phẩm "Vibe Tri Thức Đại Thưởng" trên Douyin (ví dụ cả 7 tác phẩm đều không có lời dẫn); các đề xuất quy trình như tránh vùng đáy màn hình dọc, khâu đặt tên khái niệm, bộ ba phần cuối phim, "ý kiến thẩm định bên ngoài phải kiểm chứng trước rồi mới sửa" | `references/11-absorbed.md` mục I, III, IV |
+| [earshot](https://github.com/Leonxlnx/earshot) | Leonxlnx | MIT | Hiệu ứng âm thanh sinh bằng code. **Không phân phối cùng kho mã**, người dùng tự cài khi cần | `references/10-earshot.md`, `tools/earshot_render.py`, `tools/patch_earshot.py` |
 
-## 二、只参考了思路（未使用其代码、提示词原文或素材）
+## II. Chỉ tham khảo ý tưởng (không dùng code, nguyên văn prompt hay tư liệu của họ)
 
-下面这些项目没有标准开源许可、许可限制商用，或者包含第三方素材。我们**只看过公开说明、借鉴了一般性的思路**，没有拷贝任何代码、提示词、文字或素材。
+Các dự án dưới đây không có giấy phép mã nguồn mở chuẩn, giấy phép hạn chế thương mại, hoặc chứa tư liệu của bên thứ ba. Chúng tôi **chỉ xem phần mô tả công khai, mượn những ý tưởng mang tính chung**, không sao chép bất kỳ code, prompt, văn bản hay tư liệu nào.
 
-| 项目 | 作者 | 许可情况 | 参考了什么 |
+| Dự án | Tác giả | Tình trạng giấy phép | Tham khảo gì |
 |---|---|---|---|
-| [anything2explainer](https://github.com/Vincentwei1021/anything2explainer) | Vincentwei1021 | 非标准许可（GitHub 显示 NOASSERTION） | 旁白与画面对位的一般原则（出现帧对齐、静止预算、字幕整句出入、样片先行） |
-| [video-talkcraft](https://github.com/Vincentwei1021/video-talkcraft) | Vincentwei1021 | 非标准许可（仓库自述为 PolyForm Noncommercial） | 强调预算、字幕素排等一般原则 |
-| [opus-5-5-86-styles-in-motion](https://github.com/GODGOD126/opus-5-5-86-styles-in-motion) | GODGOD126 | 未声明许可证（含第三方素材） | 风格分类的整体视野 |
-| [opus-video-style-library](https://github.com/limingzhaox/opus-video-style-library) | limingzhaox | 未声明许可证 | 风格案例的整理方式 |
-| [vibe-knowledge](https://github.com/worlds3/vibe-knowledge) | worlds3 | 未声明许可证 | 「示意」角标、片尾结构等发布层面的做法。**同名说明：该项目与本项目名字相同，但两者是各自独立开发的不同项目，没有代码或素材上的关系。** |
+| [anything2explainer](https://github.com/Vincentwei1021/anything2explainer) | Vincentwei1021 | Giấy phép không chuẩn (GitHub hiển thị NOASSERTION) | Các nguyên tắc chung về khớp lời dẫn với hình ảnh (căn khung xuất hiện, ngân sách hình đứng yên, phụ đề vào ra theo cả câu, làm phim mẫu trước) |
+| [video-talkcraft](https://github.com/Vincentwei1021/video-talkcraft) | Vincentwei1021 | Giấy phép không chuẩn (kho tự mô tả là PolyForm Noncommercial) | Các nguyên tắc chung như ngân sách nhấn mạnh, dàn phụ đề thô |
+| [opus-5-5-86-styles-in-motion](https://github.com/GODGOD126/opus-5-5-86-styles-in-motion) | GODGOD126 | Chưa khai báo giấy phép (chứa tư liệu bên thứ ba) | Tầm nhìn tổng thể về phân loại phong cách |
+| [opus-video-style-library](https://github.com/limingzhaox/opus-video-style-library) | limingzhaox | Chưa khai báo giấy phép | Cách sắp xếp các ví dụ phong cách |
+| [vibe-knowledge](https://github.com/worlds3/vibe-knowledge) | worlds3 | Chưa khai báo giấy phép | Cách làm ở tầng phát hành như nhãn góc "minh họa", cấu trúc cuối phim. **Lưu ý trùng tên: dự án đó trùng tên với dự án này, nhưng hai bên là các dự án khác nhau được phát triển độc lập, không có quan hệ về code hay tư liệu.** |
 
-## 三、引擎与课程模板里引用的项目（skills/ai-teardown）
+## III. Các dự án được dẫn trong engine và mẫu bài giảng (skills/ai-teardown)
 
-| 项目 | 作者 | 许可 | 怎么用的 |
+| Dự án | Tác giả | Giấy phép | Dùng thế nào |
 |---|---|---|---|
-| [HyperFrames](https://github.com/heygen-com/hyperframes) | HeyGen | Apache-2.0 | 可选接入：`engine/scripts/hf_host.py` 调用其命令行渲染动效模板，不包含其源码 |
-| [awesome-opus5-5-videos](https://github.com/yihui-dev/awesome-opus5-5-videos) | yihui-dev | MIT | 课程示例里作为参考资料链接 |
-| [WorkBuddyGuide](https://github.com/AlephAITech/WorkBuddyGuide) | AlephAITech | MIT | 课程模板示例的内容来源，片中按 MIT 注明出处 |
+| [HyperFrames](https://github.com/heygen-com/hyperframes) | HeyGen | Apache-2.0 | Kết nối tùy chọn: `engine/scripts/hf_host.py` gọi dòng lệnh của nó để render mẫu hiệu ứng, không chứa mã nguồn của nó |
+| [awesome-opus5-5-videos](https://github.com/yihui-dev/awesome-opus5-5-videos) | yihui-dev | MIT | Dùng làm liên kết tài liệu tham khảo trong ví dụ bài giảng |
+| [WorkBuddyGuide](https://github.com/AlephAITech/WorkBuddyGuide) | AlephAITech | MIT | Nguồn nội dung cho ví dụ mẫu bài giảng, trong phim ghi rõ xuất xứ theo MIT |
 
-## 四、随仓库分发的第三方组件
+## IV. Các thành phần bên thứ ba phân phối cùng kho mã
 
-three.js、Rough.js、lottie-web、AntV X6、Geist、Noto Sans SC、霞鹜文楷、Tabler / Lucide / Iconoir / IconPark 图标、CC0 键盘音效等，许可和位置见 [THIRD_PARTY.md](THIRD_PARTY.md)。
+three.js, Rough.js, lottie-web, AntV X6, Geist, Noto Sans SC, LXGW WenKai, biểu tượng Tabler / Lucide / Iconoir / IconPark, âm thanh bàn phím CC0, v.v., giấy phép và vị trí xem [THIRD_PARTY.md](THIRD_PARTY.md).
 
-## 五、外部服务
+## V. Dịch vụ bên ngoài
 
-小米 MiMo（配音与语音识别）、[Renoise](https://renoise.ai/mcp?utm_medium=xcom&utm_source=official)（增强档的配图、动态镜头、音效）、Anthropic Claude Code / Claude Opus（编排与写代码）。这些服务由使用者自行注册，本仓库不包含任何密钥。
+Xiaomi MiMo (lồng tiếng và nhận dạng giọng nói), [Renoise](https://renoise.ai/mcp?utm_medium=xcom&utm_source=official) (ảnh minh họa, cảnh quay động, hiệu ứng âm thanh của bản nâng cao), Anthropic Claude Code / Claude Opus(dàn dựng và viết code). Các dịch vụ này do người dùng tự đăng ký, kho mã này không chứa bất kỳ khóa nào.
 
 ---
 

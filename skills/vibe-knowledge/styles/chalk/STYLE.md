@@ -1,26 +1,26 @@
-# 粉笔黑板 · CHALKBOARD
+# Bảng đen phấn trắng · CHALKBOARD
 
-> 家族：图解与设计　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles3_film.js → chalk()`
+> Họ: Đồ giải và thiết kế | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles3_film.js → chalk()`
 
-**一句话**：墨绿黑板上粉笔一笔笔画出场景，字晚半拍写出来，圈重点、列算式，板书越积越多。
+**Một câu**: Trên bảng đen xanh lục thẫm, phấn vẽ từng nét ra cảnh, chữ được viết ra chậm nửa nhịp, khoanh trọng điểm, liệt kê phép tính, chữ trên bảng càng lúc càng nhiều.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 像一个好老师在黑板前讲：说一句写一句，板书累积，最后能拉远看全图。 |
-| 材质 / 画法 | 墨绿径向渐变板 + 擦痕光斑 + 木槽和粉笔头；线条与字都过一个 SVG 粉笔滤镜（噪声挖孔 + 轻微位移）。 |
-| 配色逻辑 | 板 #1F4A42 · 白粉笔 #EEECE3 · 黄粉笔 #F5D76E（数字 / 结论）· 粉粉笔 #F28B82（反常 / 圈注） |
-| 字体 | 楷体（Kaiti SC）700，字号 56–120 |
-| 动态 | 线条 strokeDashoffset 画出；字用 clip-path 从左往右「写」出，比旁白晚 0.1–0.5 秒；圈注是一笔画的椭圆。 |
-| 镜头语法 | 锁定；每 5–6 拍平移到新一块黑板或擦一次板。 |
-| 声音 | 粉笔划写、敲黑板；轻钢琴或无配乐。 |
-| 标志镜头 | 「没人动」被粉色粉笔圈住，下一行写出算式「10 × 5 = 50 金」并双下划线。 |
+| Ý đồ đạo diễn | Như một giáo viên giỏi giảng trước bảng đen: nói một câu viết một câu, chữ trên bảng tích lũy dần, cuối cùng kéo xa ra nhìn được toàn cảnh. |
+| Chất liệu / Cách vẽ | Bảng gradient xuyên tâm xanh lục thẫm + vệt xóa phấn + rãnh gỗ và đầu phấn; nét và chữ đều qua một bộ lọc phấn SVG (khoét nhiễu + dịch chuyển nhẹ). |
+| Logic màu | Bảng #1F4A42 · phấn trắng #EEECE3 · phấn vàng #F5D76E (con số / kết luận) · phấn hồng #F28B82 (bất thường / khoanh chú thích) |
+| Phông chữ | Kaiti (Kaiti SC) 700, cỡ chữ 56–120 |
+| Chuyển động | Nét vẽ ra bằng strokeDashoffset; chữ được "viết" ra từ trái sang phải bằng clip-path, chậm hơn lời dẫn 0,1–0,5 giây; khoanh chú thích là hình elip vẽ một nét. |
+| Ngữ pháp ống kính | Cố định; cứ 5–6 nhịp thì dịch sang một khối bảng đen mới hoặc xóa bảng một lần. |
+| Âm thanh | Phấn viết vạch, gõ bảng; piano nhẹ hoặc không nhạc nền. |
+| Cảnh đặc trưng | "Không ai động" bị phấn hồng khoanh lại, dòng tiếp theo viết ra phép tính "10 × 5 = 50 lượng vàng" và gạch chân đôi. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换板色（黑板 / 白板）、换粉笔色
-- **一改就变味**：字一次性出现（失去板书感）
-- **不能改**：去掉粉笔颗粒滤镜
+## Có thể sửa đến mức nào (dùng khi làm thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi màu bảng (bảng đen / bảng trắng), đổi màu phấn
+- **Sửa là mất vị**: chữ hiện ra cùng một lúc (mất cảm giác viết bảng)
+- **Không được sửa**: bỏ bộ lọc hạt phấn
 
-## 搭配
-- 适合母版：痛点原理 C、闯关 E、概念 A
-- 不适合：需要大量写实场景的叙事
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Cách phối
+- Mẫu gốc phù hợp: C nguyên lý điểm đau, E vượt ải, A khái niệm
+- Không phù hợp: kể chuyện cần nhiều cảnh tả thực
+- Tiền tố Renoise cấp tăng cường: `(bản cơ bản không cần)`

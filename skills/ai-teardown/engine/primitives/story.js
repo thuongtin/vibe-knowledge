@@ -1,6 +1,6 @@
 /**
- * 讲故事用的原语：ChatMock 对话窗 · HypeCurve 热度起伏曲线 · BarCompare 数字对比条 · Avatars 人物头像排。
- * 都以场景原点为中心；时间参数是本地秒；render 是纯函数。
+ * Các primitive dùng để kể chuyện: ChatMock cửa sổ hội thoại · HypeCurve đường cong nhiệt độ lên xuống · BarCompare thanh so sánh số liệu · Avatars hàng ảnh đại diện nhân vật.
+ * Đều lấy gốc cảnh làm tâm; tham số thời gian là giây cục bộ; render là hàm thuần.
  */
 import { h, s, setStyle, setAttr } from "../runtime/dom.js";
 import { appear, hz, track, UI } from "../runtime/spring.js";
@@ -55,11 +55,11 @@ const POP = { w: hz(3.2), z: 0.55 };
 const exitOf = (t, out) => clamp01((t - out) / 0.28);
 
 /**
- * ChatMock 对话窗（界面示意）：消息依次出现，先冒「正在输入」三个点，再逐字打出。
+ * ChatMock cửa sổ hội thoại (minh họa giao diện): tin nhắn lần lượt hiện ra, trước hết nổi ba chấm "đang nhập", sau đó gõ ra từng chữ.
  * params
- *   w, title, sub      窗口宽度、标题、右上角小字
- *   people {l: {name, icon|img, color}, r: {...}}   左右两方
- *   messages [{side: "l"|"r", text, at, cps, typing: 0.6}]   typing 为「正在输入」持续秒数（0 表示不显示）
+ *   w, title, sub      chiều rộng cửa sổ, tiêu đề, chữ nhỏ góc trên phải
+ *   people {l: {name, icon|img, color}, r: {...}}   hai bên trái phải
+ *   messages [{side: "l"|"r", text, at, cps, typing: 0.6}]   typing là số giây hiển thị "đang nhập" (0 nghĩa là không hiển thị)
  *   at, out
  */
 export const ChatMock = {
@@ -69,7 +69,7 @@ export const ChatMock = {
     typingCss(ctx.css);
     const at = p.at ?? 0, out = p.out ?? Infinity;
     const el = h("div", { class: "cm", style: { width: `${p.w ?? 900}px` } });
-    const head = h("div", { class: "cm-head" }, h("i"), p.title ?? "对话", p.sub ? h("span", { text: p.sub }) : null);
+    const head = h("div", { class: "cm-head" }, h("i"), p.title ?? "Hội thoại", p.sub ? h("span", { text: p.sub }) : null);
     const body = h("div", { class: "cm-body" });
     el.append(head, body);
     root.append(el);
@@ -125,7 +125,7 @@ export const ChatMock = {
   },
 };
 
-/** 过一组点的平滑曲线（Catmull-Rom 转三次贝塞尔） */
+/** Đường cong mượt đi qua một nhóm điểm (Catmull-Rom chuyển sang Bezier bậc ba) */
 const smooth = (pts) => {
   let d = `M${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
   for (let i = 0; i < pts.length - 1; i++) {
@@ -138,14 +138,14 @@ const smooth = (pts) => {
 };
 
 /**
- * HypeCurve 热度起伏曲线（示意，不是数据）：从左往右画出来，经过的高峰和低谷依次弹出标签。
+ * HypeCurve đường cong nhiệt độ lên xuống (minh họa, không phải dữ liệu): vẽ từ trái sang phải, các đỉnh và đáy đi qua lần lượt bật nhãn ra.
  * params
- *   w, h                 画布尺寸
- *   domain [x0, x1]      横轴年份范围
- *   points [[年份, 0..1]] 热度走势（示意）
- *   labels [{x: 年份, text, sub, kind: "peak"|"trough", color}]
- *   ticks [年份]          横轴刻度
- *   at, dur, out, note   note 是右上角的「示意」说明
+ *   w, h                 kích thước canvas
+ *   domain [x0, x1]      phạm vi năm của trục ngang
+ *   points [[năm, 0..1]] xu hướng nhiệt độ (minh họa)
+ *   labels [{x: năm, text, sub, kind: "peak"|"trough", color}]
+ *   ticks [năm]          vạch chia trục ngang
+ *   at, dur, out, note   note là chú thích "minh họa" ở góc trên phải
  */
 export const HypeCurve = {
   name: "hypecurve",
@@ -169,7 +169,7 @@ export const HypeCurve = {
     svg.append(area, base, line);
     el.append(svg);
     for (const yr of p.ticks ?? []) el.append(h("div", { class: "hc-yr", text: String(yr), style: { left: `${X(yr)}px`, top: `${H / 2 + 40}px` } }));
-    // 画到某一年份所用的时间：按横向位置近似（曲线横向单调）
+    // Thời gian cần để vẽ đến một năm nào đó: xấp xỉ theo vị trí ngang (đường cong đơn điệu theo chiều ngang)
     const tAtX = (yr) => at + dur * clamp01((yr - x0) / (x1 - x0));
     const labs = (p.labels ?? []).map((lb, i) => {
       const c = lb.color ?? (lb.kind === "trough" ? "m5" : "m1");
@@ -186,7 +186,7 @@ export const HypeCurve = {
       return { lb, dot, lab, ty, tys, t0: lb.at ?? tAtX(lb.x) };
     });
     let note = null;
-    // 「示意」说明放左上角，右上角常有最新的高峰标签
+    // Chú thích "minh họa" đặt ở góc trên trái, góc trên phải thường có nhãn đỉnh mới nhất
     if (p.note) { note = h("div", { class: "hc-note", text: p.note, style: { top: `${-H / 2 - 60}px`, left: `${-W / 2}px` } }); el.append(note); }
     root.append(el);
     return {
@@ -215,9 +215,9 @@ export const HypeCurve = {
 };
 
 /**
- * BarCompare 数字对比条：几根横条依次长出来，数字跟着往上数。数字必须有出处（src）。
+ * BarCompare thanh so sánh số liệu: vài thanh ngang lần lượt mọc ra, con số đếm tăng theo. Con số bắt buộc có nguồn (src).
  * params
- *   title, sub, src      标题、说明、出处小字
+ *   title, sub, src      tiêu đề, chú thích, chữ nhỏ nguồn
  *   items [{label, sub, value, unit, color, at, digits}]
  *   max, w, at, out
  */
@@ -276,10 +276,10 @@ export const BarCompare = {
 };
 
 /**
- * Avatars 人物头像排：圆形照片依次弹出，名字与身份打字；没有照片的用图标代替（不找替身）。
+ * Avatars hàng ảnh đại diện nhân vật: ảnh tròn lần lượt bật ra, tên và danh tính được gõ ra; người không có ảnh thì dùng biểu tượng thay thế (không tìm người đóng thế).
  * params
  *   people [{img, icon, name, sub, color, at}]
- *   size 头像直径（默认 190）、credit 整排的署名与许可、at、out
+ *   size đường kính ảnh đại diện (mặc định 190), credit ghi công và giấy phép của cả hàng, at, out
  */
 export const Avatars = {
   name: "avatars",
@@ -330,12 +330,12 @@ export const Avatars = {
 };
 
 /**
- * Graph 小图：点、线、线上的数字（代价）。点和线按时刻出现；settle 标出「已确定」的点（按顺序点亮，演示搜索），
- * path 给出最后要高亮的路线。也能画博弈树（点的位置自己排成树）。以原点为中心；render 是纯函数。
+ * Graph đồ thị nhỏ: điểm, đường, con số trên đường (chi phí). Điểm và đường xuất hiện theo thời điểm; settle đánh dấu điểm "đã xác định" (sáng lên theo thứ tự, minh họa tìm kiếm),
+ * path cho biết tuyến đường cuối cùng cần làm nổi bật. Cũng có thể vẽ cây trò chơi (vị trí các điểm tự xếp thành cây). Lấy gốc làm tâm; render là hàm thuần.
  * params
- *   nodes [{id, x, y, label, at, settle, color}]   settle：这个点被「确定」的时刻
- *   edges [{a, b, w, at, hi}]                       w：线上的数字；hi：高亮时刻（最短路线）
- *   title {text, at}、r（点半径，默认 34）、out
+ *   nodes [{id, x, y, label, at, settle, color}]   settle: thời điểm điểm này được "xác định"
+ *   edges [{a, b, w, at, hi}]                       w: con số trên đường; hi: thời điểm làm nổi bật (tuyến ngắn nhất)
+ *   title {text, at}, r (bán kính điểm, mặc định 34), out
  */
 export const Graph = {
   name: "graph",
@@ -363,7 +363,7 @@ export const Graph = {
     const nodes = p.nodes.map((n, i) => {
       const c = n.color ?? "m5";
       const g = s("g", { transform: `translate(${n.x} ${n.y})` });
-      // cell 模式：方格（演示像素、权重），字写在格子里，没点亮的格子用中性描边
+      // chế độ cell: ô vuông (minh họa pixel, trọng số), chữ viết trong ô, ô chưa sáng dùng viền trung tính
       const ring = p.cell
         ? s("rect", { x: -R, y: -R, width: 2 * R, height: 2 * R, rx: 12, fill: "var(--surface)", stroke: n.color ? `var(--${c})` : "var(--line)", "stroke-width": 5 })
         : s("circle", { r: R, fill: "var(--surface)", stroke: `var(--${c})`, "stroke-width": 6 });

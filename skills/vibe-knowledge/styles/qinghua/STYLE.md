@@ -1,26 +1,26 @@
-# 青花 · BLUE & WHITE
+# Men xanh trắng · BLUE & WHITE
 
-> 家族：东方　|　档位：增强档 · 每段约 2 张生图（mj-v8.2，4 积分/张）　|　风格图：`still.jpg`　|　样片源码：`_samples/styles4_film.js → qinghua()`
+> Họ: Phương Đông | Bậc: nâng cao · mỗi đoạn khoảng 2 ảnh tạo sinh (mj-v8.2, 4 điểm/ảnh) | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles4_film.js → qinghua()`
 
-**一句话**：白瓷底上钴蓝像墨滴进水里一样从一点晕开成画，钴蓝楷书先糊后清，青花印章。
+**Một câu**: Trên nền sứ trắng, xanh coban loang từ một điểm thành tranh như giọt mực rơi vào nước, chữ khải coban lúc đầu nhoè rồi rõ dần, ấn triện men xanh trắng.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 釉下发色：画面像钴料在胎上晕开，字像刚写上还没烧定。 |
-| 材质 / 画法 | 增强档：2 张 mj-v8.2 平面青花整幅画。代码：CSS radial mask 从关键物（木杆 / 扛木人）往外扩，字用 blur 10 → 0 的「晕开」进场。 |
-| 配色逻辑 | 白瓷 #F7F6F1 · 钴蓝 #1C3F94 · 淡蓝晕染 |
-| 字体 | 楷体 900 竖排，钴蓝；印章用方框楷体 |
-| 动态 | 第一幅 1.6 秒从中心晕开；高潮第二幅从人物处晕开 0.9 秒盖过；字 0.45 秒由糊变清。 |
-| 镜头语法 | 缓慢推近。 |
-| 声音 | 水滴、瓷器轻碰；箫 / 古筝。 |
-| 标志镜头 | 钴蓝从城门处晕开铺满画面，「赏十金」从模糊的蓝慢慢凝成楷书。 |
+| Ý đồ đạo diễn | Màu dưới men: hình ảnh như liệu coban loang trên phôi, chữ như vừa viết lên chưa nung xong. |
+| Chất liệu / cách vẽ | Bậc nâng cao: 2 ảnh mj-v8.2 nguyên bức tranh men xanh trắng phẳng. Code: CSS radial mask lan ra từ vật then chốt (cột gỗ / người vác gỗ), chữ vào cảnh bằng kiểu "loang" blur 10 → 0. |
+| Logic phối màu | Sứ trắng #F7F6F1 · xanh coban #1C3F94 · loang xanh nhạt |
+| Phông chữ | Khải thể 900 viết dọc, xanh coban; ấn triện dùng khải thể khung vuông |
+| Chuyển động | Bức thứ nhất loang từ giữa trong 1.6 giây; cao trào bức thứ hai loang từ chỗ nhân vật phủ lên trong 0.9 giây; chữ chuyển từ nhoè sang rõ trong 0.45 giây. |
+| Ngữ pháp ống kính | Zoom gần chậm. |
+| Âm thanh | Giọt nước, sứ khẽ chạm nhau; tiêu / đàn tranh. |
+| Cảnh đặc trưng | Xanh coban loang từ cổng thành phủ kín khung hình, "Thưởng mười vàng" từ nhoè xanh từ từ đọng thành khải thư. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换画面内容、换印章文字
-- **一改就变味**：提示词里写 porcelain / ceramic painting 却不排除器物（MJ 会画成碗盘实物照）
-- **不能改**：出现第二种颜色
+## Có thể sửa đến mức nào (dùng khi chỉnh thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi nội dung hình ảnh, đổi chữ trên ấn triện
+- **Sửa là mất chất**: prompt viết porcelain / ceramic painting mà không loại trừ khí vật (MJ sẽ vẽ thành ảnh thật bát đĩa)
+- **Không được sửa**: xuất hiện màu thứ hai
 
-## 搭配
-- 适合母版：一条主线 D、六面轮转 F
-- 不适合：快节奏热点、需要大量数字的选题
-- 增强档 Renoise 前缀：`flat full-frame painting in Ming dynasty blue-and-white style, cobalt blue brushwork and soft blue washes on a plain white ground, empty white space on the left third, flat 2D artwork filling the entire frame, no bowl, no plate, no vase, no ceramic object`
+## Phối hợp
+- Khuôn phù hợp: Một mạch chính D, Sáu mặt xoay vòng F
+- Không phù hợp: chủ đề nóng nhịp nhanh, chủ đề cần nhiều số liệu
+- Tiền tố Renoise bậc nâng cao: `flat full-frame painting in Ming dynasty blue-and-white style, cobalt blue brushwork and soft blue washes on a plain white ground, empty white space on the left third, flat 2D artwork filling the entire frame, no bowl, no plate, no vase, no ceramic object`

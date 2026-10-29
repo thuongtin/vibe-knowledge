@@ -1,26 +1,26 @@
-# 国家公园海报 · PARK POSTER
+# Poster công viên quốc gia · PARK POSTER
 
-> 家族：印刷与纸　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles9_film.js → poster()`
+> Họ: In ấn và giấy | Mức: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles9_film.js → poster()`
 
-**一句话**：米色纸限定 5 色平涂，天空、远山、近山、城门、题字一版版从下往上套印，徽章写赏金，五十金太阳升起。
+**Một câu**: giấy màu be giới hạn 5 màu phủ phẳng, bầu trời, núi xa, núi gần, cổng thành, dòng đề chữ được in chồng từng bản từ dưới lên, huy hiệu ghi tiền thưởng, mặt trời "năm mươi vàng" mọc lên.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | WPA 式国家公园海报：平涂色层叠出纵深，像丝网一版版印上去。 |
-| 材质 / 画法 | 海报卡片（米色纸）+ 4 层 SVG 平涂（天空两色带 / 橙色远山 / 青色近山 / 深色城门人群）+ 底部深色题字带 + 圆形徽章 + 木牌 + 纸纹。 |
-| 配色逻辑 | 纸 #F3E6C4 · 黄 #F2C14E · 橙 #D9682B / #F0A35A · 青 #2F6B6B / #1F4F4F · 深 #2B2B2B |
-| 字体 | Geist / PingFang 900 宽字距（海报题字） |
-| 动态 | 每层 eOutQuint 从下往上压上（间隔 0.25 秒）；徽章弹出；高潮太阳从山后升起、徽章转正。 |
-| 镜头语法 | 锁定 + 2% 极慢推近。 |
-| 声音 | 风声、鸟鸣、原声吉他。 |
-| 标志镜头 | 山后升起的太阳和徽章里的「50」。 |
+| Ý đồ đạo diễn | Poster công viên quốc gia kiểu WPA: các lớp màu phẳng chồng lên tạo chiều sâu, như in lụa từng bản. |
+| Chất liệu / Cách vẽ | Thẻ poster (giấy màu be) + 4 lớp SVG phủ phẳng (dải hai màu bầu trời / núi xa màu cam / núi gần màu xanh lam / đám đông trước cổng thành màu tối) + dải đề chữ tối ở dưới + huy hiệu tròn + biển gỗ + vân giấy. |
+| Logic màu | Giấy #F3E6C4 · vàng #F2C14E · cam #D9682B / #F0A35A · xanh lam #2F6B6B / #1F4F4F · tối #2B2B2B |
+| Phông chữ | Geist / PingFang 900 giãn chữ rộng (chữ đề poster) |
+| Chuyển động | Mỗi lớp eOutQuint ép lên từ dưới (cách nhau 0.25 giây); huy hiệu bật ra; cao trào mặt trời mọc từ sau núi, huy hiệu xoay thẳng. |
+| Ngữ pháp ống kính | Cố định + đẩy gần cực chậm 2%. |
+| Âm thanh | Tiếng gió, chim hót, guitar mộc. |
+| Cảnh đặc trưng | Mặt trời mọc sau núi và số "50" trong huy hiệu. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换 5 色组合、换景物
-- **一改就变味**：用渐变或照片
-- **不能改**：超过 5 种颜色
+## Có thể sửa đến mức nào (dùng khi chuyển thành "phong cách của tôi")
+- **Sửa thoải mái**: đổi tổ hợp 5 màu, đổi cảnh vật
+- **Sửa là mất chất**: dùng gradient hoặc ảnh chụp
+- **Không được sửa**: vượt quá 5 màu
 
-## 搭配
-- 适合母版：一条主线 D、猜谜概念 A
-- 不适合：数据密集的财经
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Mẫu gốc phù hợp: một mạch chính D, đố vui khái niệm A
+- Không phù hợp: tài chính dày đặc dữ liệu
+- Tiền tố Renoise của mức nâng cao: `(mức cơ bản không cần)`

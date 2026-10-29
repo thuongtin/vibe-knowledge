@@ -1,4 +1,4 @@
-// 节拍柱阵：960 根柱子，高度 = 底鼓冲击波 + 中心脉冲 + 十六分镲点的抖动，全部按拍子时间算出来
+// Dãy cột nhịp: 960 cột, chiều cao = sóng xung kích của trống bass + xung ở trung tâm + độ rung của nốt cymbal mười sáu, tất cả được tính theo thời gian của nhịp
 import * as THREE from "three";
 
 const VS = /* glsl */ `out vec3 vCol; out float vY; out float vTop; out float vDepth; out vec3 vN; out vec3 vV;
@@ -30,7 +30,7 @@ export class Bars {
     this.mesh.frustumCulled = false;
     this.scene = new THREE.Scene();
     this.scene.add(this.mesh);
-    // 地平线的光
+    // Ánh sáng ở đường chân trời
     const g = new THREE.Mesh(new THREE.PlaneGeometry(9000, 1600), new THREE.ShaderMaterial({ glslVersion: THREE.GLSL3,
       vertexShader: `out vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
       fragmentShader: `precision highp float; in vec2 vUv; out vec4 o; uniform float uA; void main(){ float y = vUv.y; float g = exp(-pow((y - 0.42) / 0.07, 2.0)) * smoothstep(0.0, 0.5, 1.0 - abs(vUv.x - 0.5) * 2.0);
@@ -44,7 +44,7 @@ export class Bars {
     this.low = new THREE.Color(0.03, 0.2, 0.22); this.mid = new THREE.Color(0.9, 0.7, 0.52); this.high = new THREE.Color(1.0, 0.33, 0.08);
   }
 
-  // kicks：已经发生的底鼓时刻（秒）；hats：十六分时刻；t：当前时间
+  // kicks: các thời điểm trống bass đã xảy ra (giây); hats: các thời điểm nốt mười sáu; t: thời gian hiện tại
   render(renderer, target, t, s) {
     const { NX, NZ, SP } = this;
     const recent = s.kicks.filter((k) => k <= t && t - k < 2.5);
@@ -54,7 +54,7 @@ export class Bars {
       const x = (ix - (NX - 1) / 2) * SP, z = (iz - (NZ - 1) / 2) * SP;
       const d = Math.hypot(x * 0.8, z * 1.6);
       let h = 16 + 26 * (0.5 + 0.5 * Math.sin(ix * 0.37 + t * 1.4 + iz * 0.23)) * (0.5 + 0.5 * Math.cos(iz * 0.5 - t * 0.9));
-      const near = 1 - 0.65 * Math.min(1, Math.max(0, (z - 80) / 400));   // 离镜头最近的几排压低，免得一根柱子糊满屏
+      const near = 1 - 0.65 * Math.min(1, Math.max(0, (z - 80) / 400));   // Hạ thấp vài hàng gần ống kính nhất, tránh một cột che kín màn hình
       for (const k of recent) {
         const dt = t - k, big = (s.big.includes(k) ? 1.6 : 1) * near;
         const rr = dt * 1150;

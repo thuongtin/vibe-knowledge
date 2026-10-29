@@ -1,10 +1,10 @@
 /**
- * 手账风场景编译器（scenes.json 里写 "engine": "sketch" 时用它；接口与 runtime/lesson.js 的 buildLesson 相同）。
- * 画风：米白笔记本纸 + rough.js 手绘线条 + 霞鹜文楷手写字 + Fluent Emoji 3D 贴纸 + 便利贴 / 胶带 / 荧光笔 / 拍立得截图。
+ * Trình biên dịch cảnh phong cách sổ tay (dùng khi scenes.json ghi "engine": "sketch"; giao diện giống buildLesson của runtime/lesson.js).
+ * Phong cách: giấy sổ tay trắng ngà + nét vẽ tay rough.js + chữ viết tay LXGW WenKai + sticker 3D Fluent Emoji + giấy nhớ / băng dính / bút dạ quang / ảnh chụp màn hình kiểu polaroid.
  *
- * 时间写法与 lesson.js 一样："B03"、"B03.cue"、"B03@词"、"B03.end"，都可加 ±秒。
- * 模板：cover · say · stickers · quote · shot · flow · compare · checklist · note · pause · recap · outro
- * 通用字段：chapter（章节名：翻页转场 + 左上角章节签）、src（出处小字，右下角）、host（机器人贴纸站位 left/right/none）
+ * Cách viết thời gian giống lesson.js: "B03", "B03.cue", "B03@từ", "B03.end", đều có thể cộng trừ giây.
+ * Mẫu: cover · say · stickers · quote · shot · flow · compare · checklist · note · pause · recap · outro
+ * Trường chung: chapter (tên chương: chuyển cảnh lật trang + nhãn chương ở góc trên trái), src (chữ nhỏ ghi nguồn, góc dưới phải), host (vị trí đứng của sticker robot left/right/none)
  */
 import { Stage } from "./stage.js";
 import { captionCues } from "./overlays.js";
@@ -21,51 +21,51 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
   const T = timings.beats;
   const SPD = timings.speed ?? 1;
   const S = (id) => T[id].start, E = (id) => T[id].end;
-  const C = (id, name) => { const v = T[id]?.cues?.[name]; if (v == null) throw new Error(`${id} 没有 cue「${name}」`); return v; };
-  const W = (id, text) => { const b = T[id], i = b.text.indexOf(text); if (i < 0) throw new Error(`${id} 旁白里没有「${text}」`); return b.chars ? b.chars[i] : S(id); };
+  const C = (id, name) => { const v = T[id]?.cues?.[name]; if (v == null) throw new Error(`${id} không có cue "${name}"`); return v; };
+  const W = (id, text) => { const b = T[id], i = b.text.indexOf(text); if (i < 0) throw new Error(`${id} trong lời dẫn không có "${text}"`); return b.chars ? b.chars[i] : S(id); };
   const ref = (r, fallback) => {
     if (r == null) return fallback;
     if (typeof r === "number") return r;
     const m = /^(B\d+)(?:\.([a-z0-9_]+(?:-[a-z][a-z0-9_]*)*)|@([^+]+?))?([+-]\d+(?:\.\d+)?)?$/.exec(String(r).trim());
-    if (!m) throw new Error(`时间写法不对：${r}`);
+    if (!m) throw new Error(`Cách viết thời gian không đúng: ${r}`);
     const [, id, cue, word, off] = m;
-    if (!T[id]) throw new Error(`没有这一拍：${id}`);
+    if (!T[id]) throw new Error(`Không có nhịp này: ${id}`);
     const t = cue === "end" ? E(id) : cue ? C(id, cue) : word ? W(id, word) : S(id);
     return t + (off ? parseFloat(off) / SPD : 0);
   };
   const IMG = Object.fromEntries((images?.images ?? []).map((i) => [i.id, i]));
-  const img = (id) => { if (!IMG[id]) throw new Error(`图片账本里没有：${id}`); return imgBase + IMG[id].file; };
-  // 皮肤：scenes.json 的 "skin"（paper 手账 / notion 极简）
+  const img = (id) => { if (!IMG[id]) throw new Error(`Sổ cái ảnh không có: ${id}`); return imgBase + IMG[id].file; };
+  // Skin: "skin" của scenes.json (paper sổ tay / notion tối giản)
   const K = useSkin(spec.skin ?? "paper"), NOTION = K.name === "notion";
-  // 界面文字（英文课 spec.lang = "en"）；截图出处可用 spec.shotCredit 统一改写
+  // Chữ giao diện (bài tiếng Anh spec.lang = "en"); nguồn của ảnh chụp có thể dùng spec.shotCredit để ghi đè thống nhất
   const EN = spec.lang === "en";
   const U = EN ? { quote: "❝ From the book", pause: "💭 Pause & think", credits: "Open-source materials used", series: "Series", author: "Author", source: "Source",
       lessonN: (n) => `Lesson ${n}`, task: "💬 Task brief", by: "by" }
-    : { quote: "❝ 原文引用", pause: "💭 暂停 · 想一想", credits: "这节课用到的开源素材", series: "系列", author: "作者", source: "素材", lessonN: (n) => `第 ${n} 节`, task: "💬 任务说明", by: "作者" };
+    : { quote: "❝ Trích nguyên văn", pause: "💭 Tạm dừng · Nghĩ một chút", credits: "Tư liệu mã nguồn mở dùng trong bài này", series: "Series", author: "Tác giả", source: "Tư liệu", lessonN: (n) => `Bài ${n}`, task: "💬 Mô tả nhiệm vụ", by: "Tác giả" };
   const shotCredit = (P) => spec.shotCredit ?? P.credit;
   const emo = (name) => img(`${K.emoji}-${name.replace(/^emojic?-/, "")}`);
-  /** 贴纸：这一节的 lottie/ 里有同名动画就播动画（循环），否则用静态图 */
-  /** 插画（IconPark 插画库等，放在课目录 illus/<名>.svg）：出处统一在片尾素材卡标注；inlineCredits:true 才在图下带小字 */
-  const ILL_CREDIT = "插画：IconPark 插画库（字节跳动）";
-  // 卡片标签一行放不下时自动缩字号（中文按 1 字宽、ASCII 按 0.56 字宽估），最小 32
+  /** Sticker: nếu trong lottie/ của bài này có hoạt hình cùng tên thì phát hoạt hình (lặp), nếu không thì dùng ảnh tĩnh */
+  /** Minh hoạ (thư viện minh hoạ IconPark v.v., đặt ở illus/<tên>.svg trong thư mục bài): nguồn được ghi thống nhất trên thẻ tư liệu cuối phim; chỉ khi inlineCredits:true mới kèm chữ nhỏ dưới hình */
+  const ILL_CREDIT = "Minh hoạ: thư viện minh hoạ IconPark (ByteDance)";
+  // Khi nhãn thẻ không đủ một dòng thì tự thu nhỏ cỡ chữ (ký tự rộng tính 1 chiều rộng chữ, ASCII ước 0.56 chiều rộng chữ), tối thiểu 32
   const fitSize = (text, base, width) => {
     const units = [...String(text).replace(/\*/g, "")].reduce((a, c) => a + (c.codePointAt(0) < 0x250 ? 0.56 : 1), 0);
     return Math.max(32, Math.min(base, Math.floor(width / Math.max(1, units))));
   };
   const illus = (I, name, o) => {
     const svg = extra.illus?.[name];
-    if (!svg) throw new Error(`没有这张插画：${name}（先跑 scripts/illus.py 课目录 ${name}）`);
-    // 贴纸风：插画套一层模切白边组，一起「按上去」
+    if (!svg) throw new Error(`Không có minh hoạ này: ${name} (chạy scripts/illus.py <thư mục bài> ${name} trước)`);
+    // Phong cách sticker: minh hoạ được bọc thêm một nhóm viền trắng cắt khuôn, cùng "ấn lên"
     if (o.sticker ?? spec.sticker) I.push({ k: "group", x: o.x, y: o.y, at: o.at, rot: o.rot ?? -3, filter: "diecut", edge: 7, children: [{ k: "illus", svg, ...o, x: 0, y: 0 }] });
     else I.push({ k: "illus", svg, ...o });
     if (o.credit !== false && spec.inlineCredits === true) I.push({ k: "text", x: o.x, y: o.y + o.h / 2 + 6, text: o.creditText ?? ILL_CREDIT, size: 20, weight: 500, color: COLORS.gray, anchor: "tc", at: o.at + 1, cps: 0 });
   };
   let iconK = 0;
-  /** 视频贴纸登记表：导出给 hf_host 在 index.html 里静态声明（HyperFrames 编译期只认静态写在页面里的媒体） */
+  /** Bảng đăng ký sticker video: xuất cho hf_host khai báo tĩnh trong index.html (khi biên dịch HyperFrames chỉ nhận media được viết tĩnh trong trang) */
   const videos = [];
   let vidK = 0;
   const sticker = (name, o) => {
-    // 写成「图标集:名字」（icon-park:robot、lucide:folder…）就是开源线条图标，一笔笔画出来
+    // Viết thành "bộ icon:tên" (icon-park:robot, lucide:folder…) là icon nét mã nguồn mở, được vẽ từng nét một
     if (name.includes(":")) return { ...o, k: "icon", name, w: o.w * 0.78, h: o.h * 0.78, tone: o.tone ?? ACC[(iconK++) % ACC.length] };
     const d = extra.lottie?.[name];
     return d ? { ...o, k: "lottie", data: d, loop: o.loop ?? true } : { ...o, k: "img", src: emo(name) };
@@ -88,7 +88,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
   const seq = (s, gap = 0.5) => { let k = 0; return (r, g = gap) => (r != null ? ref(r) : s.in + g * k++); };
   const txt = (o) => (typeof o === "string" ? { text: o } : o);
 
-  /** 每个场景收集 items，最后一次性交给 SketchLayer */
+  /** Mỗi cảnh thu thập items, cuối cùng giao một lần cho SketchLayer */
   const T_ = {
     cover(s, I) {
       if (NOTION) return notionCover(s, I);
@@ -113,7 +113,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
       const L = (s.lines ?? []).map(txt);
       const x0 = s.illus ? 330 : s.emoji ? 140 : 0;
       const sizes = [58, 96, 50], w = s.illus ? 1060 : s.emoji ? 1300 : 1600;
-      // 估算折行数：长句自动换行时，下面的行跟着下移，整体仍大致居中
+      // Ước tính số dòng xuống hàng: khi câu dài tự xuống dòng, các dòng phía dưới dịch xuống theo, tổng thể vẫn gần như căn giữa
       const rows = (text, size) => String(text).replace(/\*/g, "").split("\n")
         .reduce((n, seg) => n + Math.max(1, Math.ceil([...seg].reduce((a, c) => a + (c.codePointAt(0) < 0x250 ? 0.56 : 1), 0) * size / w)), 0);
       const lay = L.map((l, k) => { const size = l.size ?? sizes[Math.min(k, 2)] ?? 50; return { l, k, size, n: rows(l.text, size) }; });
@@ -128,8 +128,8 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
       if (s.underline) I.push({ k: "ink", shape: { type: "wave", x: x0 - 330, y: y - 10, w: 660 }, color: COLORS.coral, width: 5, at: ref(s.underline, at() + 0.4) });
       chips(I, s);
     },
-    /** 视频贴纸：一段真渲染的片段（动效模板、成片、录屏）放进白边贴纸卡里循环播放。
-     *  video 是系列 assets/fx/ 下的文件名；info 给右侧信息卡 {name, id, cmd, good, bad, credit}；src 照常是左下角出处小字。 */
+    /** Sticker video: một đoạn đã render thật (mẫu hiệu ứng, thành phẩm, quay màn hình) đặt vào thẻ sticker viền trắng và phát lặp.
+     *  video là tên tệp dưới assets/fx/ của series; info dành cho thẻ thông tin bên phải {name, id, cmd, good, bad, credit}; src vẫn như thường là chữ nhỏ ghi nguồn ở góc dưới trái. */
     video(s, I) {
       const key = String(s.video).replace(/\.mp4$/, "");
       const FX = extra.fx?.[key] ?? {};
@@ -155,7 +155,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
         if (info.id) { kids.push({ k: "text", x: -iw / 2 + 40, y: yy, text: info.id, size: 26, weight: 500, font: "mono", color: COLORS.gray, at: ta + 0.2, cps: 0 }); yy += 50; }
         if (info.cmd) {
           kids.push({ k: "box", x: 0, y: yy + 30, w: iw - 60, h: 60, bg: "#2B2A33", radius: "12px", at: ta + 0.3 });
-          // 等宽字每个字符约 0.62em：按框宽算字号，长命令自动缩小
+          // Chữ đơn cách mỗi ký tự khoảng 0.62em: tính cỡ chữ theo chiều rộng khung, lệnh dài tự thu nhỏ
           const cs = Math.max(16, Math.min(26, Math.floor((iw - 110) / (String(info.cmd).length * 0.62))));
           kids.push({ k: "text", x: -iw / 2 + 50, y: yy + 30, text: info.cmd, size: cs, weight: 500, font: "mono", color: "#F4F2EC", anchor: "ml", at: ta + 0.4, cps: 30 });
           yy += 92;
@@ -169,17 +169,17 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
       }
       chips(I, s);
     },
-    /** 真实终端回放：scripts/term_record.py 真录、term_frames.py 回放并打码，rec 指 lessons/NN/rec/<rec>.frames.json。
-     *  from / to 写录屏秒数或 "mark:名字"；rate 不写按场景长度自动快进；rows 只显示第几行到第几行；
-     *  marks 按行列圈注 [{rows: [a, b], cols: [c0, c1], kind: box | underline | circle, at, until, note, side, color}]。贴纸风下窗口带白边。 */
+    /** Phát lại terminal thật: ghi thật bằng scripts/term_record.py, term_frames.py phát lại và che mờ, rec trỏ tới lessons/NN/rec/<rec>.frames.json.
+     *  from / to ghi số giây của bản quay hoặc "mark:tên"; rate không ghi thì tự tua nhanh theo độ dài cảnh; rows chỉ hiển thị từ dòng nào đến dòng nào;
+     *  marks khoanh chú thích theo hàng cột [{rows: [a, b], cols: [c0, c1], kind: box | underline | circle, at, until, note, side, color}]. Ở phong cách sticker cửa sổ có viền trắng. */
     terminal(s, I) {
       const D = recs[s.rec];
-      if (!D) throw new Error(`没有这段录屏：${s.rec}（把 term_frames.py 的输出放到 rec/${s.rec}.frames.json）`);
+      if (!D) throw new Error(`Không có đoạn quay màn hình này: ${s.rec} (đặt đầu ra của term_frames.py vào rec/${s.rec}.frames.json)`);
       const pos = (v, d) => {
         if (v == null) return d;
         if (typeof v === "string" && v.startsWith("mark:")) {
           const m = D.marks[v.slice(5)];
-          if (m == null) throw new Error(`录屏 ${s.rec} 里没有标记「${v.slice(5)}」（有：${Object.keys(D.marks).join("、") || "无"}）`);
+          if (m == null) throw new Error(`Bản quay ${s.rec} không có mark "${v.slice(5)}" (có: ${Object.keys(D.marks).join(", ") || "không"})`);
           return m;
         }
         return +v;
@@ -194,7 +194,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
       const H = 44 + nR * lh + 32, Wd = D.cols * 0.602 * fs + 40;
       const ty = Math.max(top + H / 2, Math.min(s.y ?? (s.label ? -20 : -60), bottom - H / 2)), tx = s.x ?? 0;
       if (s.label) I.push({ k: "text", x: 0, y: -475, text: txt(s.label).text, size: 48, weight: 700, anchor: "tc", align: "center", at: ref(txt(s.label).at, s.in), cps: 16, hl: "yellow" });
-      add(Terminal, { id: `s${s.i}-term`, x: tx, y: ty, params: { data: D, at: s.in + 0.1, out: s.out, from, to, rate, w: w0, title: s.title ?? "终端", rowsShown: s.rows, maxH,
+      add(Terminal, { id: `s${s.i}-term`, x: tx, y: ty, params: { data: D, at: s.in + 0.1, out: s.out, from, to, rate, w: w0, title: s.title ?? "Terminal", rowsShown: s.rows, maxH,
         sticker: s.sticker ?? spec.sticker,
         hi: (s.hi ?? []).map((x) => ({ ...x, at: ref(x.at), until: x.until != null ? ref(x.until) : undefined })),
         zoom: (s.zoom ?? []).map((z) => ({ ...z, at: ref(z.at), until: z.until != null ? ref(z.until) : undefined })) } });
@@ -225,10 +225,10 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
         if (s.arrows && k > 0) I.push({ k: "ink", shape: { type: "arrow", pts: [[x - w / 2 - gap + 16, y + 6], [x - w / 2 - gap / 2, y - 14], [x - w / 2 - 14, y + 4]] }, color: COLORS.ink, width: 3.5, at: t0 - 0.35, dur: 0.35, seed: 900 + k });
         const col = it.color ?? NOTE_ROT[k % 6], rot = it.rot ?? (k % 2 ? 2 : -2);
         if ((s.style ?? (spec.sticker ? "sticker" : "card")) === "sticker") {
-          // 贴纸版：白边卡 + 图标 + 文字是一个整体，带倾斜按上去
+          // Bản sticker: thẻ viền trắng + icon + chữ là một khối, nghiêng một chút rồi ấn lên
           const sr = it.rot ?? [-3, 2.5, -1.5, 3, -2.5, 1.5][k % 6];
           const ico = sticker(it.emoji, { x: 0, y: -hh / 2 + 110, w: 150, h: 150, at: t0 + 0.25, bob: 4, silent: true });
-          // Noto emoji 再描一圈白边（贴纸上的小贴纸）；IconPark 线条图标保持原样
+          // Noto emoji được vẽ thêm một vòng viền trắng (sticker nhỏ trên sticker); icon nét IconPark giữ nguyên
           const icoItem = String(it.emoji).includes(":") ? ico : { k: "group", x: 0, y: -hh / 2 + 110, at: t0 + 0.25, from: 1.15, spin: 0, filter: "diecut", edge: 4, children: [{ ...ico, x: 0, y: 0 }] };
           const kids = [icoItem,
             { k: "text", x: 0, y: -hh / 2 + 200, text: it.label, size: it.size ?? fitSize(it.label, 46, w - 70), weight: 700, anchor: "tc", align: "center", w: w - 50, at: t0 + 0.3, cps: 16 }];
@@ -264,9 +264,9 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
       chips(I, s);
     },
     shot(s, I) {
-      // 录屏回放用 clip（flip 是编译器自己的「翻页转场」标记，别混用）
+      // Phát lại bản quay màn hình dùng clip (flip là cờ "chuyển cảnh lật trang" riêng của trình biên dịch, đừng dùng lẫn)
       const FL = s.clip ? extra.data?.[`flip-${s.clip}`] : null;
-      if (s.clip && !FL) throw new Error(`没有这段录屏：flip-${s.clip}（课目录 data/flip-${s.clip}.json）`);
+      if (s.clip && !FL) throw new Error(`Không có đoạn quay màn hình này: flip-${s.clip} (thư mục bài data/flip-${s.clip}.json)`);
       const P = FL ? { width: FL.w, height: FL.h, credit: IMG[FL.frames[0]].credit } : IMG[s.img];
       const [c0, c1, c2, c3] = s.crop ?? [0, 0, 1, 1];
       const ar = (P.width * (c2 - c0)) / (P.height * (c3 - c1));
@@ -277,7 +277,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
       if (FL) I.push({ k: "flip", srcs: FL.frames.map(img), fps: FL.fps, x, y, w, h: hh, crop: s.crop, at: s.in + 0.15, delay: s.clipDelay ?? 0.3, loop: s.loop ?? false });
       else I.push({ k: "img", src: img(s.img), x, y, w, h: hh, frame: "polaroid", crop: s.crop, rot: s.rot ?? -0.8, at: s.in + 0.15, pop: true });
       I.push({ k: "text", x: x + w / 2 - 10, y: y + hh / 2 + 8, text: shotCredit(P), size: 22, weight: 500, color: COLORS.gray, anchor: "tr", at: s.in + 0.8, cps: 0 });
-      // 标注：area 写原图比例 [x0, y0, x1, y1]
+      // Chú thích: area ghi theo tỷ lệ ảnh gốc [x0, y0, x1, y1]
       const fx = (v) => x - iw / 2 + ((v - c0) / (c2 - c0)) * iw, fy = (v) => y - hh / 2 + (K.pad[1] ? 14 : 0) + ((v - c1) / (c3 - c1)) * ih;
       (s.marks ?? []).forEach((m, k) => {
         const [a, b, c, d] = [fx(m.area[0]), fy(m.area[1]), fx(m.area[2]), fy(m.area[3])], col = COLORS[m.color ?? "coral"], t0 = ref(m.at);
@@ -328,7 +328,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
         const at = seq({ in: t0 + 0.8 }, 0.8);
         c.items.forEach((it, j) => {
           const o = txt(it), ty = y - hh / 2 + 180 + j * 88, ti = at(o.at);
-          // neutral：左边不是「错」，只是「普通做法」→ 灰色短横，不打叉
+          // neutral: bên trái không phải "sai", chỉ là "cách làm thông thường" → gạch ngang ngắn màu xám, không đánh dấu chéo
           const shape = good ? { type: "check", x: x - w / 2 + 70, y: ty + 26, s: 40 } : s.neutral ? { type: "line", x1: x - w / 2 + 56, y1: ty + 28, x2: x - w / 2 + 84, y2: ty + 28 } : { type: "cross", x: x - w / 2 + 70, y: ty + 26, s: 30 };
           I.push({ k: "ink", shape, color: good ? COLORS.green : s.neutral ? COLORS.gray : COLORS.red, width: 6, at: ti, dur: 0.3, seed: 90 + j + k * 10 });
           I.push({ k: "text", x: x - w / 2 + 120, y: ty, w: w - 160, text: o.text, size: 40, weight: 600, at: ti + 0.15, cps: 16, hl: good ? "yellow" : undefined });
@@ -383,7 +383,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
       I.push({ k: "chip", x: -560, y: -270, text: NOTION ? U.pause : U.pause.replace("💭 ", ""), color: COLORS.coral, bg: NOTION ? COLORS.coral : "rgba(255,255,255,.85)", stamp: !NOTION, size: 34, rot: -8, at: s.in + 0.3, anchor: "c" });
       I.push({ k: "text", x: -40, y: -150, w: 1040, text: s.q, size: 60, weight: 700, anchor: "tc", align: "center", at: s.in + 0.4, cps: 14 });
       I.push(sticker(s.emoji ?? "thinking-face", { x: 600, y: -250, w: 190, h: 190, rot: 10, bob: 6, at: s.in + 0.6 }));
-      // 3 秒倒计时：手绘圆圈一点点画满
+      // Đếm ngược 3 giây: vòng tròn vẽ tay được vẽ đầy dần
       for (let k = 0; k < 3; k++) I.push({ k: "text", x: -40, y: 90, text: String(3 - k), size: 80, weight: 700, color: COLORS.coral, anchor: "c", align: "center", at: tr - 3 + k, cps: 0, until: tr - 2 + k - 0.05 });
       I.push({ k: "ink", shape: { type: "ellipse", cx: -40, cy: 92, w: 130, h: 130 }, color: COLORS.coral, width: 5, at: tr - 3, dur: 2.9, seed: 33, until: tr - 0.05 });
       I.push({ k: "text", x: -40, y: 60, w: 1100, text: s.a, size: 58, weight: 700, color: COLORS.ink, anchor: "tc", align: "center", at: tr, cps: 12, hl: "coral" });
@@ -392,7 +392,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
     recap(s, I) {
       const at = seq(s, 1.2);
       const cx = 0, cy = -40, n = s.branches.length;
-      // 中心椭圆随标题长度加宽，长标题不再顶出边
+      // Hình elip ở giữa nới rộng theo độ dài tiêu đề, tiêu đề dài không còn tràn ra ngoài viền
       const tw = [...String(s.center)].reduce((a, c) => a + (c.codePointAt(0) < 0x250 ? 0.56 : 1), 0) * 52;
       const ew = Math.max(440, tw + 140), eh = 210;
       I.push({ k: "ink", shape: { type: "ellipse", cx, cy, w: ew, h: eh }, color: COLORS.ink, width: 4, fill: NOTES.yellow, fillStyle: "solid", at: s.in, dur: 0.5, seed: 70 });
@@ -423,7 +423,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
     },
   };
 
-  /** Notion 页面头：封面色带 + 页面图标 + 大标题 + 属性行 + 提问 callout */
+  /** Đầu trang Notion: dải màu bìa + icon trang + tiêu đề lớn + hàng thuộc tính + callout đặt câu hỏi */
   function notionCover(s, I) {
     I.push({ k: "box", x: 0, y: -440, w: 1920, h: 200, bg: s.coverBg ?? "linear-gradient(115deg,#E7F3F8 0%,#F6F3F9 45%,#FBF3DB 100%)", at: s.in });
     if (s.iconImg) I.push({ k: "img", src: img(s.iconImg), x: -700, y: -330, w: 180, h: 180, at: s.in + 0.3, radius: "18px" });
@@ -431,7 +431,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
     const lines = (s.title ?? spec.title).split("\n");
     lines.forEach((ln, k) => I.push({ k: "text", x: -790, y: -220 + k * 104, text: ln, size: k === 0 ? 92 : 64, weight: 700, at: s.in + 0.8 + k * 0.9, cps: 9, color: k ? COLORS.sub : COLORS.ink }));
     let y = -220 + lines.length * 104 + 30;
-    const props = s.props ?? [["📚", U.series, `${spec.series} · ${U.lessonN(spec.n)}`], ["👤", U.author, spec.author], ["📖", U.source, EN ? "WorkBuddy Guide (open source, MIT)" : "《WorkBuddy 实战蓝皮书》· MIT"]];
+    const props = s.props ?? [["📚", U.series, `${spec.series} · ${U.lessonN(spec.n)}`], ["👤", U.author, spec.author], ["📖", U.source, EN ? "WorkBuddy Guide (open source, MIT)" : "Sách xanh thực chiến WorkBuddy · MIT"]];
     props.forEach(([ic, k, v], j) => {
       I.push({ k: "text", x: -790, y: y + j * 54, text: `${ic}  ${k}`, size: 30, weight: 500, color: COLORS.gray, at: s.in + 2 + j * 0.25, cps: 0 });
       I.push({ k: "text", x: -560, y: y + j * 54, text: v, size: 30, weight: 500, color: COLORS.ink, at: s.in + 2.1 + j * 0.25, cps: 0 });
@@ -446,7 +446,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
     const spots = [[640, -150, 150], [860, -40, 120], [720, 90, 110]];
     (s.stickers ?? []).slice(0, 3).forEach((e, k) => I.push(sticker(e, { x: spots[k][0], y: spots[k][1], w: spots[k][2], h: spots[k][2], bob: 5, at: s.in + 2.4 + 0.3 * k })));
   }
-  /** Notion 引用块：左边一道竖线，大字，出处灰字，右上角标签 */
+  /** Khối trích dẫn Notion: một vạch dọc bên trái, chữ lớn, nguồn bằng chữ xám, nhãn ở góc trên phải */
   function notionQuote(s, I) {
     const size = s.size ?? 54, w = s.w ?? 1320, x = -w / 2 + 60, y0 = s.y ?? -230;
     const t0 = ref(s.textAt, s.in + 0.2);
@@ -459,8 +459,8 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
     if (s.emoji) I.push(sticker(s.emoji, { x: w / 2 + 40, y: y0 - 50, w: 150, h: 150, bob: 4, at: s.in + 0.5 }));
   }
 
-  const LOT = (name) => { const d = extra.lottie?.[name]; if (!d) throw new Error(`没有这个 Lottie：${name}（放进课目录 lottie/${name}.json）`); return d; };
-  /** 动效演示用的模板 */
+  const LOT = (name) => { const d = extra.lottie?.[name]; if (!d) throw new Error(`Không có Lottie này: ${name} (đặt vào lottie/${name}.json trong thư mục bài)`); return d; };
+  /** Mẫu dùng để trình diễn hiệu ứng */
   Object.assign(T_, {
     kinetic(s, I) {
       (s.lines ?? []).forEach((l, k) => I.push({ k: "kinetic", x: l.x ?? 0, y: l.y ?? (-60 + k * 170), text: l.text, size: l.size ?? (k ? 64 : 140), weight: l.weight ?? (k ? 600 : 800),
@@ -495,7 +495,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
       chips(I, s);
     },
     map(s, I) {
-      // 镜头要推近时，标题先退场（否则会被裁掉半截）
+      // Khi ống kính cần đẩy gần, tiêu đề rút ra trước (nếu không sẽ bị cắt mất nửa chừng)
       const zoomAt = s.cam?.length ? s.start + s.cam[0][0] - 0.4 : undefined;
       if (s.title) I.push({ k: "text", x: 0, y: -470, text: s.title, size: 52, weight: 700, anchor: "tc", align: "center", at: s.in, cps: 16, until: zoomAt });
       s.tagUntil = zoomAt;
@@ -516,7 +516,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
       chips(I, s);
     },
     pan(s, I) {
-      // 一张比画面宽的大画布：卡片横着排，镜头从左摇到右，最后推近
+      // Một tấm canvas lớn rộng hơn khung hình: các thẻ xếp ngang, ống kính lia từ trái sang phải, cuối cùng đẩy gần
       (s.cards ?? []).forEach((c, k) => {
         const x = c.x ?? (k * 900 - 900), t0 = ref(c.at, s.in + 0.2 + k * 0.2);
         I.push({ k: "note", x, y: 0, w: 700, h: 460, color: NOTE_ROT[k % 6], at: t0, seed: 80 + k });
@@ -529,7 +529,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
     },
   });
 
-  /** 出处小字（右下角，字幕条上方）与自定义角标 */
+  /** Chữ nhỏ ghi nguồn (góc dưới phải, phía trên thanh phụ đề) và nhãn góc tuỳ chỉnh */
   function chips(I, s) {
     if (s.tag) I.push({ k: "chip", x: -900, y: spec.noCaptions ? 450 : -470, text: s.tag, color: COLORS.purple, bg: COLORS.purple, size: 28, at: s.in + 0.2, anchor: "ml", until: s.tagUntil });
     if (s.src) I.push({ k: "text", x: -900, y: 372, text: `📖 ${s.src}`, size: 24, weight: 600, color: COLORS.gray, anchor: "tl", at: s.in + 0.6, cps: 0 });
@@ -537,13 +537,13 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
 
   for (const s of scenes) {
     const fn = T_[s.t];
-    if (!fn) throw new Error(`手账模板里没有：${s.t}`);
+    if (!fn) throw new Error(`Mẫu sổ tay không có: ${s.t}`);
     const I = [];
     fn(s, I);
     add(SketchLayer, { id: `s${s.i}-${s.t}`, x: 0, y: 0, params: { out: s.out, items: I } });
   }
 
-  // ---------- 镜头（演示片的推拉摇移） ----------
+  // ---------- Ống kính (đẩy kéo lia của phim trình diễn) ----------
   if (scenes.some((s) => s.cam)) {
     const keys = [{ t: 0, x: 0, y: 0, z: 1 }];
     for (const s of scenes) {
@@ -553,11 +553,11 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
     stage.camera(keys.sort((a, b) => a.t - b.t));
   }
 
-  // ---------- 机器人贴纸讲解员：开口时轻轻点头 ----------
+  // ---------- Sticker robot giảng viên: khi mở miệng thì gật đầu nhẹ ----------
   const talk = Object.values(T).flatMap((b) => b.words.map((w) => [w.start, w.end]));
   const hostKeys = scenes.map((s) => [s.start, s.host ?? ((spec.presenter ? ["cover", "recap"] : ["cover", "outro", "recap"]).includes(s.t) ? "none" : "right")]);
   if (spec.presenter === "hp") {
-    // 多动作讲解小人：hp-<动作>-<1..8>；场景可写 pose，默认按模板挑，冒气泡时竖食指
+    // Nhân vật que giảng bài nhiều động tác: hp-<động tác>-<1..8>; cảnh có thể ghi pose, mặc định chọn theo mẫu, khi hiện bóng thoại thì giơ ngón trỏ
     const POSES = ["talk", "wave", "point", "idea", "think", "stop", "check", "cheer", "thumbsup", "type"];
     const F = Object.fromEntries(POSES.map((ps) => [ps, Array.from({ length: 8 }, (_, k) => img(`hp-${ps}-${k + 1}`))]));
     const DEF = { shot: "point", pause: "think", outro: "wave", checklist: "check" };
@@ -577,26 +577,26 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
     stage.overlay(presenter(stage, F, hostKeys, Object.values(T).flatMap((b) => b.words.map((w) => [w.start, w.end])), tips));
   } else stage.overlay(host(stage, emo("robot"), hostKeys, talk));
 
-  // ---------- 章节签 + 翻页转场、署名、AI 配音标注、字幕 ----------
+  // ---------- Nhãn chương + chuyển cảnh lật trang, ghi công, ghi chú lồng tiếng AI, phụ đề ----------
   const chapters = scenes.filter((s) => s.chapter).map((s) => ({ t: s.start, title: s.chapter }));
   stage.overlay(chapterTab(stage, chapters, NOTION ? spec.series : null));
   stage.overlay(pageFlip(stage, scenes.filter((s) => s.flip).map((s) => s.start), NOTION));
   stage.overlay(corner(stage, `${U.by} ${spec.author ?? ""}`, "tl", [[0.5, Math.min(12, scenes[1]?.start ?? 12)]]));
   stage.overlay(corner(stage, `${U.by} ${spec.author ?? ""}`, "tr", [[timings.total - 10, timings.total + 1]]));
-  stage.overlay(corner(stage, spec.voiceTag ?? "配音由 AI 合成（小米 MiMo）", "tr", [[0.5, Math.min(12, scenes[1]?.start ?? 12)]]));
+  stage.overlay(corner(stage, spec.voiceTag ?? "Lồng tiếng do AI tổng hợp (Xiaomi MiMo)", "tr", [[0.5, Math.min(12, scenes[1]?.start ?? 12)]]));
   stage.captions = captionCues(Object.values(T), spec.lang === "en" ? 52 : 18, spec.lang === "en");
   if (!spec.noCaptions) stage.overlay(handCaptions(stage, stage.captions));
-  stage.chapters = [{ t: 0, title: "开场" }, ...chapters];
+  stage.chapters = [{ t: 0, title: "Mở đầu" }, ...chapters];
   stage.videos = videos;
   stage.sfx = [...scenes.filter((s) => s.flip).map((s, i) => ({ t: s.start - 0.05, name: `page-${1 + (i % 3)}`, gain: -16 })),
     ...all.flatMap((q) => q.sfx ?? [])].sort((a, b) => a.t - b.t);
-  // 同一时刻扎堆的音效只留一个
+  // Hiệu ứng âm thanh dồn vào cùng một thời điểm chỉ giữ lại một
   stage.sfx = stage.sfx.filter((x, i, a) => i === 0 || x.t - a[i - 1].t > 0.12);
   stage.seek(0);
   return stage;
 }
 
-/* ---------------- 屏幕层 ---------------- */
+/* ---------------- Lớp màn hình ---------------- */
 
 let _skin = "paper";
 const SKIN_NAME = () => _skin;
@@ -651,7 +651,7 @@ function chapterTab(stage, chapters, crumb) {
   return { el, render(t) {
     const c = [...chapters].reverse().find((q) => t >= q.t + 0.3);
     if (!c) return setStyle(el, "opacity", "0");
-    // Notion：面包屑「📘 系列 / 章节」
+    // Notion: breadcrumb "📘 series / chương"
     if (crumb) { if (el.dataset.t !== c.title) { el.innerHTML = ""; el.append(document.createTextNode(`📘 ${crumb}  /  `), h("b", { text: c.title })); el.dataset.t = c.title; } }
     else setText(el, c.title);
     const a = step(t - c.t - 0.3, UI);
@@ -665,12 +665,12 @@ function pageFlip(stage, times, fade) {
   return { el, render(t) {
     const c = times.find((x) => t >= x - 0.35 && t < x + 0.45);
     if (c == null) return setStyle(el, "visibility", "hidden");
-    if (fade) {   // Notion：像切换页面一样，白一下
+    if (fade) {   // Notion: như khi chuyển trang, loé trắng một chút
       setStyle(el, "visibility", "visible");
       setStyle(el, "opacity", (1 - Math.abs((t - c) / 0.35)).toFixed(3));
       return;
     }
-    // 一张新纸从右边滑进来盖住画面，再往左滑走
+    // Một tờ giấy mới trượt vào từ bên phải che khung hình, rồi trượt đi sang trái
     const p = cubicInOut(clamp01((t - (c - 0.35)) / 0.8));
     setStyle(el, "visibility", "visible");
     setStyle(el, "transform", `translateX(${((1 - p * 2) * 105).toFixed(2)}%) rotate(${((1 - p * 2) * 3).toFixed(2)}deg)`);
@@ -706,7 +706,7 @@ function host(stage, src, keys, talk) {
 }
 
 
-/** 讲解小人（像素头像）：贴着画面右下角；说话时张嘴、轻轻上下一格，每 3.7 秒左右眨一次眼；tips 是它说的话（气泡） */
+/** Nhân vật que giảng bài (avatar pixel): dán ở góc dưới phải khung hình; khi nói thì mở miệng, nhích nhẹ lên xuống một ô, khoảng mỗi 3.7 giây chớp mắt một lần; tips là lời nó nói (bóng thoại) */
 const PCSS = `
 .sk-pr{position:absolute;right:28px;bottom:0;width:250px;height:250px;pointer-events:none}
 .sk-pr img{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;visibility:hidden}
@@ -725,7 +725,7 @@ function presenter(stage, F, keys, talk, tips) {
     const a = on ? step(t - k[0] - 0.2, UI) : 0;
     setStyle(box, "opacity", on ? clamp01((t - k[0] - 0.2) / 0.2).toFixed(3) : "0");
     const w = talk.find(([a0, b0]) => t >= a0 && t < b0);
-    // 每个字前 55% 张嘴；眨眼：以 3.7 秒为周期，偶尔连眨两下
+    // 55% đầu của mỗi chữ thì mở miệng; chớp mắt: chu kỳ 3.7 giây, thỉnh thoảng chớp liền hai lần
     const mouth = w && (t - w[0]) / Math.max(0.05, w[1] - w[0]) < 0.55;
     const cyc = t % 3.7, blink = cyc < 0.12 || (Math.floor(t / 3.7) % 3 === 1 && cyc > 0.25 && cyc < 0.35);
     const f = mouth ? (blink ? "talk-blink" : "talk") : blink ? "blink" : "0";
@@ -742,7 +742,7 @@ function presenter(stage, F, keys, talk, tips) {
 }
 
 
-/** 多动作像素小人。talk：按字张嘴（帧 2/3/7/6）、不说话闭嘴（帧 1）、眨眼（帧 4）；其他动作按 7 帧/秒循环 */
+/** Nhân vật pixel nhiều động tác. talk: mở miệng theo chữ (khung 2/3/7/6), không nói thì ngậm miệng (khung 1), chớp mắt (khung 4); các động tác khác lặp 7 khung/giây */
 const PPCSS = `
 .sk-pp{position:absolute;right:10px;bottom:0;width:300px;height:300px;pointer-events:none}
 .sk-pp img{position:absolute;inset:0;width:100%;height:100%;visibility:hidden}
@@ -756,7 +756,7 @@ function presenterPoses(stage, F, showKeys, poseKeys, talk, tips) {
   for (const [ps, list] of Object.entries(F)) imgs[ps] = list.map((src) => { const im = h("img", { src }); box.append(im); return im; });
   el.append(box, tip);
   let shown = null;
-  const OPEN = [1, 2, 6, 5];   // 0 起算：帧 2/3/7/6
+  const OPEN = [1, 2, 6, 5];   // tính từ 0: khung 2/3/7/6
   return { el, render(t) {
     const k = [...showKeys].reverse().find((q) => t >= q[0]);
     const on = (k?.[1] ?? "none") !== "none";
@@ -777,7 +777,7 @@ function presenterPoses(stage, F, showKeys, poseKeys, talk, tips) {
       for (const list of Object.values(imgs)) for (const im of list) im.style.visibility = "hidden";
       imgs[pose][fi].style.visibility = "visible"; shown = id;
     }
-    // 换动作时轻轻跳一下
+    // Khi đổi động tác thì nhảy nhẹ một cái
     const hop = 1 - step(t - pk[0], { w: 2 * Math.PI * 3, z: 0.5 });
     setStyle(box, "transform", `translateY(${((1 - a) * 140 - Math.max(0, hop) * 10).toFixed(1)}px)`);
     const q = tips.find((x) => t >= x.t0 && t < x.t1);

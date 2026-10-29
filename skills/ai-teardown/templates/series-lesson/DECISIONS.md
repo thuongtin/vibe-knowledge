@@ -1,10 +1,10 @@
-# AI 实战课（第二季）· 用户拍板记录
+# Khóa thực chiến AI (mùa 2) · Ghi chép các quyết định của người dùng
 
-2026-09-26 用户定：
-- 内容：先讲清大模型常用概念、提示词、底层框架（智能体/工具调用/MCP 等），再以 OpenAI Codex 为例做保姆级实战，让观众真能装好、用起来。
-- 资料：官方手册优先（developers.openai.com/codex、openai/codex 仓库）；GitHub 民间蓝皮书/白皮书只作参考，要回到官方核实。
-- 观众：会一点电脑的职场人（会装软件、懂文件夹，不会写代码）。少讲电脑基础，多讲工作场景。
-- 结构：12 节 = 概念 3 + 提示词 2 + Codex 实战 7；每节 8–12 分钟，1.15 倍语速；每节视频配一份可复制命令的图文步骤。
-- 账号：主线走官方账号（ChatGPT 登录）；另开一节按官方配置文档讲接国内模型 API（以官方确实支持为前提）。
-- 操作画面：在用户这台 Mac 上用本机 Codex 真实录屏；会消耗用户 Codex 额度，每次动手前先问用户。
-- 截图：官方截图有版权，只按原样引用并注明出处；其余画面自绘或实录。
+2026-09-26 người dùng quyết định:
+- Nội dung: trước hết giải thích rõ các khái niệm thường dùng về mô hình lớn, prompt, khung nền tảng (agent/gọi công cụ/MCP v.v.), sau đó lấy OpenAI Codex làm ví dụ thực chiến cầm tay chỉ việc, để khán giả thật sự cài được và dùng được.
+- Tài liệu: ưu tiên sổ tay chính thức (developers.openai.com/codex, repo openai/codex); sách xanh/sách trắng dân gian trên GitHub chỉ để tham khảo, phải đối chiếu lại với nguồn chính thức.
+- Khán giả: người đi làm biết chút về máy tính (biết cài phần mềm, hiểu thư mục, không biết viết code). Bớt nói về kiến thức máy tính cơ bản, nói nhiều về tình huống công việc.
+- Cấu trúc: 12 bài = khái niệm 3 + prompt 2 + thực chiến Codex 7; mỗi bài 8–12 phút, tốc độ nói 1,15 lần; mỗi video kèm một bản hướng dẫn hình ảnh và chữ có lệnh có thể sao chép.
+- Tài khoản: mạch chính dùng tài khoản chính thức (đăng nhập ChatGPT); mở riêng một bài nói về kết nối API mô hình trong nước theo tài liệu cấu hình chính thức (với điều kiện chính thức thực sự hỗ trợ).
+- Hình ảnh thao tác: quay màn hình thật bằng Codex trên chiếc Mac của người dùng; sẽ tiêu hao hạn mức Codex của người dùng, mỗi lần thao tác phải hỏi người dùng trước.
+- Ảnh chụp màn hình: ảnh chụp chính thức có bản quyền, chỉ trích dẫn nguyên trạng và ghi rõ nguồn; các hình ảnh còn lại tự vẽ hoặc quay thật.

@@ -1,22 +1,24 @@
 #!/usr/bin/env python3
-"""给 cine 的 finish.py 打「earshot 代码音效」补丁（new_film.py 建系列时自动调用；也可单独跑：python3 patch_earshot.py <系列目录>）。
+"""Vá finish.py của cine để thêm "hiệu ứng âm thanh bằng mã earshot" (new_film.py tự gọi khi tạo series; cũng có thể chạy riêng: python3 patch_earshot.py <thư mục series>).
 
-打完之后，film.js 的 music 条目可以写：
+Sau khi vá, mục music của film.js có thể viết:
   { src: "earshot:cut_hit/punch", at: 12.3, align: "peak", gain: -8, es: { seed: 2, dur: 0.4, apex: null, pitch: "G1" } }
-- finish.py 先把所有 earshot 条目交给 ~/.claude/skills/vibe-knowledge/tools/earshot_render.py（用 earshot 自己的 venv 跑），
-  渲染结果按参数哈希缓存在 lessons/<课>/build/esfx/；
-- align: "onset"（默认，起音点落在 at）或 "peak"（最响点落在 at：嗖声、反向镲、上升音用这个）；
-- 默认不跟着旁白压低（duck: false），要压就写 duck: true。
-环境变量：EARSHOT_PY（earshot venv 的 python，默认 ~/tools/earshot/.venv/bin/python）、EARSHOT_TOOL（渲染脚本路径）。"""
+- finish.py trước tiên giao tất cả mục earshot cho ~/.claude/skills/vibe-knowledge/tools/earshot_render.py (chạy bằng venv riêng của earshot),
+  kết quả kết xuất được lưu đệm theo băm tham số trong lessons/<bài>/build/esfx/;
+- align: "onset" (mặc định, điểm khởi âm rơi vào at) hoặc "peak" (điểm to nhất rơi vào at: tiếng vút, chũm chọe ngược, âm đi lên dùng cái này);
+- Mặc định không bị hạ nhỏ theo lời dẫn (duck: false), muốn hạ thì viết duck: true.
+Biến môi trường: EARSHOT_PY (python của venv earshot, mặc định ~/tools/earshot/.venv/bin/python), EARSHOT_TOOL (đường dẫn kịch bản kết xuất)."""
 import sys
 from pathlib import Path
 
-MARK = "# earshot 代码音效（vibe-knowledge patch_earshot）"
+MARK = "# earshot code sfx (vibe-knowledge patch_earshot)"
+# Dấu cũ (bản tiếng Trung) để nhận ra finish.py đã được vá từ trước
+OLD_MARK = "# earshot \u4ee3\u7801\u97f3\u6548\uff08vibe-knowledge patch_earshot\uff09"
 
 OLD_LOOP = """    for m in info.get("music", []):
         tmp = B / "_music.wav"
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{float(m.get('from', 0)):.3f}", "-t", f"{float(m['dur']):.3f}", "-i", str(m["src"] if Path(m["src"]).is_absolute() else ROOT / m["src"]),"""
-NEW_LOOP = """    """ + MARK + """：src 写 "earshot:<id>" 的条目先统一渲染（按参数哈希缓存），再按 onset / peak 对齐到 at
+NEW_LOOP = """    """ + MARK + """: các mục có src viết "earshot:<id>" được kết xuất trước (lưu đệm theo băm tham số), rồi căn theo onset / peak vào at
     import hashlib, os
     es_jobs = []
     for m in info.get("music", []):
@@ -39,28 +41,28 @@ NEW_LOOP = """    """ + MARK + """：src 写 "earshot:<id>" 的条目先统一�
                 lead = float(meta.get("peak_s" if m.get("align") == "peak" else "onset_s") or 0)
                 m["src"] = str(esd / f"{m['_es']['key']}.wav")
                 m["dur"] = float(meta.get("dur_s") or m.get("dur", 3))
-                m["from"] = max(0.0, lead - float(m["at"]))          # at 太靠前时从文件中间截
+                m["from"] = max(0.0, lead - float(m["at"]))          # khi at quá sớm thì cắt từ giữa tệp
                 m["at"] = max(0.0, float(m["at"]) - lead)
                 m.setdefault("fade_in", 0.0); m.setdefault("fade_out", 0.02)
-                print(f"  earshot {meta.get('id')} → {m['at']:.3f}s（{m.get('align', 'onset')} 对齐，提前 {lead * 1000:.0f} ms）")
+                print(f"  earshot {meta.get('id')} → {m['at']:.3f}s({m.get('align', 'onset')} căn, sớm {lead * 1000:.0f} ms)")
     for m in info.get("music", []):
         tmp = B / "_music.wav"
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{float(m.get('from', 0)):.3f}", "-t", f"{float(m['dur']):.3f}", "-i", str(m["src"] if Path(m["src"]).is_absolute() else ROOT / m["src"]),"""
 
 OLD_ADD = """            clipa[j0:j1] += a[: j1 - j0] * (g * duck[j0:j1])[:, None]"""
-NEW_ADD = """            dk = duck[j0:j1] if m.get("duck", "_es" not in m) else 1.0   # earshot 音效默认不压
+NEW_ADD = """            dk = duck[j0:j1] if m.get("duck", "_es" not in m) else 1.0   # âm thanh earshot mặc định không hạ nhỏ
             clipa[j0:j1] += a[: j1 - j0] * (g * dk)[:, None]"""
 
 
 def patch(series_dir):
     p = Path(series_dir) / "cine/tools/finish.py"
     s = p.read_text(encoding="utf-8")
-    if MARK in s:
+    if MARK in s or OLD_MARK in s:
         return False
     if OLD_LOOP not in s or OLD_ADD not in s:
-        sys.exit(f"{p}：找不到要替换的配乐循环，finish.py 改过了，patch_earshot.py 要跟着改（先确认已打 music src 相对路径补丁）")
+        sys.exit(f"{p}: không tìm thấy vòng lặp nhạc nền cần thay, finish.py đã bị sửa, patch_earshot.py phải sửa theo (trước hết xác nhận đã vá đường dẫn tương đối music src)")
     p.write_text(s.replace(OLD_LOOP, NEW_LOOP, 1).replace(OLD_ADD, NEW_ADD, 1), encoding="utf-8")
-    print(f"✓ 补丁：{p}（earshot 代码音效）")
+    print(f"✓ Bản vá: {p} (hiệu ứng âm thanh bằng mã earshot)")
     return True
 
 

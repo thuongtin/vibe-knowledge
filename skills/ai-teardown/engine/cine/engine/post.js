@@ -1,4 +1,4 @@
-// 后期：HDR 场景 → 泛光（双 Kawase 金字塔）→ 合成（色差、曝光、ACES、暗角、颗粒、闪白、淡黑）→ 画布
+// Hậu kỳ: cảnh HDR → bloom (kim tự tháp Kawase kép) → hợp thành (sắc sai, phơi sáng, ACES, tối góc, hạt, chớp trắng, mờ dần về đen) → canvas
 import * as THREE from "three";
 
 const VS = /* glsl */ `out vec2 vUv; void main(){ vUv = position.xy * 0.5 + 0.5; gl_Position = vec4(position.xy, 0.0, 1.0); }`;
@@ -35,7 +35,7 @@ void main(){
   vec3 bl = vec3(texture(tBloom, uv + off * 1.5).r, texture(tBloom, uv).g, texture(tBloom, uv - off * 1.5).b);
   col += bl * uBloom;
   col *= uExposure;
-  // 色相保持的影调：按最亮通道压高光，和逐通道 ACES 各取一半——高光不发灰，暗部仍有胶片感
+  // Tông màu giữ nguyên sắc độ: nén vùng sáng theo kênh sáng nhất, trộn một nửa với ACES từng kênh: vùng sáng không bị xám, vùng tối vẫn có chất phim
   float mx = max(col.r, max(col.g, col.b));
   vec3 hp = col * (aces(vec3(mx)).r / max(mx, 1e-4));
   col = mix(aces(col), hp, 0.55);
@@ -74,7 +74,7 @@ export class Post {
       uFlash: { value: 0 }, uFade: { value: 0 }, uGrain: { value: 0.03 }, uVig: { value: 0.45 }, uTime: { value: 0 }, uSat: { value: 1.05 },
       uRes: { value: new THREE.Vector2(W, H) }, uLift: { value: new THREE.Vector3(0.004, 0.003, 0.006) }, uGain: { value: new THREE.Vector3(1.0, 0.985, 0.965) },
     });
-    // 混合两张图（转场用）
+    // Trộn hai ảnh (dùng cho chuyển cảnh)
     this.mMix = pass(/* glsl */ `precision highp float; in vec2 vUv; out vec4 o; uniform sampler2D tA, tB; uniform float uK;
       void main(){ o = vec4(mix(texture(tA, vUv).rgb, texture(tB, vUv).rgb, uK), 1.0); }`, { tA: { value: null }, tB: { value: null }, uK: { value: 0 } });
     this.params = {};
@@ -96,7 +96,7 @@ export class Post {
     this.draw(this.mMix, target);
   }
 
-  // 把 sceneRT 合成到屏幕
+  // Hợp sceneRT lên màn hình
   finish(t) {
     const p = this.params;
     this.mPre.uniforms.tIn.value = this.sceneRT.texture;

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""从微软 Fluent Emoji（MIT）抓 3D 彩色图标，放进系列的 assets/img/，并登记进 images.json（出处自动显示）。
+"""Tải biểu tượng 3D nhiều màu từ Microsoft Fluent Emoji (MIT), đặt vào assets/img/ của series và đăng ký vào images.json (nguồn tự động hiển thị).
 
-用法：python3 scripts/emoji.py <系列目录> [--color] "Robot" "Bar chart" "Man office worker" ...
-- 默认抓 3D 版（PNG，id emoji-<名>，手账风用）；--color 抓扁平彩色版（SVG，id emojic-<名>，Notion 极简风用）。
-- 名字就是 fluentui-emoji 仓库 assets/ 下的文件夹名（大小写照抄，例如 "Magnifying glass tilted left"）。
-- 有肤色变体的（人物、手势）自动取 Default。图片 id 为 emoji-<小写连字符>，例如 emoji-bar-chart。
+Cách dùng: python3 scripts/emoji.py <thư mục series> [--color] "Robot" "Bar chart" "Man office worker" ...
+- Mặc định tải bản 3D (PNG, id emoji-<tên>, dùng cho phong cách sổ tay); --color tải bản phẳng nhiều màu (SVG, id emojic-<tên>, dùng cho phong cách Notion tối giản).
+- Tên chính là tên thư mục dưới assets/ trong kho fluentui-emoji (chép đúng hoa thường, ví dụ "Magnifying glass tilted left").
+- Mục có biến thể màu da (người, cử chỉ) tự động lấy Default. id ảnh là emoji-<chữ thường nối gạch ngang>, ví dụ emoji-bar-chart.
 """
 import json, subprocess, sys, urllib.parse
 from pathlib import Path
@@ -34,11 +34,11 @@ def main():
         k = kind.lower()
         ok = out.exists() or any(fetch(RAW + p, out) for p in (f"{q}/{kind}/{snake}_{k}.{ext}", f"{q}/Default/{kind}/{snake}_{k}_default.{ext}"))
         if not ok:
-            print(f"✗ {n}（查一下 fluentui-emoji 仓库里的准确文件夹名）"); out.unlink(missing_ok=True); continue
+            print(f"✗ {n}(hãy tra tên thư mục chính xác trong kho fluentui-emoji)"); out.unlink(missing_ok=True); continue
         w, h = (256, 256) if color else Image.open(out).size
         if iid not in have:
             data["images"].append({"id": iid, "file": out.name, "width": w, "height": h, "artist": "Microsoft",
-                                   "license": "MIT", "source": "Fluent Emoji（github.com/microsoft/fluentui-emoji）", "credit": "图标：Microsoft Fluent Emoji · MIT"})
+                                   "license": "MIT", "source": "Fluent Emoji (github.com/microsoft/fluentui-emoji)", "credit": "Biểu tượng: Microsoft Fluent Emoji · MIT"})
             have.add(iid)
         print(f"✓ {iid}  {w}×{h}")
     led.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")

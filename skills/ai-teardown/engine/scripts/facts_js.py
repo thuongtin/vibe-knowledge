@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""把研究账本（sources.json + facts.json）导出成互动课件用的 facts.js（window.FACTS / window.SOURCES）。
+"""Xuất sổ nghiên cứu (sources.json + facts.json) thành facts.js dùng cho bài giảng tương tác (window.FACTS / window.SOURCES).
 
-用法：python3 scripts/facts_js.py <research 目录> <out.js> [--images images.json]
---images：把图片账本也并进 SOURCES（id 用 IMG:<图片id>），课件里点人物卡能看到图片的作者与许可。
+Cách dùng: python3 scripts/facts_js.py <thư mục research> <out.js> [--images images.json]
+--images: gộp cả sổ ảnh vào SOURCES (id dùng IMG:<id ảnh>), trong bài giảng nhấp vào thẻ nhân vật sẽ thấy tác giả và giấy phép của ảnh.
 """
 import json
 import sys
@@ -21,9 +21,9 @@ def main():
     if "--images" in sys.argv:
         imgs = json.loads(Path(sys.argv[sys.argv.index("--images") + 1]).read_text(encoding="utf-8"))["images"]
         for i in imgs:
-            sources[f"IMG:{i['id']}"] = {"publisher": i.get("artist", ""), "title": f"{i.get('title', '')}（{i.get('license', '')}）", "locator": i.get("page", "")}
+            sources[f"IMG:{i['id']}"] = {"publisher": i.get("artist", ""), "title": f"{i.get('title', '')} ({i.get('license', '')})", "locator": i.get("page", "")}
     out.write_text("window.FACTS = " + json.dumps(facts, ensure_ascii=False) + ";\nwindow.SOURCES = " + json.dumps(sources, ensure_ascii=False) + ";\n", encoding="utf-8")
-    print(f"{len(facts)} 条事实、{len(sources)} 个来源 → {out}")
+    print(f"{len(facts)} sự thật, {len(sources)} nguồn → {out}")
 
 
 if __name__ == "__main__":

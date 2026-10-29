@@ -1,72 +1,72 @@
-# 11 · 吸星大法：从开源同类项目吸收的做法（2026-10-27）
+# 11 · Hấp tinh đại pháp: các cách làm hấp thụ từ dự án mã nguồn mở tương tự (2026-10-27)
 
-调研了 14 个 GitHub 仓库（3 个子 agent 只读拆解）。**许可证决定能吸多少**：
-- MIT（可借鉴实现，注明来源）：huashu-art-motion（花叔形象 / Clawd 除外）、bang-motion、khan-explainer、paper2video、anatomy-explainer、Paper-Cut、SketchNarrator、LuZhong-Li/vibe-knowledge-video-skill、earshot、lemo-opuscar。
-- **只借思路，不拷代码和原文**：anything2explainer、video-talkcraft（PolyForm 非商用，抖音商单不能用其代码）；opus-5-5-86-styles-in-motion（Futurepedia 素材版权）；opus-video-style-library、worlds3/vibe-knowledge（未声明许可证）。
+Đã khảo sát 14 kho GitHub (3 sub-agent chỉ đọc và phân tích). **Giấy phép quyết định hấp thụ được bao nhiêu**:
+- MIT (có thể tham khảo cách triển khai, ghi rõ nguồn): huashu-art-motion (trừ hình tượng Hoa Thúc / Clawd), bang-motion, khan-explainer, paper2video, anatomy-explainer, Paper-Cut, SketchNarrator, LuZhong-Li/vibe-knowledge-video-skill, earshot, lemo-opuscar.
+- **Chỉ mượn ý tưởng, không chép mã và nguyên văn**: anything2explainer, video-talkcraft (PolyForm phi thương mại, đơn quảng cáo Douyin không được dùng mã của nó); opus-5-5-86-styles-in-motion (bản quyền tư liệu của Futurepedia); opus-video-style-library, worlds3/vibe-knowledge (không khai báo giấy phép).
 
-**最重要的一条事实**：LuZhong-Li 实测 7 部真正的 Vibe 知识大赏 **7/7 都没有旁白**。我们走「有旁白、科技博主快节奏、每句有出处」，这是差异点，不是缺点。
+**Sự thật quan trọng nhất**: LuZhong-Li đã đo thực tế 7 bộ Vibe Knowledge thật sự **7/7 đều không có lời dẫn**. Chúng ta đi theo hướng "có lời dẫn, nhịp nhanh kiểu blogger công nghệ, câu nào cũng có nguồn", đó là điểm khác biệt chứ không phải khuyết điểm.
 
-## 一、旁白与画面对位（写进每期 film.js 的硬规则）
+## Một, khớp lời dẫn và hình ảnh (quy tắc cứng ghi vào film.js mỗi kỳ)
 
-1. **没念到不露面**：锚词说出之前元素完全不可见，不压暗预告；笔迹、划重点只能和话同时或稍晚（白板类晚约 0.5 秒）。〔talkcraft / khan / huashu 白板语法〕
-2. **出现帧对齐**：元素出现落在锚词起点的 −0.2 到 +0.1 秒；时间一律用 `T("Bxx@词")` 取，不手敲。〔a2e / p2v〕
-3. **计数公式**：数字滚动的起点 = 说出数字的时刻 − 滚动时长，让数字在念到时刚好落定；**有出处的真实数据不做中间值滚动**（中间帧会出现原文没有的数），只滚「示意」或整数递进。〔huashu / p2v〕
-4. **镜头是标点**：缓推、横移、拉远做过渡；快推、砸入只给揭晓和关键数字；推进去要拉出来，不连续三镜往里推。〔huashu〕
-5. **强调预算**：关键词砸入全片 ≤4 次、反向镲 ≤1 次、全帧冲击 ≤3 次。〔talkcraft / earshot〕
-6. **静止预算**：最长静止 ≤3 秒，每镜最后一拍落位后稳住 0.5–0.75 秒再离场；不为凑动作加漂浮。〔a2e〕
-7. **字幕素排**：整句出、整句走，不加动效、不带标点，每块 ≤16 字；画面字只放提炼（≤8 字关键词），不重复字幕。〔a2e / talkcraft〕
-8. **画外音提到的人、物、书必须出图**（人像用剪影 / 书影 / 地图代替）。〔bang / p2v〕
-9. **底部避让**：竖屏版 y ≥ 0.8H 的文字总宽 ≤ 0.35W，让给平台按钮。〔LuZhong-Li〕
+1. **Chưa đọc tới thì không lộ diện**: trước khi từ khóa neo được nói ra, phần tử hoàn toàn không nhìn thấy, không làm mờ để báo trước; nét bút, gạch chân chỉ được xuất hiện cùng lúc hoặc muộn hơn lời nói (kiểu bảng trắng muộn khoảng 0,5 giây). [talkcraft / khan / huashu: ngữ pháp bảng trắng]
+2. **Căn khung hình xuất hiện**: phần tử xuất hiện rơi vào khoảng từ −0,2 đến +0,1 giây quanh điểm bắt đầu của từ neo; thời gian luôn lấy bằng `T("Bxx@từ")`, không gõ tay. [a2e / p2v]
+3. **Công thức đếm số**: điểm bắt đầu của số cuộn = thời điểm nói ra con số − thời lượng cuộn, để con số vừa đúng lúc được đọc thì chốt lại; **dữ liệu thật có nguồn thì không cuộn qua giá trị trung gian** (khung hình giữa chừng sẽ xuất hiện con số mà nguyên văn không có), chỉ cuộn số "minh họa" hoặc tiến từng số nguyên. [huashu / p2v]
+4. **Góc máy là dấu câu**: đẩy chậm, lia ngang, kéo xa dùng để chuyển cảnh; đẩy nhanh, đập vào chỉ dành cho lúc tiết lộ và con số then chốt; đẩy vào thì phải kéo ra, không đẩy vào liên tục ba góc máy. [huashu]
+5. **Ngân sách nhấn mạnh**: từ khóa đập vào trong cả phim ≤4 lần, chũm chọe ngược ≤1 lần, xung kích toàn khung ≤3 lần. [talkcraft / earshot]
+6. **Ngân sách tĩnh**: đứng yên lâu nhất ≤3 giây, nhịp cuối của mỗi góc máy sau khi vào vị trí thì giữ vững 0,5–0,75 giây rồi mới rời; không thêm trôi nổi chỉ để cho đủ chuyển động. [a2e]
+7. **Phụ đề thô**: cả câu hiện ra, cả câu đi mất, không thêm hiệu ứng, không kèm dấu câu, mỗi khối ≤16 chữ; chữ trong hình chỉ đặt phần chắt lọc (từ khóa ≤8 chữ), không lặp lại phụ đề. [a2e / talkcraft]
+8. **Người, vật, sách được lời dẫn nhắc tới thì bắt buộc phải có hình** (chân dung dùng bóng đen / bóng sách / bản đồ thay thế). [bang / p2v]
+9. **Chừa đáy**: bản dọc, chữ ở y ≥ 0,8H có tổng chiều rộng ≤ 0,35W, nhường chỗ cho nút của nền tảng. [LuZhong-Li]
 
-## 二、9 种解说语法（huashu，MIT）——按段选语法，全片最多 2 种
+## Hai, 9 loại ngữ pháp giảng giải (huashu, MIT): chọn ngữ pháp theo đoạn, cả phim tối đa 2 loại
 
-| 语法 | 怎么讲 | 对应我们的母版 / 风格 |
+| Ngữ pháp | Cách giảng | Mẫu gốc / phong cách tương ứng của chúng ta |
 |---|---|---|
-| Kurzgesagt 尺度穿行 | 概念画成一个物，对数推拉穿越尺度，钻进物体出现下一个世界；每句旁白至少一次画面变化，硬切比句首早 0–0.2 秒 | A 猜谜概念片 · 星空光点 |
-| Vox 桌面材料 | 真实材料摊在桌上，荧光笔跟词扫、红线追下一张卡，硬切卡句读 | 视觉调查 · D 一条主线片 |
-| 白板 | 说一句写一句（晚 0.5 秒），每个论点平移到新一块，收尾拉远看全图 | C 痛点原理片 · 新风格「粉笔黑板」 |
-| Storytime | 离谱的一句后留 0.8–1.5 秒反应，包袱后定住 ≥0.9 秒 | B 两难选择片的揭晓 |
-| 动态文字 | 主词在重音砸入，一小节一屏，退场快于入场 | 字幕新闻 · E / F |
-| 3b1b 形变 | 黑底只放正在讲的东西，上一个对象直接形变成下一个，几乎不切；先写出问题；颜色 = 概念 | A / C · 新风格「3B1B 深色数据」 |
-| 发布会 | 一屏一件事，截图满幅，讲哪推哪，数字在说出时落定 | 出处截图段 |
-| 财经图表 | 先搭坐标轴，再长数据，只标一件事，线头经过事件点时弹注 | B 的数字对比段 |
-| 讲解员 | 卡通讲解员在侧讲 / 满屏数字 / 左右对比 / 走进图里之间轮换 | F 六面轮转片（需角色资产） |
+| Kurzgesagt xuyên qua các thang đo | Khái niệm được vẽ thành một vật, kéo gần kéo xa theo logarit để xuyên qua các thang đo, chui vào vật thể thì hiện ra thế giới kế tiếp; mỗi câu lời dẫn ít nhất một lần đổi hình, cắt cứng sớm hơn đầu câu 0–0,2 giây | A phim khái niệm đoán đố · điểm sáng bầu trời sao |
+| Vox tư liệu trên mặt bàn | Tư liệu thật trải trên bàn, bút dạ quang quét theo từ, đường đỏ đuổi theo thẻ kế tiếp, cắt cứng thẻ theo ngắt câu | Điều tra bằng hình ảnh · D phim một mạch chính |
+| Bảng trắng | Nói một câu viết một câu (muộn 0,5 giây), mỗi luận điểm dịch sang một khối mới, kết thúc kéo xa nhìn toàn cảnh | C phim nguyên lý nỗi đau · phong cách mới "bảng đen phấn" |
+| Storytime | Sau câu vô lý thì chừa 0,8–1,5 giây để phản ứng, sau tiếng cười thì đứng yên ≥0,9 giây | Phần tiết lộ của B phim lựa chọn tiến thoái lưỡng nan |
+| Chữ động | Từ chính đập vào ở trọng âm, một tiết một màn hình, rút lui nhanh hơn xuất hiện | Bản tin phụ đề · E / F |
+| Biến hình kiểu 3b1b | Nền đen chỉ đặt thứ đang được giảng, đối tượng trước biến hình thẳng thành đối tượng sau, gần như không cắt; viết ra vấn đề trước; màu sắc = khái niệm | A / C · phong cách mới "dữ liệu tối kiểu 3B1B" |
+| Buổi ra mắt | Một màn hình một việc, ảnh chụp tràn khung, giảng đến đâu đẩy tới đó, con số chốt lại khi được nói ra | Đoạn ảnh chụp có nguồn |
+| Biểu đồ tài chính | Dựng trục tọa độ trước, rồi mới mọc dữ liệu, chỉ đánh dấu một việc, đầu đường kẻ đi qua điểm sự kiện thì bật chú thích | Đoạn so sánh con số của B |
+| Người giảng giải | Nhân vật hoạt hình giảng giải luân phiên giữa đứng bên cạnh giảng / con số đầy màn hình / so sánh trái phải / bước vào trong hình | F phim sáu mặt xoay vòng (cần tài nguyên nhân vật) |
 
-## 三、结构与发布（LuZhong-Li、worlds3）
+## Ba, cấu trúc và xuất bản (LuZhong-Li, worlds3)
 
-- **命名环节**：概念登场时起名字 + 一行英文副题（「运气的形状 / FORMA FORTUNAE」）。
-- **片尾三件套**：标题卡回归 → 一句互动提问 → 屏上「文献线索」（直接列 facts.md 的 2–3 条主出处）。
-- **示意角标**：「示意：帮你理解的模型，不是实验结果」。
-- 开场 0.3 秒内主体必须可见；配乐能量突变点放揭晓、安静段放反思。
-- 发布：正文只放一句结论；详细科普拆 2–3 条放评论区；预埋置顶提问；标签 4–5 个；**封面单独上传、不嵌进片头**，出 540px 缩略图检查可读性。
-- 选题公式：生活切口 + 硬核模型 + 诺奖 / 名人背书 + 反直觉数字（候选：谢林隔离、布雷斯悖论、生日悖论……）。
+- **Khâu đặt tên**: khi khái niệm xuất hiện thì đặt tên + một dòng phụ đề tiếng Anh ("Hình dạng của vận may / FORMA FORTUNAE").
+- **Bộ ba cuối phim**: thẻ tiêu đề quay lại → một câu hỏi tương tác → "manh mối tài liệu" trên màn hình (liệt kê thẳng 2–3 nguồn chính từ facts.md).
+- **Nhãn góc minh họa**: "Minh họa: mô hình giúp bạn hiểu, không phải kết quả thí nghiệm".
+- Trong 0,3 giây đầu mở phim chủ thể phải nhìn thấy được; điểm nhạc nền đột biến năng lượng đặt vào lúc tiết lộ, đoạn yên tĩnh đặt vào lúc suy ngẫm.
+- Xuất bản: phần chính chỉ đặt một câu kết luận; phổ biến kiến thức chi tiết tách thành 2–3 mục đặt ở phần bình luận; cài sẵn câu hỏi ghim đầu; thẻ 4–5 cái; **ảnh bìa tải lên riêng, không nhúng vào đầu phim**, xuất ảnh thu nhỏ 540px để kiểm tra khả năng đọc.
+- Công thức chọn đề tài: lát cắt đời sống + mô hình cứng cáp + người đoạt Nobel / người nổi tiếng bảo chứng + con số phản trực giác (ứng viên: cách ly của Schelling, nghịch lý Braess, nghịch lý sinh nhật…).
 
-## 四、流程与质检
+## Bốn, quy trình và kiểm tra chất lượng
 
-1. **样片先行**：先做前 30 秒或一个样板镜，用户确认风格、字号、语速再铺开。〔a2e / talkcraft〕
-2. **独立审片留回执**：审片交给没参与制作的子 agent，逐镜往 `review.md` 追加一行，写「已看 N/N 镜」才算审完；缺陷分 P0 / P1 / P2。另派一个只查事实的 agent，出 MUST FIX / SHOULD FIX。〔talkcraft / p2v〕
-3. **外部评审只当假设**：视觉模型或审片 agent 的意见要用仪器（OCR、测量、抽帧）核验后再改。〔LuZhong-Li：9 条里只有 3 条证实〕
-4. **分镜写「未完成清单」**：防止把没做完的包装成设计决定。〔a2e〕
-5. **出处台账**：场景｜说法｜出处（文件 + 行号）｜设定，数据镜头带出处行，示意图标「示意」。〔p2v〕——我们的 facts.md 已是这个结构。
+1. **Làm mẫu trước**: làm 30 giây đầu hoặc một góc máy mẫu, để người dùng xác nhận phong cách, cỡ chữ, tốc độ nói rồi mới triển khai. [a2e / talkcraft]
+2. **Duyệt phim độc lập có biên nhận**: giao việc duyệt phim cho sub-agent không tham gia sản xuất, từng góc máy thêm một dòng vào `review.md`, ghi "đã xem N/N góc máy" mới tính là duyệt xong; lỗi chia P0 / P1 / P2. Cử thêm một agent chỉ kiểm tra sự kiện, xuất MUST FIX / SHOULD FIX. [talkcraft / p2v]
+3. **Đánh giá bên ngoài chỉ coi là giả thuyết**: ý kiến của mô hình thị giác hoặc agent duyệt phim phải dùng dụng cụ (OCR, đo đạc, trích khung) kiểm chứng rồi mới sửa. [LuZhong-Li: 9 ý kiến chỉ có 3 được xác nhận]
+4. **Phân cảnh ghi "danh sách chưa hoàn thành"**: tránh việc gói phần chưa làm xong thành quyết định thiết kế. [a2e]
+5. **Sổ cái nguồn**: cảnh | cách nói | nguồn (file + số dòng) | thiết lập, góc máy dữ liệu kèm dòng nguồn, sơ đồ minh họa ghi "minh họa". [p2v]. facts.md của chúng ta vốn đã có cấu trúc này.
 
-## 五、新风格候选（风格库待扩充，按推荐度）
+## Năm, ứng viên phong cách mới (thư viện phong cách cần mở rộng, xếp theo mức đề xuất)
 
-> 2026-10-27 已做成风格：粉笔黑板、深色数学（原「3B1B 深色数据」）、半调拼贴（原「Vox 半调纸拼贴」）、蓝图专利图、等轴测剖面、青花、木刻、敦煌壁画。其余仍是候选，见 12-style-families.md。
+> 2026-10-27 đã làm thành phong cách: bảng đen phấn, toán học tối (trước là "dữ liệu tối 3B1B"), ghép mảnh bán sắc (trước là "Vox giấy ghép bán sắc"), bản vẽ xanh bằng sáng chế, mặt cắt đẳng cự, thanh hoa, mộc bản, bích họa Đôn Hoàng. Phần còn lại vẫn là ứng viên, xem 12-style-families.md.
 
-| 风格 | 长什么样 | 实现 | 适合 | 来源 / 许可 |
+| Phong cách | Trông như thế nào | Triển khai | Phù hợp | Nguồn / giấy phép |
 |---|---|---|---|---|
-| 粉笔黑板 | 墨绿 #173E38 黑板、粉笔颗粒、边讲边写、板书累积 | 纯代码 SVG 描边 + 粉尘纹理；每概念一色，5–6 拍清一次板 | 公式、推导、物理 | khan（MIT）、SketchNarrator（MIT） |
-| 3B1B 深色数据 | 近黑底、2–3 个语义色、衬线标题、真实数据铺满 | 纯代码；形变接力；每拍一个新东西 | 统计、AI、论文 | paper2video（MIT） |
-| Vox 半调纸拼贴 | 撕边纸、胶带、半调网点、平涂底色 | **增强档**：生图定稿 → 原图拆 2–4 层 → 代码 slap / slide / peel / drift | 社会、经济、历史机制 | Paper-Cut（MIT）；做法详见下 |
-| 工程蓝图 / 专利图 | 普鲁士蓝纸白线，尺寸线、FIG. 标号、红铅笔圈注 | 纯代码，投影线 → 物体线 → 尺寸 | 发明、古代机械 | 思路：86 风格库、talkcraft |
-| 等轴测机械剖面 | 浅灰纸精密装置，零件真在动，四角读数 | 纯代码，只高亮正在讲的部件 | 原理、机制 | anatomy-explainer（MIT） |
-| 铜版博物图版 | 铜版刻线 + 手工淡彩 | 排线逐笔刻出，淡彩晚一拍渗入 | 动植物、博物学 | 思路：86 / 77 风格库 |
-| 浮世绘绘卷 / 中国长卷 | 横向长卷，从右往左展开，套色逐版压上 | 纯代码或生图拆层 | 一条时间线、东亚史 | 思路：86 / 77 风格库 |
-| 档案灯台 | 原件铺在冷光灯台上，放大镜看局部 | 视觉调查的变体 | 史料考证 | 思路：77 风格库 |
-| 地铁线路图 | 线路只走 0° / 45° / 90°，站点逐个点亮 | 纯代码 | 演化路线、阶段 | 思路：86 风格库 |
-| ISOTYPE 象形统计 | 一个图标代表固定数量，一行行盖章 | 纯代码 | 人口、数量对比 | 思路：86 风格库 |
-| 明青花 / 民国木刻 | 钴蓝釉下笔触 / 黑白刀刻线 | 增强档生图 + 代码运镜 | 器物、近代史 | 思路：vox-ai-motion |
-| 敦煌壁画 | 土红底、矿物色、飘带、剥落 | 增强档生图 + 代码剥落遮罩 | 丝路、佛教史 | 思路：huashu（MIT） |
+| Bảng đen phấn | Bảng xanh đen #173E38, hạt phấn, vừa giảng vừa viết, chữ viết trên bảng tích lũy | SVG nét viền thuần mã + kết cấu bụi phấn; mỗi khái niệm một màu, cứ 5–6 nhịp thì xóa bảng một lần | Công thức, suy luận, vật lý | khan (MIT), SketchNarrator (MIT) |
+| Dữ liệu tối 3B1B | Nền gần đen, 2–3 màu ngữ nghĩa, tiêu đề có chân, dữ liệu thật trải đầy | Mã thuần; biến hình tiếp sức; mỗi nhịp một thứ mới | Thống kê, AI, bài báo | paper2video (MIT) |
+| Vox giấy ghép bán sắc | Giấy rách mép, băng dính, chấm bán sắc, nền màu phẳng | **Mức tăng cường**: tạo ảnh chốt bản → tách ảnh gốc thành 2–4 lớp → mã slap / slide / peel / drift | Xã hội, kinh tế, cơ chế lịch sử | Paper-Cut (MIT); cách làm xem bên dưới |
+| Bản vẽ kỹ thuật / bằng sáng chế | Giấy trắng nét xanh Phổ, đường kích thước, đánh số FIG., khoanh chú thích bằng bút chì đỏ | Mã thuần, đường chiếu → đường vật thể → kích thước | Phát minh, máy móc cổ đại | Ý tưởng: thư viện 86 phong cách, talkcraft |
+| Mặt cắt cơ khí đẳng cự | Thiết bị tinh xảo trên giấy xám nhạt, các chi tiết thật sự chuyển động, bốn góc có số đọc | Mã thuần, chỉ làm nổi bật bộ phận đang được giảng | Nguyên lý, cơ chế | anatomy-explainer (MIT) |
+| Tranh minh họa tự nhiên khắc đồng | Nét khắc đồng + tô màu nhạt thủ công | Nét đan khắc từng nét, màu nhạt thấm vào chậm một nhịp | Động thực vật, bác vật học | Ý tưởng: thư viện phong cách 86 / 77 |
+| Tranh Ukiyo-e cuộn / cuộn dài Trung Hoa | Cuộn dài nằm ngang, mở ra từ phải sang trái, các bản in màu lần lượt ép lên | Mã thuần hoặc tạo ảnh tách lớp | Một dòng thời gian, lịch sử Đông Á | Ý tưởng: thư viện phong cách 86 / 77 |
+| Đèn đài hồ sơ | Bản gốc trải trên đèn đài ánh sáng lạnh, dùng kính lúp xem chi tiết | Biến thể của điều tra bằng hình ảnh | Khảo chứng sử liệu | Ý tưởng: thư viện phong cách 77 |
+| Sơ đồ tàu điện | Tuyến đường chỉ đi 0° / 45° / 90°, các ga lần lượt sáng lên | Mã thuần | Lộ trình tiến hóa, các giai đoạn | Ý tưởng: thư viện phong cách 86 |
+| Thống kê tượng hình ISOTYPE | Một biểu tượng đại diện cho số lượng cố định, đóng dấu từng hàng một | Mã thuần | Dân số, so sánh số lượng | Ý tưởng: thư viện phong cách 86 |
+| Thanh hoa nhà Minh / mộc bản thời Dân Quốc | Nét cọ men xanh coban dưới men / nét khắc dao đen trắng | Mức tăng cường: tạo ảnh + mã dịch chuyển máy | Đồ vật, lịch sử cận đại | Ý tưởng: vox-ai-motion |
+| Bích họa Đôn Hoàng | Nền đỏ đất, màu khoáng vật, dải lụa bay, bong tróc | Mức tăng cường: tạo ảnh + mặt nạ bong tróc bằng mã | Con đường tơ lụa, lịch sử Phật giáo | Ý tưởng: huashu (MIT) |
 
-### Vox 纸拼贴的增强档做法（Paper-Cut，MIT）
-① 每镜先写完整构图（主体位置、留白、文字安全区、纸材、印刷工艺），**整幅生成**，先出 1 张代表帧给用户审；② 只拆 2–4 个运动通道（主体 > 机制 > 装饰），从**原图**抠，只补抠走后露出的洞；不在绿幕上重生主体；③ 动作词：slap（1.12–1.20→1 带旋转回正）、slide、drop、peel（clip-path 揭开）、stamp、drift 6–18px；运镜 3–6% 放外层；转场 page-push；④ 字幕、数字、标签一律代码叠加；⑤ 音效用纸片滑、拍、压（earshot：`swipe/paper`、`knock/wood`、`pro_tap/soft`）。
+### Cách làm mức tăng cường của Vox giấy ghép (Paper-Cut, MIT)
+① Mỗi góc máy trước hết viết xong bố cục hoàn chỉnh (vị trí chủ thể, khoảng trống, vùng an toàn của chữ, chất liệu giấy, kỹ thuật in), **tạo nguyên bức**, trước tiên xuất 1 khung đại diện cho người dùng duyệt; ② chỉ tách 2–4 kênh chuyển động (chủ thể > cơ chế > trang trí), cắt từ **ảnh gốc**, chỉ vá lỗ lộ ra sau khi cắt đi; không tạo lại chủ thể trên phông xanh; ③ từ chỉ động tác: slap (1.12–1.20→1 kèm xoay rồi chỉnh lại), slide, drop, peel (clip-path mở ra), stamp, drift 6–18px; chuyển động máy 3–6% đặt ở lớp ngoài; chuyển cảnh page-push; ④ phụ đề, con số, nhãn đều do mã chồng lên; ⑤ hiệu ứng âm thanh dùng tiếng giấy trượt, vỗ, ép (earshot: `swipe/paper`, `knock/wood`, `pro_tap/soft`).

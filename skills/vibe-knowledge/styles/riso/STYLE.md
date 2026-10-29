@@ -1,26 +1,26 @@
-# 孔版印刷 · RISOGRAPH
+# In Risograph · RISOGRAPH
 
-> 家族：印刷与纸　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles3_film.js → riso()`
+> Họ: In ấn và giấy | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles3_film.js → riso()`
 
-**一句话**：米色纸上荧光粉和蓝两色叠印出紫、半调网点，8 帧/秒定格，套色错位，高潮那一下对准版。
+**Một câu**: Trên nền giấy be, hai màu hồng huỳnh quang và xanh in chồng lên nhau ra màu tím và chấm bán sắc, 8 khung hình/giây đứng hình, lệch bản màu, đến cao trào thì căn khít bản in.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 小印量手作感：不完美的套色就是魅力，最后对准版是一次「成了」的释放。 |
-| 材质 / 画法 | 三块版（黄 / 粉 / 蓝）各自 mix-blend-mode: multiply；半调网点用 radial-gradient；纸纹噪声叠加；四角套准标记。 |
-| 配色逻辑 | 纸 #F4EFE4 · 荧光粉 #FF48B0 · 蓝 #0078BF · 黄 #FFE800（叠印自然出紫、绿） |
-| 字体 | Geist 900 大数字 + NotoSC 900 |
-| 动态 | 时间量化到 8 帧/秒（定格动画感）；每块版独立轻微错位抖动；元素按 4 档阶梯长出；高潮 0.12 秒内错位归零。 |
-| 镜头语法 | 锁定。 |
-| 声音 | 印刷机咔嗒、纸张；Lo-fi。 |
-| 标志镜头 | 四角的粉、蓝套准十字在「五十金」那一刻重合。 |
+| Ý đồ đạo diễn | Cảm giác thủ công in số lượng nhỏ: lệch bản màu không hoàn hảo chính là nét duyên, lần căn khít bản cuối cùng là cú giải tỏa "thành rồi". |
+| Chất liệu / Cách vẽ | Ba bản (vàng / hồng / xanh) mỗi bản dùng mix-blend-mode: multiply; chấm bán sắc dùng radial-gradient; chồng nhiễu vân giấy; dấu căn bản ở bốn góc. |
+| Logic phối màu | Giấy #F4EFE4 · hồng huỳnh quang #FF48B0 · xanh #0078BF · vàng #FFE800 (in chồng tự ra tím, lục) |
+| Phông chữ | Số lớn Geist 900 + NotoSC 900 |
+| Chuyển động | Lượng tử hóa thời gian về 8 khung hình/giây (cảm giác stop-motion); mỗi bản rung lệch nhẹ độc lập; phần tử mọc ra theo 4 bậc thang; cao trào trong 0,12 giây lệch về không. |
+| Ngữ pháp máy quay | Cố định. |
+| Âm thanh | Tiếng máy in lách cách, giấy; Lo-fi. |
+| Cảnh đặc trưng | Hai dấu căn bản chữ thập hồng và xanh ở bốn góc trùng khít đúng khoảnh khắc "năm mươi lạng vàng". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换三色组合（如红 + 蓝绿）
-- **一改就变味**：用平滑 60 帧动画（就不是印刷了）
-- **不能改**：去掉叠印（multiply）
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi bộ ba màu (ví dụ đỏ + xanh lục lam)
+- **Sửa là mất chất**: dùng hoạt ảnh 60 khung hình mượt (thế thì không còn là in ấn)
+- **Không được sửa**: bỏ in chồng (multiply)
 
-## 搭配
-- 适合母版：一条主线 D、痛点原理 C
-- 不适合：需要写实光影的场景
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Bản gốc phù hợp: một mạch chính D, nguyên lý điểm đau C
+- Không phù hợp: cảnh cần ánh sáng bóng đổ chân thực
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

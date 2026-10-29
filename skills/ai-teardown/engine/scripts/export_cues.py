@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""从页面导出 stage.sfx（音效提示）和 stage.videos（视频贴纸登记表）为 JSON：python3 scripts/export_cues.py <page.html> <out.json>"""
+"""Xuất stage.sfx (cue hiệu ứng âm thanh) và stage.videos (bảng đăng ký sticker video) từ trang ra JSON: python3 scripts/export_cues.py <page.html> <out.json>"""
 import json, sys
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -13,4 +13,4 @@ with sync_playwright() as p:
     data = pg.evaluate("({ sfx: window.__stage.sfx || [], duration: window.__stage.duration, videos: window.__stage.videos || [] })")
     b.close()
 out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
-print(f"{len(data['sfx'])} 个音效提示 → {out}")
+print(f"{len(data['sfx'])} cue hiệu ứng âm thanh → {out}")

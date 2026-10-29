@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""新建一个系列课：工作区（引擎副本）+ 系列目录骨架。
+"""Tạo mới một series bài giảng: không gian làm việc (bản sao engine) + khung thư mục series.
 
-用法：
-  python3 new_series.py <工作区目录> <系列名> [--style sketch|lesson|cine] [--title 课程名]
+Cách dùng:
+  python3 new_series.py <thư mục workspace> <tên series> [--style sketch|lesson|cine] [--title tên khóa học]
 
-- 工作区不存在时，把 skill 自带的 engine/（scripts runtime primitives schemas assets）整份拷过去。
-  make_lesson 要求课目录在工作区之内（打包时按工作区算相对路径），所以系列一律放在 <工作区>/examples/<系列名>/。
-- 已有工作区（比如 ~/Desktop/ai-teardown）就直接在里面建系列，不覆盖引擎。
-- sketch：Notion 极简 + 手绘引擎 + 像素讲解小人（WorkBuddy 上手课那套）；lesson：第一、二季的模板编译器（马卡龙 / 薄荷 / 夜间主题、终端录屏）；
-  cine：代码成片引擎（Opus 5.5 编排课、宣传片实战课那套：一节课 = seek(t)，Three.js/粒子/真片段，见 references/10-cine.md）。
+- Khi workspace chưa tồn tại, sao chép nguyên engine/ đi kèm skill (scripts runtime primitives schemas assets) sang đó.
+  make_lesson yêu cầu thư mục bài nằm trong workspace (khi đóng gói tính đường dẫn tương đối theo workspace), nên series luôn đặt ở <workspace>/examples/<tên series>/.
+- Đã có workspace (ví dụ ~/Desktop/ai-teardown) thì tạo series ngay trong đó, không ghi đè engine.
+- sketch: Notion tối giản + engine vẽ tay + nhân vật giảng giải pixel (bộ của khóa nhập môn WorkBuddy); lesson: trình biên dịch mẫu của mùa một và hai (chủ đề macaron / bạc hà / ban đêm, quay màn hình terminal);
+  cine: engine làm phim bằng code (bộ của khóa điều phối Opus 5.5, khóa thực chiến phim quảng bá: một bài = seek(t), Three.js/hạt/đoạn phim thật, xem references/10-cine.md).
 """
 import argparse
 import json
@@ -22,13 +22,13 @@ TEMPLATES = SKILL / "templates"
 
 
 def new_cine(sd, title):
-    """代码成片引擎拷进系列目录（tools 按 <系列>/cine、<系列>/lessons 的相对位置找文件），字体从 engine/assets/fonts 拿。"""
+    """Sao chép engine làm phim bằng code vào thư mục series (tools tìm file theo vị trí tương đối <series>/cine, <series>/lessons), font lấy từ engine/assets/fonts."""
     shutil.copytree(ENGINE / "cine", sd / "cine", ignore=shutil.ignore_patterns("__pycache__", ".DS_Store"))
     (sd / "cine/fonts").mkdir(exist_ok=True)
     for f in ["Geist-VF.ttf", "GeistMono-VF.ttf", "NotoSansSC-VF.ttf"]:
         shutil.copy(ENGINE / "assets/fonts" / f, sd / "cine/fonts" / f)
     (sd / "cine/queue.txt").touch()
-    (sd / "cine/deliver.env").write_text(f'# deliver.sh 的去向（zsh 语法）\nD="$HOME/Desktop/{title}_视频"\nWEB=publish/course\nSTRIP=""\n', encoding="utf-8")
+    (sd / "cine/deliver.env").write_text(f'# Nơi đến của deliver.sh (cú pháp zsh)\nD="$HOME/Desktop/{title}_视频"\nWEB=publish/course\nSTRIP=""\n', encoding="utf-8")
 
 
 def main():
@@ -44,13 +44,13 @@ def main():
         ws.mkdir(parents=True, exist_ok=True)
         for d in ["scripts", "runtime", "primitives", "schemas", "assets"]:
             shutil.copytree(ENGINE / d, ws / d, dirs_exist_ok=True)
-        print(f"✓ 工作区已建：{ws}")
+        print(f"✓ Đã tạo workspace: {ws}")
     else:
-        print(f"· 用已有工作区：{ws}")
+        print(f"· Dùng workspace có sẵn: {ws}")
 
     sd = ws / "examples" / a.name
     if sd.exists():
-        raise SystemExit(f"系列目录已存在：{sd}")
+        raise SystemExit(f"Thư mục series đã tồn tại: {sd}")
     (sd / "lessons").mkdir(parents=True)
     (sd / "voice").mkdir()
     (sd / "publish/course").mkdir(parents=True)
@@ -68,33 +68,33 @@ def main():
         for d in ["examples-lessons", "examples-briefs", "tools", "session"]:
             shutil.copytree(tpl / d, sd / d)
     else:
-        shutil.copytree(tpl / "lessons", sd / "examples-lessons")   # 参照用的成品课，写新课前先看
+        shutil.copytree(tpl / "lessons", sd / "examples-lessons")   # bài hoàn chỉnh để tham chiếu, xem trước khi viết bài mới
 
-    # 讲解小人（像素头像 10 个动作 × 8 帧）+ 图片账本
+    # Nhân vật giảng giải (avatar pixel 10 động tác × 8 khung) + sổ ảnh
     images = []
     if a.style == "cine":
         pass
-    elif a.style == "sketch" and (PRESETS / "presenter/images.presenter.json").exists():   # 讲解小人形象自备（开源版不带作者形象），见 presets/README.md
+    elif a.style == "sketch" and (PRESETS / "presenter/images.presenter.json").exists():   # hình tượng nhân vật giảng giải tự chuẩn bị (bản mã nguồn mở không kèm hình tượng của tác giả), xem presets/README.md
         for p in (PRESETS / "presenter").glob("*.png"):
             shutil.copy(p, sd / "assets/img" / p.name)
         images = json.loads((PRESETS / "presenter/images.presenter.json").read_text(encoding="utf-8"))["images"]
     if a.style != "cine":
         (sd / "assets/img/images.json").write_text(json.dumps({"images": images}, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    # 锁定的克隆音色参照（narration.json 里 voice.clone 写 "../../voice/host-ref.wav"）
+    # Tham chiếu giọng nhân bản đã khóa (trong narration.json, voice.clone ghi "../../voice/host-ref.wav")
     if (PRESETS / "voice/host-ref.wav").exists():
         shutil.copy(PRESETS / "voice/host-ref.wav", sd / "voice/host-ref.wav")
 
     series = {
-        "title": a.title or a.name, "author": "@Berryxia", "status": "draft", "status_label": "大纲待确认",
+        "title": a.title or a.name, "author": "@Berryxia", "status": "draft", "status_label": "Đại cương chờ xác nhận",
         "tagline": "", "facts": [], "lessons_sub": "", "footer": "", "lessons": [],
     }
     (sd / "series.json").write_text(json.dumps(series, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"✓ 系列骨架：{sd}")
+    print(f"✓ Khung series: {sd}")
     if a.style == "cine":
-        print("下一步：填 series.json 的大纲 → 按 BRIEF.md 写 lessons/NN/narration.json + film.js → make_lesson voice + speed.py → cine/tools/stills.py 看接触表 → cine/queue.txt + queue.sh（见 references/10-cine.md）")
+        print("Bước tiếp theo: điền đại cương trong series.json → viết lessons/NN/narration.json + film.js theo BRIEF.md → make_lesson voice + speed.py → xem bảng tiếp xúc bằng cine/tools/stills.py → cine/queue.txt + queue.sh (xem references/10-cine.md)")
     else:
-        print("下一步：填 series.json 的大纲 → 按 BRIEF.md 写 lessons/NN/narration.json → make_lesson voice/build/final")
+        print("Bước tiếp theo: điền đại cương trong series.json → viết lessons/NN/narration.json theo BRIEF.md → make_lesson voice/build/final")
 
 
 if __name__ == "__main__":

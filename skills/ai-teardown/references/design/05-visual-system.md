@@ -1,72 +1,72 @@
-# 05 · 视觉系统
+# 05 · Hệ thống thị giác
 
-实现：`runtime/theme.js`（主题 token、字号、画幅与安全区）、`runtime/stage.js`（基础样式）。
+Triển khai: `runtime/theme.js` (token chủ đề, cỡ chữ, khung hình và vùng an toàn), `runtime/stage.js` (style cơ bản).
 
-## 两套主题
+## Hai bộ chủ đề
 
-| token | 深色蓝图 `blueprint`（默认） | 浅色编辑 `editorial` |
+| token | Xanh bản vẽ tối `blueprint` (mặc định) | Biên tập sáng `editorial` |
 |---|---|---|
-| 底色 `bg` | `#0A1024` + 64 px 细网格 + 暗角 | `#ECEAE6`（暖灰，同 promo 单形状） |
-| 面 `surface` / `surface2` | `#111A33` / `#17234A` | `#FFFFFF` / `#F5F3EF` |
-| 线 `line` | `#2A3963` | `#D8D3CB` |
-| 文字 `ink` / `ink2` / `ink3` | `#EAF0FF` / `#A9B5D6` / `#6F7CA3` | `#141414` / `#4A4843` / `#8A8680` |
-| 高亮 `hl` | `#FFD84D`（循环令牌、课件热点） | 同左 |
+| Màu nền `bg` | `#0A1024` + lưới mảnh 64 px + tối góc | `#ECEAE6` (xám ấm, giống hình đơn của promo) |
+| Mặt `surface` / `surface2` | `#111A33` / `#17234A` | `#FFFFFF` / `#F5F3EF` |
+| Đường `line` | `#2A3963` | `#D8D3CB` |
+| Chữ `ink` / `ink2` / `ink3` | `#EAF0FF` / `#A9B5D6` / `#6F7CA3` | `#141414` / `#4A4843` / `#8A8680` |
+| Nhấn `hl` | `#FFD84D` (token vòng lặp, điểm nóng của bài giảng) | Giống bên trái |
 
-可选第三套「黑板手绘」沿用 InkFlow 的 chalk 经验，M3 以后再做。
+Bộ thứ ba tùy chọn "bảng đen vẽ tay" dùng lại kinh nghiệm chalk của InkFlow, làm sau M3.
 
-## 角色色（全系列固定，看一集就认得）
+## Màu theo vai trò (cố định toàn series, xem một tập là nhận ra)
 
-| 角色 | 蓝图 | 编辑 | 用在 |
+| Vai trò | Blueprint | Editorial | Dùng cho |
 |---|---|---|---|
-| 用户 `user` | `#5B8CFF` | `#2B62F0` | 你、输入、交付给你的东西 |
-| 模型 `model` | `#A57CFF` | `#7446EC` | 模型、思考 |
-| 工具与动作 `tool` | `#2ED39A` | `#0B8F66` | 读文件、执行命令、改代码 |
-| 环境与数据 `env` | `#8E9CC0` | `#636B7D` | 仓库、文件、观察到的结果 |
-| 边界与风险 `boundary` | `#FF8A4C` | `#D2500F` | 沙箱、审批、限制 |
+| Người dùng `user` | `#5B8CFF` | `#2B62F0` | Bạn, đầu vào, thứ được giao cho bạn |
+| Mô hình `model` | `#A57CFF` | `#7446EC` | Mô hình, suy nghĩ |
+| Công cụ và hành động `tool` | `#2ED39A` | `#0B8F66` | Đọc file, chạy lệnh, sửa code |
+| Môi trường và dữ liệu `env` | `#8E9CC0` | `#636B7D` | Kho mã, file, kết quả quan sát được |
+| Ranh giới và rủi ro `boundary` | `#FF8A4C` | `#D2500F` | Sandbox, phê duyệt, giới hạn |
 
-每个角色还有一个淡底色 `<role>-t`，用于节点填充。颜色表达「谁在动」，不做装饰。
+Mỗi vai trò còn có một màu nền nhạt `<role>-t`, dùng để tô nút. Màu thể hiện "ai đang hành động", không dùng để trang trí.
 
-## 诚实编码
+## Mã hóa trung thực
 
-| 状态 | 画法 | 标签 |
+| Trạng thái | Cách vẽ | Nhãn |
 |---|---|---|
-| 官方公开 `official` | 实线描边 | — |
-| 推断 `inferred` | 虚线描边 `12 9`；连线虚线 `10 8` | 「推断」 |
-| 未披露 `undisclosed` | 45° 斜线雾化填充 | 「未披露」 |
-| 界面复刻 | — | 左上角「界面示意」 |
+| Công bố chính thức `official` | Viền nét liền | — |
+| Suy đoán `inferred` | Viền nét đứt `12 9`; đường nối nét đứt `10 8` | "Suy đoán" |
+| Chưa công bố `undisclosed` | Tô mờ bằng sọc chéo 45° | "Chưa công bố" |
+| Tái hiện giao diện | — | "Minh họa giao diện" ở góc trên trái |
 
-## 字体与字号（1920×1080 下的像素）
+## Phông chữ và cỡ chữ (pixel ở 1920×1080)
 
-- 字体：Geist（拉丁）+ 思源黑体 Noto Sans SC（中文），等宽用 Geist Mono；三个都是可变字重，放在 `assets/fonts`，渲染不联网。
-- 字号：章节大标题 88、二级标题 60、节点标签 34–40、普通标签 32、最小 28、字幕 44、代码 26–30。
-- 画面上的实际字号 = 设计字号 × 场景缩放 × 镜头缩放。逐层放大时，下一层用更大的设计字号抵消缩放（Spike：内部层设计字号 40、缩放 0.16、镜头 5.3–6.5，屏幕上约 34–42 px）。
-- 9:16 字号 × 1.2，正文不小于 40。
+- Phông chữ: Geist (Latin) + Noto Sans SC (Source Han Sans, chữ Trung), đơn cách dùng Geist Mono; cả ba đều là phông biến thiên độ đậm, đặt trong `assets/fonts`, render không cần mạng.
+- Cỡ chữ: tiêu đề chương lớn 88, tiêu đề cấp hai 60, nhãn nút 34–40, nhãn thường 32, nhỏ nhất 28, phụ đề 44, code 26–30.
+- Cỡ chữ thực tế trên màn hình = cỡ chữ thiết kế × tỉ lệ cảnh × tỉ lệ ống kính. Khi phóng to từng lớp, lớp kế tiếp dùng cỡ chữ thiết kế lớn hơn để bù tỉ lệ (Spike: lớp bên trong cỡ chữ thiết kế 40, tỉ lệ 0,16, ống kính 5,3–6,5, trên màn hình khoảng 34–42 px).
+- 9:16 cỡ chữ × 1,2, văn bản chính không nhỏ hơn 40.
 
-## 版式
+## Bố cục
 
-| | 16:9（1920×1080） | 9:16（1080×1920） |
+| | 16:9 (1920×1080) | 9:16 (1080×1920) |
 |---|---|---|
-| 左右安全边 | 96 | 72 |
-| 顶部安全边 | 72 | 120 |
-| 字幕带顶线 | 890 | 1500 |
+| Lề an toàn trái phải | 96 | 72 |
+| Lề an toàn trên | 72 | 120 |
+| Đường trên của dải phụ đề | 890 | 1500 |
 
-字幕：44 px、字重 500、半透明深色胶囊底，每行 ≤ 18 字，句读处断行；上屏关键词每 beat ≤ 3 个、每个 ≤ 8 字。
+Phụ đề: 44 px, độ đậm 500, nền viên thuốc tối bán trong suốt, mỗi dòng ≤ 18 chữ, ngắt dòng ở chỗ ngắt câu; từ khóa lên màn hình tối đa 3 từ mỗi beat, mỗi từ ≤ 8 chữ.
 
-## 动效 token（`runtime/spring.js`）
+## Token chuyển động (`runtime/spring.js`)
 
-| 名字 | 频率 / 阻尼 | 用在 |
+| Tên | Tần số / giảm chấn | Dùng cho |
 |---|---|---|
-| `UI` | 2.1 Hz / 0.82（约 1.5% 过冲） | 形状尺寸、圆角、颜色 |
-| `CURSOR` | 2.4 Hz / 1（不过冲） | 光标 |
-| `CAM` | 1.25 Hz / 0.95 | 镜头推拉 |
-| `PRESS` | 5 Hz / 0.75 | 按下回弹 |
-| `LEAD` / `TRAIL` | 3.2 Hz / 0.86 · 1.7 Hz / 0.9 | 指示条、开关圆钮的前后两边 |
-| `REVEAL` | 1.8 Hz / 0.9 | 图元出现、点亮 |
+| `UI` | 2,1 Hz / 0,82 (vọt quá khoảng 1,5%) | Kích thước hình, bo góc, màu |
+| `CURSOR` | 2,4 Hz / 1 (không vọt quá) | Con trỏ |
+| `CAM` | 1,25 Hz / 0,95 | Đẩy kéo ống kính |
+| `PRESS` | 5 Hz / 0,75 | Nảy lại khi nhấn |
+| `LEAD` / `TRAIL` | 3,2 Hz / 0,86 · 1,7 Hz / 0,9 | Hai mép trước và sau của thanh chỉ thị, nút tròn của công tắc |
+| `REVEAL` | 1,8 Hz / 0,9 | Phần tử xuất hiện, sáng lên |
 
-内容切换：0.18 秒模糊进（expo.out）、0.1 秒模糊出。一个状态落定后至少停 0.6 秒再变（讲解模式）。
+Chuyển nội dung: mờ vào 0,18 giây (expo.out), mờ ra 0,1 giây. Một trạng thái đã ổn định thì dừng ít nhất 0,6 giây rồi mới đổi (chế độ giảng giải).
 
-禁用：夸张回弹、粒子爆发、辉光、界面上的渐变、不一致的图标线宽、空拍、与内容无关的炫技转场。
+Cấm: nảy lại quá đà, hạt bùng nổ, quầng sáng, gradient trên giao diện, độ dày nét biểu tượng không nhất quán, nhịp trống, chuyển cảnh phô diễn không liên quan đến nội dung.
 
-## 图标
+## Biểu tượng
 
-lucide 线性图标子集（ISC 许可），内联在 `runtime/dom.js` 的 `ICONS`，24 网格、1.75 线宽。缺的图标从 lucide 取路径补进去，不临时从网络加载。
+Tập con biểu tượng nét của lucide (giấy phép ISC), nhúng trực tiếp trong `ICONS` của `runtime/dom.js`, lưới 24, độ dày nét 1,75. Biểu tượng thiếu thì lấy path từ lucide bổ sung vào, không tải tạm từ mạng.

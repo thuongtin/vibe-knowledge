@@ -1,18 +1,18 @@
 /**
- * Terminal 终端回放：播放 scripts/term_record.py 真实录下、term_frames.py 回放出的帧。
- * 画面是一扇 macOS 风格的深色终端窗口；文字逐格排版（宽字符占两格），所以和真实终端一模一样，但放大不糊。
+ * Terminal phát lại terminal: phát các khung hình do scripts/term_record.py ghi thật và term_frames.py phát lại.
+ * Màn hình là một cửa sổ terminal tối kiểu macOS; chữ được dàn từng ô (ký tự rộng chiếm hai ô), nên giống hệt terminal thật nhưng phóng to không bị mờ.
  *
  * params
- *   data        term_frames.py 的输出（{cols, rows, frames, marks, duration}）
- *   at, out     在课里的出场、退场时刻
- *   from, to    播录屏的哪一段（录屏自己的秒数；默认整段）
- *   rate        播放倍速（默认 1）；场景模板会按场景长度自动算
- *   w           窗口宽度（像素，默认 1400）
- *   title       标题栏文字
- *   rowsShown   只显示录屏的第几行到第几行 [a, b]（裁掉空白，字会跟着变大）
- *   hi          高亮 [{rows: [a, b], at, until, color}]：给某几行套一层色框，提醒观众看这里
- *   zoom        [{at, until, rows: [a, b], scale}]：镜头推近到某几行
- * render(t) 只依赖 t。
+ *   data        đầu ra của term_frames.py ({cols, rows, frames, marks, duration})
+ *   at, out     thời điểm xuất hiện và rời đi trong bài
+ *   from, to    phát đoạn nào của bản quay màn hình (tính theo giây của chính bản quay; mặc định cả đoạn)
+ *   rate        tốc độ phát (mặc định 1); mẫu cảnh sẽ tự tính theo độ dài cảnh
+ *   w           chiều rộng cửa sổ (pixel, mặc định 1400)
+ *   title       chữ trên thanh tiêu đề
+ *   rowsShown   chỉ hiển thị từ dòng nào đến dòng nào của bản quay màn hình [a, b] (cắt bỏ phần trống, chữ sẽ to lên theo)
+ *   hi          làm nổi bật [{rows: [a, b], at, until, color}]: phủ một khung màu lên vài dòng, nhắc người xem nhìn vào đây
+ *   zoom        [{at, until, rows: [a, b], scale}]: đẩy ống kính cận vào vài dòng
+ * render(t) chỉ phụ thuộc vào t.
  */
 import { h, setStyle } from "../runtime/dom.js";
 import { appear, UI } from "../runtime/spring.js";
@@ -40,7 +40,7 @@ const NAMED = {
 };
 const FG0 = "#E4E8F1", BG0 = "#1B1F2A";
 const color = (c, fallback) => (c == null || c === "default" ? fallback : NAMED[c] !== undefined ? NAMED[c] ?? fallback : /^[0-9a-f]{6}$/i.test(c) ? `#${c}` : fallback);
-// 全角字符（CJK、全角标点、emoji）占两格。用码位比较而不是字符类正则：源码里不出现非 ASCII 字符，页面编码没声明时也不会报错
+// Ký tự toàn chiều rộng (CJK, dấu câu toàn chiều rộng, emoji) chiếm hai ô. So sánh bằng mã điểm thay vì regex lớp ký tự: trong mã nguồn không xuất hiện ký tự không phải ASCII, nên khi trang không khai báo mã hoá cũng không báo lỗi (comment này không tính)
 const WIDE_RANGES = [[0x1100, 0x115f], [0x2e80, 0xa4cf], [0xac00, 0xd7a3], [0xf900, 0xfaff], [0xfe30, 0xfe4f], [0xff00, 0xff60], [0xffe0, 0xffe6], [0x1f300, 0x1faff]];
 const isWide = (ch) => { const c = ch.codePointAt(0); return WIDE_RANGES.some(([a, b]) => c >= a && c <= b); };
 const esc = (s) => s.replace(/[&<>]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[m]);
@@ -66,14 +66,14 @@ export const Terminal = {
     const from = p.from ?? 0, to = p.to ?? D.duration;
     const [r0, r1] = p.rowsShown ?? [0, D.rows - 1];
     const nRows = r1 - r0 + 1;
-    // 字号同时受宽、高两头限制：宽按列数（等宽字宽约 0.6em），高按行数，窗口整体不超过 maxH
+    // Cỡ chữ bị giới hạn cả hai đầu rộng và cao: rộng theo số cột (độ rộng chữ đơn cách khoảng 0,6em), cao theo số dòng, cả cửa sổ không vượt quá maxH
     const maxH = p.maxH ?? 900;
     const fs = Math.min(40, ((p.w ?? 1400) - 40) / (D.cols * 0.602), (maxH - 76) / (nRows * 1.32));
     const W = Math.round(D.cols * 0.602 * fs + 40);
     const lineH = fs * 1.32;
     const H = 44 + nRows * lineH + 32;
 
-    // 逐帧还原完整画面（每行是 runs 数组，没变的行共用同一个引用，比较引用即可知道要不要重画）
+    // Khôi phục toàn bộ màn hình theo từng khung hình (mỗi dòng là một mảng runs, dòng không đổi dùng chung một tham chiếu, so sánh tham chiếu là biết có cần vẽ lại hay không)
     const states = [];
     let cur = Array.from({ length: D.rows }, () => []);
     for (const f of D.frames) {
@@ -87,7 +87,7 @@ export const Terminal = {
     const el = h("div", { class: "tm", style: { width: `${W}px`, height: `${H}px`, marginLeft: `${-W / 2}px`, marginTop: `${-H / 2}px` } });
     const bar = h("div", { class: "tm-bar" });
     ["#FF5F57", "#FEBC2E", "#28C840"].forEach((c) => bar.append(h("i", { style: { background: c } })));
-    bar.append(h("span", { text: p.title ?? "终端" }));
+    bar.append(h("span", { text: p.title ?? "Terminal" }));
     const view = h("div", { class: "tm-view", style: { height: `${H - 44}px` } });
     const body = h("div", { class: "tm-body", style: { fontSize: `${fs}px`, top: `${-r0 * lineH}px` } });
     const rowEls = Array.from({ length: D.rows }, () => h("div", { class: "tm-row" }));
@@ -102,7 +102,7 @@ export const Terminal = {
       return { ...x, e };
     });
     el.append(bar, view);
-    // 贴纸风：外圈白边 + 细描边 + 投影（用 box-shadow 画在框外，不改变窗口几何，标注坐标照旧）
+    // Kiểu sticker: viền trắng ngoài + nét viền mảnh + bóng đổ (vẽ bằng box-shadow ngoài khung, không đổi hình học cửa sổ, toạ độ chú thích giữ nguyên)
     if (p.sticker) el.style.boxShadow = "0 0 0 10px #fff, 0 0 0 11.5px rgba(55,53,47,.14), 0 26px 56px rgba(55,53,47,.24)";
     root.append(el);
 
@@ -122,7 +122,7 @@ export const Terminal = {
         if (!vis) return;
         const a = appear(t, at, UI);
         const ex = clamp01((t - out) / 0.3);
-        // 镜头推近
+        // Đẩy ống kính cận
         let sc = 1, ty = 0;
         for (const z of p.zoom ?? []) {
           const k = cubicInOut(clamp01((t - z.at) / 0.6)) * (1 - cubicInOut(clamp01((t - (z.until ?? Infinity)) / 0.6)));

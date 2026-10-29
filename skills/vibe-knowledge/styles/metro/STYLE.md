@@ -1,26 +1,26 @@
-# 地铁线路图 · METRO MAP
+# Sơ đồ tuyến tàu điện · METRO MAP
 
-> 家族：图解与设计　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles5_film.js → metro()`
+> Họ: minh họa và thiết kế | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles5_film.js → metro()`
 
-**一句话**：白底上线路只走 0°/45°/90°，随剧情从南门长到北门，站点到了才亮，五十金是换乘站，列车开进终点。
+**Một câu**: Trên nền trắng, tuyến chỉ đi theo 0°/45°/90°, theo diễn biến dài dần từ Cổng Nam đến Cổng Bắc, ga đến mới sáng, năm mươi vàng là ga chuyển tuyến, tàu chạy vào ga cuối.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 把时间线画成地铁图：每个节点是一站，故事就是列车往前开。 |
-| 材质 / 画法 | 白底；灰底线 + 红色主线 stroke-dash 生长；站点圆圈（终点站粗黑圈、换乘站大圈）；中英双语站名；线路徽标。 |
-| 配色逻辑 | 底 #FAFAF7 · 主线红 #E4002B · 换乘线金 #F2A900 · 墨 #1A1A1A · 停运灰 |
-| 字体 | NotoSC 800 站名 + GeistMono 英文副名 |
-| 动态 | 线路按旁白分段生长到下一站；站点到了才弹出；「没人动」站变灰并挂「暂停服务」；高潮换乘线画出，列车沿线开到北门。 |
-| 镜头语法 | 锁定；线路太长时整体平移。 |
-| 声音 | 地铁报站叮咚、车轮；轻电子。 |
-| 标志镜头 | 「五十金」换乘站亮起「× 5 换乘」，列车开进北门终点站。 |
+| Ý đồ đạo diễn | Vẽ dòng thời gian thành sơ đồ tàu điện: mỗi nút là một ga, câu chuyện là đoàn tàu chạy về phía trước. |
+| Chất liệu / Cách vẽ | Nền trắng; tuyến nền xám + tuyến chính đỏ mọc dài bằng stroke-dash; vòng tròn ga (ga cuối vòng đen dày, ga chuyển tuyến vòng lớn); tên ga song ngữ Trung-Anh; huy hiệu tuyến. |
+| Logic phối màu | Nền #FAFAF7 · tuyến chính đỏ #E4002B · tuyến chuyển vàng #F2A900 · mực #1A1A1A · xám ngừng hoạt động |
+| Phông chữ | NotoSC 800 cho tên ga + GeistMono cho tên phụ tiếng Anh |
+| Chuyển động | Tuyến mọc dài đến ga kế tiếp theo từng đoạn lời dẫn; ga đến mới bật ra; ga "không ai nhúc nhích" chuyển xám và gắn "Tạm ngừng phục vụ"; cao trào vẽ ra tuyến chuyển, tàu chạy dọc tuyến đến Cổng Bắc. |
+| Ngữ pháp máy quay | Cố định; khi tuyến quá dài thì tịnh tiến toàn bộ. |
+| Âm thanh | Tiếng chuông báo ga tàu điện, tiếng bánh xe; điện tử nhẹ. |
+| Cảnh đặc trưng | Ga chuyển tuyến "năm mươi vàng" sáng lên "× 5 chuyển tuyến", tàu chạy vào ga cuối Cổng Bắc. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换线路色、换站名语言
-- **一改就变味**：线路出现任意角度的斜线
-- **不能改**：所有站一开始全部显示
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi màu tuyến, đổi ngôn ngữ tên ga
+- **Sửa là mất chất**: tuyến xuất hiện đường chéo góc tuỳ ý
+- **Không được sửa**: hiển thị tất cả các ga ngay từ đầu
 
-## 搭配
-- 适合母版：一条主线 D、闯关 E
-- 不适合：一个瞬间的情绪故事
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Bản gốc phù hợp: một mạch chính D, vượt màn E
+- Không phù hợp: câu chuyện cảm xúc về một khoảnh khắc
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

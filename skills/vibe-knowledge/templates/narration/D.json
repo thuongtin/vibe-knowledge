@@ -1,6 +1,6 @@
 {
- "_template": "母版 D · 一条主线片 · 约 3:00 · 约 700–780 字",
- "_how": "把每拍 narration 换成正式旁白（口语、短句、每句 ≤22 字），保留需要的 [[cue]]（只用小写字母数字下划线），删掉 _guide。旁白里英文名不要带连字符。",
+ "_template": "Khuôn D · Phim một mạch chính · khoảng 3:00 · khoảng 700–780 chữ",
+ "_how": "Thay narration của mỗi nhịp bằng lời dẫn chính thức (khẩu ngữ, câu ngắn, mỗi câu ≤22 chữ), giữ lại các [[cue]] cần thiết (chỉ dùng chữ thường, số, gạch dưới), xoá _guide. Tên tiếng Anh trong lời dẫn đừng có gạch nối.",
  "voice": {
   "engine": "mimo",
   "clone": "../../voice/host-ref.wav",
@@ -12,48 +12,48 @@
  "beats": [
   {
    "id": "B01",
-   "_guide": "困惑（≤60 字）：N 个碎片看起来毫不相干。[[pieces]]",
-   "narration": "（待写）困惑（≤60 字）：N 个碎片看起来毫不相干。[[pieces]]"
+   "_guide": "Bối rối (≤60 chữ): N mảnh ghép trông chẳng liên quan gì nhau.[[pieces]]",
+   "narration": "(chưa viết) Bối rối (≤60 chữ): N mảnh ghép trông chẳng liên quan gì nhau.[[pieces]]"
   },
   {
    "id": "B02",
-   "_guide": "主线出现（≤35 字）：「其实有一条线把它们串在一起。」[[thread]]",
-   "narration": "（待写）主线出现（≤35 字）：「其实有一条线把它们串在一起。」[[thread]]"
+   "_guide": "Mạch chính xuất hiện (≤35 chữ): \"Thật ra có một sợi dây xâu chúng lại với nhau.\"[[thread]]",
+   "narration": "(chưa viết) Mạch chính xuất hiện (≤35 chữ): \"Thật ra có một sợi dây xâu chúng lại với nhau.\"[[thread]]"
   },
   {
    "id": "B03",
-   "_guide": "节点 1（≤90 字）[[n1]]",
-   "narration": "（待写）节点 1（≤90 字）[[n1]]"
+   "_guide": "Nút 1(≤90 chữ)[[n1]]",
+   "narration": "(chưa viết) Nút 1(≤90 chữ)[[n1]]"
   },
   {
    "id": "B04",
-   "_guide": "节点 2（≤90 字）[[n2]]",
-   "narration": "（待写）节点 2（≤90 字）[[n2]]"
+   "_guide": "Nút 2(≤90 chữ)[[n2]]",
+   "narration": "(chưa viết) Nút 2(≤90 chữ)[[n2]]"
   },
   {
    "id": "B05",
-   "_guide": "节点 3（≤90 字）[[n3]]",
-   "narration": "（待写）节点 3（≤90 字）[[n3]]"
+   "_guide": "Nút 3(≤90 chữ)[[n3]]",
+   "narration": "(chưa viết) Nút 3(≤90 chữ)[[n3]]"
   },
   {
    "id": "B06",
-   "_guide": "节点 4（≤90 字）[[n4]]",
-   "narration": "（待写）节点 4（≤90 字）[[n4]]"
+   "_guide": "Nút 4(≤90 chữ)[[n4]]",
+   "narration": "(chưa viết) Nút 4(≤90 chữ)[[n4]]"
   },
   {
    "id": "B07",
-   "_guide": "节点 5（≤90 字）[[n5]]",
-   "narration": "（待写）节点 5（≤90 字）[[n5]]"
+   "_guide": "Nút 5(≤90 chữ)[[n5]]",
+   "narration": "(chưa viết) Nút 5(≤90 chữ)[[n5]]"
   },
   {
    "id": "B08",
-   "_guide": "收网（≤80 字）：线收成一张网 / 一棵树，一句话说清整体。[[net]]",
-   "narration": "（待写）收网（≤80 字）：线收成一张网 / 一棵树，一句话说清整体。[[net]]"
+   "_guide": "Thu lưới (≤80 chữ): sợi dây thu thành một tấm lưới / một cái cây, một câu nói rõ toàn thể.[[net]]",
+   "narration": "(chưa viết) Thu lưới (≤80 chữ): sợi dây thu thành một tấm lưới / một cái cây, một câu nói rõ toàn thể.[[net]]"
   },
   {
    "id": "B09",
-   "_guide": "提问（≤40 字）：你觉得哪两个联系最紧？[[ask]]",
-   "narration": "（待写）提问（≤40 字）：你觉得哪两个联系最紧？[[ask]]"
+   "_guide": "Đặt câu hỏi (≤40 chữ): bạn thấy hai cái nào liên hệ chặt nhất?[[ask]]",
+   "narration": "(chưa viết) Đặt câu hỏi (≤40 chữ): bạn thấy hai cái nào liên hệ chặt nhất?[[ask]]"
   }
  ]
 }

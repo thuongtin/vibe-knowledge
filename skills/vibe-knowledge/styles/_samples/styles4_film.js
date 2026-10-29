@@ -1,11 +1,11 @@
-// 风格样片集 · 第四批「增强档 · 东方与印刷」：敦煌壁画、青花、木刻、半调拼贴。同一段开场（复用第 01 期 B01 旁白）。
-// 每套 2 张 Renoise mj-v8.2 生图（4 积分/张），其余全部代码：壁画剥落、釉色晕开、刀刻显影、纸片拍入。字、数字、印章一律代码叠加。
+// Tuyển tập phim mẫu phong cách · đợt 4 "cấp tăng cường · Phương Đông và in ấn": bích họa Đôn Hoàng, thanh hoa, khắc gỗ, cắt dán bán sắc. Cùng một đoạn mở đầu (dùng lại lời dẫn B01 của tập 01).
+// Mỗi bộ 2 ảnh tạo bằng Renoise mj-v8.2 (4 điểm/ảnh), còn lại hoàn toàn bằng mã: bích họa bong tróc, men màu loang ra, nét dao hiện hình, mảnh giấy đập vào. Chữ, con số, con dấu đều do mã chồng lên.
 import { clamp, lerp, eOutCubic, eInOutCubic, eOutQuint, eOutBack, hit, el, css, rng } from "../../cine/engine/util.js";
 import { bg } from "../../cine/engine/know.js";
 
 export const COLD = 0;
 export const TAIL = 3.0;
-export const meta = { title: "风格样片集 · 增强档东方与印刷", n: "styles4" };
+export const meta = { title: "Tuyển tập phim mẫu phong cách · cấp tăng cường Phương Đông và in ấn", n: "styles4" };
 export let hits = [], blur = [], clips = [], music = [];
 export const sfx = [], sections = [];
 
@@ -14,15 +14,15 @@ const SONG = "font-family:'Songti SC','STSong',serif;";
 const KAI = "font-family:'Kaiti SC','STKaiti','KaiTi',serif;";
 const VK = (window.__vk ||= { pend: [], async wait() { while (this.pend.length) { const ps = this.pend.splice(0); await Promise.all(ps.map((f) => f())); } } });
 const URLOF = (f) => new URL(`./assets/img/${f}`, import.meta.url).href;
-// 画布画图要等图解码：没解码完就登记一次「解码后用同一个 t 重画」，录制工具 await __vk.wait() 时会补上
+// Vẽ lên canvas phải chờ ảnh giải mã xong: nếu chưa giải mã xong thì đăng ký một lần "sau khi giải mã dùng cùng một t để vẽ lại", công cụ ghi sẽ bổ sung khi await __vk.wait()
 const redraw = (ims, fn, t) => { if (ims.some((i) => !i.complete || !i.naturalWidth)) VK.pend.push(async () => { await Promise.all(ims.map((i) => i.decode().catch(() => {}))); fn(t); }); };
 const IMG = (f) => { const im = new Image(); im.src = URLOF(f); const p = im.decode().catch(() => {}); VK.pend.push(() => p); return im; };
 const canvas = (s) => { const c = document.createElement("canvas"); c.width = 1920; c.height = 1080; c.style.cssText = "position:absolute;left:0;top:0;"; s.appendChild(c); return [c, c.getContext("2d")]; };
 const cover = (g, im, sc = 1, ox = 0, oy = 0) => { const w = 1920 * sc, hh = 1080 * sc; g.drawImage(im, (1920 - w) / 2 + ox, (1080 - hh) / 2 + oy, w, hh); };
-const aiTag = (s, light = false) => el(s, "abs mono", `left:40px;bottom:34px;font-size:18px;letter-spacing:2px;padding:4px 10px;border-radius:6px;color:${light ? "#3a342c" : "#fff"};background:${light ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.45)"};z-index:6;`, "AI 示意图");
+const aiTag = (s, light = false) => el(s, "abs mono", `left:40px;bottom:34px;font-size:18px;letter-spacing:2px;padding:4px 10px;border-radius:6px;color:${light ? "#3a342c" : "#fff"};background:${light ? "rgba(255,255,255,0.6)" : "rgba(0,0,0,0.45)"};z-index:6;`, "Hình minh họa AI");
 const vert = (s, txt, x, y, size, style) => el(s, "abs", `left:${x}px;top:${y}px;writing-mode:vertical-rl;font-size:${size}px;font-weight:900;letter-spacing:${Math.round(size * 0.12)}px;line-height:1.1;white-space:nowrap;${style}`, txt);
 
-// ── 1 敦煌壁画：一层灰泥一块块剥落，露出壁画；五十金那一下，第二幅壁画从另一侧剥出来；金箔字流光。讲法：考古式揭开 ──
+// ── 1 Bích họa Đôn Hoàng: một lớp vữa bong ra từng mảng để lộ bích họa; đúng nhịp "năm mươi vàng", bức bích họa thứ hai bong ra từ phía bên kia; chữ dát vàng lấp lánh. Cách giảng: mở ra kiểu khảo cổ ──
 function dunhuang(s, h, z, B) {
   const A = IMG("dh1.jpg"), Bm = IMG("dh2.jpg");
   const [, g] = canvas(s);
@@ -49,14 +49,14 @@ function dunhuang(s, h, z, B) {
     redraw([A, Bm], draw, t);
     const F = t >= B.fifty, kb = clamp((t - h) / (z - h));
     cover(g, A, 1.02 + 0.05 * kb, -30 * kb, 0);
-    if (F) { // 第二幅壁画按格剥出
+    if (F) { // Bức bích họa thứ hai bong ra theo từng ô
       const p = clamp((t - B.fifty) / 0.55);
       if (p >= 1) cover(g, Bm, 1.03 + 0.04 * clamp((t - B.fifty) / (z - B.fifty)));
       else { g.save(); g.beginPath(); for (const c of C2) { const k = clamp((p - c.key * 0.85) / 0.15); if (k <= 0) continue; c.pts.forEach(([x, y], i) => { const X = c.cx + (x - c.cx) * k, Y = c.cy + (y - c.cy) * k; i ? g.lineTo(X, Y) : g.moveTo(X, Y); }); g.closePath(); } g.clip(); cover(g, Bm, 1.03); g.restore(); }
     }
-    // 第一层灰泥：从中心往外一块块剥掉
+    // Lớp vữa thứ nhất: bong từng mảng từ tâm ra ngoài
     const p1 = clamp((t - h - 0.05) / 1.5), plA = 1 - clamp((t - h - 1.6) / 0.35);
-    if (plA > 0) { // 灰泥画在离屏层上，再用 destination-out 挖掉已剥落的格子（重叠也不会补回来）
+    if (plA > 0) { // Vữa được vẽ trên lớp ngoài màn hình, rồi dùng destination-out khoét bỏ các ô đã bong (chồng lên nhau cũng không bù lại)
       pg.globalCompositeOperation = "source-over"; pg.clearRect(0, 0, 1920, 1080); pg.drawImage(tex, 0, 0);
       pg.globalCompositeOperation = "destination-out";
       for (const c of C1) { const k = clamp((p1 - c.key * 0.85) / 0.15); if (k > 0) { poly(pg, c, k); pg.fill(); } }
@@ -73,7 +73,7 @@ function dunhuang(s, h, z, B) {
   };
 }
 
-// ── 2 青花：白瓷底上，钴蓝像墨滴进水里一样从一点晕开成画；字用钴蓝楷书，先糊后清（釉下发色）。讲法：晕染揭示 ──
+// ── 2 Thanh hoa: trên nền sứ trắng, màu xanh coban loang ra từ một điểm thành tranh như giọt mực rơi vào nước; chữ dùng khải thư xanh coban, mờ trước rõ sau (màu dưới men). Cách giảng: tiết lộ bằng loang màu ──
 function qinghua(s, h, z, B) {
   el(s, "abs", "inset:0;background:#F7F6F1;");
   const im = (f) => { IMG(f); return el(s, "abs", `inset:0;background:url(${URLOF(f)}) center/cover;will-change:transform;`); };
@@ -99,7 +99,7 @@ function qinghua(s, h, z, B) {
   };
 }
 
-// ── 3 木刻：黑白版画一刀一刀刻出来（刀痕方向跟着画面斜线）；红色木刻印压字；五十金硬切第二版并顿一下。讲法：刀刻显影 ──
+// ── 3 Khắc gỗ: tranh khắc đen trắng được khắc từng nhát dao (hướng vết dao theo đường chéo của khung hình); chữ ấn khắc gỗ đỏ ép lên; đúng nhịp "năm mươi vàng" cắt cứng sang bản thứ hai rồi dừng một nhịp. Cách giảng: nét dao hiện hình ──
 function woodcut(s, h, z, B) {
   el(s, "abs", "inset:0;background:#EFE6D2;");
   const A = IMG("mk1.jpg"), Bm = IMG("mk2.jpg");
@@ -128,7 +128,7 @@ function woodcut(s, h, z, B) {
   };
 }
 
-// ── 4 半调拼贴：原图拆成「底 + 主体」两层，主体纸片拍下来（slap），胶带、纸条、半调大数字、红印章；五十金整页推走换下一页。讲法：桌面拼贴 ──
+// ── 4 Cắt dán bán sắc: ảnh gốc tách thành hai lớp "nền + chủ thể", mảnh giấy chủ thể đập xuống (slap), băng dính, mẩu giấy, số lớn bán sắc, con dấu đỏ; đúng nhịp "năm mươi vàng" cả trang bị đẩy đi để đổi sang trang kế. Cách giảng: cắt dán trên mặt bàn ──
 function collage(s, h, z, B) {
   const page = (bgf, fgf) => { IMG(bgf); IMG(fgf); const p = el(s, "abs", "inset:0;overflow:hidden;"); const b = el(p, "abs", `inset:0;background:url(${URLOF(bgf)}) center/cover;`); const f = el(p, "abs", `inset:0;background:url(${URLOF(fgf)}) center/cover;filter:drop-shadow(10px 14px 0 rgba(30,20,10,0.28));`); return { p, b, f }; };
   const P1 = page("cut/vx1_bg.jpg", "cut/vx1_fg.png"), P2 = page("cut/vx2_bg.jpg", "cut/vx2_fg.png");
@@ -162,10 +162,10 @@ function collage(s, h, z, B) {
 }
 
 const STY = [
-  { name: "敦煌壁画", en: "DUNHUANG MURAL", fit: "丝路 · 佛教史 · 中外交流", th: { bg: 0x2A1712, ink: "#F3E6CC", dim: "#B49A78", accent: "#E9C86A" }, make: dunhuang },
-  { name: "青花", en: "BLUE & WHITE", fit: "器物 · 海上丝路 · 明清文化", th: { bg: 0xF7F6F1, ink: "#1C3F94", dim: "#6A7AA8", accent: "#1C3F94", light: true }, make: qinghua },
-  { name: "木刻", en: "WOODCUT", fit: "变法 · 起义 · 硬核历史转折", th: { bg: 0xEFE6D2, ink: "#141210", dim: "#6F665A", accent: "#C8102E", light: true }, make: woodcut },
-  { name: "半调拼贴", en: "HALFTONE COLLAGE", fit: "社会 · 经济 · 历史机制（Vox 式）", th: { bg: 0xE9A85A, ink: "#1D1A16", dim: "#6B4A2A", accent: "#D63A2F", light: true }, make: collage },
+  { name: "Bích họa Đôn Hoàng", en: "DUNHUANG MURAL", fit: "Con đường tơ lụa · Lịch sử Phật giáo · Giao lưu Trung ngoại", th: { bg: 0x2A1712, ink: "#F3E6CC", dim: "#B49A78", accent: "#E9C86A" }, make: dunhuang },
+  { name: "Thanh hoa", en: "BLUE & WHITE", fit: "Đồ vật · Con đường tơ lụa trên biển · Văn hóa Minh Thanh", th: { bg: 0xF7F6F1, ink: "#1C3F94", dim: "#6A7AA8", accent: "#1C3F94", light: true }, make: qinghua },
+  { name: "Khắc gỗ", en: "WOODCUT", fit: "Biến pháp · Khởi nghĩa · Bước ngoặt lịch sử khốc liệt", th: { bg: 0xEFE6D2, ink: "#141210", dim: "#6F665A", accent: "#C8102E", light: true }, make: woodcut },
+  { name: "Cắt dán bán sắc", en: "HALFTONE COLLAGE", fit: "Xã hội · Kinh tế · Cơ chế lịch sử (kiểu Vox)", th: { bg: 0xE9A85A, ink: "#1D1A16", dim: "#6B4A2A", accent: "#D63A2F", light: true }, make: collage },
 ];
 
 export async function build(ctx) {
@@ -182,8 +182,8 @@ export async function build(ctx) {
       el(s, "abs", `inset:0;background:${hx};`);
       const no = el(s, "abs", `left:0;width:1920px;top:340px;text-align:center;font-family:Geist;font-size:26px;letter-spacing:10px;color:${st.th.dim};`, `ENHANCED STYLE ${i + 1} / ${STY.length} · ${st.en}`);
       const nm = el(s, "abs cn", `left:0;width:1920px;top:400px;text-align:center;font-size:150px;font-weight:900;color:${st.th.ink};letter-spacing:12px;`, st.name);
-      const ft = el(s, "abs cn", `left:0;width:1920px;top:600px;text-align:center;font-size:40px;color:${st.th.accent};letter-spacing:3px;`, `适合：${st.fit}`);
-      const cr = el(s, "abs cn", `left:0;width:1920px;top:680px;text-align:center;font-size:26px;color:${st.th.dim};`, "增强档 · 本段 2 张 Renoise 生图（8 积分），动效全部代码");
+      const ft = el(s, "abs cn", `left:0;width:1920px;top:600px;text-align:center;font-size:40px;color:${st.th.accent};letter-spacing:3px;`, `Phù hợp: ${st.fit}`);
+      const cr = el(s, "abs cn", `left:0;width:1920px;top:680px;text-align:center;font-size:26px;color:${st.th.dim};`, "Cấp tăng cường · đoạn này 2 ảnh tạo bằng Renoise (8 điểm), hiệu ứng hoàn toàn bằng mã");
       return { s, ns: [no, nm, ft, cr] };
     }, (t, u) => {
       bg(ctx, st.th, { bloom: 0, vig: st.th.light ? 0.12 : 0.4 });
@@ -195,9 +195,9 @@ export async function build(ctx) {
   add(END, END + TAIL, (root) => {
     const s = el(root, "shot");
     el(s, "abs", "inset:0;background:#0B0A0C;");
-    el(s, "abs cn", "left:0;width:1920px;top:320px;text-align:center;font-size:84px;font-weight:900;color:#f6f2ea;", "风格库 +4：增强档 · 东方与印刷");
+    el(s, "abs cn", "left:0;width:1920px;top:320px;text-align:center;font-size:84px;font-weight:900;color:#f6f2ea;", "Thư viện phong cách +4: cấp tăng cường · Phương Đông và in ấn");
     STY.forEach((st, i) => el(s, "abs cn", `left:${170 + i * 400}px;top:500px;width:370px;padding:22px 0;text-align:center;border-radius:16px;font-size:40px;font-weight:800;color:${st.th.ink};background:#${st.th.bg.toString(16).padStart(6, "0")};border:3px solid ${st.th.accent};`, st.name));
-    el(s, "abs cn", "left:0;width:1920px;top:680px;text-align:center;font-size:30px;color:#a8a29a;", "每套 2 张生图（mj-v8.2，4 积分/张）· 剥落 / 晕开 / 刀刻 / 拍入全是代码");
+    el(s, "abs cn", "left:0;width:1920px;top:680px;text-align:center;font-size:30px;color:#a8a29a;", "Mỗi bộ 2 ảnh tạo (mj-v8.2, 4 điểm/ảnh) · bong tróc / loang màu / nét dao / đập vào đều bằng mã");
     return { s };
   }, () => bg(ctx, { bg: 0x0b0a0c }, { bloom: 0.3 }));
   return shots;

@@ -1,34 +1,34 @@
-# 02 · 精品标准（每期交付前逐条过）
+# 02 · Tiêu chuẩn tinh phẩm (qua từng mục trước khi giao mỗi kỳ)
 
-用户要求：每一期都比现有博主做得更精良，「打出去就是精品设计」。下面是硬标准，不达标不交付。
+Yêu cầu của người dùng: mỗi kỳ đều phải tinh xảo hơn các blogger hiện có, "tung ra là thiết kế tinh phẩm". Dưới đây là tiêu chuẩn cứng, không đạt thì không giao.
 
-## 画面
+## Hình ảnh
 
-1. **三层构图**：每个镜头至少有「底（配图 / 动态镜头 / 主题底色）+ 动（光轨、粒子、计数、推拉）+ 信息（关键词 / 数字 / 出处）」三层中的两层；没有一个镜头只有一行字压在纯色底上。
-2. **没有静止超过 3 秒的画面**：配图一律推拉摇移（plate 的 from/to），关键词有进出动画，长镜头里至少有一个次级运动（光尘、视差、数字跳动）。
-3. **每章至少一个主视觉「王炸」镜头**：增强档用 Renoise 动态镜头（vclip），基础档用代码（粒子聚字、光点变形、地图扩散、3D 穿梭、三层 SVG 视差）；放在钩子、反转、高潮这些「需要被记住」的位置。
-4. **整期一个视觉系统**：主题（TH.*）+ 统一画风前缀（assets.json 的 style_prefix）+ 一组字体，不混搭。不同时代可以换画风（D 母版），但色温和颗粒要统一。
-5. **字**：画面关键词 ≤8 字，同屏最多两组；字幕在底部 940–1030，脚注在 1044，关键词不进 y>900；中文用 NotoSC 900/700，数字用 Geist。
-6. **配图里不能有生成的文字**（提示词写 no text, no letters, no watermark）；所有中文由代码叠加。生成图里出现乱码字就重做或裁掉。
-7. **AI 生成的人物、场景标「AI 示意图」**；不生成在世真人的脸；历史人物写「人物造型为示意」。
+1. **Bố cục ba lớp**: mỗi cảnh quay ít nhất có hai trong ba lớp "nền (ảnh minh họa / cảnh quay động / màu nền chủ đề) + động (vệt sáng, hạt, bộ đếm, đẩy kéo) + thông tin (từ khóa / số / xuất xứ)"; không có cảnh nào chỉ một dòng chữ đè lên nền đơn sắc.
+2. **Không có hình ảnh đứng yên quá 3 giây**: ảnh minh họa luôn đẩy kéo lia dời (from/to của plate), từ khóa có hoạt ảnh vào ra, cảnh dài có ít nhất một chuyển động phụ (bụi sáng, thị sai, số nhảy).
+3. **Mỗi chương ít nhất một cảnh "vương bài" thị giác chính**: bản nâng cao dùng cảnh quay động Renoise (vclip), bản cơ bản dùng code (hạt tụ thành chữ, điểm sáng biến hình, bản đồ lan rộng, xuyên 3D, thị sai SVG ba lớp); đặt ở các vị trí hook, đảo ngược, cao trào, những chỗ "cần được nhớ".
+4. **Cả kỳ một hệ thống thị giác**: chủ đề (TH.*) + tiền tố họa phong thống nhất (style_prefix trong assets.json) + một bộ phông chữ, không pha trộn. Các thời đại khác nhau có thể đổi họa phong (bản gốc D), nhưng nhiệt độ màu và hạt phải thống nhất.
+5. **Chữ**: từ khóa trên hình ≤8 chữ, cùng màn hình tối đa hai nhóm; phụ đề ở dưới 940–1030, chú thích cuối ở 1044, từ khóa không vào y>900; chữ Trung dùng NotoSC 900/700, số dùng Geist.
+6. **Trong ảnh minh họa không được có chữ do AI tạo** (prompt viết no text, no letters, no watermark); mọi chữ Trung đều do code chồng lên. Ảnh tạo ra có chữ loạn thì làm lại hoặc cắt bỏ.
+7. **Nhân vật, cảnh do AI tạo ghi "Hình minh họa AI"**; không tạo khuôn mặt người thật còn sống; nhân vật lịch sử ghi "Tạo hình nhân vật chỉ mang tính minh họa".
 
-## 声音
+## Âm thanh
 
-0. **节奏（用户 10-27 定的硬要求：科技博主那种快节奏，不能掉）**：成片语速 5.5–6 字/秒；句间停顿 ≤0.35 秒；拍与拍之间 ≤0.25 秒（配音用 `--gap 0.2 --lead 0.3`，不要用 make_lesson 默认的 0.8）；语气说明里禁写「留白、停顿、放慢」；开头 20 秒内信息每 2–3 秒推进一次（十金 → 没人动 → 五十金 → 有人搬了 → 真事 → 换你）。画面切换跟着旁白的句子走，开头每 1.5–2 秒一个镜头。
+0. **Nhịp điệu (yêu cầu cứng người dùng chốt ngày 10-27: nhịp nhanh kiểu blogger công nghệ, không được tụt)**: tốc độ nói của thành phẩm 5,5–6 chữ/giây; quãng nghỉ giữa câu ≤0,35 giây; giữa các nhịp ≤0,25 giây (lồng tiếng dùng `--gap 0.2 --lead 0.3`, đừng dùng mặc định 0,8 của make_lesson); trong phần mô tả giọng điệu cấm viết "để trống, ngừng nghỉ, chậm lại"; trong 20 giây đầu thông tin cứ 2–3 giây lại tiến một bước (mười lạng vàng → không ai nhúc nhích → năm mươi lạng vàng → có người khiêng → chuyện thật → đến lượt bạn). Chuyển hình theo từng câu lời dẫn, đoạn đầu cứ 1,5–2 giây một cảnh.
 
-1. **分层**：旁白（小米 MiMo 克隆音色 + voice_post 人声后期）、配乐（基础档曲库 / 合成；增强档 Lyria Pro 按本期段落定制）、音效（引擎内置 slam/whoosh/chime；增强档补 ElevenLabs 逐个生成）、环境声（增强档用 Renoise 视频自带的原声，压到 −20 dB 左右做底）。
-2. 配乐按母版结构写：冷开场留白或极简 → B02 片名处**第一次到达** → 章节间小起伏 → 反转处抽空 1–2 秒 → 结尾回问时只剩一个乐器。
-3. 关键时刻（揭晓、反转、金句）一个音效，全片 ≤8 个，不要每个关键词都响。
-4. 响度：整体 −14.5 LUFS 左右，真峰值 ≤ −1 dBTP（qa.py 会报）。
+1. **Phân lớp**: lời dẫn (giọng nhân bản Xiaomi MiMo + hậu kỳ giọng người voice_post), nhạc nền (bản cơ bản dùng thư viện nhạc / tổng hợp; bản nâng cao Lyria Pro làm riêng theo đoạn của kỳ này), hiệu ứng âm thanh (engine có sẵn slam/whoosh/chime; bản nâng cao bổ sung ElevenLabs tạo từng cái), âm thanh môi trường (bản nâng cao dùng âm thanh gốc của video Renoise, ép xuống khoảng −20 dB làm nền).
+2. Nhạc nền viết theo cấu trúc bản gốc: mở đầu lạnh để trống hoặc tối giản → B02 tại chỗ tên phim **đến lần đầu tiên** → giữa các chương nhấp nhô nhỏ → chỗ đảo ngược rút trống 1–2 giây → khi kết thúc quay lại câu hỏi chỉ còn một nhạc cụ.
+3. Khoảnh khắc then chốt (tiết lộ, đảo ngược, câu vàng) một hiệu ứng âm thanh, cả phim ≤8 cái, đừng từ khóa nào cũng kêu.
+4. Độ ồn: tổng thể khoảng −14,5 LUFS, true peak ≤ −1 dBTP (qa.py sẽ báo).
 
-## 内容
+## Nội dung
 
-1. facts.md 里每一行都有出处；OCR 回读（qa.py → ocr.txt）逐条对照，屏幕上的数字和 facts.md 完全一致。
-2. 对抗审查（另起一个子 agent，只挑三类毛病）：钩子不直接、事实无出处、画面字太多。
-3. 结尾的问题必须是观众能用一个词回答的（回 / 不回、选 A / 选 B），方便评论区互动。
+1. Mỗi dòng trong facts.md đều có xuất xứ; đọc lại OCR (qa.py → ocr.txt) đối chiếu từng mục, số trên màn hình hoàn toàn khớp facts.md.
+2. Rà soát đối kháng (mở một sub-agent khác, chỉ bắt ba loại lỗi): hook không trực diện, sự thật không có xuất xứ, chữ trên hình quá nhiều.
+3. Câu hỏi ở phần kết phải là câu khán giả có thể trả lời bằng một từ (về / không về, chọn A / chọn B), thuận tiện cho tương tác ở phần bình luận.
 
-## 交付规格
+## Thông số bàn giao
 
-- 1920×1080 · 60fps 母版（cine record）；分享版 CRF 23、码率封顶 6M（deliver.sh）。
-- 封面：标题卡帧或主视觉帧 + 大标题，3:4 和 16:9 各一张。
-- 片尾 2.5 秒尾卡：片名 + 「Vibe知识大赏 · 本片由 Claude Opus 5.5 制作」。
+- 1920×1080 · 60fps bản master (cine record); bản chia sẻ CRF 23, bitrate chặn trên 6M (deliver.sh).
+- Ảnh bìa: khung hình thẻ tiêu đề hoặc khung hình thị giác chính + tiêu đề lớn, mỗi tỉ lệ 3:4 và 16:9 một ảnh.
+- Thẻ cuối phim 2,5 giây: tên phim + "Vibe Tri Thức Đại Thưởng · Phim này do Claude Opus 5.5 thực hiện".

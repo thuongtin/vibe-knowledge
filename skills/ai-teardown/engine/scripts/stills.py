@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""按时间点抽帧拼接触表：python3 scripts/stills.py <page.html> <out.png> t1 t2 ... [--cols 4] [--theme dark]
-页面需暴露 window.__ready（Promise）与 window.__stage（有 seek(t)）。"""
+"""Trích khung hình theo thời điểm và ghép thành contact sheet: python3 scripts/stills.py <page.html> <out.png> t1 t2 ... [--cols 4] [--theme dark]
+Trang cần cung cấp window.__ready (Promise) và window.__stage (có seek(t))."""
 import os, sys
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -29,7 +29,7 @@ def main():
             frames.append((t, fn))
         b.close()
     if errs:
-        print("页面报错：", *errs[:5], sep="\n  ")
+        print("Trang báo lỗi:", *errs[:5], sep="\n  ")
     tw, th = 480, 270
     rows = (len(frames) + cols - 1) // cols
     sheet = Image.new("RGB", (cols * tw, rows * (th + 26)), "#111")
@@ -44,7 +44,7 @@ def main():
         sheet.paste(im, (x, y + 26))
         d.text((x + 8, y + 4), f"t={t:.2f}s", fill="#ddd", font=font)
     sheet.save(out)
-    print(f"{len(frames)} 帧 → {out}")
+    print(f"{len(frames)} khung hình → {out}")
 
 if __name__ == "__main__":
     main()

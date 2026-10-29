@@ -1,26 +1,26 @@
-# 象形统计 · ISOTYPE
+# Thống kê hình tượng · ISOTYPE
 
-> 家族：图解与设计　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles5_film.js → isotype()`
+> Họ: minh họa và thiết kế | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles5_film.js → isotype()`
 
-**一句话**：一个金锭图标 = 1 金，一个人形 = 一位围观者，一行行盖章，数量就是画面本身。
+**Một câu**: Một biểu tượng thỏi vàng = 1 vàng, một hình người = một người xem, đóng dấu từng hàng một, số lượng chính là hình ảnh.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | Neurath 的 ISOTYPE：不画柱状图，让观众一个个数出来。 |
-| 材质 / 画法 | 米色底；CSS clip-path 金锭（梯形）与人形（圆头 + 梯形身）；图例在左上；左列标签 + 计数。 |
-| 配色逻辑 | 底 #EFE7D6 · 金 #D9A21B · 人灰 #8F877A · 墨 #1F1B16 · 强调红 #C8352B（只给那一个人） |
-| 字体 | NotoSC 900 标签 + Geist 900 数字 |
-| 动态 | 图标逐个盖章（1.5 → 1 缩放 0.1 秒），前 10 个 0.04 秒一个，后 40 个 0.028 秒一个；最后一个人形变红并上前一步。 |
-| 镜头语法 | 锁定。 |
-| 声音 | 盖章、计数器；轻快打击。 |
-| 标志镜头 | 五行金锭盖满 50 个，十二个灰色小人里只有一个变红走出来，「搬的人：1」。 |
+| Ý đồ đạo diễn | ISOTYPE của Neurath: không vẽ biểu đồ cột, để người xem đếm từng cái một. |
+| Chất liệu / Cách vẽ | Nền màu be; thỏi vàng (hình thang) và hình người (đầu tròn + thân hình thang) bằng CSS clip-path; chú giải ở góc trên trái; nhãn cột trái + số đếm. |
+| Logic phối màu | Nền #EFE7D6 · vàng #D9A21B · xám người #8F877A · mực #1F1B16 · đỏ nhấn #C8352B (chỉ dành cho một người đó) |
+| Phông chữ | Nhãn NotoSC 900 + số Geist 900 |
+| Chuyển động | Biểu tượng đóng dấu từng cái (thu phóng 1.5 → 1 trong 0,1 giây), 10 cái đầu mỗi cái 0,04 giây, 40 cái sau mỗi cái 0,028 giây; hình người cuối cùng chuyển đỏ và bước lên một bước. |
+| Ngữ pháp máy quay | Cố định. |
+| Âm thanh | Tiếng đóng dấu, bộ đếm; gõ nhẹ nhàng nhanh nhịp. |
+| Cảnh đặc trưng | Năm hàng thỏi vàng đầy 50 cái, trong mười hai người nhỏ màu xám chỉ có một người chuyển đỏ bước ra, "Người khiêng: 1". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换图标（人、粮、船…）、换单位
-- **一改就变味**：图标大小不统一（就不能数了）
-- **不能改**：用比例缩放图标表示数量
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi biểu tượng (người, lúa, thuyền…), đổi đơn vị
+- **Sửa là mất chất**: kích thước biểu tượng không đồng nhất (không đếm được nữa)
+- **Không được sửa**: dùng tỷ lệ phóng to biểu tượng để biểu thị số lượng
 
-## 搭配
-- 适合母版：痛点原理 C、猜谜概念 A
-- 不适合：没有数量的故事
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Bản gốc phù hợp: điểm đau nguyên lý C, câu đố khái niệm A
+- Không phù hợp: câu chuyện không có số lượng
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

@@ -37,10 +37,10 @@ export function captionCues(beats, maxChars = 18, en = false) {
     };
     for (const w of b.words) {
       const len = cur ? w.i1 - cur.i0 : w.i1 - w.i0;
-      // 句尾只剩三四个字时宁可略超上限，也不让「你」这样的字单独成行
+      // Khi cuối câu chỉ còn ba bốn chữ thì thà vượt giới hạn một chút, cũng không để một chữ như "你" đứng riêng một dòng
       const rest = text.slice(w.i1).search(/[，。！？；：、,.!?;:]|$/u);
       const clauseLen = cur ? w.i1 + rest - cur.i0 : 0;
-      // 别把英文单词拆到两行（WorkBudd / y）
+      // Đừng tách từ tiếng Anh ra hai dòng (WorkBudd / y)
       const midWord = /[A-Za-z0-9]/.test(text[w.i0 - 1] ?? "") && /[A-Za-z0-9]/.test(text[w.i0] ?? "");
       if (cur && !midWord && len > maxChars && clauseLen > maxChars + 4) flush();
       if (!cur) cur = { i0: w.i0, i1: w.i1, start: w.start, end: w.end };
@@ -80,7 +80,7 @@ export function captions(stage, cues, { bottom } = {}) {
   };
 }
 
-/** Corner tags such as 「界面示意」「推断」 with time windows. pos: tl | tr | bl | br */
+/** Corner tags such as "Minh họa giao diện" / "Suy đoán" with time windows. pos: tl | tr | bl | br */
 export function tag(stage, { text, start, end, pos = "tl", kind = "uimock" }) {
   stage.css("at-overlays", CSS);
   const el = h("div", { class: "at-tag", "data-kind": kind, text });
@@ -151,7 +151,7 @@ const CSS2 = `
 .at-dim{position:absolute;inset:0;background:var(--bg)}
 `;
 
-/** 章节角标：左上角「02  它是什么」；chapters: [{start, end, n, title}] */
+/** Nhãn góc chương: góc trên bên trái "02  Nó là gì"; chapters: [{start, end, n, title}] */
 export function chapterLabel(stage, chapters) {
   stage.css("at-overlays2", CSS2);
   const el = h("div", { class: "at-chap" });
@@ -173,7 +173,7 @@ export function chapterLabel(stage, chapters) {
   };
 }
 
-/** 术语卡：「名」这一拍，在字幕上方给出术语和一句大白话 */
+/** Thẻ thuật ngữ: ở nhịp "tên", đặt thuật ngữ và một câu giải thích dễ hiểu phía trên phụ đề */
 export function termCard(stage, { term, plain, start, end, role = "model" }) {
   stage.css("at-overlays2", CSS2);
   const dot = h("i");
@@ -191,7 +191,7 @@ export function termCard(stage, { term, plain, start, end, role = "model" }) {
   };
 }
 
-/** 压暗世界层，给屏幕层的卡片垫底；windows: [[t0, t1, opacity]] */
+/** Làm tối lớp thế giới, làm nền cho thẻ ở lớp màn hình; windows: [[t0, t1, opacity]] */
 export function backdrop(stage, windows) {
   stage.css("at-overlays2", CSS2);
   const el = h("div", { class: "at-dim" });
@@ -206,8 +206,8 @@ export function backdrop(stage, windows) {
 }
 
 /**
- * 转场：两层马卡龙色圆从一角铺满画面，再往对角收走；场景在铺满的那一刻切换，所以不需要镜头移动。
- * times: 切换时刻数组；colors: 两层的色位（前、后）；每次转场的方向按序轮换。
+ * Chuyển cảnh: hai lớp vòng tròn màu macaron phủ đầy khung hình từ một góc, rồi thu về góc đối diện; cảnh được đổi đúng lúc phủ đầy, nên không cần chuyển động máy.
+ * times: mảng thời điểm chuyển; colors: màu của hai lớp (trước, sau); hướng của mỗi lần chuyển cảnh luân phiên theo thứ tự.
  */
 export function wipe(stage, { times, colors = ["m6", "m1"], palette = null, dIn = 0.36, dOut = 0.44, lag = 0.07 }) {
   const { W, H } = stage;
@@ -238,7 +238,7 @@ export function wipe(stage, { times, colors = ["m6", "m1"], palette = null, dIn 
         setStyle(front, "visibility", "hidden");
         return;
       }
-      // palette: [[前, 后], ...] 按转场次序轮换颜色
+      // palette: [[trước, sau], ...] luân phiên màu theo thứ tự chuyển cảnh
       const pair = palette ? palette[i % palette.length] : colors;
       setStyle(front, "background", `var(--${pair[0]})`);
       setStyle(back, "background", `var(--${pair[1]})`);
@@ -249,8 +249,8 @@ export function wipe(stage, { times, colors = ["m6", "m1"], palette = null, dIn 
 }
 
 /**
- * 年份标尺：屏幕顶部一条细轴，标出几个关键年份，当前讲到的年份放大、点亮，指针弹簧移动过去。
- * years: [1950, 1956, ...]；keys: [[t, 年份下标]]（-1 表示藏起来）；讲历史时给观众一个「现在在哪儿」的锚点。
+ * Thước năm: một trục mảnh ở đầu màn hình, đánh dấu vài năm then chốt, năm đang giảng được phóng to, làm sáng, con trỏ di chuyển tới đó theo kiểu lò xo.
+ * years: [1950, 1956, ...]; keys: [[t, chỉ số năm]] (-1 nghĩa là ẩn đi); khi giảng lịch sử thì cho khán giả một điểm neo "bây giờ đang ở đâu".
  */
 export function yearBar(stage, { years, keys, y = 58, w = 1180 }) {
   const el = h("div", { class: "at-yb", style: { position: "absolute", left: `${(stage.W - w) / 2}px`, top: `${y}px`, width: `${w}px`, height: "56px", pointerEvents: "none" } });

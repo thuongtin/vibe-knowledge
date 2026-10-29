@@ -1,68 +1,68 @@
-# 02 · 流水线与发布
+# 02 · Quy trình và phát hành
 
-## 目录结构
+## Cấu trúc thư mục
 
 ```
-<工作区>/
-  scripts/ runtime/ primitives/ schemas/ assets/     ← 引擎（本 skill 的 engine/）
-  examples/<系列>/
-    series.json            大纲 + 课程页数据
+<không gian làm việc>/
+  scripts/ runtime/ primitives/ schemas/ assets/     ← engine (engine/ của skill này)
+  examples/<series>/
+    series.json            dàn ý + dữ liệu trang khoá học
     BRIEF.md SCENES_GUIDE.md DECISIONS.md
-    assets/img/            图片账本 images.json（加锁写：scripts/ledger.py）+ 截图、emoji、小人帧、录屏帧
-    source/                原书 / 仓库克隆（如有）
-    voice/host-ref.wav     锁定的克隆音色参照
-    render.queue           渲染队列（每行一个课号，END 结束）
-    publish/course/        课程页 index.html + 720p 压缩视频 + 封面
-    publish/lessonNN/      互动版（index.html、app.js、audio.mp3、img/）
+    assets/img/            sổ ảnh images.json (ghi có khoá: scripts/ledger.py) + ảnh chụp màn hình, emoji, khung hình người nhỏ, khung hình quay màn hình
+    source/                sách gốc / bản clone repo (nếu có)
+    voice/host-ref.wav     mẫu giọng clone đã khoá làm tham chiếu
+    render.queue           hàng đợi render (mỗi dòng một số bài, END để kết thúc)
+    publish/course/        trang khoá học index.html + video nén 720p + ảnh bìa
+    publish/lessonNN/      bản tương tác (index.html, app.js, audio.mp3, img/)
     lessons/NN/
       narration.json scenes.json voice.log
-      illus/ lottie/ data/  本节插画、Noto 动画、录屏帧序列
-      build/               audio/、timings.json、film.js、stills/scenes.png（接触表）
-      hf/renders/lessonNN.mp4   1080p 成片
+      illus/ lottie/ data/  minh hoạ của bài này, hoạt hình Noto, chuỗi khung hình quay màn hình
+      build/               audio/, timings.json, film.js, stills/scenes.png (contact sheet)
+      hf/renders/lessonNN.mp4   thành phẩm 1080p
 ```
 
-## 环境（一次性）
+## Môi trường (một lần)
 
-| 依赖 | 位置 / 做法 |
+| Phụ thuộc | Vị trí / cách làm |
 |---|---|
-| MiMo TTS/ASR 密钥 | `~/.config/ai-teardown/mimo.env`（600 权限，`MIMO_API_KEY`、`MIMO_BASE_URL=https://api.xiaomimimo.com/v1`）。**永远不写进项目、页面或记忆** |
-| whisper-cli | `brew install whisper-cpp`；模型 `~/Library/Application Support/Murmur/models/ggml-medium-q5_0.bin`（对齐补救）+ `…/Memo/models/ggml-small.bin`（快速对齐）。路径在 `scripts/tts_mimo.py` 顶部 |
-| Playwright 无头浏览器 | `~/Library/Caches/ms-playwright/chromium_headless_shell-1243/…`（`scripts/stills.py`、`export_cues.py` 顶部） |
-| Hyperframes | `npx hyperframes@0.6.x` 装一次，make_lesson 里 `NPX` 指向 `~/.npm/_npx/<hash>/node_modules`（换机器要改） |
-| esbuild | 同在 NPX 目录的 `.bin/esbuild` |
-| 配乐 | `~/.claude/skills/promo-video/assets/music`（mixkit 免版税曲，`make_lesson.py` 的 `BGM`、`mix.py` 的 `LIB`） |
-| ffmpeg | brew 装，无 drawtext 也可 |
+| Khoá MiMo TTS/ASR | `~/.config/ai-teardown/mimo.env`(quyền 600, `MIMO_API_KEY`, `MIMO_BASE_URL=https://api.xiaomimimo.com/v1`). **Tuyệt đối không ghi vào dự án, trang web hoặc bộ nhớ** |
+| whisper-cli | `brew install whisper-cpp`; mô hình `~/Library/Application Support/Murmur/models/ggml-medium-q5_0.bin` (căn chỉnh khắc phục) + `…/Memo/models/ggml-small.bin` (căn chỉnh nhanh). Đường dẫn ở đầu `scripts/tts_mimo.py` |
+| Trình duyệt headless Playwright | `~/Library/Caches/ms-playwright/chromium_headless_shell-1243/…`(đầu `scripts/stills.py`, `export_cues.py`) |
+| Hyperframes | `npx hyperframes@0.6.x` cài một lần, trong make_lesson `NPX` trỏ tới `~/.npm/_npx/<hash>/node_modules` (đổi máy phải sửa) |
+| esbuild | `.bin/esbuild` trong cùng thư mục NPX |
+| Nhạc nền | `~/.claude/skills/promo-video/assets/music`(nhạc mixkit miễn phí bản quyền, `BGM` của `make_lesson.py`, `LIB` của `mix.py`) |
+| ffmpeg | cài bằng brew, không có drawtext cũng được |
 
-换机器时按上表改 `scripts/make_lesson.py`、`tts_mimo.py`、`stills.py`、`export_cues.py`、`mix.py` 顶部的常量。
+Khi đổi máy, sửa các hằng số ở đầu `scripts/make_lesson.py`, `tts_mimo.py`, `stills.py`, `export_cues.py`, `mix.py` theo bảng trên.
 
-## make_lesson 三段
-
-```bash
-python3 scripts/make_lesson.py <课目录> voice   # 按拍合成（并行 2–3 路、按文字缓存）→ whisper 逐字对齐 → MiMo ASR 回读打分
-python3 scripts/make_lesson.py <课目录> build   # 变速（scenes.speed，默认 1.15）→ 编译 scenes.json → esbuild 打包 → preview.html → 接触表
-python3 scripts/make_lesson.py <课目录> final   # 混音（配乐 -24dB）→ Hyperframes 1080p 渲染 → 720p 压缩版进课程页 → 互动版目录 → 更新 series.json 和课程页
-```
-
-- `scenes.json` 写 `"engine":"sketch"` 自动用 `runtime/sketch.js`，否则用 `runtime/lesson.js`。
-- **final 不会重跑 build**：改了 runtime/primitives 之后，对已排队未渲染的课要手动 build。
-- 渲染约 12–15 分钟/节，串行最快（Hyperframes 多 worker 反而慢；同时开别的浏览器任务会掉到 5–8 fps）。
-
-## 渲染队列
+## Ba giai đoạn của make_lesson
 
 ```bash
-nohup zsh scripts/render_queue.sh examples/<系列> > <日志> 2>&1 &   # 常驻，空队列时每 20 秒看一次
-echo 07 >> examples/<系列>/render.queue
+python3 scripts/make_lesson.py <thư mục bài> voice   # tổng hợp theo nhịp (song song 2–3 luồng, cache theo văn bản) → whisper căn chỉnh từng chữ → MiMo ASR đọc lại chấm điểm
+python3 scripts/make_lesson.py <thư mục bài> build   # đổi tốc độ (scenes.speed, mặc định 1.15) → biên dịch scenes.json → esbuild đóng gói → preview.html → contact sheet
+python3 scripts/make_lesson.py <thư mục bài> final   # trộn âm (nhạc nền -24dB) → render Hyperframes 1080p → bản nén 720p đưa vào trang khoá học → thư mục bản tương tác → cập nhật series.json và trang khoá học
 ```
-日志里「第 N 节完成 / 失败」各一行；用 Monitor 盯日志（grep 完成|失败|Error|Traceback），30 分钟到期要续。要中途停某节：杀掉 runner 的 make_lesson 子进程，runner 会记失败并继续下一节，再把课号追加回队列。
 
-## 发布
+- `scenes.json` ghi `"engine":"sketch"` thì tự động dùng `runtime/sketch.js`, nếu không thì dùng `runtime/lesson.js`.
+- **final không chạy lại build**: sau khi sửa runtime/primitives, với các bài đã xếp hàng nhưng chưa render phải build thủ công.
+- Render khoảng 12–15 phút/bài, chạy tuần tự là nhanh nhất (Hyperframes nhiều worker lại chậm; mở thêm tác vụ trình duyệt khác cùng lúc sẽ tụt xuống 5–8 fps).
 
-- **互动版**：`python3 scripts/sketch_publish_files.py <课目录>` 打印 files 映射（只含本节用到的图 + 80 张小人帧）。Artifact publish：`file_path=publish/lessonNN/index.html`，`root=` 该目录，files 用列表 `[{"path": "app.js"}, …]`（>200 个文件时列表形式最省事）。上限 255 个文件、每版 64MB。
-- **课程总页**：`scripts/course_page.py series.json publish/course`；视频总量常超 64MB → 同一 file_path 分多次发布，每次只带一批视频（没带的文件会保留）。
-- 发布后把 MP4 用 SendUserFile 发给用户；Artifact 是私密链接，给别人看要在页面 Share 里开。用户说「打不开」时，优先给本地文件夹路径 + 完整 https 链接。
-- **本地汇总**：全部成片按「节号_标题.mp4」`cp -c`（APFS 克隆，不占空间）到桌面一个文件夹，导学用 `000_` 前缀排最前。
-- 课程页每节卡片自动带：引子、简介、要点、时长、视频、「互动版」链接（series.json 的 `interactive`）。
+## Hàng đợi render
 
-## 进度记录
+```bash
+nohup zsh scripts/render_queue.sh examples/<series> > <log> 2>&1 &   # chạy thường trực, khi hàng đợi trống thì cứ 20 giây xem một lần
+echo 07 >> examples/<series>/render.queue
+```
+Trong log, mỗi dòng "bài N hoàn tất / thất bại" một dòng; dùng Monitor theo dõi log (grep hoàn tất|thất bại|Error|Traceback), hết hạn 30 phút phải gia hạn. Muốn dừng giữa chừng một bài: giết tiến trình con make_lesson của runner, runner sẽ ghi thất bại và tiếp tục bài kế, sau đó thêm lại số bài vào hàng đợi.
 
-每发一节就把互动版链接记下来（记忆或项目 README），全部完成后给用户一张「节号 → 链接」总表。
+## Phát hành
+
+- **Bản tương tác**: `python3 scripts/sketch_publish_files.py <thư mục bài>` in ra ánh xạ files (chỉ gồm ảnh dùng trong bài này + 80 khung hình người nhỏ). Artifact publish: `file_path=publish/lessonNN/index.html`, `root=` thư mục đó, files dùng dạng danh sách `[{"path": "app.js"}, …]` (khi >200 tệp thì dạng danh sách tiện nhất). Giới hạn 255 tệp, mỗi phiên bản 64MB.
+- **Trang tổng khoá học**: `scripts/course_page.py series.json publish/course`; tổng dung lượng video thường vượt 64MB → cùng một file_path phát hành làm nhiều lần, mỗi lần chỉ kèm một lô video (tệp không kèm sẽ được giữ lại).
+- Sau khi phát hành, gửi MP4 cho người dùng bằng SendUserFile; Artifact là liên kết riêng tư, muốn cho người khác xem phải bật trong Share của trang. Khi người dùng nói "không mở được", ưu tiên đưa đường dẫn thư mục cục bộ + liên kết https đầy đủ.
+- **Tổng hợp cục bộ**: toàn bộ thành phẩm đặt tên theo "<số bài>_<tiêu đề>.mp4" rồi `cp -c` (clone APFS, không tốn dung lượng) vào một thư mục trên desktop, bài dẫn nhập dùng tiền tố `000_` để xếp đầu tiên.
+- Thẻ của mỗi bài trên trang khoá học tự động kèm: lời dẫn, giới thiệu, điểm chính, thời lượng, video, liên kết "Bản tương tác" (`interactive` trong series.json).
+
+## Ghi chép tiến độ
+
+Mỗi khi phát hành một bài thì ghi lại liên kết bản tương tác (trong bộ nhớ hoặc README dự án), khi hoàn tất tất cả thì đưa cho người dùng một bảng tổng "số bài → liên kết".

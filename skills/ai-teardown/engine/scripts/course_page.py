@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""系列课程页：把 series.json 渲染成一个自包含的 HTML 页面（发布成 Artifact）。
+"""Trang khóa học dạng series: render series.json thành một trang HTML tự chứa (xuất bản thành Artifact).
 
-用法：python3 scripts/course_page.py <series.json> <输出目录>
+Cách dùng: python3 scripts/course_page.py <series.json> <thư mục đầu ra>
 
-同一个页面贯穿整个系列的生命周期：
-    draft      方案待确认：样片、主题、配音试听、几套大纲草案、待确认的问题
-    confirmed  大纲已定：每节课的介绍，视频位显示「制作中」
-    done       每节课挂上视频
-页面里引用的视频、图片、音频都放在输出目录，发布时作为附属文件一起传。
+Cùng một trang xuyên suốt vòng đời của cả series:
+    draft      phương án chờ xác nhận: bản mẫu, chủ đề, nghe thử lồng tiếng, vài bản nháp đại cương, các câu hỏi cần xác nhận
+    confirmed  đại cương đã chốt: giới thiệu từng bài, vị trí video hiển thị “Đang sản xuất”
+    done       mỗi bài đã gắn video
+Video, ảnh, âm thanh được trang tham chiếu đều đặt trong thư mục đầu ra, khi xuất bản sẽ được gửi kèm như file phụ.
 """
 import html
 import json
@@ -155,7 +155,7 @@ footer{margin-top:56px;color:var(--ink3);font-size:13px;border-top:2px dashed va
 """
 
 JS = r"""
-document.querySelectorAll(".guide pre").forEach((pre)=>{const b=document.createElement("button");b.className="copy";b.type="button";b.textContent="复制";b.onclick=async()=>{try{await navigator.clipboard.writeText(pre.innerText.replace(/复制$/,"").trim());b.textContent="已复制";}catch(e){b.textContent="请手动选择";}setTimeout(()=>b.textContent="复制",1500);};pre.append(b);});
+document.querySelectorAll(".guide pre").forEach((pre)=>{const b=document.createElement("button");b.className="copy";b.type="button";b.textContent="Sao chép";b.onclick=async()=>{try{await navigator.clipboard.writeText(pre.innerText.replace(/Sao chép$/,"").trim());b.textContent="Đã sao chép";}catch(e){b.textContent="Hãy tự chọn";}setTimeout(()=>b.textContent="Sao chép",1500);};pre.append(b);});
 
 document.querySelectorAll('[role=tablist]').forEach((tl) => {
   const tabs = [...tl.querySelectorAll('[role=tab]')];
@@ -174,19 +174,19 @@ document.querySelectorAll('.voice').forEach((v) => {
     if (cur && cur !== a) { cur.pause(); cur.currentTime = 0; }
     if (a.paused) { a.play(); cur = a; } else { a.pause(); }
   });
-  a.addEventListener('play', () => { b.innerHTML = PAUSE; v.classList.add('on'); b.setAttribute('aria-label', '暂停'); });
-  a.addEventListener('pause', () => { b.innerHTML = PLAY; v.classList.remove('on'); b.setAttribute('aria-label', '试听'); });
+  a.addEventListener('play', () => { b.innerHTML = PAUSE; v.classList.add('on'); b.setAttribute('aria-label', 'Tạm dừng'); });
+  a.addEventListener('pause', () => { b.innerHTML = PLAY; v.classList.remove('on'); b.setAttribute('aria-label', 'Nghe thử'); });
 });
 """
 
 COLORS = ["m6", "m1", "m5", "m4", "m2", "m3"]
 
 
-LESSON_DIR = None   # main() 里设成 <系列目录>/lessons
+LESSON_DIR = None   # đặt trong main() thành <thư mục series>/lessons
 
 
 def extras_html(n):
-    """每节的图文步骤（steps.md）、课后三问 / 动手练习 / 延伸阅读（extras.json），都折叠放在卡片底部。"""
+    """Các bước hình ảnh kèm chữ của mỗi bài (steps.md), ba câu hỏi sau bài / bài thực hành / đọc thêm (extras.json), đều được gập lại đặt ở cuối thẻ."""
     if not LESSON_DIR:
         return ""
     L = LESSON_DIR / f"{n:02d}"
@@ -194,21 +194,21 @@ def extras_html(n):
     if (L / "steps.md").exists():
         import markdown
         md = (L / "steps.md").read_text(encoding="utf-8")
-        md = re.sub(r"\s*[〔\[](?:[XFCTOD][\w-]*\d[\w、,，\s–-]*)[〕\]]", "", md)   # 去掉给编辑看的依据编号
-        out.append(f'<details><summary>图文步骤：照着敲</summary><div class="guide">{markdown.markdown(md, extensions=["fenced_code", "tables"])}</div></details>')
+        md = re.sub(r"\s*[〔\[](?:[XFCTOD][\w-]*\d[\w、,，\s–-]*)[〕\]]", "", md)   # bỏ các số hiệu căn cứ dành cho biên tập viên xem
+        out.append(f'<details><summary>Các bước kèm hình: gõ theo</summary><div class="guide">{markdown.markdown(md, extensions=["fenced_code", "tables"])}</div></details>')
     if (L / "extras.json").exists():
         X = json.loads((L / "extras.json").read_text(encoding="utf-8"))
         if X.get("quiz"):
             qs = "".join(f'<li><b>{E(q["q"])}</b><div class="ch">' + "".join(f"<span>{chr(65 + k)}. {E(c)}</span>" for k, c in enumerate(q.get("choices", [])))
-                         + f'</div><details><summary>看答案</summary>{chr(65 + q["answer"]) + "。" if isinstance(q.get("answer"), int) else ""}{E(q.get("why", ""))}</details></li>' for q in X["quiz"])
-            out.append(f'<details><summary>课后三问</summary><ol class="quiz">{qs}</ol></details>')
+                         + f'</div><details><summary>Xem đáp án</summary>{chr(65 + q["answer"]) + ". " if isinstance(q.get("answer"), int) else ""}{E(q.get("why", ""))}</details></li>' for q in X["quiz"])
+            out.append(f'<details><summary>Ba câu hỏi sau bài</summary><ol class="quiz">{qs}</ol></details>')
         if X.get("practice"):
             pr = X["practice"]
             st = "".join(f"<li>{E(x)}</li>" for x in pr.get("steps", []))
-            out.append(f'<details><summary>{E(pr.get("title", "动手练习"))}</summary><ol class="reading">{st}</ol></details>')
+            out.append(f'<details><summary>{E(pr.get("title", "Bài thực hành"))}</summary><ol class="reading">{st}</ol></details>')
         if X.get("reading"):
             rd = "".join(f'<li><a href="{E(r["url"])}" target="_blank" rel="noopener">{E(r["title"])}</a> <span>· {E(r.get("publisher", ""))} — {E(r.get("why", ""))}</span></li>' for r in X["reading"])
-            out.append(f'<details><summary>延伸阅读（官方）</summary><ul class="reading">{rd}</ul></details>')
+            out.append(f'<details><summary>Đọc thêm (chính thức)</summary><ul class="reading">{rd}</ul></details>')
     return f'<div class="more-box">{"".join(out)}</div>' if out else ""
 
 
@@ -218,7 +218,7 @@ def videos_html(les):
         return ""
     cards = "".join(f'<a href="{E(v["url"])}" target="_blank" rel="noopener">' + (f'<img src="{E(v["poster"])}" alt="" loading="lazy">' if v.get("poster") else "")
                     + f'<span>▶ {E(v["title"])}</span></a>' for v in vs)
-    return f'<details><summary>官方视频（外部链接，版权归 OpenAI）</summary><div class="ovid">{cards}</div></details>'
+    return f'<details><summary>Video chính thức (liên kết ngoài, bản quyền thuộc OpenAI)</summary><div class="ovid">{cards}</div></details>'
 
 
 
@@ -226,7 +226,7 @@ def lesson_card(les, i, sources):
     c = COLORS[i % len(COLORS)]
     pts = "".join(f"<li>{E(p)}</li>" for p in les.get("points", []))
     vis = "".join(f'<span class="tag">{E(v)}</span>' for v in les.get("visual", []))
-    # 同一发布方只列一次，括号里的托管平台、转载说明去掉
+    # Cùng một bên phát hành chỉ liệt kê một lần, bỏ nền tảng lưu trữ và ghi chú đăng lại trong ngoặc
     pubs = []
     for sid in les.get("sources", []):
         pub = re.split(r"\s*[（(]", sources.get(sid, {}).get("publisher", sid))[0].strip()
@@ -235,13 +235,13 @@ def lesson_card(les, i, sources):
     src = "".join(f'<span class="tag src">{E(pub)}</span>' for pub in pubs)
     if les.get("source_note"):
         src += f'<span class="tag src">{E(les["source_note"])}</span>'
-    mins = f'<span class="tag">约 {E(str(les["minutes"]))} 分钟</span>' if les.get("minutes") else ""
+    mins = f'<span class="tag">khoảng {E(str(les["minutes"]))} phút</span>' if les.get("minutes") else ""
     if les.get("video"):
-        extra = f'<a class="more" href="{E(les["interactive"])}" target="_blank" rel="noopener">互动版：暂停后可点图看出处 ↗</a>' if les.get("interactive") else ""
+        extra = f'<a class="more" href="{E(les["interactive"])}" target="_blank" rel="noopener">Bản tương tác: sau khi tạm dừng có thể bấm vào hình để xem nguồn ↗</a>' if les.get("interactive") else ""
         vid = (f'<div class="vid"><video controls preload="none" poster="{E(les.get("poster", ""))}" src="{E(les["video"])}"></video>'
-               f'<div class="vmeta"><span class="tag done">已上线 · {E(les.get("length", ""))}</span>{extra}</div></div>')
+               f'<div class="vmeta"><span class="tag done">Đã lên sóng · {E(les.get("length", ""))}</span>{extra}</div></div>')
     elif les.get("state") == "making":
-        vid = '<div class="pending"><span class="tag">制作中</span></div>'
+        vid = '<div class="pending"><span class="tag">Đang sản xuất</span></div>'
     else:
         vid = ""
     intro = f'<p style="margin:0;font-size:15px">{E(les["intro"])}</p>' if les.get("intro") else ""
@@ -268,7 +268,7 @@ def main():
     parts.append(f"""<header class="hero">
   <div><span class="pill"><i></i>{E(S.get("status_label", ""))}</span>
     <h1>{S["title_html"] if S.get("title_html") else E(S["title"])}</h1>
-    <p class="lede">{E(S.get("tagline", ""))}</p>{f'<p class="byline">作者：<b>{E(S["author"])}</b></p>' if S.get("author") else ""}</div>
+    <p class="lede">{E(S.get("tagline", ""))}</p>{f'<p class="byline">Tác giả: <b>{E(S["author"])}</b></p>' if S.get("author") else ""}</div>
   <dl class="facts">{facts}</dl>
 </header>""")
 
@@ -276,12 +276,12 @@ def main():
         stops = []
         for st in S["stages"]:
             a, b = [int(x) for x in re.findall(r"\d+", st["range"])[:2]] if "–" in st["range"] else [int(re.findall(r"\d+", st["range"])[0])] * 2
-            items = "".join(f"<li>第 {l['n']} 节 · {E(l['title'])}</li>" for l in S["lessons"] if a <= l.get("n", 0) <= b)
+            items = "".join(f"<li>Bài {l['n']} · {E(l['title'])}</li>" for l in S["lessons"] if a <= l.get("n", 0) <= b)
             stops.append(f'<div class="stop" style="border-color:var(--{st.get("color", "m6")}t)"><span class="rg" style="color:var(--{st.get("color", "m6")})">{E(st["range"])}</span>'
-                         f'<h3>{E(st["name"])}</h3><ol>{items}</ol><p class="get">学完你能：{E(st["get"])}</p></div>')
-        parts.append(f"""<section id="map"><div class="sh"><h2>内容地图</h2><p>{E(S.get("map_sub", "三站走完全程；每站学完能做什么，一眼看清。先看第 0 节「课程地图」。"))}</p></div><div class="route">{"".join(stops)}</div></section>""")
+                         f'<h3>{E(st["name"])}</h3><ol>{items}</ol><p class="get">Học xong bạn có thể: {E(st["get"])}</p></div>')
+        parts.append(f"""<section id="map"><div class="sh"><h2>Bản đồ nội dung</h2><p>{E(S.get("map_sub", "Ba chặng đi hết hành trình; mỗi chặng học xong làm được gì, nhìn một cái là rõ. Hãy xem bài 0 “Bản đồ khóa học” trước."))}</p></div><div class="route">{"".join(stops)}</div></section>""")
 
-    # 自定义板块（规划页的「动效对照」「制作方案」等）：sections[{id, heading, sub, html, where: "top"|"bottom"}]
+    # Khối tùy chỉnh (như “Đối chiếu hiệu ứng”, “Phương án sản xuất” của trang lập kế hoạch): sections[{id, heading, sub, html, where: "top"|"bottom"}]
     custom = lambda where: "".join(f'<section id="{E(c.get("id", "x"))}"><div class="sh"><h2>{E(c["heading"])}</h2><p>{E(c.get("sub", ""))}</p></div>{c["html"]}</section>'
                                    for c in S.get("sections", []) if c.get("where", "top") == where)
     parts.append(custom("top"))
@@ -289,22 +289,22 @@ def main():
     if S.get("sample"):
         sm = S["sample"]
         ch = "".join(f'<li><span class="k" style="color:var(--{COLORS[i % 6]})">{E(c["k"])}</span><p>{E(c["v"])}</p></li>' for i, c in enumerate(sm.get("changes", [])))
-        parts.append(f"""<section id="sample"><div class="sh"><h2>{E(sm.get("heading", "样片"))}</h2><p>{E(sm.get("sub", ""))}</p></div>
+        parts.append(f"""<section id="sample"><div class="sh"><h2>{E(sm.get("heading", "Bản mẫu"))}</h2><p>{E(sm.get("sub", ""))}</p></div>
   <div class="video"><video controls preload="metadata" poster="{E(sm["poster"])}" src="{E(sm["video"])}"></video></div>
   <ul class="changes">{ch}</ul></section>""")
 
     if S.get("themes"):
-        th = "".join(f'<figure class="theme"><img src="{E(t["img"])}" alt="{E(t["name"])}主题下的同一帧" loading="lazy"><figcaption>{E(t["name"])}<span>{E(t.get("note", ""))}</span></figcaption></figure>' for t in S["themes"])
-        parts.append(f"""<section id="themes"><div class="sh"><h2>主题</h2><p>{E(S.get("themes_sub", ""))}</p></div><div class="themes">{th}</div></section>""")
+        th = "".join(f'<figure class="theme"><img src="{E(t["img"])}" alt="{E(t["name"])}— cùng một khung hình dưới chủ đề này" loading="lazy"><figcaption>{E(t["name"])}<span>{E(t.get("note", ""))}</span></figcaption></figure>' for t in S["themes"])
+        parts.append(f"""<section id="themes"><div class="sh"><h2>Chủ đề</h2><p>{E(S.get("themes_sub", ""))}</p></div><div class="themes">{th}</div></section>""")
 
-    vcard = lambda v: (f'<div class="voice{" pick" if v.get("pick") else ""}"><button type="button" aria-label="试听"></button><div><b>{E(v["name"])}</b>'
+    vcard = lambda v: (f'<div class="voice{" pick" if v.get("pick") else ""}"><button type="button" aria-label="Nghe thử"></button><div><b>{E(v["name"])}</b>'
                        f'<span>{E(v["desc"])}</span></div><audio preload="none" src="{E(v["file"])}"></audio></div>')
     if S.get("voice_groups") or S.get("voices"):
         groups = S.get("voice_groups") or [{"voices": S["voices"]}]
         body = "".join((f'<h3 class="vg">{E(g["title"])}<span>{E(g.get("sub", ""))}</span></h3>' if g.get("title") else "")
                        + f'<div class="voices">{"".join(vcard(v) for v in g["voices"])}</div>' for g in groups)
         note = f'<div class="note">{S["voice_note"]}</div>' if S.get("voice_note") else ""
-        parts.append(f"""<section id="voices"><div class="sh"><h2>配音试听</h2><p>{E(S.get("voices_sub", ""))}</p></div>{note}{body}</section>""")
+        parts.append(f"""<section id="voices"><div class="sh"><h2>Nghe thử lồng tiếng</h2><p>{E(S.get("voices_sub", ""))}</p></div>{note}{body}</section>""")
 
     if S.get("plans"):
         tabs = "".join(f'<button type="button" role="tab" data-plan="{E(p["id"])}" aria-selected="{"true" if i == 0 else "false"}">{E(p["tab"])}</button>' for i, p in enumerate(S["plans"]))
@@ -315,24 +315,24 @@ def main():
   <div class="plan-head"><h3>{E(p["name"])}</h3><span>{E(p.get("meta", ""))}</span></div>
   {f'<p style="margin:-4px 0 14px;color:var(--ink2)">{E(p["why"])}</p>' if p.get("why") else ""}
   <ol class="lessons">{cards}</ol></div>""")
-        parts.append(f"""<section id="outline"><div class="sh"><h2>{E(S.get("plans_heading", "大纲"))}</h2><p>{E(S.get("plans_sub", ""))}</p></div>
+        parts.append(f"""<section id="outline"><div class="sh"><h2>{E(S.get("plans_heading", "Đại cương"))}</h2><p>{E(S.get("plans_sub", ""))}</p></div>
   <div class="tabs" role="tablist">{tabs}</div>{"".join(panes)}</section>""")
 
     if S.get("lessons"):
         cards = "".join(lesson_card(l, k, sources) for k, l in enumerate(S["lessons"]))
-        parts.append(f"""<section id="lessons"><div class="sh"><h2>{E(S.get("lessons_heading", "课程大纲"))}</h2><p>{E(S.get("lessons_sub", ""))}</p></div><ol class="lessons">{cards}</ol></section>""")
+        parts.append(f"""<section id="lessons"><div class="sh"><h2>{E(S.get("lessons_heading", "Đại cương khóa học"))}</h2><p>{E(S.get("lessons_sub", ""))}</p></div><ol class="lessons">{cards}</ol></section>""")
 
     parts.append(custom("bottom"))
 
     if S.get("sources"):
         ss = "".join(f'<li><span class="tier {E(s.get("tier", "T3"))}">{E(s.get("tier", ""))}</span><span>{E(s["publisher"])} · '
                      + (f'<a href="{E(s["url"])}" target="_blank" rel="noopener">{E(s["title"])}</a>' if s.get("url") else E(s["title"]))
-                     + (f' <span class="miss">（{E(s["note"])}）</span>' if s.get("note") else "") + "</span></li>" for s in S["sources"])
-        parts.append(f"""<section id="sources"><div class="sh"><h2>资料来源</h2><p>{E(S.get("sources_sub", ""))}</p></div><ul class="srcs">{ss}</ul></section>""")
+                     + (f' <span class="miss">({E(s["note"])})</span>' if s.get("note") else "") + "</span></li>" for s in S["sources"])
+        parts.append(f"""<section id="sources"><div class="sh"><h2>Nguồn tài liệu</h2><p>{E(S.get("sources_sub", ""))}</p></div><ul class="srcs">{ss}</ul></section>""")
 
     if S.get("questions"):
-        qs = "".join(f'<li><b>{E(q["q"])}</b><div class="opts">' + "".join(f'<span class="{"rec" if o.get("rec") else ""}">{E(o["t"])}{"（推荐）" if o.get("rec") else ""}</span>' for o in q["options"]) + "</div></li>" for q in S["questions"])
-        parts.append(f"""<section id="confirm"><div class="sh"><h2>待你确认</h2><p>{E(S.get("questions_sub", ""))}</p></div><ol class="qs">{qs}</ol></section>""")
+        qs = "".join(f'<li><b>{E(q["q"])}</b><div class="opts">' + "".join(f'<span class="{"rec" if o.get("rec") else ""}">{E(o["t"])}{" (khuyến nghị)" if o.get("rec") else ""}</span>' for o in q["options"]) + "</div></li>" for q in S["questions"])
+        parts.append(f"""<section id="confirm"><div class="sh"><h2>Chờ bạn xác nhận</h2><p>{E(S.get("questions_sub", ""))}</p></div><ol class="qs">{qs}</ol></section>""")
 
     foot = f"<footer>{S['footer']}</footer>" if S.get("footer") else ""
     page = f"""<meta charset="utf-8">
@@ -348,7 +348,7 @@ def main():
 <script>{JS}</script>
 """
     (out / "index.html").write_text(page, encoding="utf-8")
-    print(f"→ {out / 'index.html'}（{len(page) // 1024} KB）")
+    print(f"→ {out / 'index.html'} ({len(page) // 1024} KB)")
 
 
 if __name__ == "__main__":

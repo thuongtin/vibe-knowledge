@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""给一节课搭 Hyperframes 渲染目录：拷 bundle、混音、字体、GSAP、用到的图片，写好 index.html（时长取自 timings.json）。
+"""Dựng thư mục render Hyperframes cho một bài: sao chép bundle, bản mix âm thanh, font, GSAP, các ảnh đã dùng, viết sẵn index.html (thời lượng lấy từ timings.json).
 
-用法：python3 scripts/hf_host.py <bundle.js> <mix.wav> <timings.json> <输出目录> --id 合成id [--images 图片目录] [--bg #FFF8F2]
+Cách dùng: python3 scripts/hf_host.py <bundle.js> <mix.wav> <timings.json> <thư mục đầu ra> --id id composition [--images thư mục ảnh] [--bg #FFF8F2]
 
-之后在输出目录里：
+Sau đó trong thư mục đầu ra:
     node <hyperframes>/dist/cli.js lint / inspect / validate / render --quality high --output renders/<id>.mp4
-舞台通过 hf-seek 事件逐帧驱动；lint 要求的时间线用一条只声明时长的空 GSAP 时间线满足（见 memory: hyperframes-integration）。
+Sân khấu được điều khiển từng khung qua sự kiện hf-seek; dòng thời gian mà lint yêu cầu được đáp ứng bằng một timeline GSAP rỗng chỉ khai báo thời lượng (xem memory: hyperframes-integration).
 """
 import json
 import shutil
@@ -41,7 +41,7 @@ def main():
             if f.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp", ".svg"} and f.name in js:
                 shutil.copy(f, out / "img" / f.name)
                 n += 1
-    # 视频贴纸：HyperFrames 只认页面里静态声明的媒体，所以按登记表逐一写 <video class="clip" data-vclip>，运行时再搬进贴纸卡
+    # Sticker video: HyperFrames chỉ nhận media được khai báo tĩnh trong trang, nên viết lần lượt <video class="clip" data-vclip> theo bảng đăng ký, khi chạy mới chuyển vào thẻ sticker
     vids, vtags = [], ""
     if "--videos" in sys.argv:
         vids = json.loads(Path(arg("--videos")).read_text(encoding="utf-8")).get("videos", [])
@@ -50,7 +50,7 @@ def main():
         import subprocess
         for f in sorted({v["file"] for v in vids}):
             dst = out / "video" / f
-            if not dst.exists():   # 去掉音轨，只留画面
+            if not dst.exists():   # bỏ track âm thanh, chỉ giữ hình
                 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(vdir / f), "-an", "-c:v", "copy", str(dst)], check=True)
         vtags = "".join(f'  <video data-vclip="{v["vid"]}" class="clip" data-start="{v["start"]}" data-duration="{v["dur"]}" data-track-index="{2 + i}" src="video/{v["file"]}" muted playsinline></video>\n'
                         for i, v in enumerate(vids))
@@ -78,7 +78,7 @@ html,body{{margin:0;background:{bg}}}
 <script src="vendor/gsap.min.js"></script>
 <script src="app.js"></script>
 <script>
-  // 只用来向 Hyperframes 声明时长；画面由 hf-seek 驱动
+  // Chỉ dùng để khai báo thời lượng với Hyperframes; hình ảnh do hf-seek điều khiển
   window.__timelines = window.__timelines || {{}};
   window.__timelines["{cid}"] = gsap.timeline({{ paused: true }}).to({{}}, {{ duration: {total} }});
 </script>
@@ -93,7 +93,7 @@ html,body{{margin:0;background:{bg}}}
 </body>
 </html>
 """, encoding="utf-8")
-    print(f"→ {out}（时长 {total}s，图片 {n} 张，视频贴纸 {len(vids)} 段）")
+    print(f"→ {out} (thời lượng {total}s, {n} ảnh, {len(vids)} đoạn sticker video)")
 
 
 if __name__ == "__main__":

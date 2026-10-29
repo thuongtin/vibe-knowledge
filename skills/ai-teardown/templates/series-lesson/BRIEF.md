@@ -1,35 +1,36 @@
-# 第二季《AI 实战课：从提示词到 Codex》写作规范（给写文案的智能体）
+# Quy chuẩn viết lời cho mùa hai «Khoá thực chiến AI: từ câu lệnh đến Codex» (dành cho tác tử viết văn án)
 
-作者署名 @Berryxia（片头片尾自动加，文案里不用念）。
+Chữ ký tác giả @Berryxia (đầu phim cuối phim tự thêm, trong văn án không cần đọc).
 
-## 观众与口吻
-- 会一点电脑的职场人：会装软件、懂文件夹，不会写代码。少讲电脑基础，多讲工作场景。
-- 口吻：像一位亲切、干脆的科普博主，平实、具体，不用营销腔，不堆形容词。第一季《AI 入门课》已讲过的（token 与逐词预测、预训练/微调、温度与随机、幻觉、知识截止、上下文窗口、工具调用与智能体循环的通俗版、4D 协作框架）只用一句话回顾。
+## Khán giả và giọng điệu
+- Người đi làm biết chút về máy tính: biết cài phần mềm, hiểu thư mục, không biết viết code. Ít giảng kiến thức máy tính cơ bản, nhiều nói về tình huống công việc.
+- Giọng điệu: như một blogger khoa học phổ thông thân thiện, gọn gàng, bình dị, cụ thể, không giọng quảng cáo, không chất đống tính từ. Những gì mùa một «Khoá nhập môn AI» đã giảng (token và dự đoán từng từ, tiền huấn luyện/tinh chỉnh, nhiệt độ và tính ngẫu nhiên, ảo giác, mốc kiến thức, cửa sổ ngữ cảnh, bản bình dân của gọi công cụ và vòng lặp tác tử, khung hợp tác 4D) chỉ nhắc lại bằng một câu.
 
-## 事实纪律（最重要）
-- 只写能在研究账本里找到依据的事实：`research/codex/`（官方 Codex，事实编号 X..）、`research/concepts/`（概念与提示词，F..）、`research/community/`（社区经验，只能作「社区经验」，关键点要回到官方核对）。每拍在 script.md 里标依据编号。
-- 价格、套餐、模型名、版本号一律说「截至 2026 年 9 月」；冲突项按 claims.md 的「以哪份为准」处理，拿不准就不说。
-- 中国大陆：如实说明官方支持地区不含中国大陆和港澳、在列表外访问可能被封号；**不教任何规避地区限制的办法**，也要明确劝阻代充、接码、把登录凭证交给第三方。可行技术路径放在第 12 节（Codex CLI + 国产模型 API / 本地模型）。
-- 教程里不演示 `--yolo`、`--dangerously-bypass-approvals-and-sandbox`、Full access；不演示已弃用的 `untrusted`、`--full-auto`、`/personality`、`wire_api = "chat"`。
-- 命令、配置键名、菜单名逐字照抄官方原文。
+## Kỷ luật sự thật (quan trọng nhất)
+- Chỉ viết những sự thật tìm được căn cứ trong sổ cái nghiên cứu: `research/codex/` (Codex chính thức, mã sự thật X..), `research/concepts/` (khái niệm và câu lệnh, F..), `research/community/` (kinh nghiệm cộng đồng, chỉ được coi là "kinh nghiệm cộng đồng", điểm then chốt phải quay về đối chiếu với chính thức). Mỗi nhịp trong script.md ghi mã căn cứ.
+- Giá, gói, tên mô hình, số phiên bản đều nói "tính đến tháng 9 năm 2026"; mục xung đột xử lý theo "lấy bản nào làm chuẩn" trong claims.md, không chắc thì không nói.
+- Trung Quốc đại lục: nói đúng sự thật rằng khu vực được chính thức hỗ trợ không gồm Trung Quốc đại lục và Hồng Kông, Ma Cao, truy cập từ ngoài danh sách có thể bị khoá tài khoản; **không dạy bất kỳ cách nào vượt giới hạn khu vực**, cũng phải khuyên rõ không nên nạp hộ, mua mã xác thực, giao thông tin đăng nhập cho bên thứ ba. Đường kỹ thuật khả thi đặt ở mục 12 (Codex CLI + API mô hình nội địa / mô hình cục bộ).
+- Trong hướng dẫn không trình diễn `--yolo`, `--dangerously-bypass-approvals-and-sandbox`, Full access; không trình diễn `untrusted`, `--full-auto`, `/personality`, `wire_api = "chat"` đã bị loại bỏ.
+- Lệnh, tên khoá cấu hình, tên menu chép nguyên từng chữ theo văn bản chính thức.
 
-## 产出（每节一个目录 `examples/ai-practice/lessons/NN/`）
-1. `narration.json`：格式与第一季一致：
+## Sản phẩm (mỗi bài một thư mục `examples/ai-practice/lessons/NN/`)
+1. `narration.json`: định dạng giống mùa một:
    `{"voice": {"engine": "mimo", "clone": "../../../ai-intro/voice/host-ref.wav", "style": "你在录一节给职场人听的实战课。像一位亲切、干脆的年轻科普博主，语速从容，每句话讲清楚，句与句之间留出停顿，重点词稍微加重。"}, "lexicon": {}, "beats": [{"id": "B01", "narration": "[[hi]]……[[cue2]]……"}]}`
-   - 读音坑：全由 I V X L C D M 组成的大写缩写（CLI、MD、CC、LM）会被念成罗马数字（CLI→151），配音脚本已自动拆成单个字母；版本号写进 lexicon 念成「0 点 155 点 1」。配完看 voice.log 里有没有「⚠ 可疑读数」。
-   - 每拍 60–140 字，每拍 2–4 个 `[[cue]]` 标记（小写英文/数字/下划线，放在句首），画面按 cue 切换。
-   - 全节 2200–2800 字、22–32 拍（配音会 1.15 倍速，成片约 8–10 分钟）。
-   - 英文术语第一次出现给中文说法；命令在旁白里只念要点（例如「输入 codex，回车」），完整命令放图文步骤里。
-   - 开头第一拍用「嗨，欢迎来到 AI 实战课」或「欢迎回来」。结尾预告下一节。
-2. `script.md`：顶部「请你特别确认」（列出拿不准、需要人判断的点）；然后逐拍：旁白原文、画面建议、依据编号。画面建议要具体，并尽量用这些现成画面类型：
-   - 打字大字（statement）、图标排（iconrow，可带箭头成流程）、左右两栏对比（twocol）、对话窗（chat，界面示意）、人物/照片卡、数字对比条（bars，数字必须有出处）、示意曲线、关系小图（graph，少用，最多每节一张）、思维导图收尾（mindmap）
-   - **终端回放（terminal）**：真实录下来的 Codex 命令行画面（见 recordings.json），可放大局部、高亮某几行
-   - **步骤卡（steps）**：编号步骤 + 要敲的命令（等宽字体）+「你会看到」
-   - **暂停想一想（pause）**：抛一个问题，倒计时 3 秒后揭晓。每节至少 1 个。
-   - 每 8 秒左右画面要有变化；别满屏关系图。
-3. `steps.md`：**保姆级图文步骤**（课程页上照着敲的那份），比视频更全：每一步写「做什么 → 怎么做（命令用代码块，逐字）→ 你会看到 → 出错了怎么办」，macOS 和 Windows 有差异的分开写，标依据编号。概念课（第 1–5 节）写成「动手小实验」。
-4. `extras.json`：`{"quiz": [{"q": "问题", "choices": ["A…","B…","C…"], "answer": 0, "why": "解释"}] ×3, "practice": {"title": "动手练习", "steps": ["…"]}, "reading": [{"title": "", "url": "", "publisher": "", "why": "一句话说为什么值得看"}]}`。延伸阅读只放官方或 T1 来源（3–5 条）。
-5. `recordings.json`（只有要真实录屏的节才写）：`{"project": "演示项目目录名", "setup": ["在 ~/Desktop/codex-course-demo/<目录> 里准备文件的 shell 命令，逐条"], "clips": [{"id": "r1", "used_by": "B07.cue", "purpose": "这段录屏要让观众看到什么", "cmd": "启动命令，如 codex 或 codex exec ...", "inputs": [{"type": "要在 Codex 里输入的中文提示词"}, {"key": "enter"}, {"note": "预期 Codex 会做什么、可能出现什么审批提示、怎么回应"}], "expected": "成功时屏幕上应看到什么"}]}`。录屏会在用户的 Mac（macOS）上用真实 Codex CLI 录，演示项目一律放 `~/Desktop/codex-course-demo/` 下的新文件夹，先 git init 并提交一次。提示词用中文、贴近职场场景、短小可复现（避免需要联网装大依赖的任务）。
-6. `images.spec.json`：需要的网上图片（Wikimedia Commons 等开放许可），没有就写 `{"images": []}`。OpenAI 官方截图不要列进来（版权），需要界面就用终端回放或界面示意。
+   - Chuỗi `style` ở trên là chỉ dẫn giọng đọc cho TTS tiếng Trung, giữ nguyên tiếng Trung (ý: bạn đang ghi một bài thực chiến cho người đi làm nghe; như một blogger khoa học phổ thông trẻ thân thiện, gọn gàng, nhịp nói thong thả, mỗi câu nói rõ, giữa các câu chừa quãng ngắt, từ trọng điểm nhấn nhẹ).
+   - Bẫy phát âm: chữ viết tắt in hoa chỉ gồm I V X L C D M (CLI, MD, CC, LM) sẽ bị đọc thành số La Mã (CLI→151), kịch bản lồng tiếng đã tự tách thành từng chữ cái; số phiên bản ghi vào lexicon đọc thành "0 chấm 155 chấm 1". Sau khi lồng tiếng xem trong voice.log có "⚠ 可疑读数" (cảnh báo đọc đáng ngờ) hay không.
+   - Mỗi nhịp 60–140 chữ, mỗi nhịp 2–4 dấu `[[cue]]` (chữ thường tiếng Anh/số/gạch dưới, đặt ở đầu câu), hình ảnh chuyển theo cue.
+   - Cả bài 2200–2800 chữ, 22–32 nhịp (lồng tiếng sẽ tăng tốc 1,15 lần, thành phẩm khoảng 8–10 phút).
+   - Thuật ngữ tiếng Anh lần đầu xuất hiện thì kèm cách gọi tiếng Trung; lệnh trong lời dẫn chỉ đọc ý chính (ví dụ "nhập codex, nhấn Enter"), lệnh đầy đủ đặt trong các bước hình-chữ.
+   - Nhịp đầu tiên của phần mở đầu dùng câu "嗨，欢迎来到 AI 实战课" (chào mừng đến khoá thực chiến AI) hoặc "欢迎回来" (chào mừng trở lại), giữ nguyên tiếng Trung vì lời dẫn đọc bằng tiếng Trung. Phần kết báo trước bài tiếp theo.
+2. `script.md`: đầu trang là "Xin bạn đặc biệt xác nhận" (liệt kê các điểm không chắc, cần người phán đoán); sau đó từng nhịp: nguyên văn lời dẫn, gợi ý hình ảnh, mã căn cứ. Gợi ý hình ảnh phải cụ thể, và cố gắng dùng các loại hình có sẵn sau:
+   - Chữ lớn đánh máy (statement), hàng biểu tượng (iconrow, có thể kèm mũi tên thành quy trình), hai cột đối chiếu trái phải (twocol), cửa sổ hội thoại (chat, minh hoạ giao diện), thẻ nhân vật/ảnh, thanh so sánh số (bars, số phải có nguồn), đường cong minh hoạ, sơ đồ quan hệ nhỏ (graph, ít dùng, tối đa mỗi bài một hình), sơ đồ tư duy kết bài (mindmap)
+   - **Phát lại terminal (terminal)**: màn hình dòng lệnh Codex thật được ghi lại (xem recordings.json), có thể phóng to cục bộ, làm nổi bật vài dòng
+   - **Thẻ bước (steps)**: bước đánh số + lệnh cần gõ (phông đơn cách) + "bạn sẽ thấy"
+   - **Tạm dừng nghĩ một chút (pause)**: nêu một câu hỏi, đếm ngược 3 giây rồi công bố. Mỗi bài ít nhất 1 chỗ.
+   - Khoảng mỗi 8 giây hình ảnh phải có thay đổi; đừng đầy màn hình sơ đồ quan hệ.
+3. `steps.md`: **các bước hình-chữ cầm tay chỉ việc** (bản trên trang khoá học để gõ theo), đầy đủ hơn video: mỗi bước viết "làm gì → làm thế nào (lệnh dùng khối code, từng chữ) → bạn sẽ thấy → gặp lỗi thì sao", macOS và Windows khác nhau thì viết riêng, ghi mã căn cứ. Bài khái niệm (bài 1–5) viết thành "thí nghiệm nhỏ thực hành".
+4. `extras.json`: `{"quiz": [{"q": "câu hỏi", "choices": ["A…","B…","C…"], "answer": 0, "why": "giải thích"}] ×3, "practice": {"title": "Bài tập thực hành", "steps": ["…"]}, "reading": [{"title": "", "url": "", "publisher": "", "why": "một câu nói vì sao đáng xem"}]}`. Đọc thêm chỉ đặt nguồn chính thức hoặc nguồn T1 (3–5 mục).
+5. `recordings.json` (chỉ bài nào cần quay màn hình thật mới viết): `{"project": "tên thư mục dự án demo", "setup": ["lệnh shell chuẩn bị tệp trong ~/Desktop/codex-course-demo/<thư mục>, từng lệnh một"], "clips": [{"id": "r1", "used_by": "B07.cue", "purpose": "đoạn quay này muốn khán giả thấy gì", "cmd": "lệnh khởi động, như codex hoặc codex exec ...", "inputs": [{"type": "câu lệnh tiếng Trung cần nhập vào Codex"}, {"key": "enter"}, {"note": "dự kiến Codex sẽ làm gì, có thể xuất hiện lời nhắc phê duyệt nào, đáp lại thế nào"}], "expected": "khi thành công trên màn hình nên thấy gì"}]}`. Quay màn hình sẽ dùng Codex CLI thật trên Mac (macOS) của người dùng, dự án demo luôn đặt trong thư mục mới dưới `~/Desktop/codex-course-demo/`, trước hết git init và commit một lần. Câu lệnh dùng tiếng Trung, sát tình huống công việc, ngắn gọn dễ tái hiện (tránh tác vụ cần nối mạng cài phụ thuộc lớn).
+6. `images.spec.json`: ảnh trên mạng cần dùng (Wikimedia Commons và các giấy phép mở khác), không có thì viết `{"images": []}`. Ảnh chụp màn hình chính thức của OpenAI đừng liệt kê vào (bản quyền), cần giao diện thì dùng phát lại terminal hoặc minh hoạ giao diện.
 
-写完每节，在 script.md 末尾用一行写字数和拍数。
+Viết xong mỗi bài, cuối script.md dùng một dòng ghi số chữ và số nhịp.

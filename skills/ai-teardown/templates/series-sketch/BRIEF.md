@@ -1,42 +1,42 @@
-# WorkBuddy 上手课 · 做一节课的完整说明（给助手看）
+# Khóa nhập môn WorkBuddy · Hướng dẫn đầy đủ để làm một bài học (dành cho trợ lý)
 
-仓库根目录：`~/Desktop/ai-teardown`（下面的命令都在这里跑）。系列目录：`examples/workbuddy`。
-**先读**：`examples/workbuddy/SCENES_GUIDE.md`（模板和字段），再看两节成品做参照：`lessons/03/narration.json`、`lessons/03/scenes.json`（最新、效果最全），`lessons/02/scenes.json`。
+Thư mục gốc kho mã: `~/Desktop/ai-teardown` (các lệnh bên dưới đều chạy ở đây). Thư mục series: `examples/workbuddy`.
+**Đọc trước**: `examples/workbuddy/SCENES_GUIDE.md` (mẫu và trường), sau đó xem hai bài thành phẩm để tham khảo: `lessons/03/narration.json`, `lessons/03/scenes.json` (mới nhất, hiệu ứng đầy đủ nhất), `lessons/02/scenes.json`.
 
-## 内容来源与底线
-- 内容只来自开源《WorkBuddy 实战蓝皮书》对应章节：`examples/workbuddy/source/docs/bluebook/<篇>/<章>/index.md`（MIT，可引用，画面标出处）。
-- **不编造**：数字、价格、功能、界面文字、步骤都以原文为准；原文没写的不要补。引用原文要逐字，quote 模板 `from` 写「《WorkBuddy 实战蓝皮书》第 N 章」。
-- 原文里的个人二维码、个人联系方式、群号、邀请码、账号密钥（AppID/Secret/Token）一律不上画面；截图里出现密钥的要么不用、要么用 crop 裁掉。
-- 涉及授权、密钥、对外发消息的步骤，按原文提醒安全边界；讲解小人可以加一句简短的安全提醒（tips，pose 用 "stop"），但不要替作者发表观点。
-- 章节很长时（1 万字以上）：挑最核心的 3 块讲清楚，不追求全覆盖；案例类章节讲「场景 → 用了什么（Skill/专家/连接器）→ 怎么说任务 → 结果和验收」。
+## Nguồn nội dung và giới hạn
+- Nội dung chỉ lấy từ chương tương ứng của cuốn mã nguồn mở "Sách trắng thực chiến WorkBuddy": `examples/workbuddy/source/docs/bluebook/<phần>/<chương>/index.md` (MIT, được phép trích dẫn, trên hình phải ghi nguồn).
+- **Không bịa**: con số, giá, tính năng, chữ trên giao diện, các bước đều theo bản gốc; bản gốc không viết thì đừng bổ sung. Trích dẫn bản gốc phải đúng từng chữ, trường `from` của mẫu quote viết "Sách trắng thực chiến WorkBuddy, chương N".
+- Mã QR cá nhân, thông tin liên hệ cá nhân, số nhóm, mã mời, khóa tài khoản (AppID/Secret/Token) trong bản gốc tuyệt đối không đưa lên hình; ảnh chụp có khóa thì hoặc không dùng, hoặc dùng crop cắt bỏ.
+- Với các bước liên quan đến ủy quyền, khóa, gửi tin ra ngoài, hãy nhắc ranh giới an toàn theo bản gốc; nhân vật giảng giải có thể thêm một câu nhắc an toàn ngắn (tips, pose dùng "stop"), nhưng không phát biểu quan điểm thay tác giả.
+- Chương rất dài (trên 1 vạn chữ): chọn 3 phần cốt lõi nhất để giảng rõ, không cần bao quát hết; chương dạng ca sử dụng thì giảng theo "tình huống → đã dùng gì (Skill/chuyên gia/connector) → giao nhiệm vụ thế nào → kết quả và nghiệm thu".
 
-## 旁白 narration.json
-- `voice` 整段照抄 `lessons/03/narration.json` 的 voice（MiMo 克隆音色 + 讲课语气），`lexicon` 按需加（英文缩写全大写且只含 I V X L C D M 的会被自动拆字母，不用管；版本号写成「0 点 1 点 2」）。
-- 18–28 拍，全节 1200–2200 字（1.15 倍速后 4–7 分钟）。每拍 40–130 字，每拍 2–4 个 `[[cue]]`（小写英文/数字/下划线，放在分句开头）。
-- 口语、短句、第二人称；开头一句接上一节（「上一节我们……」），结尾预告下一节 + 感谢蓝皮书作者 + 「我们下节见」。
-- 至少一个「暂停想一想」（一拍提问，下一拍 `[[answer]]` 揭晓）。
+## Lời dẫn narration.json
+- `voice` chép nguyên đoạn voice của `lessons/03/narration.json` (giọng MiMo nhân bản + ngữ khí giảng bài), `lexicon` thêm khi cần (từ viết tắt tiếng Anh toàn in hoa và chỉ gồm I V X L C D M sẽ tự động bị tách chữ cái, không cần quan tâm; số phiên bản viết thành "0 chấm 1 chấm 2").
+- 18–28 nhịp, cả bài 1200–2200 chữ (sau khi tăng tốc 1,15 lần là 4–7 phút). Mỗi nhịp 40–130 chữ, mỗi nhịp 2–4 `[[cue]]` (chữ thường tiếng Anh/chữ số/gạch dưới, đặt ở đầu mệnh đề).
+- Khẩu ngữ, câu ngắn, ngôi thứ hai; câu mở đầu nối với bài trước ("Bài trước chúng ta……"), kết thúc báo trước bài sau + cảm ơn tác giả sách trắng + "hẹn gặp lại ở bài sau".
+- Ít nhất một lần "tạm dừng suy nghĩ" (một nhịp đặt câu hỏi, nhịp sau `[[answer]]` công bố đáp án).
 
-## 画面 scenes.json
-- 文件头：`{"n": N, "title": "…", "series": "WorkBuddy 上手课", "theme": "paper", "engine": "sketch", "skin": "notion", "presenter": "hp", "sticker": true, "speed": 1.15, "author": "@Berryxia", "scenes": [...]}`
-- **贴纸风是默认**：文件头写 `"sticker": true`（卡片=白边贴纸带倾斜按上去、插画=模切白边、卡片里的 Noto emoji 也描白边）；个别页不想要贴纸写 `"style": "card"`（stickers）或 `"illusSticker": false`。
-- 每节必须用到：cover（带 `iconImg: "host-avatar"` 和一张 `illus`）、至少 1 个 kinetic 金句、1 个 pan（「这一节讲三件事」）、pause、recap、outro；截图讲操作时用 shot + marks 圈注；有流程/分工/数据流转时用 diagram（X6）；有情境时用 say + illus 插画。
-- 图标：流程、清单、界面说明用 IconPark（`icon-park:名字`，名字须在 `assets/iconsets/icon-park.json` 里）；情绪、主角物件用 Noto（`robot` 这类，先跑 noto_emoji.py）。
-- 插画：`assets/illustrations/iconpark/catalog.json` 有 88 张（id、专辑、名字），挑合适的用 `python3 scripts/illus.py examples/workbuddy/lessons/NN ip-x-y …`。每节 2–4 张，别重复前几节已经用过的同一张（03 用了 ip-17-232、ip-2-12、ip-14-187）。
-- 小人动作 pose：talk wave point idea think stop check cheer thumbsup type（默认：shot→point、pause→think、checklist→check、outro→wave）；outro 写 `"pose": "cheer"`，tips 里「我们下节见 👋」用 wave。
-- outro 的 credits：内容与截图（第 N 章 MIT + 仓库地址）/ 插画 IconPark 插画库（字节跳动）· 图标 IconPark、Noto Emoji / 流程图 AntV X6 · lottie-web · rough.js / 讲解小人 @Berryxia 像素头像 · 配音 小米 MiMo（AI 生成）。每行别超过 40 个汉字。图标、插画库的来源只在这张片尾卡标注，场景里不要再写「插画：IconPark…」之类的小字（runtime 已默认关闭插画下方出处）；书中内容和截图的出处照常标。
-- 截图圈注的 area 是原图比例 [x0,y0,x1,y1]：先打开 `build/chapter_sheet.jpg` 看缩略，再用 Read 打开 `examples/workbuddy/assets/img/<id>.png` 原图估坐标，build 后看接触表确认对准。
+## Hình ảnh scenes.json
+- Đầu file: `{"n": N, "title": "…", "series": "Khóa nhập môn WorkBuddy", "theme": "paper", "engine": "sketch", "skin": "notion", "presenter": "hp", "sticker": true, "speed": 1.15, "author": "@Berryxia", "scenes": [...]}`
+- **Phong cách sticker là mặc định**: đầu file viết `"sticker": true` (thẻ = sticker viền trắng dán nghiêng, hình minh họa = viền trắng cắt khuôn, emoji Noto trong thẻ cũng viền trắng); trang nào không muốn sticker thì viết `"style": "card"` (stickers) hoặc `"illusSticker": false`.
+- Mỗi bài bắt buộc dùng đến: cover (kèm `iconImg: "host-avatar"` và một `illus`), ít nhất 1 câu vàng kinetic, 1 pan ("bài này nói ba việc"), pause, recap, outro; khi giảng thao tác bằng ảnh chụp thì dùng shot + marks khoanh chú thích; khi có quy trình/phân công/luồng dữ liệu thì dùng diagram (X6); khi có tình huống thì dùng say + hình minh họa illus.
+- Biểu tượng: quy trình, danh sách, giải thích giao diện dùng IconPark (`icon-park:tên`, tên phải có trong `assets/iconsets/icon-park.json`); cảm xúc, vật dụng của nhân vật chính dùng Noto (loại như `robot`, chạy noto_emoji.py trước).
+- Hình minh họa: `assets/illustrations/iconpark/catalog.json` có 88 hình (id, album, tên), chọn hình phù hợp rồi dùng `python3 scripts/illus.py examples/workbuddy/lessons/NN ip-x-y …`. Mỗi bài 2–4 hình, đừng lặp lại đúng hình đã dùng ở các bài trước (bài 03 đã dùng ip-17-232, ip-2-12, ip-14-187).
+- Động tác nhân vật pose: talk wave point idea think stop check cheer thumbsup type (mặc định: shot→point, pause→think, checklist→check, outro→wave); outro viết `"pose": "cheer"`, trong tips câu "hẹn gặp lại ở bài sau 👋" dùng wave.
+- credits của outro: nội dung và ảnh chụp (chương N MIT + địa chỉ kho mã) / hình minh họa thư viện minh họa IconPark (ByteDance) · biểu tượng IconPark, Noto Emoji / sơ đồ quy trình AntV X6 · lottie-web · rough.js / nhân vật giảng giải ảnh đại diện pixel @Berryxia · lồng tiếng Xiaomi MiMo (do AI tạo). Mỗi dòng đừng quá 40 chữ Hán. Nguồn của biểu tượng, thư viện minh họa chỉ ghi trên thẻ kết này, trong các cảnh đừng viết thêm chữ nhỏ kiểu "Minh họa: IconPark…" nữa (runtime đã mặc định tắt phần nguồn dưới hình minh họa); nguồn của nội dung và ảnh chụp trong sách vẫn ghi bình thường.
+- area của khoanh chú thích trên ảnh chụp là tỷ lệ ảnh gốc [x0,y0,x1,y1]: mở `build/chapter_sheet.jpg` xem ảnh thu nhỏ trước, rồi dùng Read mở ảnh gốc `examples/workbuddy/assets/img/<id>.png` để ước lượng tọa độ, sau khi build xem contact sheet để xác nhận đã căn đúng.
 
-## 步骤（每一步都要做）
-1. 读章节原文和配图总览：
-   `python3 scripts/wb_import.py examples/workbuddy/lessons/NN "第 X 章 ……"`（章节目录名照抄；导入截图 wbNN-01…、GIF 变成 clip，并生成 `build/chapter_sheet.jpg`）
-2. 写 `narration.json`，开始配音（会排队重试，慢是正常的）：
+## Các bước (bước nào cũng phải làm)
+1. Đọc nguyên văn chương và tổng quan ảnh minh họa:
+   `python3 scripts/wb_import.py examples/workbuddy/lessons/NN "第 X 章 ……"` (tên thư mục chương chép nguyên; nhập ảnh chụp wbNN-01…, GIF thành clip, và tạo `build/chapter_sheet.jpg`)
+2. Viết `narration.json`, bắt đầu lồng tiếng (sẽ xếp hàng thử lại, chậm là bình thường):
    `python3 scripts/make_lesson.py examples/workbuddy/lessons/NN voice > examples/workbuddy/lessons/NN/voice.log 2>&1`
-   配完看 voice.log：每拍「回读」低于 95%，或出现「⚠ 可疑读数」的，删掉 `lessons/NN/build/audio/<拍号>.*` 再跑一次 voice（只会重合成这几拍）。
-3. 准备素材：`python3 scripts/noto_emoji.py examples/workbuddy/lessons/NN robot light-bulb …`；`python3 scripts/illus.py examples/workbuddy/lessons/NN ip-…`
-4. 写 `scenes.json`，自检：`python3 scripts/check_scenes.py examples/workbuddy/lessons/NN` 到没有报错（「只有 x 秒」也要修）。
-5. 编排：`rm -rf examples/workbuddy/lessons/NN/build/stills && python3 scripts/make_lesson.py examples/workbuddy/lessons/NN build`
-   用 Read 看 `lessons/NN/build/stills/scenes.png`，再逐张看可疑的单帧（`scenes-XXX.XX.png`）：文字溢出/重叠、圈注没对准、截图太小看不清、空屏、小人挡字。改 scenes.json 重来，直到满意。
-6. **不要**跑 final（渲染）、不要发布、不要改 `runtime/ primitives/ scripts/` 下的代码、不要改 `series.json` 和别的课目录。模板有 bug 或缺功能就写进回报。
+   Lồng xong xem voice.log: nhịp nào "đọc lại" dưới 95%, hoặc xuất hiện "⚠ số đọc đáng ngờ" thì xóa `lessons/NN/build/audio/<số-nhịp>.*` rồi chạy lại voice (chỉ tổng hợp lại những nhịp này).
+3. Chuẩn bị tư liệu: `python3 scripts/noto_emoji.py examples/workbuddy/lessons/NN robot light-bulb …`; `python3 scripts/illus.py examples/workbuddy/lessons/NN ip-…`
+4. Viết `scenes.json`, tự kiểm tra: `python3 scripts/check_scenes.py examples/workbuddy/lessons/NN` cho đến khi không còn lỗi ("chỉ có x giây" cũng phải sửa).
+5. Dàn cảnh: `rm -rf examples/workbuddy/lessons/NN/build/stills && python3 scripts/make_lesson.py examples/workbuddy/lessons/NN build`
+   Dùng Read xem `lessons/NN/build/stills/scenes.png`, rồi xem từng khung đơn đáng ngờ (`scenes-XXX.XX.png`): chữ tràn/chồng lên nhau, khoanh chú thích chưa căn đúng, ảnh chụp quá nhỏ không nhìn rõ, màn hình trống, nhân vật che chữ. Sửa scenes.json rồi làm lại, đến khi hài lòng.
+6. **Không** chạy final (render), không phát hành, không sửa mã dưới `runtime/ primitives/ scripts/`, không sửa `series.json` và thư mục của các bài khác. Mẫu có lỗi hoặc thiếu tính năng thì ghi vào báo cáo.
 
-## 回报（最后一条消息）
-一段话：课号和标题、拍数和时长（build 输出的「总长」）、用了哪些截图/插画/diagram、有没有删掉或没讲的原文内容、voice 重合成过哪些拍、还存在的已知问题。
+## Báo cáo (tin nhắn cuối cùng)
+Một đoạn: số bài và tiêu đề, số nhịp và thời lượng ("tổng độ dài" in ra từ build), đã dùng những ảnh chụp/hình minh họa/diagram nào, có nội dung bản gốc nào bị bỏ hoặc không giảng không, voice đã tổng hợp lại những nhịp nào, các vấn đề đã biết còn tồn tại.

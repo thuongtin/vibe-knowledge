@@ -1,84 +1,84 @@
 {
-  "title": "Opus 5.5 宣传片实战课：从一句话到成片",
+  "title": "Khóa thực chiến phim quảng bá Opus 5.5: từ một câu đến thành phẩm",
   "author": "@Berryxia",
   "status": "draft",
-  "status_label": "全部上线",
-  "tagline": "跟着一次真实会话，把一句话变成一支 30 秒宣传片；拆我们交付过的 24 个项目和 5 支行业概念片，学会选型、分镜、动效、镜头、声音和质检。",
+  "status_label": "Đã lên đủ",
+  "tagline": "Theo một phiên làm việc thật, biến một câu thành phim quảng bá 30 giây; phân tích 24 dự án chúng tôi đã bàn giao và 5 phim khái niệm ngành, học cách chọn phương án, dựng phân cảnh, làm hiệu ứng, thiết kế góc máy, xử lý âm thanh và kiểm tra chất lượng.",
   "facts": [
     {
-      "k": "对象",
-      "v": "想用 Claude Code 给自己的产品、账号、门店做宣传片的人；默认已装好 Claude Code"
+      "k": "Đối tượng",
+      "v": "Người muốn dùng Claude Code làm phim quảng bá cho sản phẩm, tài khoản, cửa hàng của mình; mặc định đã cài sẵn Claude Code"
     },
     {
-      "k": "课时",
-      "v": "导学 + 8 节，每节 4–6 分钟"
+      "k": "Thời lượng",
+      "v": "Bài dẫn nhập + 8 bài, mỗi bài 4–6 phút"
     },
     {
-      "k": "主角",
-      "v": "Claude Opus 5.5 + promo-video skill（宣传片流水线）"
+      "k": "Nhân vật chính",
+      "v": "Claude Opus 5.5 + promo-video skill (quy trình làm phim quảng bá)"
     },
     {
-      "k": "两条路线",
-      "v": "promo-video skill（Remotion）· 纯网页代码（Three.js / Canvas，逐帧录制）"
+      "k": "Hai lộ trình",
+      "v": "promo-video skill (Remotion) · mã web thuần (Three.js / Canvas, quay từng khung hình)"
     },
     {
-      "k": "案例",
-      "v": "交付过的 24 个项目（只用最终版本，客户同意展示）+ 5 支行业概念片（茶饮·喜茶、百货·无印良品、零售·盒马、制造业·比亚迪、电商·京东，非官方）+ 一次完整录下的真实会话"
+      "k": "Ví dụ",
+      "v": "24 dự án đã bàn giao (chỉ dùng bản cuối, khách hàng đồng ý cho trình chiếu) + 5 phim khái niệm ngành (trà sữa · HeyTea, bách hóa · MUJI, bán lẻ · Hema, sản xuất · BYD, thương mại điện tử · JD.com, không chính thức) + một phiên làm việc thật được ghi lại đầy đủ"
     },
     {
-      "k": "资料",
-      "v": "promo-video 文档、Remotion / HyperFrames 官方仓库与授权、Mixkit 曲库授权、Anthropic 发布页"
+      "k": "Tài liệu",
+      "v": "tài liệu promo-video, kho mã chính thức và giấy phép của Remotion / HyperFrames, giấy phép thư viện nhạc Mixkit, trang phát hành của Anthropic"
     },
     {
-      "k": "真实会话",
-      "v": "5 轮对话、48 次模型调用、52 次工具调用，它干活约 16 分钟，按 API 价折算 3.38 美元"
+      "k": "Phiên làm việc thật",
+      "v": "5 lượt hội thoại, 48 lần gọi mô hình, 52 lần gọi công cụ, làm việc khoảng 16 phút, quy đổi theo giá API là 3,38 USD"
     }
   ],
-  "map_sub": "按做一支片的顺序走：先想清楚，再做出来，最后交出去。先看导学。",
+  "map_sub": "Đi theo thứ tự làm một phim: nghĩ cho rõ, làm ra, rồi bàn giao. Xem bài dẫn nhập trước.",
   "stages": [
     {
-      "name": "导学 · 先看成片",
-      "range": "第 0 节",
+      "name": "Dẫn nhập · xem thành phẩm trước",
+      "range": "Bài 0",
       "color": "m5",
-      "get": "看完 24 个交付项目和 5 支行业概念片的高光，知道这门课教什么、两条路线怎么选"
+      "get": "Xem phần nổi bật của 24 dự án đã bàn giao và 5 phim khái niệm ngành, biết khóa này dạy gì và chọn hai lộ trình thế nào"
     },
     {
-      "name": "A · 想清楚",
-      "range": "第 1–3 节",
+      "name": "A · Nghĩ cho rõ",
+      "range": "Bài 1–3",
       "color": "m2",
-      "get": "会搭一支宣传片的骨架、从官网拿素材、写选型卡"
+      "get": "Biết dựng bộ khung phim quảng bá, lấy tư liệu từ website chính thức, viết thẻ chọn phương án"
     },
     {
-      "name": "B · 做出来",
-      "range": "第 4–7 节",
+      "name": "B · Làm ra",
+      "range": "Bài 4–7",
       "color": "m4",
-      "get": "会排分镜和节拍、叠动效、设计镜头、配声音"
+      "get": "Biết sắp phân cảnh và nhịp, chồng hiệu ứng, thiết kế góc máy, phối âm thanh"
     },
     {
-      "name": "C · 交出去",
-      "range": "第 8 节",
+      "name": "C · Bàn giao",
+      "range": "Bài 8",
       "color": "m3",
-      "get": "会质检、交付、改版，看完一次真实会话的全程"
+      "get": "Biết kiểm tra chất lượng, bàn giao, chỉnh sửa phiên bản, và xem trọn một phiên làm việc thật"
     }
   ],
-  "lessons_heading": "课程大纲",
-  "lessons_sub": "每节先用真实成片来一段高光开场，再拆它为什么好、提示词怎么说，最后看真实会话里对应的那一步。",
+  "lessons_heading": "Đại cương khóa học",
+  "lessons_sub": "Mỗi bài mở đầu bằng một đoạn nổi bật từ phim thật, sau đó phân tích vì sao nó hay, prompt nói thế nào, cuối cùng xem bước tương ứng trong phiên làm việc thật.",
   "lessons": [
     {
       "n": 0,
-      "title": "导学：一句话到成片",
-      "hook": "24 个交付项目 + 5 支行业概念片，一门课讲清楚",
+      "title": "Dẫn nhập: từ một câu đến thành phẩm",
+      "hook": "24 dự án bàn giao + 5 phim khái niệm ngành, một khóa nói rõ hết",
       "minutes": "3",
-      "intro": "先看我们用 Opus 5.5 做过的宣传片高光，按行业分：AI 产品、社区与个人品牌、茶饮餐饮、百货、零售、制造业、电商、文旅生活；再看两条路线、八节课和一次贯穿全程的真实会话。",
+      "intro": "Trước hết xem phần nổi bật của các phim quảng bá chúng tôi từng làm bằng Opus 5.5, chia theo ngành: sản phẩm AI, cộng đồng và thương hiệu cá nhân, trà sữa và ẩm thực, bách hóa, bán lẻ, sản xuất, thương mại điện tử, văn hóa du lịch và đời sống; sau đó xem hai lộ trình, tám bài học và một phiên làm việc thật xuyên suốt.",
       "points": [
-        "这门课教什么、适合谁",
-        "按行业看片：交付项目 + 五支非官方行业概念片",
-        "两条路线：promo-video skill 与纯网页代码",
-        "贯穿全课的真实会话：给「圈问」做 30 秒片"
+        "Khóa này dạy gì, phù hợp với ai",
+        "Xem phim theo ngành: dự án bàn giao + năm phim khái niệm ngành không chính thức",
+        "Hai lộ trình: promo-video skill và mã web thuần",
+        "Phiên làm việc thật xuyên suốt khóa: làm phim 30 giây cho \"Vòng Hỏi\""
       ],
       "visual": [
-        "高光快剪",
-        "课程地图"
+        "Dựng nhanh phần nổi bật",
+        "Bản đồ khóa học"
       ],
       "sources": [
         "promo",
@@ -87,22 +87,22 @@
       ],
       "video": "lessonp00.mp4",
       "poster": "lessonp00.jpg",
-      "length": "2 分 49 秒"
+      "length": "2 phút 49 giây"
     },
     {
       "n": 1,
-      "title": "一支宣传片的骨架",
-      "hook": "前三秒留人，最后两秒记住",
+      "title": "Bộ khung của một phim quảng bá",
+      "hook": "Ba giây đầu giữ người xem, hai giây cuối để lại ấn tượng",
       "minutes": "5",
-      "intro": "好的宣传片都是同一副骨架：钩子、价值、卖点、证明、行动。按时长定场景数和每屏字数，再把第一句提示词说对。",
+      "intro": "Phim quảng bá hay đều có chung một bộ khung: móc câu, giá trị, điểm bán, bằng chứng, lời kêu gọi hành động. Dựa vào thời lượng để định số cảnh và số chữ mỗi màn hình, rồi nói đúng câu prompt đầu tiên.",
       "points": [
-        "钩子 → 价值 → 卖点 → 证明 → 行动",
-        "时长档位、场景数与每屏字数",
-        "两条路线怎么选，第一句话怎么说"
+        "Móc câu → giá trị → điểm bán → bằng chứng → hành động",
+        "Mức thời lượng, số cảnh và số chữ mỗi màn hình",
+        "Chọn hai lộ trình thế nào, câu đầu tiên nói ra sao"
       ],
       "visual": [
-        "成片拆成骨架条",
-        "第一句提示词"
+        "Thành phẩm tách thành thanh khung",
+        "Câu prompt đầu tiên"
       ],
       "sources": [
         "promo",
@@ -110,66 +110,66 @@
       ],
       "video": "lessonp01.mp4",
       "poster": "lessonp01.jpg",
-      "length": "4 分 12 秒"
+      "length": "4 phút 12 giây"
     },
     {
       "n": 2,
-      "title": "从官网拿素材",
-      "hook": "给它一个网址，Logo、配色、截图自己拿",
+      "title": "Lấy tư liệu từ website chính thức",
+      "hook": "Đưa một địa chỉ web, Logo, phối màu, ảnh chụp tự lấy",
       "minutes": "5",
-      "intro": "只给网址时，它怎么拿到文案、配色、字体、Logo 和高清产品图；哪些能直接用，哪些必须先问你。",
+      "intro": "Khi chỉ có địa chỉ web, nó lấy nội dung chữ, phối màu, phông chữ, Logo và ảnh sản phẩm độ nét cao bằng cách nào; cái nào dùng thẳng được, cái nào phải hỏi bạn trước.",
       "points": [
-        "文案与卖点：原话优先，数字要确认",
-        "配色、字体、Logo：算出来，不是猜出来",
-        "产品图、官网视频，缺什么就问"
+        "Nội dung chữ và điểm bán: ưu tiên nguyên văn, con số phải xác nhận",
+        "Phối màu, phông chữ, Logo: tính ra chứ không đoán",
+        "Ảnh sản phẩm, video trên website, thiếu gì thì hỏi"
       ],
       "visual": [
-        "官网拆成素材板",
-        "改前改后"
+        "Website tách thành bảng tư liệu",
+        "Trước và sau khi sửa"
       ],
       "sources": [
         "promo"
       ],
       "video": "lessonp02.mp4",
       "poster": "lessonp02.jpg",
-      "length": "4 分 34 秒"
+      "length": "4 phút 34 giây"
     },
     {
       "n": 3,
-      "title": "选型卡：四层只选一次",
-      "hook": "不是功能越多越好，是每层只选一个",
+      "title": "Thẻ chọn phương án: bốn tầng, mỗi tầng chọn một lần",
+      "hook": "Không phải càng nhiều tính năng càng tốt, mà là mỗi tầng chỉ chọn một",
       "minutes": "5",
-      "intro": "模式、视觉基调、叙事骨架、增强层，四层各选一个写成选型卡；再用真实的客户反馈决定什么该做、什么别做。",
+      "intro": "Chế độ, tông hình ảnh, khung kể chuyện, tầng tăng cường: bốn tầng mỗi tầng chọn một rồi ghi thành thẻ chọn phương án; sau đó dùng phản hồi thật của khách hàng để quyết định nên làm gì, đừng làm gì.",
       "points": [
-        "四层选型与选型卡",
-        "按信号推荐",
-        "口碑记录：真实反馈怎么改变下一支片"
+        "Chọn phương án bốn tầng và thẻ chọn phương án",
+        "Đề xuất theo tín hiệu",
+        "Ghi nhận phản hồi: phản hồi thật thay đổi phim tiếp theo thế nào"
       ],
       "visual": [
-        "四个转轮锁定选型卡",
-        "同一产品四个版本"
+        "Bốn bánh xoay chốt thẻ chọn phương án",
+        "Bốn phiên bản cho cùng một sản phẩm"
       ],
       "sources": [
         "promo"
       ],
       "video": "lessonp03.mp4",
       "poster": "lessonp03.jpg",
-      "length": "4 分 30 秒"
+      "length": "4 phút 30 giây"
     },
     {
       "n": 4,
-      "title": "分镜和节拍",
-      "hook": "切点跟着鼓点走",
+      "title": "Phân cảnh và nhịp",
+      "hook": "Điểm cắt đi theo nhịp trống",
       "minutes": "5",
-      "intro": "分镜表每一列在管什么；屏幕字读不读得完怎么算；选曲以后，整条时间轴为什么要按曲子的 BPM 重排。",
+      "intro": "Mỗi cột của bảng phân cảnh phụ trách điều gì; chữ trên màn hình có đọc kịp hay không tính thế nào; sau khi chọn nhạc, vì sao cả trục thời gian phải sắp lại theo BPM của bài nhạc.",
       "points": [
-        "分镜表：时长、画面、屏幕字、运镜、主手艺与转场",
-        "阅读速度与快慢呼吸",
-        "选曲对拍：BPM 网格与能量到达点"
+        "Bảng phân cảnh: thời lượng, hình ảnh, chữ trên màn hình, chuyển động máy, kỹ thuật chính và chuyển cảnh",
+        "Tốc độ đọc và nhịp nhanh chậm",
+        "Chọn nhạc khớp nhịp: lưới BPM và điểm năng lượng dâng tới"
       ],
       "visual": [
-        "波形与切点",
-        "分镜表落成画面"
+        "Dạng sóng và điểm cắt",
+        "Bảng phân cảnh thành hình ảnh"
       ],
       "sources": [
         "promo",
@@ -177,22 +177,22 @@
       ],
       "video": "lessonp04.mp4",
       "poster": "lessonp04.jpg",
-      "length": "4 分 34 秒"
+      "length": "4 phút 34 giây"
     },
     {
       "n": 5,
-      "title": "动效层：特效长在产品上",
-      "hook": "粒子在截图上聚成口号",
+      "title": "Tầng hiệu ứng: hiệu ứng mọc ngay trên sản phẩm",
+      "hook": "Hạt tụ lại thành khẩu hiệu trên ảnh chụp",
       "minutes": "5",
-      "intro": "先铺真素材，再把粒子、变形、遮罩叠在素材上；三个档位、一张手艺地图，和用户说「不够炫」时的加码顺序。",
+      "intro": "Trải tư liệu thật trước, rồi chồng hạt, biến dạng, mặt nạ lên tư liệu; ba mức độ, một bản đồ kỹ thuật, và thứ tự tăng cường khi người dùng nói \"chưa đủ ngầu\".",
       "points": [
-        "素材优先，动效叠在素材上",
-        "三个档位与手艺地图",
-        "转场、首尾呼应与「不够炫」加码"
+        "Ưu tiên tư liệu, hiệu ứng chồng lên tư liệu",
+        "Ba mức độ và bản đồ kỹ thuật",
+        "Chuyển cảnh, đầu cuối hô ứng và tăng cường khi \"chưa đủ ngầu\""
       ],
       "visual": [
-        "粒子聚成口号",
-        "匹配剪辑"
+        "Hạt tụ thành khẩu hiệu",
+        "Dựng khớp cảnh"
       ],
       "sources": [
         "promo",
@@ -200,22 +200,22 @@
       ],
       "video": "lessonp05.mp4",
       "poster": "lessonp05.jpg",
-      "length": "4 分 52 秒"
+      "length": "4 phút 52 giây"
     },
     {
       "n": 6,
-      "title": "镜头与设备",
-      "hook": "每一次运镜都要有理由",
+      "title": "Góc máy và thiết bị",
+      "hook": "Mỗi chuyển động máy đều phải có lý do",
       "minutes": "5",
-      "intro": "推轨、慢推、环绕、穿越、焦点转移、甩镜、猛推、锁定；什么时候镜头该动、什么时候必须静；3D 设备和一镜到底怎么做。",
+      "intro": "Dolly, đẩy chậm, quay vòng, xuyên qua, chuyển tiêu điểm, quật máy, đẩy mạnh, cố định; khi nào máy nên động, khi nào bắt buộc phải tĩnh; làm thiết bị 3D và cảnh một cú máy liền mạch thế nào.",
       "points": [
-        "导演运镜表",
-        "运镜规则：一种主运动、CTA 静稳、只在关键帧推",
-        "3D 设备、一镜到底与纯代码 3D"
+        "Bảng chuyển động máy của đạo diễn",
+        "Quy tắc chuyển động máy: một chuyển động chính, CTA tĩnh và ổn định, chỉ đẩy ở khung hình then chốt",
+        "Thiết bị 3D, một cú máy liền mạch và 3D thuần mã"
       ],
       "visual": [
-        "3D 画廊穿越",
-        "三屏设备"
+        "Xuyên qua phòng tranh 3D",
+        "Thiết bị ba màn hình"
       ],
       "sources": [
         "promo",
@@ -223,22 +223,22 @@
       ],
       "video": "lessonp06.mp4",
       "poster": "lessonp06.jpg",
-      "length": "5 分 4 秒"
+      "length": "5 phút 4 giây"
     },
     {
       "n": 7,
-      "title": "声音：配乐、音效、旁白",
-      "hook": "声音落在接触帧",
+      "title": "Âm thanh: nhạc nền, hiệu ứng âm thanh, lời dẫn",
+      "hook": "Âm thanh rơi đúng khung hình tiếp xúc",
       "minutes": "5",
-      "intro": "曲库怎么选、授权能做什么不能做什么；音效为什么要落在接触帧、全片只有两处最响；旁白和母带怎么处理。",
+      "intro": "Chọn thư viện nhạc thế nào, giấy phép cho phép và không cho phép làm gì; vì sao hiệu ứng âm thanh phải rơi đúng khung hình tiếp xúc, cả phim chỉ có hai chỗ to nhất; lời dẫn và bản master xử lý thế nào.",
       "points": [
-        "曲库与授权",
-        "音效：接触帧、变体轮换、两处最响",
-        "旁白、避让与母带"
+        "Thư viện nhạc và giấy phép",
+        "Hiệu ứng âm thanh: khung hình tiếp xúc, luân phiên biến thể, hai chỗ to nhất",
+        "Lời dẫn, nhường chỗ và bản master"
       ],
       "visual": [
-        "音轨分层亮起",
-        "响度表"
+        "Các lớp âm thanh lần lượt sáng lên",
+        "Đồng hồ đo độ lớn"
       ],
       "sources": [
         "promo",
@@ -246,22 +246,22 @@
       ],
       "video": "lessonp07.mp4",
       "poster": "lessonp07.jpg",
-      "length": "5 分 6 秒"
+      "length": "5 phút 6 giây"
     },
     {
       "n": 8,
-      "title": "质检、交付与改版",
-      "hook": "一句话进去，30 秒成片出来",
+      "title": "Kiểm tra chất lượng, bàn giao và chỉnh sửa phiên bản",
+      "hook": "Một câu đi vào, phim 30 giây đi ra",
       "minutes": "6",
-      "intro": "交付前的大师审片清单、合规底线、交付规格；改版怎么改、口碑怎么记；最后从头到尾看完那次真实会话和它的用量。",
+      "intro": "Danh sách duyệt phim kiểu bậc thầy trước khi bàn giao, ranh giới tuân thủ, quy cách bàn giao; chỉnh sửa phiên bản thế nào, ghi nhận phản hồi ra sao; cuối cùng xem trọn từ đầu đến cuối phiên làm việc thật cùng mức tiêu thụ của nó.",
       "points": [
-        "大师审片与精确取帧",
-        "合规与交付",
-        "改版、口碑记录 + 真实会话全程"
+        "Duyệt phim kiểu bậc thầy và lấy khung hình chính xác",
+        "Tuân thủ và bàn giao",
+        "Chỉnh sửa phiên bản, ghi nhận phản hồi + toàn bộ phiên làm việc thật"
       ],
       "visual": [
-        "接触表质检",
-        "真实会话回放"
+        "Kiểm tra bằng bảng contact sheet",
+        "Phát lại phiên làm việc thật"
       ],
       "sources": [
         "promo",
@@ -270,37 +270,37 @@
       ],
       "video": "lessonp08.mp4",
       "poster": "lessonp08.jpg",
-      "length": "5 分 10 秒"
+      "length": "5 phút 10 giây"
     }
   ],
-  "sources_sub": "主要来源；每节片尾逐条标注出处。",
+  "sources_sub": "Các nguồn chính; cuối mỗi bài ghi chú từng nguồn.",
   "sources": [
     {
       "id": "promo",
       "tier": "T1",
       "publisher": "@Berryxia",
-      "title": "promo-video skill 文档与交付记录（本课程作者自建）",
+      "title": "Tài liệu và nhật ký bàn giao của promo-video skill (do tác giả khóa học tự xây dựng)",
       "url": ""
     },
     {
       "id": "remotion",
       "tier": "T1",
       "publisher": "Remotion",
-      "title": "Remotion 官方仓库与授权说明",
+      "title": "Kho mã chính thức của Remotion và thuyết minh giấy phép",
       "url": "https://github.com/remotion-dev/remotion"
     },
     {
       "id": "hyperframes",
       "tier": "T1",
       "publisher": "HeyGen",
-      "title": "HyperFrames（Apache-2.0）",
+      "title": "HyperFrames (Apache-2.0)",
       "url": "https://github.com/heygen-com/hyperframes"
     },
     {
       "id": "three",
       "tier": "T1",
       "publisher": "three.js",
-      "title": "three.js（MIT）",
+      "title": "three.js (MIT)",
       "url": "https://threejs.org"
     },
     {
@@ -314,49 +314,49 @@
       "id": "lucide",
       "tier": "T1",
       "publisher": "Lucide",
-      "title": "Lucide 图标（ISC）",
+      "title": "Biểu tượng Lucide (ISC)",
       "url": "https://lucide.dev"
     },
     {
       "id": "opus55",
       "tier": "T1",
       "publisher": "Anthropic",
-      "title": "Introducing Claude Opus 5.5（2026-09-22）",
+      "title": "Introducing Claude Opus 5.5 (2026-09-22)",
       "url": "https://www.anthropic.com/claude-opus-5-5"
     },
     {
       "id": "cc",
       "tier": "T1",
       "publisher": "Anthropic",
-      "title": "Claude Code 官方文档",
+      "title": "Tài liệu chính thức của Claude Code",
       "url": "https://code.claude.com/docs"
     },
     {
       "id": "brands",
       "tier": "T1",
-      "publisher": "各品牌官网",
-      "title": "行业概念片的素材与文案来源（喜茶、无印良品、盒马、比亚迪、京东官网）；概念片为非官方课程演示",
+      "publisher": "Website chính thức của các thương hiệu",
+      "title": "Nguồn tư liệu và nội dung chữ của phim khái niệm ngành (website chính thức của HeyTea, MUJI, Hema, BYD, JD.com); phim khái niệm là bản trình diễn không chính thức của khóa học",
       "url": ""
     }
   ],
-  "footer": "制作于 2026-10。交付过的宣传片均为真实作品，经客户同意展示；行业概念片为非官方课程演示，片尾均有声明；「圈问」是课程演示用的虚构产品。",
+  "footer": "Sản xuất tháng 10/2026. Các phim quảng bá đã bàn giao đều là sản phẩm thật, được khách hàng đồng ý cho trình chiếu; phim khái niệm ngành là bản trình diễn không chính thức của khóa học, cuối phim đều có tuyên bố; \"Vòng Hỏi\" là sản phẩm hư cấu dùng để minh họa trong khóa học.",
   "sample": {
-    "heading": "先看这个：一句话做出来的 30 秒片",
-    "sub": "课程里那次真实会话的成片：给虚构产品「圈问」做的 30 秒宣传片，第一句话只有一句。",
+    "heading": "Xem cái này trước: phim 30 giây làm từ một câu",
+    "sub": "Thành phẩm của phiên làm việc thật trong khóa học: phim quảng bá 30 giây làm cho sản phẩm hư cấu \"Vòng Hỏi\", câu đầu tiên chỉ có một câu.",
     "video": "sample.mp4",
     "poster": "sample.jpg",
     "changes": [
       {
-        "k": "第一句话",
-        "v": "用 promo-video 给圈问做一支 30 秒宣传片，官网 http://127.0.0.1:8930。"
+        "k": "Câu đầu tiên",
+        "v": "Dùng promo-video làm cho Vòng Hỏi một phim quảng bá 30 giây, website chính thức http://127.0.0.1:8930."
       },
       {
-        "k": "五轮",
-        "v": "素材分析与选型卡 → 样帧（自己挑出 4 个问题）→ 成片 → 前台重渲与核对 → 改钩子"
+        "k": "Năm lượt",
+        "v": "Phân tích tư liệu và thẻ chọn phương án → khung mẫu (tự chỉ ra 4 vấn đề) → thành phẩm → render lại ở tiền cảnh và đối chiếu → sửa móc câu"
       },
       {
-        "k": "声明",
-        "v": "圈问是课程演示用的虚构产品；配乐 Techno Fest Vibes（Mixkit 免费授权）"
+        "k": "Tuyên bố",
+        "v": "Vòng Hỏi là sản phẩm hư cấu dùng để minh họa trong khóa học; nhạc nền Techno Fest Vibes (giấy phép miễn phí của Mixkit)"
       }
     ]
   }

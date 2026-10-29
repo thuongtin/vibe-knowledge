@@ -1,99 +1,99 @@
-# 10 · 代码成片引擎（cine）
+# 10 · Engine dựng phim bằng code (cine)
 
-「王炸」风格的讲解课：每一帧都是代码实时算出来的（Three.js、GLSL、26 万粒子、DOM 动态大字、镜头运动），一节课就是一个 `seek(t)` 函数，同一个 t 渲两次 0 像素差。已验证：「Claude Code 做视频：Opus 5.5 编排课」导学 + 10 节、「Opus 5.5 宣传片实战课」导学 + 8 节 + 加餐。
+Bài giảng phong cách "bom tấn": mỗi khung hình đều do code tính theo thời gian thực (Three.js, GLSL, 260 nghìn hạt, chữ lớn động bằng DOM, chuyển động máy quay), một bài học chính là một hàm `seek(t)`, cùng một t render hai lần chênh lệch 0 pixel. Đã kiểm chứng: "Claude Code làm video: khóa điều phối Opus 5.5" gồm bài dẫn nhập + 10 bài, "Khóa thực chiến phim quảng bá Opus 5.5" gồm bài dẫn nhập + 8 bài + bài bonus.
 
-什么时候用：讲 AI 编排、动效、视频制作这类「片子本身就是作品」的课，或要放真实成片片段、真实会话的实战课。讲书、讲软件操作，sketch 风格更合适；人物历史、终端录屏用 lesson 风格。
+Khi nào dùng: các bài về điều phối AI, hiệu ứng động, làm video, tức loại bài mà "bản thân bộ phim chính là tác phẩm", hoặc bài thực chiến cần chèn đoạn phim thành phẩm thật, phiên làm việc thật. Giảng sách, giảng thao tác phần mềm thì phong cách sketch phù hợp hơn; lịch sử nhân vật, quay màn hình terminal dùng phong cách lesson.
 
-## 目录
+## Thư mục
 
 ```
-<工作区>/examples/<系列>/
-  cine/                 引擎副本（new_series.py --style cine 拷过来）
-    index.html          ?lesson=<课号> 打开一节；&capture 是录制模式
-    engine/             core.js（时间轴、镜头调度、__film 接口）narr.js（旁白时间、字幕）ui.js（组件）util.js（缓动、弹簧、el/css）post.js glsl.js
+<không-gian-làm-việc>/examples/<series>/
+  cine/                 bản sao engine (new_series.py --style cine sao chép sang)
+    index.html          ?lesson=<số-bài> mở một bài; &capture là chế độ quay
+    engine/             core.js (trục thời gian, điều phối cảnh quay, giao diện __film) narr.js (thời gian lời dẫn, phụ đề) ui.js (thành phần) util.js (easing, lò xo, el/css) post.js glsl.js
     engine/scenes/      particles clock bars showroom liquid tunnel
     tools/              clips stills record finish retail loopbed queue.sh deliver.sh browser.py
-    audio/tools/        bed.py（合成背景乐 + 音效，按段落 level 校准响度）score.py（合成和 DSP 库）
-    audio/sfx/          CC0 真实按键录音（key 音效）
-    fonts/ vendor/      Geist、Noto Sans SC；three.js
-    queue.txt           渲染队列：课号|标题|封面秒
-    deliver.env         交付去向：D=桌面文件夹，WEB=课程页目录，STRIP=文件名去掉的课号前缀
-  lessons/<课号>/        narration.json  film.js  assets/  scenes/（本课专用场景）  build/（配音、录制、混音产物）  stills/
+    audio/tools/        bed.py (tổng hợp nhạc nền + hiệu ứng âm thanh, hiệu chỉnh âm lượng theo level từng đoạn) score.py (thư viện tổng hợp và DSP)
+    audio/sfx/          bản ghi âm gõ phím thật CC0 (hiệu ứng key)
+    fonts/ vendor/      Geist, Noto Sans SC; three.js
+    queue.txt           hàng đợi render: số-bài|tiêu đề|giây-làm-ảnh-bìa
+    deliver.env         nơi giao: D=thư mục Desktop, WEB=thư mục trang khóa học, STRIP=tiền tố số bài bị bỏ khỏi tên file
+  lessons/<số-bài>/        narration.json  film.js  assets/  scenes/ (cảnh dành riêng cho bài này)  build/ (sản phẩm lồng tiếng, quay, trộn âm)  stills/
   tools/                check_timings.py  update_series.py
-  session/              真实会话录制（实战课用，见 11-practice-course.md）
-  voice/host-ref.wav    克隆音色参照
-  publish/course/       课程页（lesson<课号>.mp4/.jpg + index.html）
+  session/              bản ghi phiên làm việc thật (dùng cho bài thực chiến, xem 11-practice-course.md)
+  voice/host-ref.wav    giọng mẫu để nhân bản
+  publish/course/       trang khóa học (lesson<số-bài>.mp4/.jpg + index.html)
 ```
 
-## 环境
+## Môi trường
 
-- `CINE_PY`：一个装了 `numpy scipy pillow playwright` 的 Python（finish.py 要 scipy）。没有就 `python3 -m venv ~/.venvs/cine && ~/.venvs/cine/bin/pip install numpy scipy pillow playwright`，再 `~/.venvs/cine/bin/python -m playwright install chromium-headless-shell`。
-- 无头浏览器必须走 GPU：`--use-angle=metal --enable-gpu --ignore-gpu-blocklist`（`tools/browser.py` 已带；默认 SwiftShader 慢 30 倍）。浏览器路径按 `CINE_CHROME` → Playwright 缓存里最新的 chromium_headless_shell → Playwright 默认。
-- 页面要用 HTTP 打开（ES module 不能 file://）：`python3 -m http.server 8964 --bind 127.0.0.1 --directory <系列目录>`；`queue.sh` 发现没服务会自己起一个。
-- 配音同 sketch：`scripts/make_lesson.py <课> voice` + `scripts/speed.py <课> 1.15`（MiMo 克隆音色，密钥只放 `~/.config/ai-teardown/mimo.env`）。
-- 曲库配乐要装 promo-video skill（`pick_music.py`）；不用曲库就用 bed.py 合成。
-- ffmpeg、ffprobe。
+- `CINE_PY`: một Python đã cài `numpy scipy pillow playwright` (finish.py cần scipy). Nếu chưa có thì `python3 -m venv ~/.venvs/cine && ~/.venvs/cine/bin/pip install numpy scipy pillow playwright`, rồi `~/.venvs/cine/bin/python -m playwright install chromium-headless-shell`.
+- Trình duyệt headless bắt buộc chạy bằng GPU: `--use-angle=metal --enable-gpu --ignore-gpu-blocklist`(`tools/browser.py` đã kèm sẵn; SwiftShader mặc định chậm gấp 30 lần). Đường dẫn trình duyệt theo thứ tự: `CINE_CHROME` → chromium_headless_shell mới nhất trong cache của Playwright → mặc định của Playwright.
+- Trang phải mở qua HTTP (ES module không dùng được file://): `python3 -m http.server 8964 --bind 127.0.0.1 --directory <thư-mục-series>`; `queue.sh` thấy chưa có dịch vụ sẽ tự khởi động một cái.
+- Lồng tiếng giống sketch: `scripts/make_lesson.py <bài> voice` + `scripts/speed.py <bài> 1.15` (MiMo nhân bản giọng, khóa API chỉ đặt trong `~/.config/ai-teardown/mimo.env`).
+- Nhạc nền từ thư viện cần cài skill promo-video (`pick_music.py`); không dùng thư viện thì tổng hợp bằng bed.py.
+- ffmpeg, ffprobe.
 
-## film.js 契约
+## Hợp đồng của film.js
 
 ```js
 import { clamp, lerp, eOutCubic, spring, el, css } from "../../cine/engine/util.js";
 import { C, appear, slam, typeText, codeCard, sourceTag, pauseCard, recapMap, clipBox } from "../../cine/engine/ui.js";
 import { Particles, F } from "../../cine/engine/scenes/particles.js";
 
-export const COLD = 6.4;                         // 片头王炸开场长度：旁白整体往后挪这么多秒
-export const meta = { title: "视频就是一个函数", n: 1 };
+export const COLD = 6.4;                         // độ dài đoạn mở đầu bom tấn: toàn bộ lời dẫn lùi ra sau chừng này giây
+export const meta = { title: "Video chính là một hàm", n: 1 };
 export let hits = [], blur = [], clips = [], music = [];
 export const sfx = [], sections = [];
 
 export async function build(ctx) {
-  const T = (s) => ctx.narr.t(s);                // "B07" "B07.ring" "B03@三千" "B07.end" "B05+1.2"
+  const T = (s) => ctx.narr.t(s);                // "B07" "B07.ring" "B03@ba nghìn" "B07.end" "B05+1.2"
   return [{ from: 0, to: COLD, build(root) { … }, render(t, u) { … } }, …];
 }
 ```
 
-- 镜头 `{ from, to, build(root), render(t, u) }`：build 只建一次 DOM / 场景，render 每帧按绝对时间 t 和镜头内进度 u 摆状态，**不能依赖上一帧**（录制会跳着 seek）。
-- `hits`：镜头冲击（曝光提升 + 极短闪白 + 位移），全片 ≤3 个；有片段在画面里时不用。
-- `blur`：`[起, 止]` 秒段，录制时 4 个子帧平均做运动模糊（180° 快门）。
-- `sfx`：`{ t, type, … }`，类型 slam whoosh whoosh-through riser(t_to) impact blip click tick shutter snap chime error card(note_index) rewind key(enter)。
-- `sections`：合成背景乐段落 `{ t, t_to, level }`，level 0 静、1 铺底、2 轻律动、3 满。全用曲库时写一段 level 0。
-- `clips`：真片段 `{ id, src, from, at, dur, x, y, w, h, audio: mute|duck|full, gain, fade, poster_at, seg }`，clips.py 裁好，finish.py 用 ffmpeg 叠在框上。
-- `music`：曲库配乐 `{ src, from, at, dur, gain | gain_curve: [[t, dB]…], fade_in, fade_out }`，旁白段自动再压低。
-- 组件（ui.js）：appear slam wipeUp typeText bigText kicker codeCard（`hl(i, on)`）promptChip quoteCard sourceTag pauseCard recapMap clipBox；颜色表 `C`。
-- 场景：Particles（队形 DUST/LINE/CLOUD/TITLE/CN/POINT，`setText` 换字）、Clock、Bars、Showroom（构造传 `ctx.r`）、Liquid、Tunnel。参数见各文件末尾注释。
+- Cảnh quay `{ from, to, build(root), render(t, u) }`: build chỉ dựng DOM / cảnh một lần, render mỗi khung hình đặt trạng thái theo thời gian tuyệt đối t và tiến độ trong cảnh u, **không được phụ thuộc khung hình trước** (khi quay sẽ seek nhảy cóc).
+- `hits`: cú sốc máy quay (tăng phơi sáng + chớp trắng cực ngắn + dịch chuyển), cả phim ≤3 cái; khi có đoạn clip trong khung hình thì không dùng.
+- `blur`: đoạn giây `[bắt đầu, kết thúc]`, khi quay lấy trung bình 4 khung con để tạo mờ chuyển động (màn trập 180°).
+- `sfx`: `{ t, type, … }`, các loại slam whoosh whoosh-through riser(t_to) impact blip click tick shutter snap chime error card(note_index) rewind key(enter).
+- `sections`: các đoạn nhạc nền tổng hợp `{ t, t_to, level }`, level 0 im lặng, 1 trải nền, 2 nhịp nhẹ, 3 đầy đủ. Khi dùng toàn bộ nhạc thư viện thì viết một đoạn level 0.
+- `clips`: đoạn phim thật `{ id, src, from, at, dur, x, y, w, h, audio: mute|duck|full, gain, fade, poster_at, seg }`; clips.py cắt sẵn, finish.py dùng ffmpeg chồng lên khung.
+- `music`: nhạc nền thư viện `{ src, from, at, dur, gain | gain_curve: [[t, dB]…], fade_in, fade_out }`; đoạn có lời dẫn tự động hạ thấp thêm.
+- Thành phần (ui.js): appear slam wipeUp typeText bigText kicker codeCard (`hl(i, on)`) promptChip quoteCard sourceTag pauseCard recapMap clipBox; bảng màu `C`.
+- Cảnh: Particles (đội hình DUST/LINE/CLOUD/TITLE/CN/POINT, `setText` đổi chữ), Clock, Bars, Showroom (khi khởi tạo truyền `ctx.r`), Liquid, Tunnel. Tham số xem chú thích cuối mỗi file.
 
-## 流水线
+## Quy trình
 
 ```bash
-cd <工作区>; S=examples/<系列>; L=$S/lessons/<课号>
+cd <không-gian-làm-việc>; S=examples/<series>; L=$S/lessons/<số-bài>
 python3 scripts/make_lesson.py $L voice > $L/voice.log 2>&1 && python3 scripts/speed.py $L 1.15
 cd $S
-python3 tools/check_timings.py <课号>                         # 逐字对齐有没有断
-$CINE_PY cine/tools/clips.py <课号>                            # 有片段时
-$CINE_PY cine/tools/stills.py <课号> lessons/<课号>/stills/sheet.png 1.0 B01+1 B02.a+1 …   # 接触表，逐张看
-echo "<课号>|<标题>|<封面秒>" >> cine/queue.txt; CINE_PY=$CINE_PY cine/tools/queue.sh    # clips → record → finish → deliver，串行
+python3 tools/check_timings.py <số-bài>                         # kiểm tra căn từng chữ có bị đứt không
+$CINE_PY cine/tools/clips.py <số-bài>                            # khi có đoạn clip
+$CINE_PY cine/tools/stills.py <số-bài> lessons/<số-bài>/stills/sheet.png 1.0 B01+1 B02.a+1 …   # bảng contact sheet, xem từng ảnh
+echo "<số-bài>|<tiêu đề>|<giây-làm-ảnh-bìa>" >> cine/queue.txt; CINE_PY=$CINE_PY cine/tools/queue.sh    # clips → record → finish → deliver, chạy tuần tự
 python3 tools/update_series.py && python3 ../../scripts/course_page.py series.json publish/course
 ```
 
-- record.py：1920×1080 60fps 逐帧 seek + 截图，管道给 ffmpeg（CRF 18）→ `build/picture.mp4`。粒子满屏的课约 1.5–2 倍实时。
-- finish.py：读 `__film` → `lesson.json` → bed.py 合成背景乐和音效 → 旁白压低背景乐 → 叠片段和曲库配乐 → 限幅（留 1.5 dB，AAC 后不过 0）→ `build/lesson<课号>.mp4`。
-- retail.py `<课号> B18`：只重渲某一拍以后的画面接回 picture.mp4（改了结尾几拍时用）。
-- deliver.sh：桌面 1080p60 分享版（CRF 23、码率封顶 6M）+ 课程页 720p30 网页版（降噪、封顶 520k，约 2 MB/分钟，单文件要 <15 MB）+ 封面。
-- 多智能体：每个助手按系列目录 `BRIEF.md` 做一节的旁白 + 配音 + film.js + 接触表，不渲染、不改引擎；主会话核对引文和数字、排队渲染、抽帧和响度质检、发布。
+- record.py: 1920×1080 60fps seek từng khung + chụp màn hình, truyền qua pipe cho ffmpeg (CRF 18) → `build/picture.mp4`. Bài có hạt đầy màn hình mất khoảng 1,5–2 lần thời gian thực.
+- finish.py: đọc `__film` → `lesson.json` → bed.py tổng hợp nhạc nền và hiệu ứng âm thanh → lời dẫn nén nhạc nền xuống → chồng đoạn clip và nhạc thư viện → giới hạn đỉnh (chừa 1,5 dB, sau AAC không vượt 0) → `build/lesson<số-bài>.mp4`.
+- retail.py `<số-bài> B18`: chỉ render lại phần hình từ một nhịp trở đi rồi nối vào picture.mp4 (dùng khi sửa vài nhịp cuối).
+- deliver.sh: bản chia sẻ 1080p60 cho Desktop (CRF 23, bitrate tối đa 6M) + bản web 720p30 cho trang khóa học (giảm nhiễu, tối đa 520k, khoảng 2 MB/phút, mỗi file phải <15 MB) + ảnh bìa.
+- Đa tác tử: mỗi trợ lý theo `BRIEF.md` trong thư mục series làm lời dẫn + lồng tiếng + film.js + bảng contact sheet cho một bài, không render, không sửa engine; phiên chính đối chiếu trích dẫn và con số, xếp hàng render, lấy khung và kiểm tra âm lượng, phát hành.
 
-## 质检
+## Kiểm tra chất lượng
 
-- 接触表每个镜头至少 1 帧，**动画中途的帧也要看**（静止帧会漏掉重影、残留）。
-- 成片抽 6–12 帧拼图再看；`ffmpeg -nostats -i lesson.mp4 -vn -af ebur128=peak=true -f null -` 看响度：已交付的课整体约 −14.5 LUFS、真峰值约 −0.9 dBFS，差得多就查混音。
-- 引文署名逐条回原始出处核对（助手会张冠李戴）；屏幕上每个数字都要能追到来源。
+- Bảng contact sheet mỗi cảnh quay ít nhất 1 khung, **cũng phải xem các khung giữa chừng của hoạt ảnh** (khung tĩnh sẽ bỏ sót bóng mờ, vết tồn lưu).
+- Lấy 6–12 khung của thành phẩm ghép lại để xem; `ffmpeg -nostats -i lesson.mp4 -vn -af ebur128=peak=true -f null -` để xem âm lượng: các bài đã giao nhìn chung khoảng −14,5 LUFS, đỉnh thực khoảng −0,9 dBFS, lệch nhiều thì kiểm tra lại khâu trộn âm.
+- Đối chiếu từng trích dẫn và tên tác giả với nguồn gốc (trợ lý hay gán nhầm); mỗi con số trên màn hình đều phải truy được nguồn.
 
-## 坑
+## Cạm bẫy
 
-- `[[cue]]` 只用小写字母、数字、下划线；不能叫 `end`（`B06.end` 是保留写法）；大写 cue 不会被解析。
-- 旁白里的英文名别带连字符（「promo-video」会让逐字对齐从那里断掉，后面的字挤到拍尾），写「promo video」；配音后跑 `check_timings.py`。
-- `appear()` 不能改 display（会冲掉 flex 居中），用 visibility；字幕别在「5.5」小数点处断句；JS 里 `41.0` 转字符串是 `"41"`，拼文件名要用字符串。
-- 片段永远在最上层、不跟 hits 抖；任何字、箭头不能压在片段框上；框不能进 y>920（字幕区）；w、h 用偶数；片段起点别落在源片的模糊转场上。
-- 粒子：curl 噪声频率太低整团会漂成怪圈；粒子大小别和方位角共用同一个随机数（扇形缺口）；闪白压在暗画面上发灰，冲击用曝光提升 + 极短闪白。
-- 60fps + 粒子/颗粒码率很高：交付封顶码率，母版别用 CRF 16。
-- 应用里的浏览器面板折叠时 `document.hidden`，rAF 不跑、截图发黑：验证一律用无头录制工具。
-- 曲库曲子短于整节：`loopbed.py` 按小节接长（从到达点后 8 小节到淡出前最后一个整小节循环，1 小节等功率交叉淡化）。
+- `[[cue]]` chỉ dùng chữ thường, chữ số, dấu gạch dưới; không được đặt tên `end` (`B06.end` là cách viết dành riêng); cue viết hoa sẽ không được phân tích.
+- Tên tiếng Anh trong lời dẫn đừng có dấu gạch nối ("promo-video" sẽ làm căn từng chữ đứt tại đó, các chữ phía sau bị dồn về cuối nhịp), hãy viết "promo video"; sau khi lồng tiếng chạy `check_timings.py`.
+- `appear()` không được đổi display (sẽ phá căn giữa flex), dùng visibility; phụ đề đừng ngắt câu ở dấu thập phân của "5.5"; trong JS `41.0` chuyển thành chuỗi là `"41"`, ghép tên file phải dùng chuỗi.
+- Đoạn clip luôn nằm trên cùng, không rung theo hits; không chữ hay mũi tên nào được đè lên khung clip; khung không được vào vùng y>920 (vùng phụ đề); w, h dùng số chẵn; điểm bắt đầu clip đừng rơi vào đoạn chuyển cảnh mờ của phim nguồn.
+- Hạt: tần số nhiễu curl quá thấp thì cả đám sẽ trôi thành vòng kỳ quái; kích thước hạt đừng dùng chung số ngẫu nhiên với góc phương vị (gây khuyết hình quạt); chớp trắng đè lên hình tối sẽ bị xám, cú sốc dùng tăng phơi sáng + chớp trắng cực ngắn.
+- 60fps + hạt/nhiễu hạt làm bitrate rất cao: khi giao hãy giới hạn bitrate tối đa, bản master đừng dùng CRF 16.
+- Khi bảng trình duyệt trong ứng dụng bị thu gọn thì `document.hidden`, rAF không chạy, ảnh chụp bị đen: việc kiểm chứng luôn dùng công cụ quay headless.
+- Bài nhạc thư viện ngắn hơn cả bài học: `loopbed.py` nối dài theo ô nhịp (lặp từ 8 ô nhịp sau điểm vào đến ô nhịp nguyên cuối cùng trước khi tắt dần, 1 ô nhịp crossfade công suất đều).

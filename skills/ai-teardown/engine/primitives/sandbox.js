@@ -1,14 +1,14 @@
 /**
- * Sandbox 权限边界：一个由系统强制的边框，里面是工作区，右侧是几道「闸门」（能不能写、能不能联网、密钥在不在），
- * 越界时弹出审批。所有时刻为本地秒；render 为纯函数。
+ * Sandbox ranh giới quyền hạn: một khung viền do hệ thống cưỡng chế, bên trong là không gian làm việc, bên phải là vài "cổng chặn" (có ghi được không, có nối mạng được không, khoá bí mật còn không),
+ * khi vượt ranh giới sẽ bật phê duyệt. Mọi thời điểm tính bằng giây cục bộ; render là hàm thuần.
  *
  * params
- *   w, h, title, sub, subAt, icon      边框尺寸与左上角标题；subAt 给定时副标题到那一刻才出现
- *   frameAt                     边框描出来的时刻
- *   inner {label, sub, icon, files[]}   工作区（可选）
+ *   w, h, title, sub, subAt, icon      kích thước khung và tiêu đề góc trên trái; khi có subAt thì phụ đề đến lúc đó mới xuất hiện
+ *   frameAt                     thời điểm khung viền được vẽ ra
+ *   inner {label, sub, icon, files[]}   không gian làm việc (tuỳ chọn)
  *   gates [{label, state: scoped|closed|removed|open, note, at, facts}]
- *   ask {title, sub, at, buttons[], pressAt}   审批弹窗（可选）
- *   tag {text, at}              右下角小标签（如「macOS：Seatbelt」）
+ *   ask {title, sub, at, buttons[], pressAt}   cửa sổ phê duyệt (tuỳ chọn)
+ *   tag {text, at}              nhãn nhỏ góc dưới phải (như "macOS: Seatbelt")
  */
 import { h, s, setStyle, setAttr, icon } from "../runtime/dom.js";
 import { appear, step, UI, PRESS, track } from "../runtime/spring.js";
@@ -37,10 +37,10 @@ const CSS = `
 `;
 
 const STATE = {
-  scoped: { icon: "check", color: "tool", note: "只限工作区" },
-  closed: { icon: "lock", color: "boundary", note: "默认关闭" },
-  removed: { icon: "key", color: "boundary", note: "开工前移除" },
-  open: { icon: "globe", color: "tool", note: "按环境开启" },
+  scoped: { icon: "check", color: "tool", note: "Chỉ trong không gian làm việc" },
+  closed: { icon: "lock", color: "boundary", note: "Mặc định tắt" },
+  removed: { icon: "key", color: "boundary", note: "Gỡ trước khi bắt đầu" },
+  open: { icon: "globe", color: "tool", note: "Bật theo môi trường" },
 };
 
 export default {
@@ -60,7 +60,7 @@ export default {
 
     const subEl = p.sub ? h("div", { class: "s", text: p.sub }) : null;
     const title = h("div", { class: "sb-abs sb-title" }, icon(p.icon ?? "shield", 52, "var(--boundary)", 2),
-      h("div", {}, h("div", { class: "t", text: p.title ?? "沙箱" }), subEl));
+      h("div", {}, h("div", { class: "t", text: p.title ?? "Hộp cát" }), subEl));
     Object.assign(title.style, { left: `${-W / 2 + 46}px`, top: `${-H / 2 + 40}px` });
     root.append(title);
 
@@ -92,7 +92,7 @@ export default {
       ask = h("div", { class: "sb-abs sb-ask" },
         h("div", { class: "t" }, icon("shield", 40, "var(--boundary)", 2.2), p.ask.title),
         h("div", { class: "s", text: p.ask.sub ?? "" }),
-        h("div", { class: "b" }, ...(p.ask.buttons ?? ["允许", "拒绝"]).map((b, i) => h("div", { class: i === 0 ? "primary" : "", text: b }))));
+        h("div", { class: "b" }, ...(p.ask.buttons ?? ["Cho phép", "Từ chối"]).map((b, i) => h("div", { class: i === 0 ? "primary" : "", text: b }))));
       Object.assign(ask.style, { left: "0px", top: `${p.ask.y ?? 40}px` });
       root.append(ask);
     }
@@ -104,8 +104,8 @@ export default {
       root.append(tag);
     }
 
-    const beats = [{ t: frameAt, id: "frame", label: p.title ?? "沙箱" }, ...(p.gates ?? []).map((g, i) => ({ t: g.at, id: `gate:${i}`, label: g.label }))];
-    if (p.ask) beats.push({ t: p.ask.at, id: "ask", label: "审批" });
+    const beats = [{ t: frameAt, id: "frame", label: p.title ?? "Hộp cát" }, ...(p.gates ?? []).map((g, i) => ({ t: g.at, id: `gate:${i}`, label: g.label }))];
+    if (p.ask) beats.push({ t: p.ask.at, id: "ask", label: "Phê duyệt" });
 
     return {
       beats,
@@ -127,9 +127,9 @@ export default {
       },
       hotspots(t) {
         const out = [];
-        if (p.facts?.length && t >= frameAt) out.push({ el: title, facts: p.facts, label: p.title ?? "沙箱" });
+        if (p.facts?.length && t >= frameAt) out.push({ el: title, facts: p.facts, label: p.title ?? "Hộp cát" });
         for (const { g, el } of gates) if (g.facts?.length && t >= g.at) out.push({ el, facts: g.facts, label: g.label });
-        if (ask && p.ask.facts?.length && t >= p.ask.at) out.push({ el: ask, facts: p.ask.facts, label: "审批" });
+        if (ask && p.ask.facts?.length && t >= p.ask.at) out.push({ el: ask, facts: p.ask.facts, label: "Phê duyệt" });
         return out;
       },
     };

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""成片质检：python3 qa.py <成片.mp4> [--every 3] [--out qa/]
-1) 每 N 秒抽一帧拼接触表 qa/sheet.jpg（逐张看：字溢出、压字幕、空屏、配图里有乱码字）
-2) Vision OCR 回读屏幕上的每一行字 → qa/ocr.txt（对照 facts.md 核数字、引文、出处）
-3) 响度：整体 LUFS / 真峰值（目标 ≈ −14.5 LUFS、≤ −1 dBTP）
-5) BGM 检查（强制）：成片开头跟 vibe-bgm 原曲开头做相关（fit_bgm 开头照原曲），<0.12 判定没有 BGM；同目录有 bgm.json 时一并报人声比
-4) 冻结检测：画面连续 >3 秒几乎不变就报警（违反「最长静止 ≤3 秒」；整段几十秒不变 = 录制出事，比如两路录制写坏同一个 picture.mp4，要重录）"""
+"""Kiểm tra chất lượng thành phẩm: python3 qa.py <thanh-pham.mp4> [--every 3] [--out qa/]
+1) Cứ N giây lấy một khung ghép thành bảng contact sheet qa/sheet.jpg (xem từng ảnh: chữ tràn, đè phụ đề, màn hình trống, chữ loạn mã trong ảnh minh họa)
+2) Vision OCR đọc lại từng dòng chữ trên màn hình → qa/ocr.txt (đối chiếu facts.md để kiểm tra con số, trích dẫn, nguồn)
+3) Âm lượng: LUFS tổng thể / đỉnh thực (mục tiêu ≈ −14,5 LUFS, ≤ −1 dBTP)
+5) Kiểm tra BGM (bắt buộc): lấy tương quan giữa phần đầu thành phẩm và phần đầu bản gốc vibe-bgm (phần đầu của fit_bgm giữ theo bản gốc), <0.12 thì coi là không có BGM; nếu cùng thư mục có bgm.json thì báo luôn tỷ lệ giọng người
+4) Phát hiện đóng băng: hình ảnh gần như không đổi liên tục >3 giây thì cảnh báo (vi phạm "tĩnh tối đa ≤3 giây"; cả đoạn mấy chục giây không đổi = quay hỏng, ví dụ hai luồng quay ghi hỏng cùng một picture.mp4, phải quay lại)"""
 import re, subprocess, sys
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
@@ -41,14 +41,14 @@ fz = subprocess.run(["ffmpeg", "-nostats", "-i", str(src), "-an", "-vf", "fps=10
 starts = [float(x) for x in re.findall(r"freeze_start: ([\d.]+)", fz)]; durs = [float(x) for x in re.findall(r"freeze_duration: ([\d.]+)", fz)]
 if len(durs) < len(starts): durs.append(float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(src)], capture_output=True, text=True).stdout) - starts[-1])
 frozen = [(a, d) for a, d in zip(starts, durs)]
-(out / "freeze.txt").write_text("\n".join(f"{int(a // 60)}:{a % 60:04.1f}  静止 {d:.1f} 秒" for a, d in frozen), encoding="utf-8")
-print(f"→ {out/'sheet.jpg'}  {len(fs)} 帧\n→ {out/'ocr.txt'}  {len(lines)} 行\n响度 {I[-1] if I else '?'} LUFS  真峰值 {P[-1] if P else '?'} dBTP")
+(out / "freeze.txt").write_text("\n".join(f"{int(a // 60)}:{a % 60:04.1f}  tĩnh {d:.1f} giây" for a, d in frozen), encoding="utf-8")
+print(f"→ {out/'sheet.jpg'}  {len(fs)} khung\n→ {out/'ocr.txt'}  {len(lines)} dòng\nÂm lượng {I[-1] if I else '?'} LUFS  đỉnh thực {P[-1] if P else '?'} dBTP")
 if frozen:
-    print(f"⚠ 静止画面 {len(frozen)} 段（>3 秒）→ {out/'freeze.txt'}：" + "，".join(f"{int(a // 60)}:{a % 60:04.1f} 起 {d:.1f}s" for a, d in frozen[:6]))
-    if any(d > 10 for a, d in frozen): print("⚠⚠ 有超过 10 秒的冻结，多半是录制出事（并行录制 / 页面卡死），重录后再交付")
+    print(f"⚠ Hình ảnh tĩnh {len(frozen)} đoạn (>3 giây) → {out/'freeze.txt'}: " + ", ".join(f"từ {int(a // 60)}:{a % 60:04.1f} dài {d:.1f}s" for a, d in frozen[:6]))
+    if any(d > 10 for a, d in frozen): print("⚠⚠ Có đoạn đóng băng hơn 10 giây, phần lớn là quay hỏng (quay song song / trang bị treo), hãy quay lại rồi mới giao")
 else:
-    print("静止检测：没有超过 3 秒的静止画面")
-# ── BGM 强制检查 ──
+    print("Kiểm tra tĩnh: không có hình ảnh tĩnh quá 3 giây")
+# ── Kiểm tra BGM bắt buộc ──
 import numpy as np
 def _pcm(f, t, sr=4000):
     b = subprocess.run(["ffmpeg", "-v", "error", "-t", str(t), "-i", str(f), "-ac", "1", "-ar", str(sr), "-f", "f32le", "-"], capture_output=True).stdout
@@ -63,11 +63,11 @@ bj = src.parent / "bgm.json"
 extra = ""
 if bj.exists():
     import json as _j; r = _j.loads(bj.read_text(encoding="utf-8"))
-    if r.get("voice_gap_db") is not None: extra = f"；说话时人声比 BGM 高 {r['voice_gap_db']} dB，停顿处 {r.get('gap_in_pauses_db')} dB" + ("（自动补的 BGM）" if r.get("auto") else "")
+    if r.get("voice_gap_db") is not None: extra = f"; khi nói giọng người cao hơn BGM {r['voice_gap_db']} dB, ở chỗ ngắt {r.get('gap_in_pauses_db')} dB" + (" (BGM tự động bổ sung)" if r.get("auto") else "")
 user_bgm = r.get("user_bgm") if bj.exists() else None
 if user_bgm:
-    print(f"BGM：用户要求更换为 {user_bgm[0]}（{user_bgm[1]}）{extra}")
+    print(f"BGM: người dùng yêu cầu đổi thành {user_bgm[0]} ({user_bgm[1]}){extra}")
 elif best >= 0.12:
-    print(f"BGM：有 vibe-bgm（相关 {best:.2f}，从 {lag:.2f}s 起）{extra}")
+    print(f"BGM: có vibe-bgm (tương quan {best:.2f}, từ {lag:.2f}s){extra}")
 else:
-    print(f"⚠⚠ BGM：没检测到 vibe-bgm（相关 {best:.2f}）。除非用户要求换曲，知识大赏每条都必须有：确认 finish.py 已打强制钩子（bgm_force.py --patch），重跑 finish.py + deliver.sh")
+    print(f"⚠⚠ BGM: không phát hiện vibe-bgm (tương quan {best:.2f}). Trừ khi người dùng yêu cầu đổi bài, mỗi phim của Vibe Knowledge đều bắt buộc có: xác nhận finish.py đã gắn hook bắt buộc (bgm_force.py --patch), chạy lại finish.py + deliver.sh")

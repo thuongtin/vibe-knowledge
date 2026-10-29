@@ -1,26 +1,26 @@
-# 手账涂鸦 · BULLET JOURNAL
+# Sổ tay vẽ nguệch ngoạc · BULLET JOURNAL
 
-> 家族：明亮流行　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles5_film.js → journal()`
+> Họ: Tươi sáng thịnh hành | Mức: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles5_film.js → journal()`
 
-**一句话**：点阵纸上和纸胶带、马克笔一笔笔画、荧光笔划重点、便利贴拍上去、圆珠笔吐槽。
+**Một câu**: trên giấy chấm bi, băng dính washi, bút lông vẽ từng nét, bút dạ quang gạch ý chính, giấy nhớ dán lên, bút bi buông lời châm chọc.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 像朋友摊开手账给你讲：边画边贴，轻松可爱但信息清楚。 |
-| 材质 / 画法 | 米白点阵纸；斜纹和纸胶带（粉 / 薄荷 / 黄）；马克笔涂鸦 SVG；荧光笔斜块；便利贴（黄 / 粉，带一截透明胶）；圆珠笔蓝字。 |
-| 配色逻辑 | 纸 #FBF8F1 · 墨 #2B2B2B · 荧光黄 · 便利贴黄 #FFE873 / 粉 #FFB3C7 · 圆珠笔蓝 #2D5BD8 · 星星金 |
-| 字体 | 楷体（手写感） |
-| 动态 | 胶带从左往右「贴」上；荧光笔划出；涂鸦逐笔画；便利贴弹性拍上；圆珠笔字左到右写出。 |
-| 镜头语法 | 锁定（俯拍桌面）。 |
-| 声音 | 笔尖沙沙、撕胶带、便利贴拍；轻快 Lo-fi。 |
-| 标志镜头 | 黄便利贴「赏 10 金」，圆珠笔吐槽「没人动 ??」，粉便利贴「50 金!!!」配一颗星。 |
+| Ý đồ đạo diễn | Như người bạn mở sổ tay ra kể cho bạn: vừa vẽ vừa dán, nhẹ nhàng dễ thương nhưng thông tin rõ ràng. |
+| Chất liệu / Cách vẽ | Giấy chấm bi trắng ngà; băng dính washi kẻ chéo (hồng / bạc hà / vàng); SVG nguệch ngoạc bút lông; khối chéo bút dạ quang; giấy nhớ (vàng / hồng, kèm một đoạn băng trong); chữ xanh bút bi. |
+| Logic màu | Giấy #FBF8F1 · mực #2B2B2B · vàng dạ quang · vàng giấy nhớ #FFE873 / hồng #FFB3C7 · xanh bút bi #2D5BD8 · vàng ngôi sao |
+| Phông chữ | Kai (Khải thể, cảm giác viết tay) |
+| Chuyển động | Băng dính "dán" từ trái sang phải; bút dạ quang vạch ra; nét nguệch ngoạc vẽ từng nét; giấy nhớ đập lên đàn hồi; chữ bút bi viết ra từ trái sang phải. |
+| Ngữ pháp ống kính | Cố định (quay từ trên xuống mặt bàn). |
+| Âm thanh | Ngòi bút sột soạt, xé băng dính, giấy nhớ đập; Lo-fi nhẹ nhàng. |
+| Cảnh đặc trưng | Giấy nhớ vàng "Thưởng 10 vàng", bút bi châm chọc "Không ai động ??", giấy nhớ hồng "50 vàng!!!" kèm một ngôi sao. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换胶带花色、换便利贴颜色
-- **一改就变味**：字用印刷体（失去手写感）
-- **不能改**：去掉点阵纸
+## Có thể sửa đến mức nào (dùng khi chuyển thành "phong cách của tôi")
+- **Sửa thoải mái**: đổi hoạ tiết băng dính, đổi màu giấy nhớ
+- **Sửa là mất chất**: dùng chữ in (mất cảm giác viết tay)
+- **Không được sửa**: bỏ giấy chấm bi
 
-## 搭配
-- 适合母版：闯关 E、痛点原理 C
-- 不适合：沉重历史、灾难
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Mẫu gốc phù hợp: vượt ải E, nguyên lý điểm đau C
+- Không phù hợp: lịch sử nặng nề, thảm hoạ
+- Tiền tố Renoise của mức nâng cao: `(mức cơ bản không cần)`

@@ -1,5 +1,5 @@
-"""cine 工具共用：找无头浏览器（Metal 出图）。
-CINE_CHROME 环境变量优先；否则用 Playwright 缓存里最新的 chromium_headless_shell；都没有就交给 Playwright 默认。"""
+"""Dùng chung cho công cụ cine: tìm trình duyệt headless (xuất hình bằng Metal).
+Biến môi trường CINE_CHROME được ưu tiên; nếu không thì dùng chromium_headless_shell mới nhất trong bộ nhớ đệm Playwright; không có cái nào thì giao cho mặc định của Playwright."""
 import os
 from pathlib import Path
 

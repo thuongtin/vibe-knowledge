@@ -1,26 +1,26 @@
-# 黏土卡哇伊 · CLAY KAWAII
+# Đất sét Kawaii · CLAY KAWAII
 
-> 家族：明亮流行　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles9_film.js → clay()`
+> Họ: Tươi sáng đại chúng | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles9_film.js → clay()`
 
-**一句话**：粉色奶油底，黏土城门和豆豆村民都有小脸，出场挤压回弹，「没人动」豆豆发抖冒汗，五十金大黏土金币砸下来。
+**Một câu**: Nền kem hồng, cổng thành đất sét và dân làng hạt đậu đều có khuôn mặt nhỏ, xuất hiện thì bị ép rồi bật lại, khi "không ai nhúc nhích" hạt đậu run rẩy toát mồ hôi, đồng xu đất sét khổng lồ năm mươi lạng vàng đập xuống.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 软萌黏土动画：所有东西都是捏出来的、有小脸的，一出场就 Q 弹一下。 |
-| 材质 / 画法 | DOM 圆角块 + 内阴影（左下暗、右上亮）+ 底部硬投影模拟黏土；小脸（豆豆眼 + 腮红 + 小嘴）；气泡字；黏土金币；飘落爱心。 |
-| 配色逻辑 | 底 #FFD9E6 · 粉 #FFC2D4 · 薄荷 #9EE6D0 · 黄 #FFE08A · 紫 #C9B6FF · 蓝 #B9E3FF · 字 #3B2430 / #E05A8A |
-| 字体 | Geist / PingFang 900 圆润气泡字 |
-| 动态 | 出场挤压回弹（squash：scaleX/scaleY 反向阻尼振荡 0.12 秒起）；「没人动」左右抖 + 汗滴下落；高潮金币从天上砸下再回弹，爱心飘落。 |
-| 镜头语法 | 锁定。 |
-| 声音 | 啵啵、弹簧、木琴；可爱 BGM。 |
-| 标志镜头 | 大黏土金币「50」从天上砸下，落地挤扁再弹起。 |
+| Ý đồ đạo diễn | Hoạt hình đất sét mềm mại dễ thương: mọi thứ đều nặn ra, có khuôn mặt nhỏ, vừa xuất hiện đã nảy tưng một cái. |
+| Chất liệu / Cách vẽ | Khối bo góc DOM + bóng trong (dưới trái tối, trên phải sáng) + bóng đổ cứng ở đáy mô phỏng đất sét; khuôn mặt nhỏ (mắt hạt đậu + má hồng + miệng nhỏ); chữ bong bóng; đồng xu đất sét; trái tim rơi bay. |
+| Logic phối màu | Nền #FFD9E6 · hồng #FFC2D4 · bạc hà #9EE6D0 · vàng #FFE08A · tím #C9B6FF · xanh #B9E3FF · chữ #3B2430 / #E05A8A |
+| Phông chữ | Geist / PingFang 900 chữ bong bóng tròn trịa |
+| Chuyển động | Xuất hiện bị ép rồi bật lại (squash: scaleX/scaleY dao động tắt dần ngược pha, bắt đầu từ 0,12 giây); "không ai nhúc nhích" thì rung trái phải + giọt mồ hôi rơi; cao trào đồng xu từ trên trời đập xuống rồi nảy lại, trái tim bay xuống. |
+| Ngữ pháp máy quay | Cố định. |
+| Âm thanh | Bốp bốp, lò xo, mộc cầm; BGM dễ thương. |
+| Cảnh đặc trưng | Đồng xu đất sét lớn "50" từ trên trời đập xuống, chạm đất bị ép bẹp rồi nảy lên. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换配色、换角色形状
-- **一改就变味**：用硬边阴影或写实质感
-- **不能改**：去掉小脸和回弹
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi phối màu, đổi hình dạng nhân vật
+- **Sửa là mất chất**: dùng bóng cạnh cứng hoặc chất liệu chân thực
+- **Không được sửa**: bỏ khuôn mặt nhỏ và độ nảy
 
-## 搭配
-- 适合母版：痛点原理 C、六面轮转 F
-- 不适合：严肃历史、灾难
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Bản gốc phù hợp: nguyên lý điểm đau C, luân chuyển sáu mặt F
+- Không phù hợp: lịch sử nghiêm túc, thảm họa
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

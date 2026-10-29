@@ -1,13 +1,13 @@
 /**
- * Timeline 时间线：轴线从左往右画出，事件按时刻依次落点：圆点弹出，上方图片卡或图标，下方年份与标题打字。
- * 进度线跟着最新的事件走；之前的事件略微变淡。镜头不动。以原点为轴线中点。
+ * Timeline (dòng thời gian): trục được vẽ từ trái sang phải, các sự kiện lần lượt rơi xuống theo thời điểm: chấm tròn bật ra, phía trên là thẻ ảnh hoặc icon, phía dưới là năm và tiêu đề được gõ ra.
+ * Đường tiến độ chạy theo sự kiện mới nhất; các sự kiện trước đó mờ đi một chút. Ống kính đứng yên. Lấy gốc toạ độ làm điểm giữa của trục.
  *
  * params
- *   w                 轴长（默认 1560）
- *   events [{year, title, sub, icon, img, pos, zoom, credit, color, at}]   pos/zoom：图片裁切焦点与放大倍数
- *   at, out           轴线画出、退场
- *   card {w, h}       图片卡尺寸（默认 270×190）
- *   heading {text, at, x, y}   标题（可选，相对原点）
+ *   w                 chiều dài trục (mặc định 1560)
+ *   events [{year, title, sub, icon, img, pos, zoom, credit, color, at}]   pos/zoom: tiêu điểm cắt ảnh và hệ số phóng đại
+ *   at, out           vẽ trục, rút ra
+ *   card {w, h}       kích thước thẻ ảnh (mặc định 270×190)
+ *   heading {text, at, x, y}   tiêu đề (tuỳ chọn, tương đối so với gốc toạ độ)
  */
 import { h, s, setStyle, setAttr } from "../runtime/dom.js";
 import { appear, hz, track, UI } from "../runtime/spring.js";

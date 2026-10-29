@@ -1,8 +1,8 @@
-// 宣传片实战课 · 第 8 节（最后一节）：质检、交付与改版。
-// 开场：先打出那一句话，再完整放一遍真实会话交出的 30 秒成片（带原声），课名砸下。配乐 Motivating Mornings（pick_music.py --hit-at 0.6，120.35 BPM，loopbed 接长），主段落对到课名。
-// 真实会话：promo/session/turn2.json（样帧自审 4 处）、turn4.json（规格、限幅、静止核对）、turn5.json（改钩子）、usage.json（全程用量）；改前成片 promo/session/film_v1.mp4。
-// 事实出处：design-principles.md「交付前的大师审片」「5. 声音」；SKILL.md「渲染约束」（contact_sheet.py 别用 ffmpeg -r 1）；compliance.md；music.md「混音规则」；style-router.md「口碑记录」；
-// 改版故事见 examples/promo-course/research/cases.md 与 memory（BeeGer、小互、CelHive、整段抖）；鱼总颗粒压缩见 memory yuzong-promo-film。
+// Khoá thực chiến video quảng bá · Bài 8 (bài cuối): kiểm định chất lượng, bàn giao và sửa bản.
+// Mở đầu: gõ ra câu lệnh đó trước, rồi phát trọn vẹn một lần thành phẩm 30 giây do phiên làm việc thật giao ra (kèm âm thanh gốc), sau đó tên bài đập xuống. Nhạc nền Motivating Mornings (pick_music.py --hit-at 0.6, 120.35 BPM, loopbed nối dài), đoạn chính căn đúng vào tên bài.
+// Phiên làm việc thật: promo/session/turn2.json (tự duyệt khung mẫu phát hiện 4 chỗ), turn4.json (thông số, giới hạn biên độ, đối chiếu tĩnh), turn5.json (sửa câu mở), usage.json (mức sử dụng cả quá trình); thành phẩm trước khi sửa promo/session/film_v1.mp4.
+// Nguồn sự kiện: design-principles.md "Duyệt phim của bậc thầy trước khi bàn giao" "5. Âm thanh"; SKILL.md "Ràng buộc render" (contact_sheet.py đừng dùng ffmpeg -r 1); compliance.md; music.md "Quy tắc phối âm"; style-router.md "Ghi nhận phản hồi";
+// Câu chuyện sửa bản xem examples/promo-course/research/cases.md và memory (BeeGer, 小互, CelHive, rung cả đoạn); nén hạt nhiễu của 鱼总 xem memory yuzong-promo-film.
 import { clamp, lerp, inv, eOutCubic, eOutQuint, eInCubic, spring, el, css } from "../../cine/engine/util.js";
 import { C, appear, slam, typeText, sourceTag, pauseCard, recapMap, clipBox, codeCard } from "../../cine/engine/ui.js";
 import { Particles, F } from "../../cine/engine/scenes/particles.js";
@@ -11,7 +11,7 @@ const A = "../lessons/p08/assets/";
 const D = "/Users/you/Desktop/";
 const FILM0 = 1.9, TITLE = 32.3;
 export const COLD = 34.6;
-export const meta = { title: "质检、交付与改版", n: 8 };
+export const meta = { title: "Kiểm định chất lượng, bàn giao và sửa bản", n: 8 };
 export let hits = [], blur = [], clips = [], music = [];
 export const sfx = [], sections = [];
 
@@ -20,10 +20,10 @@ const SRC = {
   bf: "beeger-promo/out/beeger-fast-hq.mp4", xh: "xiaohu-promo/out/xiaohu-hq-v2.mp4", ch: "celhive-promo/CelHive宣传片-2K.mp4",
   br: "brewreel-promo/BrewReel宣传片-2K.mp4", yz: "yuzong-promo/out/yuzong-2k-hq.mp4",
 };
-const ASK = "用 promo-video 给圈问做一支 30 秒宣传片，官网 http://127.0.0.1:8930。";
-const CLIENTS = ["WorkBuddy", "HiAPI", "YouWare", "Renoise", "ListenHub", "BeeGer", "WaytoAGI", "DockLock", "造物矩阵", "小互", "精酿 BrewReel", "CelHive",
+const ASK = "Dùng promo-video làm cho 圈问 một video quảng bá 30 giây, trang chủ http://127.0.0.1:8930.";
+const CLIENTS = ["WorkBuddy", "HiAPI", "YouWare", "Renoise", "ListenHub", "BeeGer", "WaytoAGI", "DockLock", "造物矩阵", "小互", "BrewReel (bia thủ công)", "CelHive",
   "VibeCafé × Vibe42", "鱼总聊AI", "知行猿", "大猫剪辑", "奈雪", "黄但记1927", "TOKEI", "STILLWATER"];
-const LESSONS = ["一支宣传片的骨架", "从官网拿素材", "选型卡：四层只选一次", "分镜和节拍", "动效层：特效长在产品上", "镜头与设备", "声音：配乐、音效、旁白", "质检、交付与改版"];
+const LESSONS = ["Bộ khung của một video quảng bá", "Lấy tư liệu từ trang chủ", "Thẻ chọn kiểu: bốn lớp chỉ chọn một lần", "Phân cảnh và nhịp", "Lớp hiệu ứng: hiệu ứng mọc ngay trên sản phẩm", "Ống kính và thiết bị", "Âm thanh: nhạc nền, hiệu ứng, lời dẫn", "Kiểm định chất lượng, bàn giao và sửa bản"];
 
 export async function build(ctx) {
   const N = ctx.narr, T = (s) => N.t(s);
@@ -47,16 +47,16 @@ export async function build(ctx) {
   sections.push({ t: 0, t_to: END + 0.6, level: 0, name: "library-music" });
   hits = [TITLE];
 
-  // ── 冷开场：一句话 → 完整成片（原声）→ 课名
+  // ── Mở đầu lạnh: một câu lệnh → thành phẩm trọn vẹn (âm thanh gốc) → tên bài
   clip("film", "qw", 0, FILM0, 30.0, { x: 0, y: 0, w: 1920, h: 1080 }, { fade: 0, audio: "full", gain: -1 });
   add(0, COLD, (root) => {
     const s = el(root, "shot");
     const box = el(s, "abs", "left:50%;top:478px;transform:translateX(-50%);height:96px;border-radius:48px;background:rgba(16,15,20,0.92);border:1px solid rgba(255,255,255,0.14);display:flex;align-items:center;gap:18px;padding:0 40px 0 22px;white-space:nowrap;box-shadow:0 30px 80px rgba(0,0,0,0.6);");
-    el(box, "mono", `font-size:22px;color:#111;background:${C.orange};border-radius:16px;padding:4px 14px;font-weight:700;`, "一句话");
+    el(box, "mono", `font-size:22px;color:#111;background:${C.orange};border-radius:16px;padding:4px 14px;font-weight:700;`, "Một câu lệnh");
     const tx = el(box, "cn", "font-size:36px;font-weight:600;color:#f6f2ea;");
-    const kick = el(s, "abs mono", `left:0;width:1920px;top:356px;text-align:center;font-size:24px;letter-spacing:10px;color:${C.dim};`, "OPUS 5.5 宣传片实战课 · 第 8 节 · 最后一节");
-    const ttl = el(s, "abs cn", `left:0;width:1920px;top:400px;text-align:center;font-size:120px;line-height:150px;font-weight:900;color:${C.ivory};letter-spacing:8px;`, `质检、交付与<span style="color:${C.orange}">改版</span>`);
-    const sub = el(s, "abs cn", "left:0;width:1920px;top:580px;text-align:center;font-size:38px;font-weight:600;color:#d9d3c7;letter-spacing:4px;", "一句话进去，30 秒成片出来");
+    const kick = el(s, "abs mono", `left:0;width:1920px;top:356px;text-align:center;font-size:24px;letter-spacing:10px;color:${C.dim};`, "OPUS 5.5 Khoá thực chiến video quảng bá · Bài 8 · Bài cuối");
+    const ttl = el(s, "abs cn", `left:0;width:1920px;top:400px;text-align:center;font-size:120px;line-height:150px;font-weight:900;color:${C.ivory};letter-spacing:8px;`, `Kiểm định, bàn giao và <span style="color:${C.orange}">sửa bản</span>`);
+    const sub = el(s, "abs cn", "left:0;width:1920px;top:580px;text-align:center;font-size:38px;font-weight:600;color:#d9d3c7;letter-spacing:4px;", "Vào một câu lệnh, ra thành phẩm 30 giây");
     return { s, box, tx, kick, ttl, sub };
   }, (t, u) => {
     dust(t, { bright: 0.12 });
@@ -69,22 +69,22 @@ export async function build(ctx) {
   cue(FILM0 - 0.08, "key", { enter: true });
   cue(TITLE, "impact");
 
-  // ── B01：五轮、十六分钟
-  const ROUNDS = [["1", "一句话", 44], ["2", "样帧", 452], ["3", "出成片", 53], ["4", "前台重渲", 169], ["5", "改钩子", 243]];
+  // ── B01: năm vòng, mười sáu phút
+  const ROUNDS = [["1", "Một câu lệnh", 44], ["2", "Khung mẫu", 452], ["3", "Ra thành phẩm", 53], ["4", "Render lại ở tiền cảnh", 169], ["5", "Sửa câu mở", 243]];
   add(COLD, T("B02"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `从一句话到成片：<span style="color:${C.teal}">五轮 · 十六分钟</span>`);
+    const h = title(s, `Từ một câu lệnh đến thành phẩm: <span style="color:${C.teal}">năm vòng · mười sáu phút</span>`);
     const tot = ROUNDS.reduce((a, r) => a + r[2], 0), W = 1500;
     let x = 210;
     const segs = ROUNDS.map(([n, w, sec], i) => {
       const ww = Math.max(70, (sec / tot) * W);
       const c = el(s, "abs", `left:${x}px;top:420px;width:${ww - 8}px;height:120px;border-radius:16px;background:${i % 2 ? "rgba(63,224,208,0.22)" : "rgba(255,122,61,0.22)"};border:1.5px solid ${i % 2 ? "rgba(63,224,208,0.6)" : "rgba(255,122,61,0.6)"};`,
         `<div style="position:absolute;left:14px;top:12px;font-family:Geist;font-weight:800;font-size:30px;color:${C.ivory};">${n}</div><div class="cn" style="position:absolute;left:14px;top:60px;font-size:22px;color:#d9d3c7;white-space:nowrap;">${ww > 160 ? w : ""}</div>`);
-      const lab = el(s, "abs mono", `left:${x}px;top:556px;width:${ww}px;font-size:20px;color:#8d8993;white-space:nowrap;`, sec >= 60 ? `${(sec / 60).toFixed(1)} 分` : `${sec} 秒`);
+      const lab = el(s, "abs mono", `left:${x}px;top:556px;width:${ww}px;font-size:20px;color:#8d8993;white-space:nowrap;`, sec >= 60 ? `${(sec / 60).toFixed(1)} phút` : `${sec} giây`);
       x += ww;
       return { c, lab };
     });
-    const tail = el(s, "abs cn", "left:210px;top:640px;font-size:30px;color:#bdb6aa;white-space:nowrap;", "它干活的时间加起来约 16 分钟 · 中间是我们看片、回话的时间");
+    const tail = el(s, "abs cn", "left:210px;top:640px;font-size:30px;color:#bdb6aa;white-space:nowrap;", "Tổng thời gian nó làm việc khoảng 16 phút · khoảng giữa là lúc chúng ta xem phim và trả lời");
     return { s, h, segs, tail };
   }, (t, u) => {
     dust(t);
@@ -94,11 +94,11 @@ export async function build(ctx) {
   });
   ROUNDS.forEach((_, i) => cue(T("B01.road") + i * 0.22, "card", { note_index: i }));
 
-  // ── B02：三件事
-  const THREE = [["① 审片", "交付前一条条过", "B02.t1", C.orange], ["② 合规与交付", "声明 · 规格 · 响度", "B02.t2", C.teal], ["③ 改版", "怎么改，怎么记", "B02.t3", C.ivory]];
+  // ── B02: ba việc
+  const THREE = [["① Duyệt phim", "Trước khi bàn giao duyệt từng mục một", "B02.t1", C.orange], ["② Tuân thủ và bàn giao", "Tuyên bố · thông số · độ lớn âm", "B02.t2", C.teal], ["③ Sửa bản", "Sửa thế nào, ghi nhớ thế nào", "B02.t3", C.ivory]];
   add(T("B02"), T("B03"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, "这一节讲三件事", 120);
+    const h = title(s, "Bài này nói ba việc", 120);
     const cards = THREE.map(([a, b, at, col], i) => ({ c: card(s, 110 + i * 580, 330, 540, 300, `<div class="cn" style="position:absolute;left:36px;top:40px;font-size:50px;font-weight:900;color:${col};white-space:nowrap;">${a}</div><div class="cn" style="position:absolute;left:36px;top:130px;width:470px;font-size:32px;line-height:46px;color:#bdb6aa;">${b}</div>`), at }));
     return { s, h, cards };
   }, (t, u) => {
@@ -108,19 +108,19 @@ export async function build(ctx) {
   });
   THREE.forEach(([, , at]) => cue(T(at), "slam"));
 
-  // ── B03：大师审片清单
-  const CHECK = [["任意一帧都能当海报", "无溢出、无截断、四边留白够"], ["每帧只有一个焦点", "强调色不超过两处"], ["运动有理由，到位就停", "没有线性位移、没有无意义的漂移"],
-    ["切点落在拍子上", "段落之间有快慢呼吸"], ["每个动作都有声音", "响度检查通过"], ["最后一帧静稳", "停留 ≥ 2 秒"]];
+  // ── B03: danh sách duyệt phim của bậc thầy
+  const CHECK = [["Khung hình nào cũng dùng làm poster được", "Không tràn, không bị cắt, bốn cạnh chừa trắng đủ"], ["Mỗi khung chỉ có một tiêu điểm", "Màu nhấn không quá hai chỗ"], ["Chuyển động có lý do, tới nơi là dừng", "Không dịch chuyển tuyến tính, không trôi vô nghĩa"],
+    ["Điểm cắt rơi đúng nhịp", "Giữa các đoạn có nhịp thở nhanh chậm"], ["Mỗi động tác đều có âm thanh", "Kiểm tra độ lớn âm đạt"], ["Khung cuối ổn định", "Dừng ≥ 2 giây"]];
   add(T("B03"), T("B04"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `交付前：<span style="color:${C.orange}">大师审片</span>清单`);
+    const h = title(s, `Trước khi bàn giao: danh sách <span style="color:${C.orange}">duyệt phim của bậc thầy</span>`);
     const rows = CHECK.map(([a, b], i) => {
       const x = 110 + (i % 2) * 860, y = 230 + Math.floor(i / 2) * 210;
       const c = card(s, x, y, 820, 180, `<div class="cn" style="position:absolute;left:96px;top:34px;font-size:40px;font-weight:900;color:${C.ivory};white-space:nowrap;">${a}</div><div class="cn" style="position:absolute;left:96px;top:100px;font-size:26px;color:#9b96a0;white-space:nowrap;">${b}</div>`);
       const tick = el(c, "abs", `left:28px;top:56px;width:48px;height:48px;border-radius:24px;background:${C.teal};color:#111;font-size:32px;font-weight:900;text-align:center;line-height:48px;`, "✓");
       return { c, tick };
     });
-    const src = sourceTag(s, "来源：promo-video skill · design-principles.md「6. 交付前的大师审片」（节选 6 条，全表 10 条）");
+    const src = sourceTag(s, "Nguồn: promo-video skill · design-principles.md \"6. Duyệt phim của bậc thầy trước khi bàn giao\" (trích 6 mục, bảng đầy đủ 10 mục)");
     return { s, h, rows, src };
   }, (t, u) => {
     dust(t);
@@ -129,15 +129,15 @@ export async function build(ctx) {
   });
   CHECK.forEach((_, i) => cue(T(`B03.c${i + 1}`) + 0.3, "tick"));
 
-  // ── B04：按真实时间取帧
+  // ── B04: lấy khung hình theo thời gian thực
   add(T("B04"), T("B05"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `抽帧：<span style="color:${C.teal}">按真实时间</span>取`);
-    const bad = codeCard(s, { x: 110, y: 260, w: 820, h: 220, file: "✗ 每秒一帧", size: 26, lh: 44, lines: ["<c># 取出来的帧会偏移好几秒</c>", "<k>$</k> ffmpeg -i film.mp4 -r 1 f_%02d.png"] });
-    const good = codeCard(s, { x: 990, y: 260, w: 820, h: 220, file: "✓ skill 自带的接触表脚本", size: 26, lh: 44, lines: ["<c># 按真实时间精确取帧、拼成一张图</c>", "<k>$</k> python3 contact_sheet.py film.mp4"] });
+    const h = title(s, `Trích khung hình: lấy <span style="color:${C.teal}">theo thời gian thực</span>`);
+    const bad = codeCard(s, { x: 110, y: 260, w: 820, h: 220, file: "✗ Mỗi giây một khung", size: 26, lh: 44, lines: ["<c># Khung hình lấy ra sẽ lệch vài giây</c>", "<k>$</k> ffmpeg -i film.mp4 -r 1 f_%02d.png"] });
+    const good = codeCard(s, { x: 990, y: 260, w: 820, h: 220, file: "✓ Script contact sheet đi kèm skill", size: 26, lh: 44, lines: ["<c># Lấy khung hình chính xác theo thời gian thực, ghép thành một tấm ảnh</c>", "<k>$</k> python3 contact_sheet.py film.mp4"] });
     const x1 = el(s, "abs", `left:110px;top:500px;width:820px;text-align:center;font-size:120px;font-weight:900;color:${C.red};`, "✗");
     const x2 = el(s, "abs", `left:990px;top:500px;width:820px;text-align:center;font-size:120px;font-weight:900;color:${C.teal};`, "✓");
-    const src = sourceTag(s, "来源：SKILL.md「渲染约束」：contact_sheet.py 按真实时间精确取帧，不要用 ffmpeg -r 1，会偏移几秒");
+    const src = sourceTag(s, "Nguồn: SKILL.md \"Ràng buộc render\": contact_sheet.py lấy khung hình chính xác theo thời gian thực, đừng dùng ffmpeg -r 1, sẽ lệch vài giây");
     return { s, h, bad, good, x1, x2, src };
   }, (t, u) => {
     dust(t);
@@ -147,15 +147,15 @@ export async function build(ctx) {
   });
   cue(T("B04.warn") + 0.6, "error"); cue(T("B04.ok") + 0.4, "chime");
 
-  // ── B05：它自己审样帧（第 2 轮）
-  const ISSUES = ["开场的窗口偏上", "翻译段、报错段的圈被窗口边裁掉", "译文卡片没完全盖住原文", "第二步的图标太像对话气泡"];
+  // ── B05: nó tự duyệt khung mẫu (vòng 2)
+  const ISSUES = ["Cửa sổ ở phần mở đầu bị lệch lên trên", "Vòng khoanh ở đoạn dịch, đoạn báo lỗi bị mép cửa sổ cắt mất", "Thẻ bản dịch chưa che hết nguyên văn", "Icon của bước hai trông quá giống bóng thoại"];
   add(T("B05"), T("B06"), (root) => {
     const s = el(root, "shot");
     const img = el(s, "abs", `left:110px;top:150px;width:675px;height:760px;border-radius:12px;background:#0a0d14 url(${A}samples_round2.png) center/contain no-repeat;box-shadow:0 0 0 1.5px rgba(255,255,255,0.14),0 30px 80px rgba(0,0,0,0.6);`);
-    const cap = el(s, "abs mono", "left:820px;top:150px;font-size:20px;color:#8d8993;white-space:nowrap;", "真实会话第 2 轮 · 它渲的 8 张样帧（原图）");
-    const h = el(s, "abs cn", `left:820px;top:196px;font-size:48px;font-weight:900;color:${C.ivory};white-space:nowrap;`, `它自己挑出的 <span style="color:${C.orange}">4 个问题</span>`);
+    const cap = el(s, "abs mono", "left:820px;top:150px;font-size:20px;color:#8d8993;white-space:nowrap;", "Vòng 2 của phiên làm việc thật · 8 khung mẫu nó đã render (ảnh gốc)");
+    const h = el(s, "abs cn", `left:820px;top:196px;font-size:48px;font-weight:900;color:${C.ivory};white-space:nowrap;`, `<span style="color:${C.orange}">4 vấn đề</span> nó tự chọn ra`);
     const rows = ISSUES.map((w, i) => card(s, 820, 300 + i * 132, 990, 112, `<div style="position:absolute;left:28px;top:30px;font-family:Geist;font-weight:800;font-size:40px;color:${C.orange};">0${i + 1}</div><div class="cn" style="position:absolute;left:110px;top:34px;font-size:34px;font-weight:800;color:#f2ece2;white-space:nowrap;">${w}</div>`));
-    const fix = el(s, "abs cn", `left:820px;top:842px;font-size:30px;font-weight:800;color:${C.teal};white-space:nowrap;`, "改完，才拿给我们看");
+    const fix = el(s, "abs cn", `left:820px;top:842px;font-size:30px;font-weight:800;color:${C.teal};white-space:nowrap;`, "Sửa xong mới đưa chúng ta xem");
     return { s, img, cap, h, rows, fix };
   }, (t, u) => {
     dust(t, { bright: 0.1 });
@@ -165,16 +165,16 @@ export async function build(ctx) {
   });
   [1, 2, 3, 4].forEach((i) => cue(T(`B05.i${i}`), "blip"));
 
-  // ── B06：逐像素核对静止
+  // ── B06: đối chiếu từng điểm ảnh xem có đứng yên không
   const HB = { x: 110, y: 230, w: 960, h: 540 };
   clip("hold", "qw", 27.6, T("B06.hold") + 0.1, T("B07") - 0.05 - T("B06.hold") - 0.1, HB, { seg: 2.4 });
   add(T("B06"), T("B07"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `结尾真的静止了吗？<span style="color:${C.teal}">逐像素比</span>`);
-    const box = clipBox(s, { ...HB, poster: P("hold"), label: "圈问成片 27.6–30.0 秒", sub: " · 第 828–899 帧" });
-    const z = card(s, 1120, 230, 690, 250, `<div class="cn" style="position:absolute;left:32px;top:28px;font-size:28px;color:#9b96a0;">第 828 帧 → 最后一帧</div><div style="position:absolute;left:32px;top:80px;font-family:Geist;font-weight:800;font-size:96px;line-height:110px;color:${C.teal};">差值 0</div><div class="cn" style="position:absolute;left:34px;top:196px;font-size:28px;color:#d9d3c7;">静止 2.4 秒</div>`, "rgba(63,224,208,0.5)");
-    const ifr = card(s, 1120, 520, 690, 250, `<div class="cn" style="position:absolute;left:32px;top:28px;font-size:28px;color:#9b96a0;">29.63 秒那一帧有细小跳变</div><div class="cn" style="position:absolute;left:32px;top:84px;width:630px;font-size:34px;line-height:50px;font-weight:800;color:#f2ece2;">编码器的关键帧：压缩方式变了，内容没动，肉眼看不出</div>`);
-    const src = sourceTag(s, "来源：真实会话第 4 轮（promo/session/turn4.json）");
+    const h = title(s, `Phần kết có thật sự đứng yên không? <span style="color:${C.teal}">So từng điểm ảnh</span>`);
+    const box = clipBox(s, { ...HB, poster: P("hold"), label: "Thành phẩm 圈问 27.6–30.0 giây", sub: " · khung 828–899" });
+    const z = card(s, 1120, 230, 690, 250, `<div class="cn" style="position:absolute;left:32px;top:28px;font-size:28px;color:#9b96a0;">Khung 828 → khung cuối</div><div style="position:absolute;left:32px;top:80px;font-family:Geist;font-weight:800;font-size:96px;line-height:110px;color:${C.teal};">Chênh lệch 0</div><div class="cn" style="position:absolute;left:34px;top:196px;font-size:28px;color:#d9d3c7;">Đứng yên 2.4 giây</div>`, "rgba(63,224,208,0.5)");
+    const ifr = card(s, 1120, 520, 690, 250, `<div class="cn" style="position:absolute;left:32px;top:28px;font-size:28px;color:#9b96a0;">Khung ở giây 29.63 có bước nhảy nhỏ</div><div class="cn" style="position:absolute;left:32px;top:84px;width:630px;font-size:34px;line-height:50px;font-weight:800;color:#f2ece2;">Khung chính của bộ mã hoá: cách nén đổi, nội dung không đổi, mắt thường không thấy</div>`);
+    const src = sourceTag(s, "Nguồn: vòng 4 của phiên làm việc thật (promo/session/turn4.json)");
     return { s, h, box, z, ifr, src };
   }, (t, u) => {
     dust(t);
@@ -183,13 +183,13 @@ export async function build(ctx) {
   });
   cue(T("B06.zero"), "snap");
 
-  // ── B07：合规底线
-  const LAW = [["声明", "没有真实数据，片尾写声明"], ["事实", "数字、客户名、奖项只用你给的"], ["用语", "不用「最」「第一」「唯一」"], ["行业红线", "医疗 · 金融 · 教育 · 地产"], ["授权", "配乐、字体、Logo 查得到"]];
+  // ── B07: giới hạn tuân thủ
+  const LAW = [["Tuyên bố", "Không có dữ liệu thật thì ghi tuyên bố ở cuối phim"], ["Sự kiện", "Số liệu, tên khách hàng, giải thưởng chỉ dùng những gì bạn cung cấp"], ["Từ ngữ", "Không dùng \"nhất\" \"số một\" \"duy nhất\""], ["Lằn ranh ngành", "Y tế · tài chính · giáo dục · bất động sản"], ["Cấp phép", "Nhạc nền, phông chữ, Logo tra cứu được"]];
   add(T("B07"), T("B08"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `第二件事：<span style="color:${C.orange}">合规底线</span>`);
+    const h = title(s, `Việc thứ hai: <span style="color:${C.orange}">giới hạn tuân thủ</span>`);
     const cards = LAW.map(([a, b], i) => card(s, 110 + i * 344, 330, 320, 300, `<div class="cn" style="position:absolute;left:28px;top:34px;font-size:44px;font-weight:900;color:${i === 2 ? C.orange : C.teal};">${a}</div><div class="cn" style="position:absolute;left:28px;top:120px;width:268px;font-size:28px;line-height:42px;color:#d9d3c7;">${b}</div>`));
-    const src = sourceTag(s, "来源：promo-video skill · references/compliance.md（演示阶段的合规底线，《广告法》第九条）");
+    const src = sourceTag(s, "Nguồn: promo-video skill · references/compliance.md (giới hạn tuân thủ ở giai đoạn trình diễn, Điều 9 Luật Quảng cáo)");
     return { s, h, cards, src };
   }, (t, u) => {
     dust(t);
@@ -198,15 +198,15 @@ export async function build(ctx) {
   });
   [1, 2, 3, 4, 5].forEach((i) => cue(T(`B07.l${i}`), "card", { note_index: i }));
 
-  // ── B08：圈问的声明
+  // ── B08: tuyên bố của 圈问
   const NB = { x: 480, y: 200, w: 960, h: 540 };
   clip("note", "qw", 28.0, T("B08.note") + 0.1, T("B09") - 0.05 - T("B08.note") - 0.1, NB, { seg: 2.0 });
   add(T("B08"), T("B09"), (root) => {
     const s = el(root, "shot");
     const box = clipBox(s, { ...NB, poster: P("note") });
     const arrow = el(s, "abs", `left:940px;top:752px;width:40px;height:40px;border-left:4px solid ${C.orange};border-top:4px solid ${C.orange};transform:rotate(45deg);`);
-    const txt = el(s, "abs cn", `left:0;width:1920px;top:806px;text-align:center;font-size:30px;font-weight:800;color:${C.orange};white-space:nowrap;`, "「圈问是课程演示用的虚构产品……画面中的图表为示例数据」");
-    const nn = el(s, "abs cn", "left:0;width:1920px;top:862px;text-align:center;font-size:28px;color:#d9d3c7;white-space:nowrap;", "片子里一个数字都没放");
+    const txt = el(s, "abs cn", `left:0;width:1920px;top:806px;text-align:center;font-size:30px;font-weight:800;color:${C.orange};white-space:nowrap;`, "\"圈问 là sản phẩm hư cấu dùng cho phần trình diễn của khoá học…… các biểu đồ trong hình là dữ liệu ví dụ\"");
+    const nn = el(s, "abs cn", "left:0;width:1920px;top:862px;text-align:center;font-size:28px;color:#d9d3c7;white-space:nowrap;", "Trong phim không đặt một con số nào");
     return { s, box, arrow, txt, nn };
   }, (t, u) => {
     dust(t, { bright: 0.1 });
@@ -215,15 +215,15 @@ export async function build(ctx) {
   });
   cue(T("B08.note") + 0.7, "blip");
 
-  // ── B09：交付规格
-  const SPEC = [["时长", "30.00 秒", "B09.s1"], ["画面", "1920 × 1080 · 30 fps · H.264", "B09.s1"], ["音轨", "AAC", "B09.s1"], ["平均响度", "−17.0 dBFS", "B09.loud"], ["峰值", "≤ −1 dBFS", "B09.loud"]];
+  // ── B09: thông số bàn giao
+  const SPEC = [["Thời lượng", "30.00 giây", "B09.s1"], ["Hình ảnh", "1920 × 1080 · 30 fps · H.264", "B09.s1"], ["Track âm thanh", "AAC", "B09.s1"], ["Độ lớn trung bình", "−17.0 dBFS", "B09.loud"], ["Đỉnh", "≤ −1 dBFS", "B09.loud"]];
   add(T("B09"), T("B10"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `交付规格：<span style="color:${C.teal}">渲完先核对</span>`);
+    const h = title(s, `Thông số bàn giao: <span style="color:${C.teal}">render xong phải đối chiếu trước</span>`);
     const rows = SPEC.map(([a, b, at], i) => ({ r: el(s, "abs", `left:110px;top:${230 + i * 118}px;width:1200px;height:100px;border-radius:18px;background:rgba(18,17,24,0.93);border:1.5px solid rgba(255,255,255,0.12);`,
       `<div class="cn" style="position:absolute;left:32px;top:28px;font-size:34px;font-weight:800;color:#9b96a0;">${a}</div><div style="position:absolute;left:300px;top:24px;font-family:Geist;font-weight:800;font-size:40px;color:${i > 2 ? C.orange : C.ivory};white-space:nowrap;">${b}</div>`), at }));
-    const std = card(s, 1360, 230, 450, 330, `<div class="cn" style="position:absolute;left:30px;top:28px;font-size:26px;color:#9b96a0;">skill 的标准</div><div class="cn" style="position:absolute;left:30px;top:80px;width:400px;font-size:30px;line-height:48px;color:#f2ece2;">平均 −16 到 −19 dBFS<br>峰值 ≤ −1 dBFS<br>母带默认 −17</div>`, "rgba(63,224,208,0.5)");
-    const src = sourceTag(s, "来源：真实会话第 4 轮；design-principles.md「5. 声音」；music.md「混音规则」");
+    const std = card(s, 1360, 230, 450, 330, `<div class="cn" style="position:absolute;left:30px;top:28px;font-size:26px;color:#9b96a0;">Tiêu chuẩn của skill</div><div class="cn" style="position:absolute;left:30px;top:80px;width:400px;font-size:30px;line-height:48px;color:#f2ece2;">Trung bình −16 đến −19 dBFS<br>Đỉnh ≤ −1 dBFS<br>Bản master mặc định −17</div>`, "rgba(63,224,208,0.5)");
+    const src = sourceTag(s, "Nguồn: vòng 4 của phiên làm việc thật; design-principles.md \"5. Âm thanh\"; music.md \"Quy tắc phối âm\"");
     return { s, h, rows, std, src };
   }, (t, u) => {
     dust(t);
@@ -233,17 +233,17 @@ export async function build(ctx) {
   });
   SPEC.forEach(([, , at], i) => cue(T(at) + (i % 3) * 0.25, "tick"));
 
-  // ── B10：峰值超了，只修音轨
+  // ── B10: đỉnh vượt ngưỡng, chỉ sửa track âm thanh
   add(T("B10"), T("B11"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `峰值超了：<span style="color:${C.orange}">只修音轨</span>`);
+    const h = title(s, `Đỉnh vượt ngưỡng: <span style="color:${C.orange}">chỉ sửa track âm thanh</span>`);
     const meter = el(s, "abs", "left:310px;top:250px;width:120px;height:600px;border-radius:16px;background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.14);overflow:hidden;");
     const fill = el(meter, "abs", "left:0;bottom:0;width:120px;height:0;background:linear-gradient(0deg,#3fe0d0,#3fe0d0 70%,#ff7a3d);");
     const line = el(s, "abs", `left:280px;top:${250 + 600 * (1 / 20)}px;width:180px;height:4px;background:${C.red};`);
-    const ll = el(s, "abs mono", `left:470px;top:${250 + 600 * (1 / 20) - 14}px;font-size:22px;color:${C.red};white-space:nowrap;`, "−1 dBFS 上限");
+    const ll = el(s, "abs mono", `left:470px;top:${250 + 600 * (1 / 20) - 14}px;font-size:22px;color:${C.red};white-space:nowrap;`, "Giới hạn trên −1 dBFS");
     const val = el(s, "abs", `left:520px;top:420px;font-family:Geist;font-weight:800;font-size:110px;line-height:120px;color:${C.red};white-space:nowrap;`, "−0.2");
-    const unit = el(s, "abs mono", "left:520px;top:548px;font-size:26px;color:#9b96a0;", "dBFS · 峰值");
-    const code = codeCard(s, { x: 1010, y: 300, w: 800, h: 300, file: "它在第 4 轮跑的", size: 26, lh: 46, lines: ["<c># 导出音轨 → 限幅 → 无损合回画面</c>", "<k>$</k> python3 master_audio.py \\", "    film-raw.mp4 film.mp4", "<c># 画面一帧不动，不重渲</c>"] });
+    const unit = el(s, "abs mono", "left:520px;top:548px;font-size:26px;color:#9b96a0;", "dBFS · đỉnh");
+    const code = codeCard(s, { x: 1010, y: 300, w: 800, h: 300, file: "Lệnh nó chạy ở vòng 4", size: 26, lh: 46, lines: ["<c># Xuất track âm thanh → giới hạn biên độ → ghép lại vào hình không tổn hao</c>", "<k>$</k> python3 master_audio.py \\", "    film-raw.mp4 film.mp4", "<c># Hình ảnh không đổi một khung nào, không render lại</c>"] });
     return { s, h, meter, fill, line, ll, val, unit, code };
   }, (t, u) => {
     dust(t);
@@ -260,14 +260,14 @@ export async function build(ctx) {
   });
   cue(T("B10.peak") + 0.4, "error"); cue(T("B10.master") + 1.2, "chime");
 
-  // ── B11：颗粒让体积暴涨（鱼总）
+  // ── B11: hạt nhiễu khiến dung lượng tăng vọt (鱼总)
   const YB = { x: 110, y: 250, w: 960, h: 540 };
   clip("yz", "yz", 7.0, T("B11.yz") + 0.1, T("B12") - 0.05 - T("B11.yz") - 0.1, YB);
   add(T("B11"), T("B12"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `交付的坑：<span style="color:${C.orange}">颗粒让体积暴涨</span>`);
-    const box = clipBox(s, { ...YB, poster: P("yz"), label: "鱼总聊AI", sub: " · 画面加了胶片颗粒" });
-    const c = card(s, 1120, 300, 690, 380, `<div class="cn" style="position:absolute;left:32px;top:34px;font-size:34px;font-weight:900;color:${C.ivory};">颗粒每一帧都不一样</div><div class="cn" style="position:absolute;left:32px;top:100px;width:630px;font-size:28px;line-height:44px;color:#bdb6aa;">压缩器几乎省不下码率，文件会大好几倍</div><div class="mono" style="position:absolute;left:32px;top:250px;font-size:26px;color:${C.teal};">→ 调 CRF 压缩</div>`);
+    const h = title(s, `Cái bẫy khi bàn giao: <span style="color:${C.orange}">hạt nhiễu khiến dung lượng tăng vọt</span>`);
+    const box = clipBox(s, { ...YB, poster: P("yz"), label: "鱼总聊AI", sub: " · hình đã thêm hạt phim" });
+    const c = card(s, 1120, 300, 690, 380, `<div class="cn" style="position:absolute;left:32px;top:34px;font-size:34px;font-weight:900;color:${C.ivory};">Hạt nhiễu mỗi khung một khác</div><div class="cn" style="position:absolute;left:32px;top:100px;width:630px;font-size:28px;line-height:44px;color:#bdb6aa;">Bộ nén gần như không tiết kiệm được bitrate, tệp sẽ lớn gấp nhiều lần</div><div class="mono" style="position:absolute;left:32px;top:250px;font-size:26px;color:${C.teal};">→ chỉnh nén CRF</div>`);
     return { s, h, box, c };
   }, (t, u) => {
     dust(t);
@@ -275,10 +275,10 @@ export async function build(ctx) {
   });
   cue(T("B11.yz"), "whoosh");
 
-  // ── B12–B13：暂停想一想 → 只改钩子
+  // ── B12–B13: tạm dừng nghĩ một chút → chỉ sửa câu mở
   add(T("B12"), T("B13"), (root) => {
     const s = el(root, "shot");
-    const pc = pauseCard(s, `客户看完说「<span style="color:${C.orange}">钩子太弱</span>」，<br>你会整支重做吗？`);
+    const pc = pauseCard(s, `Khách xem xong nói \"<span style="color:${C.orange}">câu mở quá yếu</span>\",<br>bạn có làm lại cả video không?`);
     return { s, pc };
   }, (t, u) => {
     dust(t, { bright: 0.1 });
@@ -290,11 +290,11 @@ export async function build(ctx) {
   clip("v2", "qw", 0.0, T("B13.did"), T("B14") - 0.05 - T("B13.did"), BB, { seg: 3.4 });
   add(T("B13"), T("B14"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `不用：<span style="color:${C.teal}">只改钩子那一段</span>`);
-    const ask = chip(s, 110, 196, "第 5 轮", "钩子太弱：窗口放大，问句做成大字，一拍砸一句", C.orange);
-    const a = clipBox(s, { ...BA, poster: P("v1"), label: "改前", sub: " · 第 4 轮成片的前 3.4 秒" });
-    const b = clipBox(s, { ...BB, poster: P("v2"), label: "改后", sub: " · 第 5 轮成片的前 3.4 秒" });
-    const ok = el(s, "abs cn", `left:110px;top:858px;font-size:30px;font-weight:800;color:${C.teal};white-space:nowrap;`, "其他镜头逐像素核对：和改前完全一样");
+    const h = title(s, `Không cần: <span style="color:${C.teal}">chỉ sửa đoạn câu mở</span>`);
+    const ask = chip(s, 110, 196, "Vòng 5", "Câu mở quá yếu: phóng to cửa sổ, câu hỏi làm chữ lớn, mỗi nhịp đập một câu", C.orange);
+    const a = clipBox(s, { ...BA, poster: P("v1"), label: "Trước khi sửa", sub: " · 3.4 giây đầu thành phẩm vòng 4" });
+    const b = clipBox(s, { ...BB, poster: P("v2"), label: "Sau khi sửa", sub: " · 3.4 giây đầu thành phẩm vòng 5" });
+    const ok = el(s, "abs cn", `left:110px;top:858px;font-size:30px;font-weight:800;color:${C.teal};white-space:nowrap;`, "Các cảnh khác đối chiếu từng điểm ảnh: giống hệt trước khi sửa");
     return { s, h, ask, a, b, ok };
   }, (t, u) => {
     dust(t, { bright: 0.1 });
@@ -304,13 +304,13 @@ export async function build(ctx) {
   });
   cue(T("B13.ask"), "snap"); cue(T("B13.check"), "chime");
 
-  // ── B14：四次典型改版（现存版本）
-  const REV = [["bf", 0.0, "BeeGer", "嫌节奏慢 → 26 秒快节奏版", "B14.r1"], ["xh", 0.5, "小互", "嫌配乐悬疑 → 换明亮的曲子", "B14.r2"], ["ch", 13.0, "CelHive", "特效压过内容 → 一屏一个完整模块", "B14.r3"], ["br", 13.0, "精酿", "整段跟着鼓点抖 → 只在关键帧推", "B14.r4"]];
+  // ── B14: bốn lần sửa bản điển hình (các phiên bản còn lưu)
+  const REV = [["bf", 0.0, "BeeGer", "Chê nhịp chậm → bản nhịp nhanh 26 giây", "B14.r1"], ["xh", 0.5, "小互", "Chê nhạc nền gây hồi hộp → đổi sang bài tươi sáng", "B14.r2"], ["ch", 13.0, "CelHive", "Hiệu ứng lấn át nội dung → mỗi màn hình một module hoàn chỉnh", "B14.r3"], ["br", 13.0, "BrewReel", "Cả đoạn rung theo nhịp trống → chỉ đẩy ở khung then chốt", "B14.r4"]];
   const RB = (i) => ({ x: 110 + i * 430, y: 300, w: 400, h: 224 });
   REV.forEach(([k, from, , , at], i) => clip(`r${i + 1}`, k, from, T(at), T("B15") - 0.05 - T(at), RB(i), { seg: Math.min(5, T("B15") - 0.05 - T(at)) }));
   add(T("B14"), T("B15"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `四次典型的<span style="color:${C.orange}">改版</span>`);
+    const h = title(s, `Bốn lần <span style="color:${C.orange}">sửa bản</span> điển hình`);
     const items = REV.map(([, , name, what], i) => {
       const b = RB(i);
       const box = clipBox(s, { ...b, poster: P(`r${i + 1}`) });
@@ -318,7 +318,7 @@ export async function build(ctx) {
       const w = el(s, "abs cn", `left:${b.x}px;top:${b.y + b.h + 74}px;width:${b.w}px;font-size:24px;line-height:36px;color:#bdb6aa;`, what);
       return { box, n, w };
     });
-    const note = el(s, "abs cn", "left:110px;top:760px;font-size:22px;color:#77737d;white-space:nowrap;", "画面是改完以后的版本");
+    const note = el(s, "abs cn", "left:110px;top:760px;font-size:22px;color:#77737d;white-space:nowrap;", "Hình ảnh là phiên bản sau khi sửa");
     return { s, h, items, note };
   }, (t, u) => {
     dust(t);
@@ -327,16 +327,16 @@ export async function build(ctx) {
   });
   REV.forEach(([, , , , at]) => cue(T(at), "card", { note_index: 2 }));
 
-  // ── B15：口碑记录
-  const BOOK = [["暗场科技快剪 + 快剪卖点", "WorkBuddy v4、HiAPI、BeeGer 快节奏版", "认可", C.teal], ["任何风格 + 整段跟拍抖", "多支", "反感", C.red], ["悬疑感配乐", "小互", "反感 → 换明亮 house", C.red], ["节奏慢、铺陈长", "BeeGer、造物矩阵的第一版", "反感 → 快节奏重做", C.red]];
+  // ── B15: ghi nhận phản hồi
+  const BOOK = [["Dựng nhanh công nghệ cảnh tối + dựng nhanh điểm bán hàng", "WorkBuddy v4, HiAPI, bản nhịp nhanh của BeeGer", "Được công nhận", C.teal], ["Bất kỳ phong cách nào + rung cả đoạn theo nhịp", "Nhiều video", "Phản cảm", C.red], ["Nhạc nền gây hồi hộp", "小互", "Phản cảm → đổi sang house tươi sáng", C.red], ["Nhịp chậm, dẫn dắt dài", "Bản đầu của BeeGer, 造物矩阵", "Phản cảm → làm lại nhịp nhanh", C.red]];
   add(T("B15"), T("B16"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `改完，记进<span style="color:${C.teal}">口碑表</span>`);
-    const tb = card(s, 110, 200, 1700, 470, `<div class="cn" style="position:absolute;left:30px;top:20px;font-size:24px;font-weight:800;color:#9b96a0;">style-router.md · 口碑记录（节选）</div>`);
+    const h = title(s, `Sửa xong, ghi vào <span style="color:${C.teal}">bảng phản hồi</span>`);
+    const tb = card(s, 110, 200, 1700, 470, `<div class="cn" style="position:absolute;left:30px;top:20px;font-size:24px;font-weight:800;color:#9b96a0;">style-router.md · Ghi nhận phản hồi (trích)</div>`);
     const rows = BOOK.map(([a, b, c, col], i) => el(tb, "abs", `left:24px;top:${70 + i * 98}px;width:1652px;height:86px;border-radius:12px;background:rgba(255,255,255,0.03);`,
       `<div class="cn" style="position:absolute;left:24px;top:24px;font-size:28px;font-weight:800;color:#f2ece2;white-space:nowrap;">${a}</div><div class="cn" style="position:absolute;left:660px;top:26px;font-size:26px;color:#bdb6aa;white-space:nowrap;">${b}</div><div class="cn" style="position:absolute;left:1240px;top:24px;font-size:28px;font-weight:900;color:${col};white-space:nowrap;">${c}</div>`));
-    const q = chip(s, 110, 720, "它问我们", "「你看完后告诉我喜欢、一般还是要重做」", C.teal);
-    const src = sourceTag(s, "来源：promo-video skill · references/style-router.md「口碑记录」；真实会话第 4 轮");
+    const q = chip(s, 110, 720, "Nó hỏi chúng ta", "\"Xem xong hãy nói cho tôi biết bạn thích, tạm được hay phải làm lại\"", C.teal);
+    const src = sourceTag(s, "Nguồn: promo-video skill · references/style-router.md \"Ghi nhận phản hồi\"; vòng 4 của phiên làm việc thật");
     return { s, h, tb, rows, q, src };
   }, (t, u) => {
     dust(t);
@@ -346,14 +346,14 @@ export async function build(ctx) {
   });
   cue(T("B15.asked"), "blip");
 
-  // ── B16：总账 + 一个坑
+  // ── B16: tổng kết + một cái bẫy
   add(T("B16"), T("B17"), (root) => {
     const s = el(root, "shot");
-    const h = title(s, `这次会话的<span style="color:${C.orange}">总账</span>`);
-    const nums = [["5", "轮对话"], ["48", "次模型调用"], ["52", "次工具调用"], ["16", "分钟（它干活的时间）"], ["$3.38", "按 API 价折算"]].map(([a, b], i) =>
+    const h = title(s, `<span style="color:${C.orange}">Tổng kết</span> của phiên làm việc này`);
+    const nums = [["5", "vòng hội thoại"], ["48", "lần gọi mô hình"], ["52", "lần gọi công cụ"], ["16", "phút (thời gian nó làm việc)"], ["$3.38", "quy đổi theo giá API"]].map(([a, b], i) =>
       card(s, 110 + i * 344, 230, 320, 220, `<div style="position:absolute;left:28px;top:30px;font-family:Geist;font-weight:800;font-size:72px;line-height:84px;color:${i === 4 ? C.orange : C.ivory};">${a}</div><div class="cn" style="position:absolute;left:28px;top:140px;width:270px;font-size:24px;line-height:34px;color:#bdb6aa;">${b}</div>`));
-    const sub = el(s, "abs cn", "left:110px;top:476px;font-size:24px;color:#8d8993;white-space:nowrap;", "订阅用户不另外扣钱，占的是用量额度 · 数据：promo/session/usage.json");
-    const pit = card(s, 110, 560, 1700, 260, `<div class="cn" style="position:absolute;left:34px;top:28px;font-size:30px;font-weight:900;color:${C.orange};">一个坑：无界面模式 + 后台渲染</div><div class="cn" style="position:absolute;left:34px;top:88px;width:1630px;font-size:28px;line-height:46px;color:#d9d3c7;">第 3 轮它把渲染放到后台；我们录课用的是 claude -p 无界面模式，会话一结束，渲染就被打断，成片文件是坏的。<br>第 4 轮让它前台渲染才好。平时在终端里交互着用，不会遇到。</div>`, "rgba(255,122,61,0.5)");
+    const sub = el(s, "abs cn", "left:110px;top:476px;font-size:24px;color:#8d8993;white-space:nowrap;", "Người dùng đăng ký không bị trừ thêm tiền, chỉ chiếm hạn mức sử dụng · Dữ liệu: promo/session/usage.json");
+    const pit = card(s, 110, 560, 1700, 260, `<div class="cn" style="position:absolute;left:34px;top:28px;font-size:30px;font-weight:900;color:${C.orange};">Một cái bẫy: chế độ không giao diện + render nền</div><div class="cn" style="position:absolute;left:34px;top:88px;width:1630px;font-size:28px;line-height:46px;color:#d9d3c7;">Vòng 3 nó đưa render xuống chạy nền; lúc quay bài chúng ta dùng chế độ không giao diện claude -p, phiên vừa kết thúc thì render bị ngắt, tệp thành phẩm bị hỏng.<br>Vòng 4 cho nó render ở tiền cảnh mới ổn. Bình thường dùng tương tác trong terminal thì sẽ không gặp.</div>`, "rgba(255,122,61,0.5)");
     return { s, h, nums, sub, pit };
   }, (t, u) => {
     dust(t);
@@ -364,10 +364,10 @@ export async function build(ctx) {
   });
   [0, 1, 2, 3].forEach((i) => cue(T("B16.b1") + i * 0.35, "card", { note_index: i })); cue(T("B16.b2"), "snap"); cue(T("B16.pit"), "error");
 
-  // ── B17：回顾
+  // ── B17: ôn lại
   add(T("B17"), T("B18"), (root) => {
     const s = el(root, "shot");
-    const m = recapMap(s, "质检、交付与改版", [["审片", "清单逐条过 · 按真实时间取帧"], ["交付", "写声明 · 核规格 · 响度只修音轨"], ["改版", "只改那一段 · 改完记进口碑"]]);
+    const m = recapMap(s, "Kiểm định chất lượng, bàn giao và sửa bản", [["Duyệt phim", "Duyệt danh sách từng mục · lấy khung theo thời gian thực"], ["Bàn giao", "Viết tuyên bố · đối chiếu thông số · độ lớn âm chỉ sửa track âm thanh"], ["Sửa bản", "Chỉ sửa đúng đoạn đó · sửa xong ghi vào bảng phản hồi"]]);
     return { s, m };
   }, (t, u) => {
     dust(t, { bright: 0.16 });
@@ -375,15 +375,15 @@ export async function build(ctx) {
   });
   ["B17.r1", "B17.r2", "B17.r3"].forEach((a) => cue(T(a), "blip"));
 
-  // ── B18：全课结束 · 致谢 · 轮到你
+  // ── B18: kết thúc toàn khoá · lời cảm ơn · đến lượt bạn
   add(T("B18"), END + 0.6, (root) => {
     const s = el(root, "shot");
     const map = LESSONS.map((w, i) => el(s, "abs", `left:${110 + (i % 4) * 430}px;top:${96 + Math.floor(i / 4) * 92}px;width:410px;height:76px;border-radius:16px;background:rgba(18,17,24,0.93);border:1.5px solid rgba(255,255,255,0.12);`,
       `<span style="position:absolute;left:18px;top:18px;font-family:Geist;font-weight:800;font-size:30px;color:${C.orange};">0${i + 1}</span><span class="cn" style="position:absolute;left:76px;top:20px;font-size:26px;font-weight:800;color:#f2ece2;white-space:nowrap;">${w}</span>`));
-    const th = el(s, "abs cn", `left:0;width:1920px;top:320px;text-align:center;font-size:40px;font-weight:900;color:${C.ivory};`, "谢谢愿意把作品拿出来给大家拆的每一位客户");
+    const th = el(s, "abs cn", `left:0;width:1920px;top:320px;text-align:center;font-size:40px;font-weight:900;color:${C.ivory};`, "Cảm ơn từng khách hàng sẵn lòng đem tác phẩm ra để mọi người phân tích");
     const names = CLIENTS.map((w, i) => el(s, "abs cn", `left:${210 + (i % 5) * 300}px;top:${392 + Math.floor(i / 5) * 54}px;width:280px;text-align:center;font-size:27px;font-weight:700;color:#d9d3c7;white-space:nowrap;`, w));
     const yours = el(s, "abs", "left:50%;top:640px;transform:translateX(-50%);height:96px;border-radius:48px;background:rgba(16,15,20,0.94);border:1.5px solid rgba(255,122,61,0.6);display:flex;align-items:center;gap:18px;padding:0 40px 0 22px;white-space:nowrap;box-shadow:0 30px 80px rgba(0,0,0,0.6);",
-      `<span class="mono" style="font-size:22px;color:#111;background:${C.orange};border-radius:16px;padding:4px 14px;font-weight:700;">你的一句话</span><span class="cn" style="font-size:40px;font-weight:700;color:#f6f2ea;">用 promo-video 给 <span style="color:${C.orange}">你的产品</span> 做一支宣传片</span>`);
+      `<span class="mono" style="font-size:22px;color:#111;background:${C.orange};border-radius:16px;padding:4px 14px;font-weight:700;">Câu lệnh của bạn</span><span class="cn" style="font-size:40px;font-weight:700;color:#f6f2ea;">Dùng promo-video làm một video quảng bá cho <span style="color:${C.orange}">sản phẩm của bạn</span></span>`);
     const caret = el(yours, "", `width:4px;height:44px;background:${C.orange};`);
     return { s, map, th, names, yours, caret };
   }, (t, u) => {

@@ -1,26 +1,26 @@
-# 杂志编辑 · EDITORIAL
+# Tạp chí biên tập · EDITORIAL
 
-> 家族：印刷与纸　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles6_film.js → editorial()`
+> Họ: In ấn và giấy | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles6_film.js → editorial()`
 
-**一句话**：暖白纸、刊头细线、衬线大标题、两栏正文逐行排出、引语换成史记原文、斜体大数字。
+**Một câu**: Giấy trắng ấm, đường kẻ mảnh ở đầu trang, tiêu đề lớn có chân, chính văn hai cột xếp ra từng dòng, trích dẫn thay bằng nguyên văn Sử ký, số lớn chữ nghiêng.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 像翻开一本人文杂志：标题、导语、正文、引语、配图框，版面本身就在讲故事。 |
-| 材质 / 画法 | 暖白纸 + 刊头双线 + 页码；左侧大标题 / 导语 / 两栏正文（史料原文）；右侧配图框放斜体大数字和引语。 |
-| 配色逻辑 | 纸 #F6F1E7 · 墨 #1E1B17 · 正文 #3A342C · 强调红 #B3261E · 图框 #ECE4D4 |
-| 字体 | 宋体 900 大标题 200px；正文宋体 32px；数字宋体斜体 400px |
-| 动态 | 细线从左画出；标题从下往上揭开；正文逐行出现；正在讲的那句原文变红加粗；引语和数字在图框里切换。 |
-| 镜头语法 | 锁定（整页）。 |
-| 声音 | 翻页、纸张；钢琴或弦乐。 |
-| 标志镜头 | 右侧引语框「民怪之，莫敢徙。」，左侧正文同一句同时变红。 |
+| Ý đồ đạo diễn | Như lật mở một cuốn tạp chí nhân văn: tiêu đề, dẫn nhập, chính văn, trích dẫn, khung ảnh, bản thân bố cục đã kể chuyện. |
+| Chất liệu / Cách vẽ | Giấy trắng ấm + đường kẻ đôi đầu trang + số trang; bên trái là tiêu đề lớn / dẫn nhập / chính văn hai cột (nguyên văn sử liệu); bên phải khung ảnh đặt số lớn chữ nghiêng và trích dẫn. |
+| Logic phối màu | Giấy #F6F1E7 · mực #1E1B17 · chính văn #3A342C · đỏ nhấn #B3261E · khung ảnh #ECE4D4 |
+| Phông chữ | Tiêu đề lớn chữ Tống (Song) 900 200px; chính văn chữ Tống 32px; số chữ Tống nghiêng 400px |
+| Chuyển động | Đường kẻ mảnh vẽ ra từ bên trái; tiêu đề lật mở từ dưới lên; chính văn hiện từng dòng; câu nguyên văn đang nói chuyển đỏ và đậm; trích dẫn và số chuyển đổi trong khung ảnh. |
+| Ngữ pháp máy quay | Cố định (cả trang). |
+| Âm thanh | Lật trang, giấy; piano hoặc dàn dây. |
+| Cảnh đặc trưng | Khung trích dẫn bên phải ghi "民怪之，莫敢徙。" (Dân lấy làm lạ, không ai dám dời), cùng lúc câu đó ở chính văn bên trái chuyển đỏ. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换刊头、换配色
-- **一改就变味**：正文用无衬线体
-- **不能改**：去掉原文（这套的价值就是有出处）
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi đầu trang, đổi phối màu
+- **Sửa là mất chất**: chính văn dùng phông không chân
+- **Không được sửa**: bỏ nguyên văn (giá trị của bộ này là có xuất xứ)
 
-## 搭配
-- 适合母版：一条主线 D、两难选择 B
-- 不适合：快节奏热点
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Bản gốc phù hợp: một mạch chính D, lựa chọn lưỡng nan B
+- Không phù hợp: chủ đề nóng nhịp nhanh
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""只重渲某一拍以后的画面并接回 picture.mp4（改了结尾几拍时用，省得整节重渲）。
-用法：python3 cine/tools/retail.py <课号> <拍号，如 B18> [--port 8964]"""
+"""Chỉ render lại hình ảnh từ một nhịp nào đó trở đi rồi nối lại vào picture.mp4 (dùng khi sửa vài nhịp cuối, đỡ phải render lại cả bài).
+Cách dùng: python3 cine/tools/retail.py <số bài> <số nhịp, vd B18> [--port 8964]"""
 import subprocess
 import sys
 from pathlib import Path
@@ -31,7 +31,7 @@ def main():
                     "-filter_complex", f"[0:v]trim=end_frame={ns - n0},setpts=PTS-STARTPTS[a];[1:v]setpts=PTS-STARTPTS[b];[a][b]concat=n=2:v=1:a=0[v]",
                     "-map", "[v]", "-c:v", "libx264", "-preset", "slow", "-crf", "18", "-pix_fmt", "yuv420p", str(new)], check=True)
     new.replace(B / "picture.mp4")
-    print(f"→ {B / 'picture.mp4'}：保留 {ns - n0} 帧 + 重渲 {beat} 起")
+    print(f"→ {B / 'picture.mp4'}: giữ {ns - n0} khung hình + render lại từ {beat}")
 
 
 if __name__ == "__main__":

@@ -1,25 +1,25 @@
-# 05 · 发布包
+# 05 · Gói xuất bản
 
-## 抖音 #Vibe知识大赏（@抖音科技 官方活动，截止 2026-10-31）
+## Douyin #Vibe知识大赏 (sự kiện chính thức của @抖音科技, hạn chót 2026-10-31)
 
-- **标题以「Vibe知识大赏｜」开头**（官方原话：更易被官方看到），后面接本期的钩子问题，例：`Vibe知识大赏｜为什么假账总被数字 1 出卖？`
-- 话题：`#Vibe知识大赏` 必带，并 **@抖音科技**；可加 `#vibecoding #claude #opus` 和学科话题（`#历史冷知识 #统计学` …）。
-- 简介：第一行重复钩子；第二行一句「本视频由 Claude Opus 5.5 编排制作，配图与动态镜头由 Renoise 生成，史料 / 数据出处见片中脚注」；最后抛出片尾的问题引导评论。
-- 活动激励：优质视频 1～10 万+ 曝光，官方翻牌追加流量。
-- 画幅：头部作品多为 16:9 横屏，可直接发；竖屏版（9:16）后续再做。
+- **Tiêu đề bắt đầu bằng "Vibe知识大赏|"** (nguyên văn của ban tổ chức: dễ được họ nhìn thấy hơn), phía sau nối câu hỏi mở của kỳ này, ví dụ: `Vibe知识大赏|Vì sao sổ sách giả luôn bị con số 1 phản bội?`
+- Chủ đề: bắt buộc kèm `#Vibe知识大赏`, đồng thời **@抖音科技**; có thể thêm `#vibecoding #claude #opus` và chủ đề theo môn học (`#历史冷知识 #统计学` …).
+- Phần giới thiệu: dòng đầu lặp lại câu mở; dòng thứ hai một câu "Video này do Claude Opus 5.5 dàn dựng sản xuất, ảnh minh hoạ và cảnh động do Renoise tạo, nguồn sử liệu / dữ liệu xem chú thích trong phim"; cuối cùng đặt câu hỏi ở cuối phim để dẫn dắt bình luận.
+- Ưu đãi của sự kiện: video chất lượng được 10 nghìn đến 100 nghìn+ lượt hiển thị, ban tổ chức "lật thẻ" bổ sung thêm lưu lượng.
+- Khung hình: các tác phẩm top đầu phần lớn là ngang 16:9, có thể đăng thẳng; bản dọc (9:16) làm sau.
 
-## 正文与评论区（吸收自 LuZhong-Li/vibe-knowledge-video-skill）
+## Nội dung chính và khu bình luận (tiếp thu từ LuZhong-Li/vibe-knowledge-video-skill)
 
-- 正文只放一句结论 + 钩子问题；详细科普拆 2–3 条放评论区，发布后立刻置顶一条提问。
-- 标签 4–5 个（#Vibe知识大赏 必带）。
-- **封面直接做成片的开头帧**（用户定的规矩，2026-10-28）：`tools/cover_first.py <成片> <cover_16x9.jpg> <输出>`，封面停 0.5 秒后硬切进正片，声音整体后推 0.5 秒。平台默认取首帧当封面，不用再单独上传。导出 540px 宽缩略图看标题是否还读得清。
+- Nội dung chính chỉ đặt một câu kết luận + câu hỏi mở; phần phổ cập chi tiết tách thành 2–3 ý đặt ở khu bình luận, sau khi đăng lập tức ghim một câu hỏi lên đầu.
+- 4–5 thẻ (bắt buộc có #Vibe知识大赏).
+- **Ảnh bìa làm thẳng thành khung hình mở đầu của phim** (quy tắc do người dùng đặt, 2026-10-28): `tools/cover_first.py <thành phẩm> <cover_16x9.jpg> <đầu ra>`, ảnh bìa dừng 0.5 giây rồi cắt cứng vào phim chính, âm thanh lùi toàn bộ 0.5 giây. Nền tảng mặc định lấy khung hình đầu làm ảnh bìa, không cần tải lên riêng. Xuất ảnh thu nhỏ rộng 540px để xem tiêu đề còn đọc rõ không.
 
-## 封面
+## Ảnh bìa
 
-- 16:9：主视觉帧（vclip / plate 最好看的一帧）+ 左侧大标题（≤10 字）+ 小字系列名。
-- 3:4：同一主视觉居中裁 + 上方标题。
-- 用 stills.py 在主视觉时间点截一张 1920×1080 原图，再用 PIL 叠字。
+- 16:9: khung hình hình ảnh chính (khung hình đẹp nhất của vclip / plate) + tiêu đề lớn bên trái (≤10 chữ) + tên series bằng chữ nhỏ.
+- 3:4: cùng hình ảnh chính cắt giữa + tiêu đề phía trên.
+- Dùng stills.py chụp một ảnh gốc 1920×1080 tại thời điểm của hình ảnh chính, rồi dùng PIL chồng chữ lên.
 
-## 交付文件夹
+## Thư mục bàn giao
 
-`~/Desktop/Vibe知识大赏_视频/第NN期_片名/`：成片（分享版，开头帧已是封面）、封面两张、标题和简介文本 `post.txt`、facts.md（出处备查）。
+`~/Desktop/Vibe知识大赏_视频/第NN期_片名/`: Thành phẩm (bản chia sẻ, khung hình mở đầu đã là ảnh bìa), hai ảnh bìa, văn bản tiêu đề và giới thiệu `post.txt`, facts.md (nguồn để tra cứu).

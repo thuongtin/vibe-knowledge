@@ -1,4 +1,4 @@
-// 液态金属：7 个球用平滑并集融在一起，光线步进求交，反射代码搭的影棚光。uCollapse 从 0 到 1 时全部塌缩成一个点。
+// Kim loại lỏng: 7 quả cầu hòa vào nhau bằng phép hợp mượt, ray marching tìm giao điểm, phản chiếu studio ánh sáng dựng bằng code. Khi uCollapse đi từ 0 đến 1, tất cả sụp thành một điểm.
 import * as THREE from "three";
 
 const FS = /* glsl */ `precision highp float; out vec4 o;
@@ -16,7 +16,7 @@ float map(vec3 p){
 }
 vec3 nrm(vec3 p){ const vec2 e = vec2(0.0015, 0.0); return normalize(vec3(map(p + e.xyy) - map(p - e.xyy), map(p + e.yxy) - map(p - e.yxy), map(p + e.yyx) - map(p - e.yyx))); }
 vec3 env(vec3 r){
-  // 影棚：左侧暖色竖灯条、右侧青色轮廓灯条、顶部白色柔光箱，外加几道细线——反射里能看见清楚的高光带
+  // Studio: đèn thanh dọc ấm bên trái, đèn viền màu xanh lơ bên phải, softbox trắng phía trên, thêm vài đường mảnh, nên trong phản chiếu thấy rõ các dải highlight
   float az = atan(r.x, -r.z);
   float key = smoothstep(0.16, 0.0, abs(az + 1.35)) * smoothstep(0.75, 0.2, abs(r.y - 0.1));
   float rim = smoothstep(0.09, 0.0, abs(az - 1.5)) * smoothstep(0.8, 0.25, abs(r.y));
@@ -42,7 +42,7 @@ void main(){
     col = refl * mix(vec3(0.95, 0.9, 0.86), vec3(1.0), f) * 0.9 + refl * f * 0.6;
     col += vec3(1.0, 0.45, 0.15) * pow(max(dot(n, normalize(vec3(-0.6, 0.2, -0.5))), 0.0), 18.0) * 0.6;
   }
-  // 塌缩的光点
+  // Điểm sáng sụp xuống
   float g = uGlow / (1.0 + dot(uv, uv) * 900.0);
   col += vec3(1.0, 0.82, 0.62) * g;
   o = vec4(col, 1.0);

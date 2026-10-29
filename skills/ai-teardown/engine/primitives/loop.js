@@ -1,14 +1,14 @@
 /**
- * Loop 循环：几个步骤围成一圈，一个令牌按旁白的时间点逐步走，每走完一圈计一轮，满足退出条件时收束。
+ * Loop vòng lặp: vài bước xếp thành một vòng tròn, một token đi từng bước theo các mốc thời gian của lời dẫn, đi hết một vòng thì tính một lượt, khi thoả điều kiện thoát thì khép lại.
  *
  * params
- *   r          半径，默认 170
- *   title      圆心标题，如「Agent 循环」；titleAt 给定时，标题到这个时刻才出现（「名」这一拍）
- *   steps      [{label, role, angle, lx?, ly?}]，angle 为度（屏幕坐标，0° 向右、90° 向下）；lx/ly 是标签相对圆点的偏移，用来避开连线
- *   arrivals   令牌依次到达各步骤的时刻（本地秒）；第 i 个时刻对应 steps[i % n]
- *   reveal     整体出现时刻
- *   passAt     退出时刻（如「测试通过」），passLabel 文案
- *   facts      挂在整个循环上的事实，用于课件「点图看出处」
+ *   r          bán kính, mặc định 170
+ *   title      tiêu đề tâm vòng, ví dụ "Vòng lặp Agent"; khi có titleAt, tiêu đề đến thời điểm này mới xuất hiện (nhịp "đặt tên")
+ *   steps      [{label, role, angle, lx?, ly?}], angle tính bằng độ (toạ độ màn hình, 0° hướng phải, 90° hướng xuống); lx/ly là độ lệch của nhãn so với chấm tròn, dùng để tránh đường nối
+ *   arrivals   các thời điểm token lần lượt đến từng bước (giây cục bộ); thời điểm thứ i ứng với steps[i % n]
+ *   reveal     thời điểm xuất hiện toàn bộ
+ *   passAt     thời điểm thoát (như "kiểm thử đạt"), passLabel là nội dung chữ
+ *   facts      dữ kiện gắn lên toàn bộ vòng lặp, dùng cho "bấm vào ảnh xem nguồn" của bài giảng
  *   font       {title=34, step=30, sub=24}
  */
 import { s, h, setStyle, setAttr, setText } from "../runtime/dom.js";
@@ -54,7 +54,7 @@ export default {
 
     const svg = s("svg", { class: "lp-svg", width: 2 * r + 200, height: 2 * r + 200, viewBox: `${-r - 100} ${-r - 100} ${2 * r + 200} ${2 * r + 200}` });
     Object.assign(svg.style, { left: `${-r - 100}px`, top: `${-r - 100}px` });
-    // 箭头颜色不用 context-stroke：Chrome 会缓存 marker 的绘制，跨帧残留，破坏确定性；改为三种固定颜色按状态切换
+    // Màu mũi tên không dùng context-stroke: Chrome sẽ cache bản vẽ của marker, còn sót lại giữa các khung hình, phá vỡ tính xác định; đổi thành ba màu cố định chuyển theo trạng thái
     const mk = (id, color) => s("marker", { id, viewBox: "0 0 10 10", refX: 7, refY: 5, markerWidth: 5, markerHeight: 5, orient: "auto" },
       s("path", { d: "M0,0 L10,5 L0,10 z", style: `fill:${color}` }));
     svg.append(s("defs", {}, mk(`lpa-${uid}`, "var(--ink3)"), mk(`lpa-on-${uid}`, "var(--ink)"), mk(`lpa-ok-${uid}`, "var(--ok)")));
@@ -106,7 +106,7 @@ export default {
     round.style.fontSize = `${font.sub}px`;
     center.append(title, round);
     const pass = h("div", { class: "lp-pass" });
-    pass.innerHTML = `<svg width="${font.title * 1.3}" height="${font.title * 1.3}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m7 12.5 3.2 3.2L17 9"/></svg><span>${p.passLabel ?? "测试通过"}</span>`;
+    pass.innerHTML = `<svg width="${font.title * 1.3}" height="${font.title * 1.3}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m7 12.5 3.2 3.2L17 9"/></svg><span>${p.passLabel ?? "Kiểm thử đạt"}</span>`;
     pass.style.fontSize = `${font.title}px`;
     anchor.append(center, pass);
 
@@ -147,7 +147,7 @@ export default {
         });
         setStyle(ring, "stroke", passed > 0.5 ? "var(--ok)" : "var(--line)");
         const cycles = k < 0 ? 0 : Math.floor(k / n) + 1;
-        setText(round, cycles > 0 ? `第 ${cycles} 轮` : p.sub ?? "");
+        setText(round, cycles > 0 ? `Lượt ${cycles}` : p.sub ?? "");
         const sw = swap(t, -1, p.passAt ?? Infinity);
         applySwap(center, sw, "translate(-50%,-50%)");
         if (p.titleAt != null) {

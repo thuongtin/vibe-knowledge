@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""手绘引擎的一节课：算出互动版真正用到的图片，输出 Artifact 发布用的 files 映射（JSON）。
-用法：python3 scripts/sketch_publish_files.py <课目录>   （在仓库根目录运行）
+"""Một bài học của engine vẽ tay: tính ra những ảnh thực sự được bản tương tác dùng, xuất ánh xạ files (JSON) để xuất bản Artifact.
+Cách dùng: python3 scripts/sketch_publish_files.py <thư mục bài>   (chạy ở thư mục gốc của kho)
 """
 import json, re, sys
 from pathlib import Path
@@ -26,12 +26,12 @@ elif spec.get("presenter"):
     ids |= {f"{spec['presenter']}-{k}" for k in ("0", "blink", "talk", "talk-blink")}
 pub = sd / f"publish/lesson{nn}"
 files = {"app.js": str(pub / "app.js"), "audio.mp3": str(pub / "audio.mp3")}
-for v in sorted([*(pub / "video").glob("*.mp4"), *(pub / "video").glob("*.jpg")]) if (pub / "video").exists() else []:   # 视频贴纸 + 封面
+for v in sorted([*(pub / "video").glob("*.mp4"), *(pub / "video").glob("*.jpg")]) if (pub / "video").exists() else []:   # sticker video + ảnh bìa
     files[f"video/{v.name}"] = str(v)
 for i in sorted(ids):
     if i in led and (pub / "img" / led[i]["file"]).exists():
         files[f"img/{led[i]['file']}"] = str(pub / "img" / led[i]["file"])
 missing = sorted(i for i in ids if i not in led or not (pub / "img" / led[i]["file"]).exists())
-if missing: print("缺：", missing, file=sys.stderr)
+if missing: print("Thiếu:", missing, file=sys.stderr)
 print(json.dumps(files, ensure_ascii=False))
-print(f"{len(files)} 个文件", file=sys.stderr)
+print(f"{len(files)} tệp", file=sys.stderr)

@@ -1,67 +1,67 @@
-# 02 · 场景契约与运行时
+# 02 · Hợp đồng cảnh và runtime
 
-## 核心：舞台只认时间 t
+## Cốt lõi: sân khấu chỉ nhận thời gian t
 
 ```
           lesson.json + timings.json
-                    │ 编译（compile）
+                    │ biên dịch (compile)
                     ▼
-   Stage ──► 场景[] ──► 原语.create(container, params, ctx) → instance
-     │                      instance.render(localT, env)   纯函数
-     │                      instance.beats                 逐步点
-     │                      instance.hotspots(localT)      点图看出处
+   Stage ──► cảnh[] ──► nguyên thủy.create(container, params, ctx) → instance
+     │                      instance.render(localT, env)   hàm thuần
+     │                      instance.beats                 điểm từng bước
+     │                      instance.hotspots(localT)      bấm vào hình để xem xuất xứ
      ▼
-  stage.seek(t)  ◄── Hyperframes：window 'hf-seek' 事件（逐帧）
-                 ◄── Remotion：useCurrentFrame / fps（逐帧）
-                 ◄── 互动课件：<audio>.currentTime、进度条、「下一步」
+  stage.seek(t)  ◄── Hyperframes: sự kiện window 'hf-seek' (từng khung hình)
+                 ◄── Remotion: useCurrentFrame / fps (từng khung hình)
+                 ◄── Bài giảng tương tác: <audio>.currentTime, thanh tiến độ, "bước tiếp"
 ```
 
-三个宿主都只调用 `stage.seek(t)`。Spike 实测：同一份打包文件（`spike/build/app.js`，73 KB）在三处跑出同样的画面，Hyperframes 与 Remotion 成片逐帧 SSIM ≥ 0.990。
+Cả ba host đều chỉ gọi `stage.seek(t)`. Spike đo thực tế: cùng một file đóng gói (`spike/build/app.js`, 73 KB) chạy ở ba nơi ra cùng một hình ảnh, thành phẩm Hyperframes và Remotion có SSIM từng khung hình ≥ 0,990.
 
-## 原语接口
+## Giao diện nguyên thủy
 
 ```js
 export default {
   name: "Loop",
-  create(root, params, ctx) {        // 只建 DOM，不做动画
+  create(root, params, ctx) {        // chỉ dựng DOM, không làm hoạt ảnh
     // ctx = { stage, id, at: {x, y, scale}, theme, aspect, css(id, text) }
     return {
-      beats: [{ t, id, label }],      // 本地秒；课件的「逐步」与章节刻度用
-      render(t, env) { … },           // 本地秒；env = { t, stage, cam, aspect, toScreen }
+      beats: [{ t, id, label }],      // giây cục bộ; dùng cho "từng bước" của bài giảng và vạch chương
+      render(t, env) { … },           // giây cục bộ; env = { t, stage, cam, aspect, toScreen }
       hotspots(t) { return [{ el, facts: ["F012"], label }] },
-      geometry?(t),                   // 可选：给镜头做 zoom-to-fit（Morph 有）
+      geometry?(t),                   // tùy chọn: để ống kính làm zoom-to-fit (Morph có)
     };
   },
 };
 ```
 
-## 确定性规则（违反任何一条，逐帧渲染就会闪或错位）
+## Quy tắc tất định (vi phạm bất kỳ điều nào, render từng khung hình sẽ nhấp nháy hoặc lệch vị trí)
 
-1. 动画值只能是 `t` 的函数：`spring.js`（闭式弹簧，多次改目标 = 阶跃响应相加）或 `ease.js`。
-2. 不用 CSS `transition` / `animation`（舞台的基础样式已全局禁用）、`setTimeout`、`requestAnimationFrame`、`Date.now()`、无种子的 `Math.random()`（用 `hash01(i, seed)`）。
-3. 不在帧之间带状态：`render` 每次都把它负责的属性全部写一遍（`setStyle/setAttr/setText` 只在值变化时才写 DOM，便宜）。
-4. **不给被镜头缩放的元素加 `will-change`**：文字会按缓存的位图放大而发糊。Spike 实测不加时 7.6 倍推进文字依然清晰。
-5. **SVG marker 不用 `context-stroke`**：Chrome 会缓存 marker 的绘制，前后帧颜色串味。改为按状态切换几个固定颜色的 marker。
-6. 字体用本地文件（`assets/fonts`），出片前 `document.fonts.load` 全部字重。
-7. 容器内切换的文字必须有各自的进出窗口（`swap(t, tin, tout)`：0.18 秒模糊进、0.1 秒模糊出），新旧文字不重叠。
+1. Giá trị hoạt ảnh chỉ có thể là hàm của `t`: `spring.js` (lò xo dạng đóng, đổi mục tiêu nhiều lần = cộng các đáp ứng bước) hoặc `ease.js`.
+2. Không dùng CSS `transition` / `animation` (style cơ bản của sân khấu đã vô hiệu hóa toàn cục), `setTimeout`, `requestAnimationFrame`, `Date.now()`, `Math.random()` không có seed (dùng `hash01(i, seed)`).
+3. Không mang trạng thái giữa các khung hình: mỗi lần `render` đều ghi lại toàn bộ thuộc tính mà nó phụ trách (`setStyle/setAttr/setText` chỉ ghi DOM khi giá trị thay đổi, rất rẻ).
+4. **Không thêm `will-change` cho phần tử bị ống kính phóng to**: chữ sẽ bị phóng to từ bitmap đã cache nên bị nhòe. Spike đo thực tế khi không thêm thì đẩy gần 7,6 lần chữ vẫn rõ nét.
+5. **SVG marker không dùng `context-stroke`**: Chrome cache nét vẽ của marker, màu giữa các khung hình trước sau bị lẫn. Đổi thành chuyển giữa vài marker màu cố định theo trạng thái.
+6. Phông chữ dùng file cục bộ (`assets/fonts`), trước khi xuất phim `document.fonts.load` toàn bộ độ đậm.
+7. Chữ chuyển đổi trong container phải có cửa sổ vào ra riêng (`swap(t, tin, tout)`: mờ vào 0,18 giây, mờ ra 0,1 giây), chữ mới và cũ không chồng lên nhau.
 
-确定性验收分两层：**DOM 快照严格一致**（同一 t，不论从哪个方向 seek 过来）；**像素比对有容差**（Chrome 光栅化在模糊、换字的瞬间会有极少量噪声：Spike 实测 18 个时刻 × 4 种 seek 顺序，DOM 全部一致，像素差 ≤ 0.006% 的像素）。要逐字节一致，用 Hyperframes 的 `--docker` 渲染。
+Nghiệm thu tính tất định chia hai lớp: **snapshot DOM phải khớp tuyệt đối** (cùng một t, bất kể seek tới từ hướng nào); **so sánh pixel có dung sai** (rasterize của Chrome vào khoảnh khắc làm mờ, đổi chữ có chút nhiễu rất nhỏ: Spike đo thực tế 18 thời điểm × 4 thứ tự seek, DOM đều khớp, chênh lệch pixel ≤ 0,006% số pixel). Muốn khớp từng byte thì render bằng `--docker` của Hyperframes.
 
-## 坐标与镜头
+## Tọa độ và ống kính
 
-- **世界坐标**：原点 = 画面中心（镜头在 (0,0)、缩放 1 时）。场景用 `stage.add(prim, {x, y, scale})` 放进世界。
-- **逐层放大**：下一层内容按 `scale`（如 0.16）放在上一层节点里面，镜头推进约 `1/scale` 倍就「钻进」节点。节点用 `open` / `close` 让出位置（标签和底色淡出、淡回）。
-- **镜头**：`stage.camera([{t, x, y, z, cfg?}])`，缩放在对数空间里走弹簧，1× 推到 6× 速度感均匀。
-- **屏幕层**：光标、字幕、角标不随镜头缩放；光标用世界坐标定位，每帧 `toScreen` 换算。
+- **Tọa độ thế giới**: gốc = tâm khung hình (khi ống kính ở (0,0), tỉ lệ 1). Cảnh dùng `stage.add(prim, {x, y, scale})` để đặt vào thế giới.
+- **Phóng to từng lớp**: nội dung lớp kế tiếp đặt vào bên trong nút của lớp trước theo `scale` (ví dụ 0,16), ống kính đẩy gần khoảng `1/scale` lần thì "chui vào" nút. Nút dùng `open` / `close` để nhường chỗ (nhãn và màu nền mờ đi, hiện lại).
+- **Ống kính**: `stage.camera([{t, x, y, z, cfg?}])`, tỉ lệ chạy lò xo trong không gian logarit, đẩy từ 1× đến 6× cảm giác tốc độ đều.
+- **Lớp màn hình**: con trỏ, phụ đề, nhãn góc không phóng to theo ống kính; con trỏ định vị bằng tọa độ thế giới, mỗi khung hình đổi bằng `toScreen`.
 
-## 宿主适配
+## Thích ứng host
 
-| 宿主 | 做法 | 注意 |
+| Host | Cách làm | Lưu ý |
 |---|---|---|
-| Hyperframes | `window.addEventListener("hf-seek", e => stage.seek(e.detail.time))`；异步建舞台前设 `window.__hfTimelinesBuilding = true`，建好后置 false 并派发 `hf-timelines-built` | lint 要求 `window.__timelines[id]` 注册：注册一条只声明时长的空 GSAP 时间线；世界层带 `data-layout-allow-overflow`（镜头推拉出画是有意的） |
-| Remotion | `useLayoutEffect` 里建一次舞台（`delayRender` 等字体），每帧 `stage.seek(frame / fps)` | 字体用 `staticFile` + `@font-face`；`@remotion/*` 版本与 `remotion` 一致 |
-| 互动课件 | `<audio>` 是主时钟，播放时 `requestAnimationFrame` 读 `currentTime` → `seek` | rAF 只驱动交互播放，不参与出片 |
+| Hyperframes | `window.addEventListener("hf-seek", e => stage.seek(e.detail.time))`; trước khi dựng sân khấu bất đồng bộ đặt `window.__hfTimelinesBuilding = true`, dựng xong đặt false và phát `hf-timelines-built` | lint yêu cầu đăng ký `window.__timelines[id]`: đăng ký một timeline GSAP rỗng chỉ khai báo thời lượng; lớp thế giới mang `data-layout-allow-overflow` (ống kính đẩy kéo ra ngoài khung hình là có chủ ý) |
+| Remotion | dựng sân khấu một lần trong `useLayoutEffect` (`delayRender` chờ phông chữ), mỗi khung hình `stage.seek(frame / fps)` | Phông chữ dùng `staticFile` + `@font-face`; phiên bản `@remotion/*` phải khớp với `remotion` |
+| Bài giảng tương tác | `<audio>` là đồng hồ chính, khi phát thì `requestAnimationFrame` đọc `currentTime` → `seek` | rAF chỉ điều khiển phát tương tác, không tham gia xuất phim |
 
-## 16:9 与 9:16
+## 16:9 và 9:16
 
-`FRAMES` 给出两种画幅的尺寸与安全区（字幕带顶线：16:9 为 890，9:16 为 1500）。原语在 `create` 时读 `ctx.aspect`，自带两套布局；9:16 不是裁切。V1 先交 16:9，9:16 在 M2 补齐（Morph 的竖版布局是已知缺口）。
+`FRAMES` cho kích thước và vùng an toàn của hai khung hình (đường trên của dải phụ đề: 16:9 là 890, 9:16 là 1500). Nguyên thủy đọc `ctx.aspect` khi `create`, tự mang hai bộ bố cục; 9:16 không phải là cắt. V1 giao 16:9 trước, 9:16 bổ sung ở M2 (bố cục dọc của Morph là thiếu sót đã biết).
