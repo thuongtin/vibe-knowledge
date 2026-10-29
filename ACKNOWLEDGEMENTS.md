@@ -47,7 +47,7 @@ three.js, Rough.js, lottie-web, AntV X6, Geist, Noto Sans SC, LXGW WenKai, biể
 
 ## V. Dịch vụ bên ngoài
 
-Google Gemini (lồng tiếng, Gemini TTS; mẫu giọng demo cũ do Xiaomi MiMo thiết kế giọng tạo ra), [Renoise](https://renoise.ai/mcp?utm_medium=xcom&utm_source=official) (ảnh minh họa, cảnh quay động, hiệu ứng âm thanh của bản nâng cao), Anthropic Claude Code / Claude Opus(dàn dựng và viết code). Các dịch vụ này do người dùng tự đăng ký, kho mã này không chứa bất kỳ khóa nào.
+Google Gemini (lồng tiếng, Gemini TTS; giọng trong bản trộn demo cũ do Xiaomi MiMo tạo ra), [Renoise](https://renoise.ai/mcp?utm_medium=xcom&utm_source=official) (ảnh minh họa, cảnh quay động, hiệu ứng âm thanh của bản nâng cao), Anthropic Claude Code / Claude Opus(dàn dựng và viết code). Các dịch vụ này do người dùng tự đăng ký, kho mã này không chứa bất kỳ khóa nào.
 
 ---
 

@@ -18,6 +18,6 @@
 Các công cụ và dịch vụ bên ngoài không phân phối kèm kho, cần tự cài đặt hoặc đăng ký:
 
 - [earshot](https://github.com/Leonxlnx/earshot) thư viện hiệu ứng âm thanh bằng code (MIT, tuỳ chọn, xem skills/vibe-knowledge/references/10-earshot.md)
-- Google Gemini TTS (lồng tiếng, cần tự chuẩn bị khoá `GOOGLE_API_KEY`; mẫu giọng demo cũ trong repo do Xiaomi MiMo thiết kế giọng tạo ra)
+- Google Gemini TTS (lồng tiếng, cần tự chuẩn bị khoá `GOOGLE_API_KEY`; giọng trong bản trộn demo cũ do Xiaomi MiMo tạo ra)
 - [Renoise MCP](https://renoise.ai/mcp?utm_medium=xcom&utm_source=official)(ảnh minh hoạ, cảnh động, hiệu ứng âm thanh của mức nâng cao, tuỳ chọn)
 - ffmpeg, Playwright (Chromium headless shell)

@@ -62,7 +62,6 @@ Bấm vào ảnh bìa để phát (video đặt ở [Release v1.0.0](https://git
 
 | Âm thanh | Giải thích |
 |---|---|
-| [default-voice-demo.m4a](docs/audio/default-voice-demo.m4a) | Giọng demo cũ "giọng nam điềm đạm của blogger công nghệ", giọng AI do Xiaomi MiMo thiết kế giọng tạo ra, không phải người thật (không còn là giọng mặc định; giọng mặc định hiện nay là Google Gemini TTS, giọng Sulafat); nhịp nhanh, 5,5–6 chữ/giây |
 | [mix-demo-voice-plus-bgm.m4a](docs/audio/mix-demo-voice-plus-bgm.m4a) | Hiệu quả trộn âm của thành phẩm: lời dẫn + BGM mặc định + hiệu ứng âm thanh (24 giây đầu bản B của kỳ 04) |
 | [vibe-bgm.m4a](skills/vibe-knowledge/assets/music/vibe-bgm.m4a) | BGM mặc định (112,9 BPM, 160 giây), video nào cũng dùng |
 

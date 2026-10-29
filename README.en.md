@@ -58,7 +58,6 @@ Style reels (each style performs the same opening, for side-by-side comparison):
 
 ## Default voice & BGM
 
-- [default-voice-demo.m4a](docs/audio/default-voice-demo.m4a): the old demo narrator, an AI voice made with Xiaomi MiMo voice design (not a real person). It is no longer the default; the current default narrator is Google Gemini TTS, voice Sulafat.
 - [mix-demo-voice-plus-bgm.m4a](docs/audio/mix-demo-voice-plus-bgm.m4a): final mix (voice + BGM + SFX).
 - [vibe-bgm.m4a](skills/vibe-knowledge/assets/music/vibe-bgm.m4a): the default BGM. It is **mandatory**: the mixer auto-fits it to the film length, disables other full-length scores, and calibrates it to sit 10 dB under the voice while speaking. Swapping it requires an explicit user request (`bgm: true, user_request: "..."`).
 
