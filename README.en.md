@@ -58,13 +58,13 @@ Style reels (each style performs the same opening, for side-by-side comparison):
 
 ## Default voice & BGM
 
-- [default-voice-demo.m4a](docs/audio/default-voice-demo.m4a): the default narrator, an AI voice made with Xiaomi MiMo voice design (not a real person).
+- [default-voice-demo.m4a](docs/audio/default-voice-demo.m4a): the old demo narrator, an AI voice made with Xiaomi MiMo voice design (not a real person). It is no longer the default; the current default narrator is Google Gemini TTS, voice Sulafat.
 - [mix-demo-voice-plus-bgm.m4a](docs/audio/mix-demo-voice-plus-bgm.m4a): final mix (voice + BGM + SFX).
 - [vibe-bgm.m4a](skills/vibe-knowledge/assets/music/vibe-bgm.m4a): the default BGM. It is **mandatory**: the mixer auto-fits it to the film length, disables other full-length scores, and calibrates it to sit 10 dB under the voice while speaking. Swapping it requires an explicit user request (`bgm: true, user_request: "..."`).
 
 ## How an episode is made
 
-Pick a topic → choose one of 6 narrative templates, a **length** (four tiers from 45 s to 5 min, each stating how deep it can go and what gets cut), a style and a tier → sourced fact sheet → script + adversarial review → MiMo voice with word-level alignment → `film.js` with the `know.js` component kit → frame-by-frame render → mix (mandatory BGM) → cover as first frame → QA (contact sheet, OCR read-back vs facts, loudness, freeze detection, BGM detection) → publishing kit. Three explicit user checkpoints; any paid generation is quoted first.
+Pick a topic → choose one of 6 narrative templates, a **length** (four tiers from 45 s to 5 min, each stating how deep it can go and what gets cut), a style and a tier → sourced fact sheet → script + adversarial review → Google Gemini TTS voice with word-level alignment → `film.js` with the `know.js` component kit → frame-by-frame render → mix (mandatory BGM) → cover as first frame → QA (contact sheet, OCR read-back vs facts, loudness, freeze detection, BGM detection) → publishing kit. Three explicit user checkpoints; any paid generation is quoted first.
 
 Two tiers share one `film.js`: **base** (0 credits: hand-written SVG layers, particles, data components) and **enhanced** (only the shots code can't do well go to Renoise).
 
@@ -97,7 +97,7 @@ git clone https://github.com/andyhuo520/vibe-knowledge.git
 cp -R vibe-knowledge/skills/vibe-knowledge vibe-knowledge/skills/ai-teardown ~/.claude/skills/
 ```
 
-Requirements: a Python with `numpy scipy pillow playwright` (set `CINE_PY`), `ffmpeg`, macOS Vision + `swiftc` for OCR QA, a Xiaomi MiMo key in `MIMO_API_KEY` or `~/.config/ai-teardown/mimo.env`, and optionally the Renoise MCP for the enhanced tier (see [Renoise](#renoise-the-generation-platform-for-the-enhanced-tier) above). Then ask Claude Code: *"Make a Vibe knowledge episode: why does the digit 1 give fake books away?"*
+Requirements: a Python with `numpy scipy pillow playwright` (set `CINE_PY`), `ffmpeg`, macOS Vision + `swiftc` for OCR QA, a Google Gemini API key in `GOOGLE_API_KEY` or `~/.config/ai-teardown/gemini.env`, and optionally the Renoise MCP for the enhanced tier (see [Renoise](#renoise-the-generation-platform-for-the-enhanced-tier) above). Then ask Claude Code: *"Make a Vibe knowledge episode: why does the digit 1 give fake books away?"*
 
 ## Acknowledgements
 

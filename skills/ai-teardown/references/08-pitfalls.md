@@ -15,10 +15,11 @@
 - Số bài không phải số (intro, 03en) phải dùng `videoOnly`, nếu không final tìm series.json theo `int(số bài)` sẽ bị crash.
 
 ## Lồng tiếng
-- Bẫy số La Mã của MiMo (CLI→151), đã tự động tách chữ cái; từ viết tắt chữ thường và tên riêng mới cho vào lexicon.
-- Khi không thêm mô tả giọng giảng bài thì tốc độ nói quá nhanh; giọng nhân bản sau khi thêm mô tả nói chậm đạt khoảng 4 chữ/giây, rồi tăng tốc 1.15 lần.
+- Bẫy "số La Mã" của MiMo không còn với Gemini (đã bỏ tự động tách chữ cái); từ viết tắt và tên riêng bị đọc lệch thì cho vào lexicon.
+- Nên viết `director` (tiếng Anh) theo kiểu giảng bài thong thả để nhịp đọc không vội; nhịp độ chữ/giây cần đo lại với tiếng Việt rồi mới chỉnh `scenes.speed` (ví dụ 1.15).
+- Gemini thỉnh thoảng đọc thừa/lặp/bỏ sót từ: đọc lại (`--qa`) thấp thì tổng hợp lại nhịp đó.
 - Khi whisper dùng toàn văn làm prompt, mô hình có thể bỏ qua một đoạn âm thanh → dùng small căn chỉnh trước, medium cứu vớt, cả hai lần đều thất bại thì mới cắt ngắn nhịp.
-- MiMo gặp 429 khi đồng thời, thỉnh thoảng lỗi HTTP2 framing: script tự động lùi thời gian và thử lại, không cần can thiệp thủ công.
+- Gemini có thể trả 429/500/503 khi chạy đồng thời: script tự động lùi thời gian và thử lại, không cần can thiệp thủ công.
 
 ## Tư liệu
 - SVG tĩnh của Noto có DOCTYPE/ENTITY sẽ bị Artifact từ chối (noto_emoji.py đã tự động loại bỏ).

@@ -4,7 +4,7 @@ Mỗi bài một `lessons/NN/scenes.json`, trình biên dịch là `runtime/sket
 
 ## Phần đầu file
 ```json
-{"n": 2, "title": "…", "series": "WorkBuddy 上手课", "engine": "sketch", "skin": "notion", "presenter": "hp", "sticker": true,
+{"n": 2, "title": "…", "series": "Khóa làm quen WorkBuddy", "engine": "sketch", "skin": "notion", "presenter": "hp", "sticker": true,
  "speed": 1.15, "author": "@Berryxia", "scenes": [ … ]}
 ```
 - `sticker: true` (**mặc định cho bài mới**): phong cách sticker, thẻ stickers biến thành sticker viền trắng (nghiêng ngẫu nhiên 1.5–3°, phóng to rơi xuống nảy lại, bóng đổ thu hẹp, ánh sáng quét qua), minh hoạ được bọc viền trắng cắt khuôn, emoji Noto trong thẻ cũng được viền trắng; nhãn không đủ chỗ thì tự thu nhỏ cỡ chữ. Tắt cho một trang: stickers ghi `"style": "card"`, say ghi `"illusSticker": false`.

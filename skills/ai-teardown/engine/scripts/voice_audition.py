@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
-"""Nghe thử lồng tiếng: theo một danh sách giọng, dùng Xiaomi MiMo đọc cùng một đoạn văn và tính vài chỉ số khách quan cho từng giọng.
+"""Nghe thử lồng tiếng: theo một danh sách giọng, dùng Google Gemini TTS đọc cùng một đoạn văn và tính vài chỉ số khách quan cho từng giọng.
 
 Cách dùng: python3 scripts/voice_audition.py <voices.json> <thư mục đầu ra> [--ref id giọng tham chiếu]
 
 voices.json:
 {"text": "đoạn văn cần đọc",
  "voices": [
-   {"id": "moli-style", "name": "茉莉 · giọng giảng bài", "model": "mimo-v2.5-tts", "voice": "茉莉", "style": "mô tả giọng điệu"},
-   {"id": "host", "name": "Blogger khoa học nam", "model": "mimo-v2.5-tts-voicedesign", "design": "mô tả giọng"},
-   {"id": "host-clone", "name": "Blogger khoa học nam · khóa bản sao giọng", "model": "mimo-v2.5-tts-voiceclone", "clone_from": "host"}
+   {"id": "sulafat", "name": "Sulafat · giọng giảng bài", "voice": "Sulafat", "director": "chỉ dẫn diễn đọc bằng tiếng Anh, có chỗ giữ {text}"},
+   {"id": "gacrux", "name": "Gacrux", "model": "gemini-3.8-flash-tts", "voice": "Gacrux"}
  ]}
+model mặc định gemini-3.8-flash-tts, director mặc định lấy từ tts_gemini.py. So sánh nhiều giọng có sẵn của Gemini (Sulafat, Gacrux, …) thì mỗi giọng một dòng.
 Giọng đã tạo rồi (thư mục đầu ra có <id>.wav) thì không gọi lại.
 
 Đầu ra: <id>.wav, <id>.mp3 (chuẩn hóa độ ồn), metrics.json:
   thời lượng, chữ/giây, trung vị tần số cơ bản (phân biệt giọng nam nữ), độ lên xuống ngữ điệu (độ lệch chuẩn theo nửa cung),
   độ tương đồng âm sắc với giọng tham chiếu (cosine similarity của phổ log-mel trung bình, dùng để kiểm tra giọng thiết kế có nhất quán giữa các lần tạo).
 """
-import base64
 import json
 import os
 import subprocess
@@ -27,26 +26,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from tts_mimo import env  # noqa: E402
-
-
-def call(key, base, body, tries=7):
-    last = ""
-    for k in range(tries):
-        r = subprocess.run(["curl", "-sS", "--max-time", "240", "-X", "POST", f"{base}/chat/completions",
-                            "-H", f"Authorization: Bearer {key}", "-H", "Content-Type: application/json", "--data-binary", "@-"],
-                           input=json.dumps(body, ensure_ascii=False), capture_output=True, text=True)
-        try:
-            d = json.loads(r.stdout)
-            if "choices" in d:
-                return d
-            last = str(d.get("error"))
-            wait = 10 * (k + 1) if "429" in last else 3
-        except Exception:  # noqa: BLE001
-            last, wait = (r.stdout or r.stderr)[:200], 3
-        print(f"  chờ {wait}s rồi thử lại: {last[:80]}", file=sys.stderr)
-        time.sleep(wait)
-    raise RuntimeError(last)
+from tts_gemini import DEFAULT_DIRECTOR, DEFAULT_MODEL, DEFAULT_VOICE, call as tts_call, env, to_wav  # noqa: E402
 
 
 def pcm(path, sr=16000):
@@ -93,28 +73,17 @@ def main():
     spec = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
     out = Path(sys.argv[2])
     out.mkdir(parents=True, exist_ok=True)
-    key, base = env()
+    key = env()
     text = spec["text"]
     for v in spec["voices"]:
         wav = out / f"{v['id']}.wav"
         if wav.exists():
             continue
-        msgs = [{"role": "assistant", "content": text}]
-        audio = {"format": "wav"}
-        if v.get("design"):
-            msgs.insert(0, {"role": "user", "content": v["design"]})
-        elif v.get("style"):
-            msgs.insert(0, {"role": "user", "content": v["style"]})
-        if v.get("voice"):
-            audio["voice"] = v["voice"]
-        if v.get("clone_from"):
-            ref = out / f"{v['clone_from']}.wav"
-            audio["voice"] = "data:audio/wav;base64," + base64.b64encode(ref.read_bytes()).decode()
         t0 = time.time()
-        d = call(key, base, {"model": v["model"], "messages": msgs, "audio": audio})
-        wav.write_bytes(base64.b64decode(d["choices"][0]["message"]["audio"]["data"]))
+        prompt = v.get("director", DEFAULT_DIRECTOR).replace("{text}", text)
+        data, mime = tts_call(key, v.get("model", DEFAULT_MODEL), v.get("voice", DEFAULT_VOICE), prompt)
+        to_wav(data, mime, wav)
         print(f"✓ {v['id']:18s} đã tổng hợp {time.time() - t0:4.1f}s")
-        time.sleep(4)  # MiMo giới hạn tốc độ khi gửi liên tiếp (429), cách vài giây thì ổn định hơn
     ref_id = sys.argv[sys.argv.index("--ref") + 1] if "--ref" in sys.argv else None
     profs, metrics = {}, []
     n = len([c for c in text if not c.isspace() and c not in "，。！？；：、,.!?;:“”「」"])

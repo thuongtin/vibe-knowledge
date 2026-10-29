@@ -2,7 +2,7 @@
 """Một bài một lệnh: lồng tiếng → dàn dựng theo scenes.json → trích khung hình tự kiểm tra → trộn âm → render → bản nén và bản tương tác cho trang khoá học.
 
 Cách dùng:
-    python3 scripts/make_lesson.py <thư mục bài> voice     # lấy ảnh + lồng tiếng MiMo (song song, cache theo văn bản) + căn chỉnh từng chữ + đọc lại bằng ASR
+    python3 scripts/make_lesson.py <thư mục bài> voice     # lấy ảnh + lồng tiếng Gemini (song song, cache theo văn bản) + căn chỉnh từng chữ + đọc lại bằng whisper
     python3 scripts/make_lesson.py <thư mục bài> build     # dàn dựng theo scenes.json, đóng gói, xuất một contact sheet mỗi cảnh một khung hình
     python3 scripts/make_lesson.py <thư mục bài> final     # trộn âm, render 1080p, nén 720p, thư mục bản tương tác, cập nhật series.json
     python3 scripts/make_lesson.py <thư mục bài> all       # chạy liền cả ba bước trên
@@ -53,7 +53,7 @@ def main():
             step("Lấy ảnh")
             run(["python3", ROOT / "scripts/fetch_images.py", L / "images.spec.json", img_dir])
         step("Lồng tiếng")
-        run(["python3", ROOT / "scripts/tts_mimo.py", L / "narration.json", build, "--gap", "0.8", "--lead", "0.6", "--qa", "--jobs", "2"])
+        run(["python3", ROOT / "scripts/tts_gemini.py", L / "narration.json", build, "--gap", "0.8", "--lead", "0.6", "--qa", "--jobs", "2"])
 
     if what in ("build", "all"):
         sp = json.loads((L / "scenes.json").read_text(encoding="utf-8")).get("speed")

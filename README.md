@@ -62,7 +62,7 @@ Bấm vào ảnh bìa để phát (video đặt ở [Release v1.0.0](https://git
 
 | Âm thanh | Giải thích |
 |---|---|
-| [default-voice-demo.m4a](docs/audio/default-voice-demo.m4a) | Giọng lồng tiếng mặc định "giọng nam điềm đạm của blogger công nghệ", giọng AI do Xiaomi MiMo thiết kế giọng tạo ra, không phải người thật; nhịp nhanh, 5,5–6 chữ/giây |
+| [default-voice-demo.m4a](docs/audio/default-voice-demo.m4a) | Giọng demo cũ "giọng nam điềm đạm của blogger công nghệ", giọng AI do Xiaomi MiMo thiết kế giọng tạo ra, không phải người thật (không còn là giọng mặc định; giọng mặc định hiện nay là Google Gemini TTS, giọng Sulafat); nhịp nhanh, 5,5–6 chữ/giây |
 | [mix-demo-voice-plus-bgm.m4a](docs/audio/mix-demo-voice-plus-bgm.m4a) | Hiệu quả trộn âm của thành phẩm: lời dẫn + BGM mặc định + hiệu ứng âm thanh (24 giây đầu bản B của kỳ 04) |
 | [vibe-bgm.m4a](skills/vibe-knowledge/assets/music/vibe-bgm.m4a) | BGM mặc định (112,9 BPM, 160 giây), video nào cũng dùng |
 
@@ -77,7 +77,7 @@ Bấm vào ảnh bìa để phát (video đặt ở [Release v1.0.0](https://git
 | ② Tra cứu | Danh sách sự thật `facts.md`: mỗi con số, tên người, năm, trích dẫn đều có xuất xứ; khi các cách nói có bất đồng thì liệt kê song song hai thuyết |
 | ③ Viết | Viết lời dẫn theo bản gốc → sub-agent rà soát đối kháng (hook, xuất xứ, số chữ) → sửa |
 | **Xác nhận 2** | Xem bản thảo lời dẫn + phân cảnh (bản nâng cao kèm danh sách cảnh quay và báo giá Renoise), đồng ý rồi mới tạo |
-| ④ Lồng tiếng | Giọng nhân bản MiMo + căn chỉnh từng chữ + đọc lại kiểm tra + hậu kỳ giọng người |
+| ④ Lồng tiếng | Giọng Google Gemini TTS + căn chỉnh từng chữ (whisper.cpp) + đọc lại kiểm tra (phiên âm lại bằng whisper.cpp) + hậu kỳ giọng (tùy chọn) |
 | ⑤ Dàn dựng | `film.js`: thư viện thành phần `know.js` (đẩy kéo ảnh minh họa, video từng khung hình, từ khóa, bộ đếm, cổ văn viết dọc, chú thích xuất xứ, nút lưỡng nan, con dấu, hình mặt cắt nét…) |
 | ⑥ Render | Ghi hình từng khung 1080p60 → trộn âm (BGM bắt buộc, hiệu chỉnh theo giọng người) → ghép ảnh bìa thành khung hình đầu |
 | ⑦ Kiểm tra chất lượng | Contact sheet + đọc lại OCR đối chiếu facts.md + độ ồn + phát hiện đóng băng + phát hiện BGM |
@@ -119,7 +119,7 @@ cp -R vibe-knowledge/skills/vibe-knowledge vibe-knowledge/skills/ai-teardown ~/.
 - `vibe-knowledge` là phần chính; `ai-teardown` cung cấp engine render cine, tạo không gian làm việc và script lồng tiếng, cả hai đều phải cài.
 - Python dùng để render: `python3 -m venv ~/.venvs/cine && ~/.venvs/cine/bin/pip install numpy scipy pillow playwright && ~/.venvs/cine/bin/python -m playwright install chromium-headless-shell`; sau đó `export CINE_PY=~/.venvs/cine/bin/python`.
 - `ffmpeg`; kiểm tra chất lượng OCR dùng Vision có sẵn của macOS (cần `swiftc`).
-- Lồng tiếng: Xiaomi MiMo, đặt khóa vào biến môi trường `MIMO_API_KEY` hoặc `~/.config/ai-teardown/mimo.env` (**không ghi vào file dự án**). Giọng mặc định là giọng AI đi kèm kho mã; muốn dùng giọng của mình: `new_film.py --voice-ref bản-ghi-âm-của-bạn.wav` (chỉ dùng giọng của chính bạn hoặc giọng đã được cấp phép).
+- Lồng tiếng: Google Gemini TTS (mặc định model `gemini-3.8-flash-tts`, giọng `Sulafat`), đặt khóa vào biến môi trường `GOOGLE_API_KEY` hoặc `~/.config/ai-teardown/gemini.env` (**không ghi vào file dự án**). Muốn đổi giọng: chọn tên giọng có sẵn của Gemini (ví dụ Sulafat, Gacrux) và sửa `director` (chỉ dẫn diễn đọc, viết bằng tiếng Anh) trong `narration.json`; không còn nhân bản giọng.
 - Bản nâng cao (tùy chọn): [Renoise MCP](https://renoise.ai/mcp?utm_medium=xcom&utm_source=official), đăng ký và kết nối xem mục [Renoise](#renoise-nền-tảng-tạo-nội-dung-của-bản-nâng-cao) ở trên.
 
 Sau đó nói trong Claude Code:

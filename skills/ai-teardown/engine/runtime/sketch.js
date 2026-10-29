@@ -583,8 +583,10 @@ export function buildLesson(root, { spec, timings, images, recs = {}, extra = {}
   stage.overlay(pageFlip(stage, scenes.filter((s) => s.flip).map((s) => s.start), NOTION));
   stage.overlay(corner(stage, `${U.by} ${spec.author ?? ""}`, "tl", [[0.5, Math.min(12, scenes[1]?.start ?? 12)]]));
   stage.overlay(corner(stage, `${U.by} ${spec.author ?? ""}`, "tr", [[timings.total - 10, timings.total + 1]]));
-  stage.overlay(corner(stage, spec.voiceTag ?? "Lồng tiếng do AI tổng hợp (Xiaomi MiMo)", "tr", [[0.5, Math.min(12, scenes[1]?.start ?? 12)]]));
-  stage.captions = captionCues(Object.values(T), spec.lang === "en" ? 52 : 18, spec.lang === "en");
+  stage.overlay(corner(stage, spec.voiceTag ?? "Lồng tiếng do AI tổng hợp (Google Gemini)", "tr", [[0.5, Math.min(12, scenes[1]?.start ?? 12)]]));
+  // Tiếng Anh, tiếng Việt: lời dẫn căn theo từ, phụ đề dài tối đa 52 ký tự; tiếng Trung: căn theo chữ, 18 ký tự
+  const WORDS = ["en", "vi"].includes(spec.lang ?? timings.voice?.lang);
+  stage.captions = captionCues(Object.values(T), WORDS ? 52 : 18, WORDS);
   if (!spec.noCaptions) stage.overlay(handCaptions(stage, stage.captions));
   stage.chapters = [{ t: 0, title: "Mở đầu" }, ...chapters];
   stage.videos = videos;

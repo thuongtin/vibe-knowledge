@@ -69,7 +69,7 @@ figcaption{{color:var(--dim);font-size:14px;margin-top:6px}}
 <div class="box"><h4>Đổi thành phong cách của riêng bạn</h4><p>"Đổi phong cách cổ phong thành màu thương hiệu của tôi" hoặc "làm từ đầu một phong cách bảng đen phấn": mỗi vấn đề một câu hỏi để chốt phương án, ra ảnh phong cách đặt cạnh nhau và demo 15–30 giây, bạn gật đầu mới lưu thành "phong cách của tôi".</p></div>
 </div>
 <h2>Hai bậc</h2><div class="how">
-<div class="box"><h4>Bản cơ bản · 0 điểm</h4><p>Mọi phong cách không gắn nhãn "bản nâng cao" đều làm được. Hình ảnh bằng code (Opus viết tay minh họa + hiệu ứng chuyển động), lồng tiếng Xiaomi MiMo, nhạc nền từ thư viện, hiệu ứng âm thanh bằng code earshot.</p></div>
+<div class="box"><h4>Bản cơ bản · 0 điểm</h4><p>Mọi phong cách không gắn nhãn "bản nâng cao" đều làm được. Hình ảnh bằng code (Opus viết tay minh họa + hiệu ứng chuyển động), lồng tiếng Google Gemini TTS, nhạc nền từ thư viện, hiệu ứng âm thanh bằng code earshot.</p></div>
 <div class="box"><h4>Bản nâng cao · chọn theo cảnh quay</h4><p>Chỉ giao cho Renoise các cảnh chân thực và 1–3 khoảnh khắc cần được nhớ nhất (ảnh minh họa / cảnh quay động / nhạc nền riêng / hiệu ứng âm thanh). Nhẹ ≈25–40, tiêu chuẩn ≈250–300, hàng đầu ≈600–700 điểm, mỗi lần báo giá trước, bạn xác nhận mới tạo.</p></div>
 </div>
 <h2>6 loại bản gốc</h2><div class="box"><ul>{tpls}</ul></div>

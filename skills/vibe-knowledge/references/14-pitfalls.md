@@ -8,11 +8,14 @@ Mỗi mục đều là bẫy đã thực sự dẫm phải: hiện tượng → 
 - **Wan 3.0 báo `InvalidParameter: Failed to download <url>`**: liên kết của ảnh khung đầu tạm thời không tải được. Cách làm: đổi idempotency key mới rồi gửi lại nguyên xi, thường là qua; lần thất bại đó có hoàn điểm hay không thì dùng get_account so sánh trước sau để xác nhận.
 - **Phim Wan xuất ra tự có viền đen trên dưới** (trong 1282×718 mỗi bên trên dưới khoảng 40px): `clip2frames.py` sẽ tự cắt bỏ, trong info.json có ghi crop; `vclip` phủ đầy theo kiểu cover, không cần xử lý thêm.
 
-## Lồng tiếng (MiMo)
+## Lồng tiếng (Gemini)
 
 - **Từ lặp lại trong cùng một nhịp sẽ làm căn chỉnh từng chữ bị đứt** (04b: "nhị chi nhật / tam chi nhật" mỗi cái xuất hiện hai lần, `check_timings.py` báo lỗi). Cách làm: viết lại thành cách nói không lặp ("đổi sang cách nói ngày nay: tháng Chạp đục băng, tháng Giêng cất vào hầm"), đừng cố chỉnh căn chỉnh.
 - **Sau khi lexicon đổi một từ thành chữ đồng âm, căn chỉnh cũng có thể đứt** ("lăng âm" sau khi thay thì không khớp). Cách làm: trước hết lồng tiếng một lần không có lexicon, đọc lại thấy thực sự đọc sai rồi mới thêm.
 - **Một nhịp chậm** (<5 chữ/giây) hoặc đọc lại <95%: xóa `build/audio/<nhịp>.*` rồi lồng lại riêng, thường một hai lần là bình thường.
+- **Gemini thỉnh thoảng đọc thừa, lặp hoặc bỏ sót từ**: `--qa` phiên âm lại bằng whisper.cpp, đọc lại thấp thì tổng hợp lại nhịp đó; nghĩa bị ngược hoặc mất ý thì bắt buộc làm lại.
+- **Chỉ dẫn diễn đọc `director` viết bằng tiếng Anh** (có chỗ giữ `{text}`), lời dẫn vẫn tiếng Việt; Gemini nghe chỉ dẫn tiếng Anh ổn định nhất. Muốn đổi giọng thì đổi tên giọng có sẵn (Sulafat, Gacrux…) và sửa `director`, không còn nhân bản giọng.
+- **429/500/503 khi gọi đồng thời**: script tự lùi thời gian và thử lại, kiên nhẫn chờ, giảm `--jobs` nếu gặp nhiều.
 
 ## Dàn cảnh (film.js)
 

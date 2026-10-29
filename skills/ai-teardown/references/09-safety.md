@@ -1,7 +1,7 @@
 # 09 · Quyền riêng tư, bản quyền và khóa API
 
 ## Khóa API
-- Khóa MiMo chỉ đặt trong `~/.config/ai-teardown/mimo.env` (quyền 600). Không ghi vào dự án, narration, trang, đoạn trích nhật ký, bộ nhớ hay skill.
+- Khóa Google Gemini chỉ đặt trong biến môi trường `GOOGLE_API_KEY` (hoặc `GEMINI_API_KEY`) hoặc `~/.config/ai-teardown/gemini.env` (quyền 600). Không ghi vào dự án, narration, trang, đoạn trích nhật ký, bộ nhớ hay skill.
 - Trong quay màn hình và ảnh chụp không được xuất hiện auth.json, API key, Token, AppID/Secret, email tài khoản.
 
 ## Ảnh chụp và quay màn hình

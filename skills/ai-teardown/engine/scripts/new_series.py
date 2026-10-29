@@ -81,10 +81,6 @@ def main():
     if a.style != "cine":
         (sd / "assets/img/images.json").write_text(json.dumps({"images": images}, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    # Tham chiếu giọng nhân bản đã khóa (trong narration.json, voice.clone ghi "../../voice/host-ref.wav")
-    if (PRESETS / "voice/host-ref.wav").exists():
-        shutil.copy(PRESETS / "voice/host-ref.wav", sd / "voice/host-ref.wav")
-
     series = {
         "title": a.title or a.name, "author": "@Berryxia", "status": "draft", "status_label": "Đại cương chờ xác nhận",
         "tagline": "", "facts": [], "lessons_sub": "", "footer": "", "lessons": [],

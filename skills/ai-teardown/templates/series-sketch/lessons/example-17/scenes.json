@@ -1,7 +1,7 @@
 {
  "n": 17,
  "title": "Vòng tăng trưởng của tự truyền thông",
- "series": "WorkBuddy 上手课",
+ "series": "Khóa làm quen WorkBuddy",
  "theme": "paper",
  "engine": "sketch",
  "skin": "notion",
@@ -858,7 +858,7 @@
     "github.com/AlephAITech/WorkBuddyGuide",
     "Minh hoạ: thư viện minh hoạ IconPark (ByteDance) · Icon: IconPark, Noto Emoji",
     "Sơ đồ quy trình: AntV X6 · lottie-web · rough.js (MIT)",
-    "Nhân vật thuyết minh: avatar pixel của @Berryxia · Lồng tiếng: Xiaomi MiMo (AI tạo)"
+    "Nhân vật thuyết minh: avatar pixel của @Berryxia · Lồng tiếng: Google Gemini (AI tạo)"
    ]
   }
  ],

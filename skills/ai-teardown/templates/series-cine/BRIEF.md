@@ -14,8 +14,8 @@ Thư mục gốc không gian làm việc: `{không gian làm việc}`; thư mụ
 - Mỗi màn hình một thông tin trọn vẹn; hiệu ứng tác động lên nội dung, đừng xé nhỏ chữ.
 
 ## Bạn cần bàn giao (đều nằm trong `lessons/<số bài>/`)
-1. `narration.json`: 16–20 nhịp, 1100–1400 chữ (sau khi tăng tốc 1,15 lần thì khoảng 3,5–4 phút). Định dạng, giọng đọc chép theo bài mẫu (`voice.clone` trỏ tới `../../voice/host-ref.wav`).
-2. Lồng tiếng: `cd {không gian làm việc} && python3 scripts/make_lesson.py examples/{tên loạt bài}/lessons/<số bài> voice > examples/{tên loạt bài}/lessons/<số bài>/voice.log 2>&1`, rồi `python3 scripts/speed.py examples/{tên loạt bài}/lessons/<số bài> 1.15`, sau đó ở thư mục loạt bài chạy `python3 tools/check_timings.py <số bài>` để kiểm tra căn chỉnh từng chữ có bị đứt không. MiMo sẽ giới hạn tốc độ (429), script tự lùi lại và thử lại, hãy kiên nhẫn chờ.
+1. `narration.json`: 16–20 nhịp, 1100–1400 chữ (sau khi tăng tốc 1,15 lần thì khoảng 3,5–4 phút). Định dạng, giọng đọc chép theo bài mẫu (khối `voice` dùng engine `gemini`, giọng `Sulafat`).
+2. Lồng tiếng: `cd {không gian làm việc} && python3 scripts/make_lesson.py examples/{tên loạt bài}/lessons/<số bài> voice > examples/{tên loạt bài}/lessons/<số bài>/voice.log 2>&1`, rồi `python3 scripts/speed.py examples/{tên loạt bài}/lessons/<số bài> 1.15`, sau đó ở thư mục loạt bài chạy `python3 tools/check_timings.py <số bài>` để kiểm tra căn chỉnh từng chữ có bị đứt không. Gemini có thể giới hạn tốc độ (429), script tự lùi lại và thử lại, hãy kiên nhẫn chờ.
 3. Nhạc nền (chọn một trong hai):
    - Nền tổng hợp (mặc định): `sections` ghi các đoạn và level, finish.py sẽ dùng `cine/audio/tools/bed.py` để tổng hợp.
    - Thư viện nhạc: `$CINE_PY ~/.claude/skills/promo-video/scripts/pick_music.py lessons/<số bài>/assets/music/bgm.wav --track {bài nhạc} --seconds <tổng số giây của bài+2> --hit-at <giây mà tên khóa học đập xuống>`; nếu bài nhạc ngắn hơn cả bài học thì dùng `python3 cine/tools/loopbed.py <bgm.wav> <bgm_long.wav> --seconds <tổng số giây của bài> --bpm <BPM được in ra> --anchor <hit-at>` để nối dài theo từng ô nhịp. Ghi BPM được in ra và `credit.txt` vào chú thích trong film.js.

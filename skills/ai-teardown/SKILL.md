@@ -1,6 +1,6 @@
 ---
 name: ai-teardown
-description: Xưởng làm loạt bài giảng "Khóa Mổ xẻ AI": nhập một chủ đề (sản phẩm AI, dự án mã nguồn mở/sách, lịch sử nhân vật, hướng dẫn phần mềm), tạo ra loạt video giảng giải bằng tiếng Trung đi từ nông đến sâu, câu nào cũng có nguồn + bản tương tác cho từng bài + trang tổng hợp khóa học. Quy trình: thu thập tài liệu → xác nhận đối tượng và thời lượng → đại cương → lời dẫn từng bài (giọng nhân bản MiMo + căn chỉnh từng chữ) → dàn cảnh scenes.json (engine vẽ tay tối giản kiểu Notion / engine mẫu macaron, biểu tượng và minh họa IconPark, emoji động Noto, sơ đồ AntV X6, nhân vật giảng giải pixel, khoanh chú thích ảnh chụp, quay màn hình terminal) hoặc phim bằng mã film.js (engine cine: Three.js, hạt, shader, chồng đoạn phim thật, nhạc nền từ thư viện) → render từng khung 1080p bằng Hyperframes / GPU không đầu → xuất bản Artifact → trang tổng hợp khóa học + video dẫn nhập. Kích hoạt: làm loạt bài giảng / làm video khóa học / biến một cuốn sách hay một dự án mã nguồn mở thành khóa học / video phổ biến kiến thức / video dạy học / bản đồ khóa học / video dẫn nhập / giáo án tương tác / "khóa mổ xẻ", "khóa làm quen", "khóa thực chiến", "khóa dàn dựng" / phim giảng giải cực mạnh / dùng phiên làm việc thật và thành phẩm để dạy người khác làm video. Không dùng cho: một phim quảng bá đơn lẻ (dùng promo-video), một infographic đơn lẻ, viết bài thuần túy.
+description: Xưởng làm loạt bài giảng "Khóa Mổ xẻ AI": nhập một chủ đề (sản phẩm AI, dự án mã nguồn mở/sách, lịch sử nhân vật, hướng dẫn phần mềm), tạo ra loạt video giảng giải bằng tiếng Trung đi từ nông đến sâu, câu nào cũng có nguồn + bản tương tác cho từng bài + trang tổng hợp khóa học. Quy trình: thu thập tài liệu → xác nhận đối tượng và thời lượng → đại cương → lời dẫn từng bài (giọng Google Gemini TTS + căn chỉnh từng chữ bằng whisper.cpp) → dàn cảnh scenes.json (engine vẽ tay tối giản kiểu Notion / engine mẫu macaron, biểu tượng và minh họa IconPark, emoji động Noto, sơ đồ AntV X6, nhân vật giảng giải pixel, khoanh chú thích ảnh chụp, quay màn hình terminal) hoặc phim bằng mã film.js (engine cine: Three.js, hạt, shader, chồng đoạn phim thật, nhạc nền từ thư viện) → render từng khung 1080p bằng Hyperframes / GPU không đầu → xuất bản Artifact → trang tổng hợp khóa học + video dẫn nhập. Kích hoạt: làm loạt bài giảng / làm video khóa học / biến một cuốn sách hay một dự án mã nguồn mở thành khóa học / video phổ biến kiến thức / video dạy học / bản đồ khóa học / video dẫn nhập / giáo án tương tác / "khóa mổ xẻ", "khóa làm quen", "khóa thực chiến", "khóa dàn dựng" / phim giảng giải cực mạnh / dùng phiên làm việc thật và thành phẩm để dạy người khác làm video. Không dùng cho: một phim quảng bá đơn lẻ (dùng promo-video), một infographic đơn lẻ, viết bài thuần túy.
 ---
 
 # Khóa Mổ xẻ AI · Xưởng làm loạt bài giảng
@@ -35,7 +35,7 @@ python3 ~/.claude/skills/ai-teardown/engine/scripts/new_series.py ~/Desktop/<kh�
 - Nếu đã có không gian làm việc (dự án gốc ở `~/Desktop/ai-teardown`) thì tạo loạt bài ngay trong đó.
 - Thư mục bài học phải nằm trong không gian làm việc: `<không-gian-làm-việc>/examples/<loạt-bài>/lessons/<NN>/`.
 
-Phụ thuộc môi trường và cấu hình một lần xem mục "Môi trường" trong `references/02-pipeline.md` (khóa MiMo, mô hình whisper, Playwright, Hyperframes, esbuild, thư viện nhạc nền).
+Phụ thuộc môi trường và cấu hình một lần xem mục "Môi trường" trong `references/02-pipeline.md` (khóa Google Gemini, mô hình whisper, Playwright, Hyperframes, esbuild, thư viện nhạc nền).
 
 ## Quy trình (sáu giai đoạn, ba điểm xác nhận)
 
@@ -45,7 +45,7 @@ Phụ thuộc môi trường và cấu hình một lần xem mục "Môi trườ
 | **Xác nhận 1** | Đối tượng, thời lượng, số bài, giọng đọc (nghe thử trước), phong cách hình ảnh (làm bản mẫu trước) | `DECISIONS.md` | |
 | ② Đại cương | Đại cương: tiêu đề mỗi bài, một câu dẫn, giới thiệu, các ý chính, thời lượng → bản nháp trang tổng hợp khóa học | `series.json` → trang khóa học | |
 | **Xác nhận 2** | Người dùng xem đại cương và chốt | | |
-| ③ Viết | narration.json cho mỗi bài (18–28 nhịp, 1200–2200 chữ, đánh dấu `[[cue]]`) → lồng tiếng MiMo + kiểm tra bằng đọc lại | `build/audio/` | references/03-narration-voice.md |
+| ③ Viết | narration.json cho mỗi bài (18–28 nhịp, 1200–2200 chữ, đánh dấu `[[cue]]`) → lồng tiếng Gemini + kiểm tra bằng đọc lại | `build/audio/` | references/03-narration-voice.md |
 | ④ Dàn cảnh | Dàn cảnh scenes.json → check_scenes → build contact sheet và xem từng khung | `build/stills/scenes.png` | references/04, 05 |
 | ⑤ Render | Hàng đợi render tuần tự → trích khung kiểm tra | `hf/renders/lessonNN.mp4` | references/02-pipeline.md |
 | ⑥ Xuất bản | Artifact bản tương tác, trang tổng hợp khóa học (>64MB thì xuất bản theo từng đợt), video dẫn nhập, thư mục tổng hợp video cục bộ | liên kết + thư mục | references/02-pipeline.md |
@@ -59,7 +59,7 @@ Với loạt cine thì dàn cảnh và render đổi thành: viết `lessons/NN/
 
 ```bash
 L=examples/<loạt-bài>/lessons/NN
-python3 scripts/make_lesson.py $L voice > $L/voice.log 2>&1   # lồng tiếng + căn chỉnh whisper + MiMo đọc lại
+python3 scripts/make_lesson.py $L voice > $L/voice.log 2>&1   # lồng tiếng + căn chỉnh whisper + whisper đọc lại
 python3 scripts/check_scenes.py $L                              # tự kiểm tra cảnh
 rm -rf $L/build/stills && python3 scripts/make_lesson.py $L build   # dàn cảnh + contact sheet
 echo NN >> examples/<loạt-bài>/render.queue                         # xếp vào hàng đợi render (runner xem 02-pipeline)
@@ -80,7 +80,7 @@ python3 scripts/course_page.py examples/<loạt-bài>/series.json examples/<lo�
 |---|---|
 | references/01-workflow.md | Quy trình sáu giai đoạn, cách hỏi ở các điểm xác nhận, phân công đa tác tử, bản đồ khóa học/video dẫn nhập |
 | references/02-pipeline.md | Cấu trúc thư mục, phụ thuộc môi trường, ba đoạn của make_lesson, hàng đợi render, xuất bản và trang khóa học, tổng hợp video |
-| references/03-narration-voice.md | Cách viết lời dẫn, lồng tiếng và nhân bản giọng MiMo, lexicon, kiểm tra bằng đọc lại, bản tiếng Anh |
+| references/03-narration-voice.md | Cách viết lời dẫn, lồng tiếng Gemini (giọng, director), lexicon, kiểm tra bằng đọc lại, bản tiếng Anh |
 | references/04-scenes-sketch.md | Toàn bộ mẫu và trường của engine vẽ tay (giao diện Notion), nhân vật giảng giải, góc máy |
 | references/05-scenes-lesson.md | Mẫu của trình biên dịch mẫu (mùa 1, 2), quay màn hình terminal, nét vẽ nguệch ngoạc |
 | references/06-visual-assets.md | Biểu tượng, minh họa, emoji động Noto, X6, nhập ảnh chụp và sổ cái, quy tắc ghi công |
@@ -95,4 +95,4 @@ python3 scripts/course_page.py examples/<loạt-bài>/series.json examples/<lo�
 | templates/series-lesson/ | BRIEF, DECISIONS, ví dụ series.json của loạt dùng trình biên dịch mẫu, một bài thành phẩm |
 | templates/series-cine/ | Mẫu BRIEF của loạt cine, bốn bản hướng dẫn đã dùng thật (khóa dàn dựng, khóa thực chiến phim quảng bá, phim khái niệm ngành, bài bổ sung phân tích phim), film.js của hai bài thành phẩm, check_timings / update_series, công cụ ghi phiên làm việc thật |
 | engine/cine/ | Bản thân engine cine (new_series.py --style cine sao chép vào thư mục loạt bài) |
-| presets/ | Nhân vật giảng giải pixel 10 động tác × 8 khung (+ sổ cái, prompt tạo ảnh), tham chiếu giọng nhân bản đã khóa |
+| presets/ | Nhân vật giảng giải pixel 10 động tác × 8 khung (+ sổ cái, prompt tạo ảnh), (giọng mặc định hiện là Gemini Sulafat, không cần mẫu giọng) |

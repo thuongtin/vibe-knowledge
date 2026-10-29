@@ -3,16 +3,15 @@
 
 Cách dùng:
   python3 ~/.claude/skills/vibe-knowledge/tools/new_film.py <số kỳ> --template A --title "Định luật Benford" [--ws ~/Desktop/vibe-knowledge] [--series vk]
-         [--voice-ref <bản ghi 10–30 giây của bạn.wav>] [--ratio 16:9]
+         [--ratio 16:9]
 
 Việc làm:
 1. Nếu không gian làm việc / series chưa tồn tại thì gọi new_series.py --style cine của ai-teardown để tạo (engine, phông chữ, công cụ render).
 2. Cài kit/know.js vào <series>/cine/engine/, vá cine/tools/record.py, stills.py: sau mỗi lần seek thì await window.__vk.wait() (chờ ảnh, khung video giải mã xong rồi mới chụp).
-3. Sao chép mẫu tham chiếu giọng nhân bản vào <series>/voice/host-ref.wav (mặc định assets/voice/default-voice-ref.wav: giọng AI do MiMo thiết kế giọng tạo ra, không phải người thật).
+3. Lồng tiếng dùng Google Gemini TTS (mặc định giọng Sulafat, khối voice trong narration.json), không cần bản ghi mẫu; đổi giọng thì sửa voice.voice / voice.director.
 4. lessons/<số kỳ>/: narration.json (khung lời dẫn của khuôn), film.js (khung hình ảnh), facts.md (danh sách sự kiện), assets.json (danh sách tài nguyên Renoise), assets/{img,clips,audio}/.
 """
 import argparse
-import os
 import re
 import shutil
 import subprocess
@@ -21,7 +20,6 @@ from pathlib import Path
 
 SKILL = Path(__file__).resolve().parents[1]
 AT = Path.home() / ".claude/skills/ai-teardown"
-DEFAULT_REF = Path(os.environ.get("VK_VOICE_REF") or Path(__file__).resolve().parents[1] / "assets/voice/default-voice-ref.wav")   # Mặc định: "giọng nam trầm ổn của blogger công nghệ" do AI thiết kế; muốn dùng giọng nhân bản của mình thì truyền --voice-ref hoặc đặt VK_VOICE_REF
 
 SEEK = 'pg.evaluate("(t) => window.__film.seek(t)", t)'
 PATCHED = SEEK + '; pg.evaluate("() => window.__vk ? window.__vk.wait() : null")'
@@ -66,7 +64,6 @@ def main():
     ap.add_argument("--title", required=True)
     ap.add_argument("--ws", default=str(Path.home() / "Desktop/vibe-knowledge"))
     ap.add_argument("--series", default="vk")
-    ap.add_argument("--voice-ref", default=str(DEFAULT_REF))
     a = ap.parse_args()
 
     ws = Path(a.ws).expanduser().resolve()
@@ -79,15 +76,6 @@ def main():
     patch_finish(sd)
     patch_bgm(sd)
     sys.path.insert(0, str(SKILL / "tools")); import patch_earshot; patch_earshot.patch(sd)   # hiệu ứng âm thanh code earshot
-
-    ref = sd / "voice/host-ref.wav"
-    src = Path(a.voice_ref).expanduser()
-    if not ref.exists() or src.resolve() != ref.resolve():
-        if not src.exists():
-            sys.exit(f"Không tìm thấy mẫu tham chiếu giọng: {src}")
-        ref.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy(src, ref)
-        print(f"✓ Mẫu tham chiếu giọng: {src} → {ref.relative_to(ws)}")
 
     L = sd / "lessons" / a.id
     if L.exists():

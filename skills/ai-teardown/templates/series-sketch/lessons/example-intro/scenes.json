@@ -45,12 +45,12 @@
    "lines": [
     "Đặc biệt cảm ơn",
     {
-     "text": "Thầy *苍何*",
+     "text": "Thầy *Thương Hà*",
      "at": "B01.canghe+0.8"
     },
     {
      "text": "Một trong các tác giả sách xanh · bạn của tôi",
-     "at": "B01@朋友"
+     "at": "B01@bạn của mình"
     }
    ],
    "tips": [
@@ -76,30 +76,30 @@
    "items": [
     {
      "emoji": "icon-park:user",
-     "label": "甲木未来派",
+     "label": "Giáp Mộc Vị Lai Phái",
      "at": "B02.all+0.4"
     },
     {
      "emoji": "icon-park:user",
-     "label": "摸鱼小李",
-     "at": "B02@摸鱼"
+     "label": "Mô Ngư Tiểu Lý",
+     "at": "B02@Mô Ngư"
     },
     {
      "emoji": "icon-park:user",
-     "label": "袋鼠帝",
-     "at": "B02@袋鼠",
+     "label": "Đại Thử Đế",
+     "at": "B02@Đại Thử",
      "sub": "AI Quán trọ"
     },
     {
      "emoji": "icon-park:like",
-     "label": "苍何",
-     "at": "B02@袋鼠+0.8",
+     "label": "Thương Hà",
+     "at": "B02@Đại Thử+0.8",
      "sub": "Bạn của tôi"
     },
     {
      "emoji": "icon-park:user",
-     "label": "刘聪NLP",
-     "at": "B02@刘聪"
+     "label": "Lưu Thông NLP",
+     "at": "B02@Lưu Thông"
     }
    ],
    "caption": {
@@ -170,11 +170,11 @@
     "items": [
      {
       "text": "Tìm tài liệu · chia nhỏ các bước",
-      "at": "B04@找资料"
+      "at": "B04@tìm tư liệu"
      },
      {
       "text": "Đi thực hiện · giao bạn *nghiệm thu*",
-      "at": "B04@去执行"
+      "at": "B04@đi thực hiện"
      }
     ]
    }
@@ -343,7 +343,7 @@
    "at": "B09.bye",
    "next": "Bài sau: Bài 0 · Tải về, cài đặt, đăng nhập và cập nhật",
    "thanksAt": "B09.bye",
-   "thanks": "Cảm ơn thầy 苍何 và các tác giả của Sách xanh thực chiến WorkBuddy",
+   "thanks": "Cảm ơn thầy Thương Hà và các tác giả của Sách xanh thực chiến WorkBuddy",
    "pose": "cheer",
    "tips": [
     {
@@ -357,7 +357,7 @@
     "github.com/AlephAITech/WorkBuddyGuide",
     "Minh hoạ: thư viện minh hoạ IconPark (ByteDance) · Icon: IconPark, Noto Emoji",
     "Hiệu ứng: lottie-web · rough.js (MIT)",
-    "Nhân vật que giảng bài: avatar pixel @Berryxia · Lồng tiếng: Xiaomi MiMo (do AI tạo)"
+    "Nhân vật que giảng bài: avatar pixel @Berryxia · Lồng tiếng: Google Gemini (do AI tạo)"
    ]
   }
  ],

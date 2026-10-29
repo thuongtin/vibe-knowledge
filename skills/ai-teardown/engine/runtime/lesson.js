@@ -5,7 +5,7 @@
  * Cách viết thời gian (chuỗi):
  *   "B03"          bắt đầu mở lời ở nhịp 3
  *   "B03.first"    dấu [[first]] của nhịp 3
- *   "B03@máy"      khoảnh khắc đọc đến “máy” trong nhịp 3 (thời gian từng chữ của MiMo + whisper)
+ *   "B03@máy"      khoảnh khắc đọc đến “máy” trong nhịp 3 (thời gian từng chữ của whisper)
  *   "B03.end"      nhịp 3 nói xong
  *   Tất cả các dạng trên đều có thể thêm độ lệch: "B03.first+0.4", "B03@máy-0.2"
  *
@@ -101,7 +101,7 @@ export function buildLesson(root, { spec, timings, images, recs = {}, theme = "m
         ...(s.question ? [{ text: s.question, at: ref(s.questionAt, s.in + 3), size: 72, weight: 750, mt: 34, cps: 8, color: "var(--ink2)" }] : []),
       ] } });
       // Nhãn góc đầu phim: thành thật báo với khán giả rằng lồng tiếng do AI tổng hợp (bài 10 giảng nội dung do AI tạo phải ghi chú, khóa học tự làm trước)
-      stage.overlay(tag(stage, { text: spec.voiceTag ?? "Lồng tiếng do AI tổng hợp (Xiaomi MiMo)", start: 0.5, end: s.out === Infinity ? 12 : s.out, pos: "tr", kind: "uimock" }));
+      stage.overlay(tag(stage, { text: spec.voiceTag ?? "Lồng tiếng do AI tổng hợp (Google Gemini)", start: 0.5, end: s.out === Infinity ? 12 : s.out, pos: "tr", kind: "uimock" }));
       if (spec.author) stage.overlay(tag(stage, { text: `Tác giả ${spec.author}`, start: 0.5, end: s.out === Infinity ? 12 : s.out, pos: "tl", kind: "uimock" }));
       const spots = [[720, -330, 100], [430, -380, 80], [880, 80, 84], [740, 250, 90], [150, 260, 76]];
       add(Floaties, { id: `s${s.i}-float`, params: { out: s.out, items: (s.icons ?? []).slice(0, 5).map((ic, k) => ({
@@ -337,7 +337,8 @@ export function buildLesson(root, { spec, timings, images, recs = {}, theme = "m
   }
   const wipes = scenes.filter((s) => s.wiped).map((s) => s.start);
   stage.overlay(wipe(stage, { times: wipes, palette: PALETTE }));
-  stage.captions = captionCues(Object.values(T));
+  const WORDS = ["en", "vi"].includes(spec.lang ?? timings.voice?.lang);   // lời dẫn căn theo từ (tiếng Anh, tiếng Việt)
+  stage.captions = captionCues(Object.values(T), WORDS ? 52 : 18, WORDS);
   stage.overlay(captions(stage, stage.captions));
   stage.chapters = scenes.filter((s, i) => i === 0 || s.chapter).map((s) => ({ t: s.i === 0 ? 0 : s.start, title: s.chapter ?? "Mở đầu" }));
   stage.sfx = [{ t: 0.25, name: "pop", gain: -17 }, ...wipes.map((t, i) => ({ t: t - 0.2, name: `swish-${1 + (i % 3)}`, gain: -18 })), ...all.flatMap((q) => q.sfx ?? [])].sort((a, b) => a.t - b.t);

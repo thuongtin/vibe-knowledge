@@ -1,13 +1,13 @@
 # 08 · Hai mức sản xuất: mức cơ bản (0 điểm) / mức nâng cao (chọn theo cảnh quay)
 
-Nguyên tắc do người dùng đặt ra: **cái gì làm được bằng code thì làm bằng code, Renoise chỉ bổ sung những cảnh code làm không tốt**; lồng tiếng luôn dùng Xiaomi MiMo (hiện đang miễn phí, không tốn tiền).
+Nguyên tắc do người dùng đặt ra: **cái gì làm được bằng code thì làm bằng code, Renoise chỉ bổ sung những cảnh code làm không tốt**; lồng tiếng luôn dùng Google Gemini TTS (khóa API Google của người dùng, phí/hạn mức theo Google; không tốn điểm Renoise).
 Mỗi kỳ hỏi rõ làm mức nào ngay ở xác nhận 1 (chọn chủ đề); với mức nâng cao thì trước xác nhận 2 liệt kê "danh sách cảnh quay nâng cao + điểm ước tính".
 
 ## Mức cơ bản · 0 điểm
 
 | Lớp | Dùng gì |
 |---|---|
-| Lời dẫn | Giọng nhân bản Xiaomi MiMo (chính người dùng, voice/host-ref.wav) + voice_post.py hậu kỳ giọng nói |
+| Lời dẫn | Google Gemini TTS (giọng có sẵn, mặc định Sulafat; chỉ dẫn diễn đọc `director`) + voice_post.py hậu kỳ giọng nói (tùy chọn) |
 | Hình ảnh chính | **Opus viết trực tiếp minh hoạ SVG** (nhân vật vector phẳng / kiến trúc / đồ vật / đường viền bản đồ), dùng `layers` chia ba lớp xa, giữa, gần để tạo chuyển động thị sai; hạt, camera 3D, shader của cine (Particles, Tunnel, Liquid…) dùng cho khái niệm trừu tượng |
 | Dữ liệu và thông tin | know.js: counter, bars, spread, trail, vquote, keyword, chapter, foot |
 | Nhạc nền | **Mặc định: vibe-bgm đi kèm skill** (`tools/fit_bgm.py <out.wav> --lesson <thư mục kỳ>` cắt theo ô nhịp phù hợp độ dài phim, dùng chung cho cả hai mức); chỉ khi cần đổi bài mới dùng thư viện nhạc promo-video (`python3.12 ~/.claude/skills/promo-video/scripts/pick_music.py <out.wav> --mood … --seconds … --hit-at <giây hiện tên phim>`, cần numpy, chạy bằng python3.12); hoặc dùng bed.py của cine để tổng hợp theo sections |

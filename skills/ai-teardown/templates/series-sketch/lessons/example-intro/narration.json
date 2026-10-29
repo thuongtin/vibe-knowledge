@@ -1,8 +1,10 @@
 {
  "voice": {
-  "engine": "mimo",
-  "clone": "../../../ai-intro/voice/host-ref.wav",
-  "style": "你在录一节给职场人听的软件入门课。像一位亲切、干脆的年轻科普博主，语速从容，每句话讲清楚，句与句之间留出停顿，重点词稍微加重。"
+  "engine": "gemini",
+  "model": "gemini-3.8-flash-tts",
+  "voice": "Sulafat",
+  "lang": "vi",
+  "director": "Read the following Vietnamese narration like a friendly, crisp young science blogger recording the introduction to a course: unhurried pace, each sentence clearly delivered, pauses between sentences, key words lightly stressed. Do not add or skip any word.\n\n{text}"
  },
  "lexicon": {
   "PPT": "P P T",
@@ -16,39 +18,39 @@
  "beats": [
   {
    "id": "B01",
-   "narration": "[[hi]]你好，欢迎来到 WorkBuddy 上手课。[[thanks]]开讲之前，我想先说一声感谢。[[book]]这门课的内容，全部来自开源的《WorkBuddy 实战蓝皮书》。[[canghe]]特别感谢这个项目的作者之一，也是我的朋友，苍何老师。"
+   "narration": "[[hi]]Xin chào, chào mừng bạn đến với khóa làm quen WorkBuddy. [[thanks]]Trước khi vào bài, mình muốn nói lời cảm ơn trước. [[book]]Toàn bộ nội dung khóa học này đều lấy từ cuốn Sách xanh thực chiến WorkBuddy mã nguồn mở. [[canghe]]Đặc biệt cảm ơn một trong các tác giả của dự án, cũng là bạn của mình, thầy Thương Hà."
   },
   {
    "id": "B02",
-   "narration": "[[praise]]苍何老师是一位非常无私、也非常厉害的大佬，[[follow]]大家可以在各大社交媒体上关注他。[[all]]也感谢甲木未来派、摸鱼小李、袋鼠帝 AI 客栈、刘聪 NLP 几位作者，[[open]]把这么扎实的内容，免费开源给大家。"
+   "narration": "[[praise]]Thầy Thương Hà là một bậc đại cao thủ rất hào phóng và cũng rất giỏi, [[follow]]mọi người có thể theo dõi thầy trên các mạng xã hội lớn. [[all]]Cũng xin cảm ơn các tác giả Giáp Mộc Vị Lai Phái, Mô Ngư Tiểu Lý, Đại Thử Đế AI Khách Điếm, Lưu Thông NLP, [[open]]đã mở mã nguồn miễn phí những nội dung chắc chắn như vậy cho mọi người."
   },
   {
    "id": "B03",
-   "narration": "[[what]]这本蓝皮书讲什么？[[line]]用它自己的话说：从第一项任务，到一支 AI 团队。[[not]]它不是官方说明书的改写，而是一本以真实任务为主线的实战读本。"
+   "narration": "[[what]]Cuốn sách xanh này nói về điều gì? [[line]]Theo lời của chính nó: từ nhiệm vụ đầu tiên đến một đội AI. [[not]]Nó không phải bản viết lại tài liệu chính thức, mà là cuốn sách thực hành lấy nhiệm vụ thật làm mạch chính."
   },
   {
    "id": "B04",
-   "narration": "[[why]]那我们为什么要学它？[[chat]]很多人用 AI，还停在问一句、答一句。[[deliver]]WorkBuddy 不一样：你交代一个目标，它会找资料、拆步骤、去执行，最后交给你验收。[[goal]]这门课的目的，就是帮你把它真正用进工作。"
+   "narration": "[[why]]Vậy vì sao chúng ta nên học nó? [[chat]]Nhiều người dùng AI vẫn dừng ở mức hỏi một câu, đáp một câu. [[deliver]]WorkBuddy thì khác: bạn giao một mục tiêu, nó sẽ tìm tư liệu, chia các bước, đi thực hiện, rồi giao lại để bạn nghiệm thu. [[goal]]Mục đích của khóa học này là giúp bạn thật sự dùng nó vào công việc."
   },
   {
    "id": "B05",
-   "narration": "[[map]]整门课一共 25 节，分四站走。[[s1]]第一站，第 0 到第 3 节：装好软件，派出第一个任务，装上 Skill，再召唤专家和专家团。[[s2]]第二站，第 4 到第 8 节：接上连接器、微信和飞书，设置自动化任务，让它按时自己干活。"
+   "narration": "[[map]]Cả khóa gồm 25 bài, đi qua bốn chặng. [[s1]]Chặng một, bài 0 đến bài 3: cài phần mềm, giao nhiệm vụ đầu tiên, cài Skill, rồi gọi chuyên gia và đội chuyên gia. [[s2]]Chặng hai, bài 4 đến bài 8: nối bộ kết nối, WeChat và Feishu, thiết lập tác vụ tự động để nó tự làm việc đúng giờ."
   },
   {
    "id": "B06",
-   "narration": "[[s3]]第三站，第 9 到第 18 节，是一个个真实场景：[[list]]办公三件套、整理文件、生活助手、资讯、知识管理、会议、投资、视频、自媒体和 GEO。[[s4]]第四站，第 19 到第 24 节是进阶：打造自己的 Skill、多 Agent 系统设计、自动化的可靠性，[[last]]还有岗位和行业路线图，最后一节是指令模板速查。"
+   "narration": "[[s3]]Chặng ba, bài 9 đến bài 18, là từng tình huống thực tế: [[list]]bộ ba văn phòng, sắp xếp tệp, trợ lý đời sống, tin tức, quản lý tri thức, họp hành, đầu tư, video, tự truyền thông và GEO. [[s4]]Chặng bốn, bài 19 đến bài 24 là nâng cao: tự tạo Skill của riêng mình, thiết kế hệ thống đa Agent, độ tin cậy của tự động hóa, [[last]]cùng lộ trình theo vị trí và ngành nghề; bài cuối là bảng tra nhanh các mẫu chỉ lệnh."
   },
   {
    "id": "B07",
-   "narration": "[[gain]]学完这门课，你能掌握四件事。[[g1]]第一，写出一份清楚的任务说明，让它一次交付到位。[[g2]]第二，用好 Skill、专家和连接器，把它接进你手边的工具。[[g3]]第三，把重复的活，变成定时自动化。[[g4]]第四，知道哪些步骤必须由人来确认，守住安全边界。"
+   "narration": "[[gain]]Học xong khóa này, bạn sẽ nắm được bốn việc. [[g1]]Một, viết được bản mô tả nhiệm vụ rõ ràng để nó giao kết quả đúng ngay lần đầu. [[g2]]Hai, dùng tốt Skill, chuyên gia và bộ kết nối, nối nó vào các công cụ quanh bạn. [[g3]]Ba, biến việc lặp đi lặp lại thành tự động hóa theo lịch. [[g4]]Bốn, biết bước nào bắt buộc phải do con người xác nhận để giữ ranh giới an toàn."
   },
   {
    "id": "B08",
-   "narration": "[[how]]怎么学最有效？[[short]]每节四到七分钟，[[pause]]中间有暂停想一想，先自己想，再看答案。[[inter]]每节还有互动版，暂停后可以点图，看原文出处。[[do]]最重要的是：看完一节，就挑一件手边的小事，马上动手试一次。"
+   "narration": "[[how]]Học thế nào hiệu quả nhất? [[short]]Mỗi bài dài bốn đến bảy phút, [[pause]]giữa bài có đoạn tạm dừng để suy nghĩ: tự nghĩ trước, rồi mới xem đáp án. [[inter]]Mỗi bài còn có bản tương tác, sau khi tạm dừng có thể bấm vào hình để xem nguồn trong bản gốc. [[do]]Quan trọng nhất là: xem xong một bài, hãy chọn một việc nhỏ quanh mình và bắt tay thử ngay một lần."
   },
   {
    "id": "B09",
-   "narration": "[[ready]]准备好了吗？[[l0]]我们从第 0 节开始：下载、安装、登录。[[bye]]再次感谢苍何老师，和蓝皮书的作者们。我们第 0 节见。"
+   "narration": "[[ready]]Bạn đã sẵn sàng chưa? [[l0]]Chúng ta bắt đầu từ bài 0: tải về, cài đặt, đăng nhập. [[bye]]Một lần nữa cảm ơn thầy Thương Hà và các tác giả của cuốn sách xanh. Hẹn gặp bạn ở bài 0."
   }
  ]
 }

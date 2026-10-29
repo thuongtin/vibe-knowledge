@@ -2,9 +2,11 @@
  "_template": "Khuôn F · Phim xoay sáu mặt · 45–60 giây · khoảng 180–240 chữ",
  "_how": "Thay narration của mỗi nhịp bằng lời dẫn chính thức (khẩu ngữ, câu ngắn, mỗi câu ≤22 chữ), giữ lại các [[cue]] cần thiết (chỉ dùng chữ thường, chữ số, gạch dưới), xóa _guide. Tên tiếng Anh trong lời dẫn không có dấu gạch nối.",
  "voice": {
-  "engine": "mimo",
-  "clone": "../../voice/host-ref.wav",
-  "style": "科技博主讲硬核冷知识：语速快、节奏紧凑，一句接一句不拖音，句间停顿很短；关键数字和关键词加重落下；有悬念感和网感，自然口语，不要播音腔，问句也干脆，不要一字一顿。"
+  "engine": "gemini",
+  "model": "gemini-3.8-flash-tts",
+  "voice": "Sulafat",
+  "lang": "vi",
+  "director": "Read the following Vietnamese narration like a tech blogger sharing hardcore trivia: fast pace, tight rhythm, one sentence right after another without dragging, very short pauses between sentences; stress key numbers and keywords; a sense of suspense and a web-native tone, natural spoken Vietnamese, no announcer voice; questions are crisp, not read word by word. Do not add or skip any word.\n\n{text}"
  },
  "lexicon": {
   "AI": "A I"

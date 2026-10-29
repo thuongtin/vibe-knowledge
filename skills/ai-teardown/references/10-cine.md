@@ -21,7 +21,6 @@ Khi nào dùng: các bài về điều phối AI, hiệu ứng động, làm vid
   lessons/<số-bài>/        narration.json  film.js  assets/  scenes/ (cảnh dành riêng cho bài này)  build/ (sản phẩm lồng tiếng, quay, trộn âm)  stills/
   tools/                check_timings.py  update_series.py
   session/              bản ghi phiên làm việc thật (dùng cho bài thực chiến, xem 11-practice-course.md)
-  voice/host-ref.wav    giọng mẫu để nhân bản
   publish/course/       trang khóa học (lesson<số-bài>.mp4/.jpg + index.html)
 ```
 
@@ -30,7 +29,7 @@ Khi nào dùng: các bài về điều phối AI, hiệu ứng động, làm vid
 - `CINE_PY`: một Python đã cài `numpy scipy pillow playwright` (finish.py cần scipy). Nếu chưa có thì `python3 -m venv ~/.venvs/cine && ~/.venvs/cine/bin/pip install numpy scipy pillow playwright`, rồi `~/.venvs/cine/bin/python -m playwright install chromium-headless-shell`.
 - Trình duyệt headless bắt buộc chạy bằng GPU: `--use-angle=metal --enable-gpu --ignore-gpu-blocklist`(`tools/browser.py` đã kèm sẵn; SwiftShader mặc định chậm gấp 30 lần). Đường dẫn trình duyệt theo thứ tự: `CINE_CHROME` → chromium_headless_shell mới nhất trong cache của Playwright → mặc định của Playwright.
 - Trang phải mở qua HTTP (ES module không dùng được file://): `python3 -m http.server 8964 --bind 127.0.0.1 --directory <thư-mục-series>`; `queue.sh` thấy chưa có dịch vụ sẽ tự khởi động một cái.
-- Lồng tiếng giống sketch: `scripts/make_lesson.py <bài> voice` + `scripts/speed.py <bài> 1.15` (MiMo nhân bản giọng, khóa API chỉ đặt trong `~/.config/ai-teardown/mimo.env`).
+- Lồng tiếng giống sketch: `scripts/make_lesson.py <bài> voice` + `scripts/speed.py <bài> 1.15` (Google Gemini TTS, giọng mặc định Sulafat; khóa API chỉ đặt trong biến môi trường `GOOGLE_API_KEY` hoặc `~/.config/ai-teardown/gemini.env`).
 - Nhạc nền từ thư viện cần cài skill promo-video (`pick_music.py`); không dùng thư viện thì tổng hợp bằng bed.py.
 - ffmpeg, ffprobe.
 

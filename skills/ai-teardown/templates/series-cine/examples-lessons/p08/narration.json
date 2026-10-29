@@ -1,8 +1,10 @@
 {
  "voice": {
-  "engine": "mimo",
-  "clone": "../../voice/host-ref.wav",
-  "style": "Bạn đang thu bài cuối của một khóa thực hành. Hãy nói như một blogger khoa học trẻ thân thiện, dứt khoát, tốc độ thong thả, mỗi câu nói rõ ràng, giữa các câu chừa quãng nghỉ, từ trọng tâm nhấn nhẹ, phần kết ấm áp hơn một chút."
+  "engine": "gemini",
+  "model": "gemini-3.8-flash-tts",
+  "voice": "Sulafat",
+  "lang": "vi",
+  "director": "Read the following Vietnamese narration like a friendly, crisp young science blogger recording the final lesson of a hands-on course: unhurried pace, each sentence clearly delivered, pauses between sentences, key words lightly stressed, the closing a little warmer. Do not add or skip any word.\n\n{text}"
  },
  "lexicon": {
   "Opus": "Opus",

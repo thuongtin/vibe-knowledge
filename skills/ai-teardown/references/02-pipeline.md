@@ -10,7 +10,6 @@
     BRIEF.md SCENES_GUIDE.md DECISIONS.md
     assets/img/            sổ ảnh images.json (ghi có khoá: scripts/ledger.py) + ảnh chụp màn hình, emoji, khung hình người nhỏ, khung hình quay màn hình
     source/                sách gốc / bản clone repo (nếu có)
-    voice/host-ref.wav     mẫu giọng clone đã khoá làm tham chiếu
     render.queue           hàng đợi render (mỗi dòng một số bài, END để kết thúc)
     publish/course/        trang khoá học index.html + video nén 720p + ảnh bìa
     publish/lessonNN/      bản tương tác (index.html, app.js, audio.mp3, img/)
@@ -25,20 +24,20 @@
 
 | Phụ thuộc | Vị trí / cách làm |
 |---|---|
-| Khoá MiMo TTS/ASR | `~/.config/ai-teardown/mimo.env`(quyền 600, `MIMO_API_KEY`, `MIMO_BASE_URL=https://api.xiaomimimo.com/v1`). **Tuyệt đối không ghi vào dự án, trang web hoặc bộ nhớ** |
-| whisper-cli | `brew install whisper-cpp`; mô hình `~/Library/Application Support/Murmur/models/ggml-medium-q5_0.bin` (căn chỉnh khắc phục) + `…/Memo/models/ggml-small.bin` (căn chỉnh nhanh). Đường dẫn ở đầu `scripts/tts_mimo.py` |
+| Khoá Google Gemini TTS | biến môi trường `GOOGLE_API_KEY` (hoặc `GEMINI_API_KEY`), hoặc `~/.config/ai-teardown/gemini.env` (quyền 600, dòng `GOOGLE_API_KEY=...`). **Tuyệt đối không ghi vào dự án, trang web hoặc bộ nhớ** |
+| whisper-cli | `brew install whisper-cpp`; mô hình `~/Library/Application Support/Murmur/models/ggml-medium-q5_0.bin` (căn chỉnh khắc phục) + `…/Memo/models/ggml-small.bin` (căn chỉnh nhanh). Đường dẫn ở đầu `scripts/tts_gemini.py` |
 | Trình duyệt headless Playwright | `~/Library/Caches/ms-playwright/chromium_headless_shell-1243/…`(đầu `scripts/stills.py`, `export_cues.py`) |
 | Hyperframes | `npx hyperframes@0.6.x` cài một lần, trong make_lesson `NPX` trỏ tới `~/.npm/_npx/<hash>/node_modules` (đổi máy phải sửa) |
 | esbuild | `.bin/esbuild` trong cùng thư mục NPX |
 | Nhạc nền | `~/.claude/skills/promo-video/assets/music`(nhạc mixkit miễn phí bản quyền, `BGM` của `make_lesson.py`, `LIB` của `mix.py`) |
 | ffmpeg | cài bằng brew, không có drawtext cũng được |
 
-Khi đổi máy, sửa các hằng số ở đầu `scripts/make_lesson.py`, `tts_mimo.py`, `stills.py`, `export_cues.py`, `mix.py` theo bảng trên.
+Khi đổi máy, sửa các hằng số ở đầu `scripts/make_lesson.py`, `tts_gemini.py`, `stills.py`, `export_cues.py`, `mix.py` theo bảng trên.
 
 ## Ba giai đoạn của make_lesson
 
 ```bash
-python3 scripts/make_lesson.py <thư mục bài> voice   # tổng hợp theo nhịp (song song 2–3 luồng, cache theo văn bản) → whisper căn chỉnh từng chữ → MiMo ASR đọc lại chấm điểm
+python3 scripts/make_lesson.py <thư mục bài> voice   # tổng hợp theo nhịp (song song 2–3 luồng, cache theo văn bản) → whisper căn chỉnh từng chữ → whisper.cpp phiên âm lại để chấm điểm đọc lại
 python3 scripts/make_lesson.py <thư mục bài> build   # đổi tốc độ (scenes.speed, mặc định 1.15) → biên dịch scenes.json → esbuild đóng gói → preview.html → contact sheet
 python3 scripts/make_lesson.py <thư mục bài> final   # trộn âm (nhạc nền -24dB) → render Hyperframes 1080p → bản nén 720p đưa vào trang khoá học → thư mục bản tương tác → cập nhật series.json và trang khoá học
 ```

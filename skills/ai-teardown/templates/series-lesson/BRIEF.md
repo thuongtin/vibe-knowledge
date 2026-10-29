@@ -15,9 +15,9 @@ Chữ ký tác giả @Berryxia (đầu phim cuối phim tự thêm, trong văn �
 
 ## Sản phẩm (mỗi bài một thư mục `examples/ai-practice/lessons/NN/`)
 1. `narration.json`: định dạng giống mùa một:
-   `{"voice": {"engine": "mimo", "clone": "../../../ai-intro/voice/host-ref.wav", "style": "你在录一节给职场人听的实战课。像一位亲切、干脆的年轻科普博主，语速从容，每句话讲清楚，句与句之间留出停顿，重点词稍微加重。"}, "lexicon": {}, "beats": [{"id": "B01", "narration": "[[hi]]……[[cue2]]……"}]}`
-   - Chuỗi `style` ở trên là chỉ dẫn giọng đọc cho TTS tiếng Trung, giữ nguyên tiếng Trung (ý: bạn đang ghi một bài thực chiến cho người đi làm nghe; như một blogger khoa học phổ thông trẻ thân thiện, gọn gàng, nhịp nói thong thả, mỗi câu nói rõ, giữa các câu chừa quãng ngắt, từ trọng điểm nhấn nhẹ).
-   - Bẫy phát âm: chữ viết tắt in hoa chỉ gồm I V X L C D M (CLI, MD, CC, LM) sẽ bị đọc thành số La Mã (CLI→151), kịch bản lồng tiếng đã tự tách thành từng chữ cái; số phiên bản ghi vào lexicon đọc thành "0 chấm 155 chấm 1". Sau khi lồng tiếng xem trong voice.log có "⚠ 可疑读数" (cảnh báo đọc đáng ngờ) hay không.
+   `{"voice": {"engine": "gemini", "model": "gemini-3.8-flash-tts", "voice": "Sulafat", "lang": "vi", "director": "Read the following Vietnamese narration like a friendly young science communicator giving a hands-on class to office workers: calm pace, every sentence clear, natural pauses between sentences, slight emphasis on key words. Do not add or skip any word.\n\n{text}"}, "lexicon": {}, "beats": [{"id": "B01", "narration": "[[hi]]……[[cue2]]……"}]}`
+   - Chuỗi `director` ở trên là chỉ dẫn diễn đọc cho Gemini TTS, viết bằng tiếng Anh (Gemini nghe ổn định nhất), `{text}` là chỗ chèn lời dẫn tiếng Việt (ý: một blogger khoa học phổ thông trẻ thân thiện, nhịp nói thong thả, mỗi câu rõ, giữa các câu ngắt nghỉ tự nhiên, từ trọng điểm nhấn nhẹ).
+   - Bẫy phát âm: từ viết tắt và tên riêng bị đọc lệch thì ghi vào lexicon; số phiên bản ghi vào lexicon đọc thành "0 chấm 155 chấm 1". Sau khi lồng tiếng xem trong voice.log có dòng cảnh báo "⚠" (đọc đáng ngờ) hay không.
    - Mỗi nhịp 60–140 chữ, mỗi nhịp 2–4 dấu `[[cue]]` (chữ thường tiếng Anh/số/gạch dưới, đặt ở đầu câu), hình ảnh chuyển theo cue.
    - Cả bài 2200–2800 chữ, 22–32 nhịp (lồng tiếng sẽ tăng tốc 1,15 lần, thành phẩm khoảng 8–10 phút).
    - Thuật ngữ tiếng Anh lần đầu xuất hiện thì kèm cách gọi tiếng Trung; lệnh trong lời dẫn chỉ đọc ý chính (ví dụ "nhập codex, nhấn Enter"), lệnh đầy đủ đặt trong các bước hình-chữ.

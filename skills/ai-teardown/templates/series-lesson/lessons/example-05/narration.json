@@ -1,8 +1,10 @@
 {
   "voice": {
-    "engine": "mimo",
-    "clone": "../../../ai-intro/voice/host-ref.wav",
-    "style": "Bạn đang thu một bài thực hành dành cho dân công sở. Hãy nói như một blogger khoa học trẻ thân thiện, dứt khoát, tốc độ thong thả, mỗi câu nói rõ ràng, giữa các câu chừa quãng nghỉ, từ trọng tâm nhấn nhẹ."
+    "engine": "gemini",
+    "model": "gemini-3.8-flash-tts",
+    "voice": "Sulafat",
+    "lang": "vi",
+    "director": "Read the following Vietnamese narration like a friendly, crisp young science blogger recording a hands-on course for office workers: unhurried pace, each sentence clearly delivered, pauses between sentences, key words lightly stressed. Do not add or skip any word.\n\n{text}"
   },
   "lexicon": {},
   "beats": [

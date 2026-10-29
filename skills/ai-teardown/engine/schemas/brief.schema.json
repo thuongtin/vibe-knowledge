@@ -31,7 +31,7 @@
       "required": ["engine", "id"],
       "additionalProperties": false,
       "properties": {
-        "engine": { "enum": ["edge-tts", "mimo", "elevenlabs", "openai", "say", "file"] },
+        "engine": { "enum": ["edge-tts", "gemini", "mimo", "elevenlabs", "openai", "say", "file"] },
         "id": { "type": "string", "description": "id giọng, ví dụ zh-CN-YunxiNeural" },
         "rate": { "type": "string", "pattern": "^[+-]\\d{1,2}%$", "description": "Độ lệch tốc độ nói của edge-tts, ví dụ -5%" },
         "lexicon": { "type": "string", "description": "Đường dẫn từ điển cách đọc" }

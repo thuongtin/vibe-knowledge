@@ -1,6 +1,6 @@
 ---
 name: vibe-knowledge
-description: Vibe Knowledge Showcase, xưởng phim ngắn tri thức cao cấp, một điểm kiến thức → một video 45 giây đến 5 phút, có lời dẫn, mỗi câu có nguồn (Douyin #Vibe知识大赏 / mục tri thức). Từ 15 video viral được phân tích ngược ra 6 khuôn kịch bản (phim khái niệm đoán đố, phim lựa chọn lưỡng nan, phim nỗi đau + nguyên lý, phim một mạch chính, phim vượt ải, phim sáu mặt xoay vòng) → danh sách sự kiện có nguồn → bản lời dẫn + phản biện đối kháng → lồng tiếng bằng giọng nhân bản của chính người dùng (Xiaomi MiMo, miễn phí có hạn) → hai bậc hình ảnh: bậc cơ bản 0 điểm (Opus vẽ tay minh họa SVG nhiều lớp, hạt, thành phần dữ liệu, BGM mặc định cắt theo độ dài phim) / bậc nâng cao chọn theo từng cảnh dùng Renoise (ảnh Midjourney/GPT Image, cảnh quay động Wan 3.0/Seedance 2.5, hiệu ứng âm thanh ElevenLabs, báo giá trước rồi mới tạo) → dựng phim bằng code cine (zoom ảnh, video từng khung, từ khoá, bộ đếm, bản đồ lan tỏa, vệt sáng, cổ văn dọc, chú thích nguồn, nút lưỡng nan) → render từng khung 1080p60 → kiểm tra bằng OCR đọc lại → gói đăng bài (tiêu đề, chủ đề, ảnh bìa, mô tả). Kích hoạt khi làm một kỳ Vibe Knowledge Showcase / Vibe知识大赏 / video khoa học tri thức ngắn / biến khái niệm này thành video tri thức / giống Electronic Homo Sapiens, Iwanau, 墨有意思 / kiểu "nếu bạn sống ở thời cổ đại" / giải thích rõ một nguyên lý trong một hơi. Không dùng cho series bài học (ai-teardown), bình luận tài chính (finance-explainer), phim quảng bá thương hiệu (promo-video), người ảo xuất hiện dẫn chuyện (digital-human-koubo).
+description: Vibe Knowledge Showcase, xưởng phim ngắn tri thức cao cấp, một điểm kiến thức → một video 45 giây đến 5 phút, có lời dẫn, mỗi câu có nguồn (Douyin #Vibe知识大赏 / mục tri thức). Từ 15 video viral được phân tích ngược ra 6 khuôn kịch bản (phim khái niệm đoán đố, phim lựa chọn lưỡng nan, phim nỗi đau + nguyên lý, phim một mạch chính, phim vượt ải, phim sáu mặt xoay vòng) → danh sách sự kiện có nguồn → bản lời dẫn + phản biện đối kháng → lồng tiếng bằng Google Gemini TTS (giọng có sẵn, mặc định Sulafat) → hai bậc hình ảnh: bậc cơ bản 0 điểm (Opus vẽ tay minh họa SVG nhiều lớp, hạt, thành phần dữ liệu, BGM mặc định cắt theo độ dài phim) / bậc nâng cao chọn theo từng cảnh dùng Renoise (ảnh Midjourney/GPT Image, cảnh quay động Wan 3.0/Seedance 2.5, hiệu ứng âm thanh ElevenLabs, báo giá trước rồi mới tạo) → dựng phim bằng code cine (zoom ảnh, video từng khung, từ khoá, bộ đếm, bản đồ lan tỏa, vệt sáng, cổ văn dọc, chú thích nguồn, nút lưỡng nan) → render từng khung 1080p60 → kiểm tra bằng OCR đọc lại → gói đăng bài (tiêu đề, chủ đề, ảnh bìa, mô tả). Kích hoạt khi làm một kỳ Vibe Knowledge Showcase / Vibe知识大赏 / video khoa học tri thức ngắn / biến khái niệm này thành video tri thức / giống Electronic Homo Sapiens, Iwanau, 墨有意思 / kiểu "nếu bạn sống ở thời cổ đại" / giải thích rõ một nguyên lý trong một hơi. Không dùng cho series bài học (ai-teardown), bình luận tài chính (finance-explainer), phim quảng bá thương hiệu (promo-video), người ảo xuất hiện dẫn chuyện (digital-human-koubo).
 ---
 
 # Vibe Knowledge Showcase · Xưởng phim ngắn tri thức cao cấp
@@ -11,7 +11,7 @@ Engine tái sử dụng **cine** của ai-teardown (dựng phim bằng code `see
 Một kỳ = **khuôn × phong cách × thủ pháp (≤2) × bậc**. Phong cách chia thành 8 họ: Phương Đông, Nền tối khái niệm, Sáng và đại chúng, In ấn và giấy, Minh hoạ và thiết kế, Dựng phim và phóng sự, Điện ảnh, Game; trong đó bích hoạ Đôn Hoàng, men xanh trắng, khắc gỗ, cắt dán bán sắc, trường quyển, đồng bản bảo tàng là phong cách bậc nâng cao (mỗi đoạn khoảng 2 ảnh tạo sinh). Phong cách có thể dùng của thư viện, sửa thành của riêng mình, hoặc làm từ đầu (references/09-style-studio.md).
 
 **Hai bậc sản xuất** (references/08-tiers.md):
-- **Bậc cơ bản · 0 điểm**: Opus vẽ tay minh hoạ SVG nhiều lớp + hạt / 3D + thành phần dữ liệu, lồng tiếng Xiaomi MiMo (miễn phí có hạn), **BGM mặc định** (xem bên dưới), **hiệu ứng âm thanh bằng code earshot** (references/10-earshot.md, dùng chung cho hai bậc).
+- **Bậc cơ bản · 0 điểm**: Opus vẽ tay minh hoạ SVG nhiều lớp + hạt / 3D + thành phần dữ liệu, lồng tiếng Google Gemini TTS (cần khóa API Google của người dùng, mức phí/hạn mức theo bảng giá của Google), **BGM mặc định** (xem bên dưới), **hiệu ứng âm thanh bằng code earshot** (references/10-earshot.md, dùng chung cho hai bậc).
 - **Bậc nâng cao · chọn theo cảnh**: chỉ giao cho Renoise những cảnh mà code làm không tốt (cảnh thực tế, 1–3 khoảnh khắc cần được nhớ nhất, chuyển động thật), phần còn lại vẫn dùng code. Nhẹ ≈25–40 / tiêu chuẩn ≈250–300 / chủ lực ≈600–700 điểm, mỗi lần báo giá trước rồi mới tạo.
 - Cùng một film.js dùng chung cho hai bậc (công tắc `ENH`: plate/vclip ↔ layers).
 
@@ -42,17 +42,17 @@ Không tạo nhạc nền nguyên đoạn bằng Lyria nữa (có tạo cũng b�
 3. **Lời dẫn kể chuyện, hình ảnh đưa từ khoá**: chữ trên hình ≤8 chữ mỗi nhóm, mỗi màn hình tối đa hai nhóm; nguyên câu giao cho lời dẫn và phụ đề tự động.
 4. **Đoán trước rồi giảng, hoãn tiêu đề, một đạo cụ chính xuyên suốt, kết thúc bằng câu hỏi ngược** (quy tắc chung của các khuôn, references/01-templates.md).
 6. **Quy tắc cứng khớp lời dẫn**: chưa đọc đến thì không xuất hiện, bộ đếm chốt ở lúc đọc đến, nhấn mạnh có ngân sách, tĩnh lâu nhất ≤3 giây (references/11-absorbed.md mục một).
-5. **Làm được bằng code thì dùng code, tốn điểm thì phải xác nhận trước**: Renoise chỉ bổ sung những cảnh code làm không tốt; mọi việc tạo sinh đều liệt kê và báo giá trước, người dùng đồng ý rõ ràng trong hội thoại mới được gửi (references/04-renoise.md, 08-tiers.md). Lồng tiếng dùng Xiaomi MiMo (miễn phí có hạn).
+5. **Làm được bằng code thì dùng code, tốn điểm thì phải xác nhận trước**: Renoise chỉ bổ sung những cảnh code làm không tốt; mọi việc tạo sinh đều liệt kê và báo giá trước, người dùng đồng ý rõ ràng trong hội thoại mới được gửi (references/04-renoise.md, 08-tiers.md). Lồng tiếng dùng Google Gemini TTS (khóa API của người dùng, phí/hạn mức theo Google).
 
 ## Không gian làm việc
 
 ```bash
 python3 ~/.claude/skills/vibe-knowledge/tools/new_film.py <số kỳ> --template A --title "Định luật Benford"
-#   không gian làm việc mặc định ~/Desktop/vibe-knowledge, series vk; lần đầu sẽ tự tạo series cine, cài know.js, vá công cụ ghi hình, đặt giọng nhân bản của người dùng
+#   không gian làm việc mặc định ~/Desktop/vibe-knowledge, series vk; lần đầu sẽ tự tạo series cine, cài know.js, vá công cụ ghi hình, đặt giọng lồng tiếng mặc định (Gemini Sulafat)
 S=~/Desktop/vibe-knowledge/examples/vk; L=$S/lessons/<số kỳ>
 ```
 
-Phụ thuộc: skill ai-teardown (engine cine, lồng tiếng make_lesson), `CINE_PY` (Python có numpy scipy pillow playwright; máy này là `/usr/local/bin/python3.12`, trước khi chạy phải xoá trống `PYTHONPATH=`, nếu không sẽ nạp PIL hỏng), khoá MiMo `~/.config/ai-teardown/mimo.env`, Renoise MCP (chỉ bậc nâng cao cần; thiếu thì hướng dẫn theo mục "Kết nối Renoise" trong references/04-renoise.md, link đăng ký đưa nguyên văn https://renoise.ai/mcp?utm_medium=xcom&utm_source=official ), ffmpeg, swiftc (OCR).
+Phụ thuộc: skill ai-teardown (engine cine, lồng tiếng make_lesson), `CINE_PY` (Python có numpy scipy pillow playwright; máy này là `/usr/local/bin/python3.12`, trước khi chạy phải xoá trống `PYTHONPATH=`, nếu không sẽ nạp PIL hỏng), khoá Google Gemini (`GOOGLE_API_KEY` hoặc `~/.config/ai-teardown/gemini.env`), Renoise MCP (chỉ bậc nâng cao cần; thiếu thì hướng dẫn theo mục "Kết nối Renoise" trong references/04-renoise.md, link đăng ký đưa nguyên văn https://renoise.ai/mcp?utm_medium=xcom&utm_source=official ), ffmpeg, swiftc (OCR).
 
 ## Quy trình (ba điểm xác nhận)
 
@@ -65,7 +65,7 @@ Phụ thuộc: skill ai-teardown (engine cine, lồng tiếng make_lesson), `CIN
 | ④ Phân cảnh / danh sách tài nguyên | Phân cảnh hình ảnh từng nhịp (ghi rõ cảnh nào code làm, cảnh nào nâng cao); bậc nâng cao viết assets.json + báo giá estimate_cost; bậc cơ bản chọn nhạc | `assets.json` |
 | **Xác nhận 2** | Người dùng xem bản lời dẫn + phân cảnh (+ danh sách cảnh nâng cao và báo giá), đồng ý rõ ràng mới tạo | |
 | ⑤ Tạo | Bậc nâng cao: Renoise tạo ảnh + âm thanh trước → người dùng chọn ảnh → video (khung đầu dùng ảnh đã chọn) → tải về, đổi tên, clip2frames. Bậc cơ bản bỏ qua | `assets/` |
-| ⑥ Lồng tiếng + nhạc | Trước tiên làm bản nghe thử mở đầu 15–20 giây để người dùng chốt giọng và tốc độ → `tts_mimo.py --gap 0.2` → `speed.py` → `check_timings.py` → `voice_post.py` → `fit_bgm.py` cắt BGM mặc định theo độ dài phim | `build/timings.json`, `assets/audio/bgm.wav` |
+| ⑥ Lồng tiếng + nhạc | Trước tiên làm bản nghe thử mở đầu 15–20 giây để người dùng chốt giọng và tốc độ → `tts_gemini.py --gap 0.2` → `speed.py` → `check_timings.py` → `voice_post.py` (tùy chọn) → `fit_bgm.py` cắt BGM mặc định theo độ dài phim | `build/timings.json`, `assets/audio/bgm.wav` |
 | ⑦ Dựng | film.js (thành phần know.js) → stills.py bảng contact xem từng ảnh (kể cả khung giữa chừng của hoạt ảnh) | `stills/` |
 | ⑧ Render | queue.sh (record → finish → deliver) | Phim thành phẩm |
 | ⑨ Kiểm tra | `qa.py` bảng contact + đối chiếu OCR đọc lại với facts.md + độ lớn âm; trong bảng contact cả đoạn hình không đổi = ghi hình gặp sự cố, ghi lại | `qa/` |
@@ -75,10 +75,10 @@ Phụ thuộc: skill ai-teardown (engine cine, lồng tiếng make_lesson), `CIN
 
 ```bash
 cd ~/Desktop/vibe-knowledge; S=examples/vk; L=$S/lessons/<số kỳ>
-python3 scripts/tts_mimo.py $L/narration.json $L/build --gap 0.2 --lead 0.3 --qa --jobs 2 > $L/voice.log 2>&1   # lồng tiếng + căn từng chữ + đọc lại (giữa các nhịp chỉ chừa 0.2 giây, đừng dùng 0.8 mặc định của make_lesson)
+python3 scripts/tts_gemini.py $L/narration.json $L/build --gap 0.2 --lead 0.3 --qa --jobs 2 > $L/voice.log 2>&1   # lồng tiếng + căn từng chữ + đọc lại (giữa các nhịp chỉ chừa 0.2 giây, đừng dùng 0.8 mặc định của make_lesson)
 python3 scripts/speed.py $L 1.1                                        # khi cần thì tăng tốc toàn bộ, mục tiêu 5.5–6 chữ/giây
 (cd $S && python3 tools/check_timings.py <số kỳ>)                       # căn chỉnh có bị đứt không
-python3 ~/.claude/skills/vibe-knowledge/tools/voice_post.py $L         # hậu kỳ giọng (bản chốt của giọng nhân bản: EQ + nén)
+python3 ~/.claude/skills/vibe-knowledge/tools/voice_post.py $L         # hậu kỳ giọng bằng ffmpeg (tùy chọn, ban đầu viết cho giọng nhân bản; với giọng Gemini không bắt buộc)
 python3 ~/.claude/skills/vibe-knowledge/tools/clip2frames.py $L/assets/clips/v01.mp4 $L/assets/clips/v01   # tách khung video → in số khung
 cd $S && $CINE_PY cine/tools/stills.py <số kỳ> lessons/<số kỳ>/stills/sheet.png 1 B01+1 B02.title B05.count+0.5 …
 echo "<số kỳ>|<tên phim>|<giây ảnh bìa>" >> cine/queue.txt   # chỉ được thêm vào cuối! queue.txt dùng chung nhiều phiên
