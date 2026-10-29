@@ -1,6 +1,6 @@
 ---
 name: ai-teardown
-description: Xưởng làm loạt bài giảng "Khóa Mổ xẻ AI": nhập một chủ đề (sản phẩm AI, dự án mã nguồn mở/sách, lịch sử nhân vật, hướng dẫn phần mềm), tạo ra loạt video giảng giải bằng tiếng Trung đi từ nông đến sâu, câu nào cũng có nguồn + bản tương tác cho từng bài + trang tổng hợp khóa học. Quy trình: thu thập tài liệu → xác nhận đối tượng và thời lượng → đại cương → lời dẫn từng bài (giọng Google Gemini TTS + căn chỉnh từng chữ bằng whisper.cpp) → dàn cảnh scenes.json (engine vẽ tay tối giản kiểu Notion / engine mẫu macaron, biểu tượng và minh họa IconPark, emoji động Noto, sơ đồ AntV X6, nhân vật giảng giải pixel, khoanh chú thích ảnh chụp, quay màn hình terminal) hoặc phim bằng mã film.js (engine cine: Three.js, hạt, shader, chồng đoạn phim thật, nhạc nền từ thư viện) → render từng khung 1080p bằng Hyperframes / GPU không đầu → xuất bản Artifact → trang tổng hợp khóa học + video dẫn nhập. Kích hoạt: làm loạt bài giảng / làm video khóa học / biến một cuốn sách hay một dự án mã nguồn mở thành khóa học / video phổ biến kiến thức / video dạy học / bản đồ khóa học / video dẫn nhập / giáo án tương tác / "khóa mổ xẻ", "khóa làm quen", "khóa thực chiến", "khóa dàn dựng" / phim giảng giải cực mạnh / dùng phiên làm việc thật và thành phẩm để dạy người khác làm video. Không dùng cho: một phim quảng bá đơn lẻ (dùng promo-video), một infographic đơn lẻ, viết bài thuần túy.
+description: Xưởng làm loạt bài giảng "Khóa Mổ xẻ AI": nhập một chủ đề (sản phẩm AI, dự án mã nguồn mở/sách, lịch sử nhân vật, hướng dẫn phần mềm), tạo ra loạt video giảng giải bằng tiếng Trung đi từ nông đến sâu, câu nào cũng có nguồn + bản tương tác cho từng bài + trang tổng hợp khóa học. Quy trình: thu thập tài liệu → xác nhận đối tượng và thời lượng → đại cương → lời dẫn từng bài (giọng Google Gemini TTS + căn chỉnh từng chữ bằng OpenAI whisper-1) → dàn cảnh scenes.json (engine vẽ tay tối giản kiểu Notion / engine mẫu macaron, biểu tượng và minh họa IconPark, emoji động Noto, sơ đồ AntV X6, nhân vật giảng giải pixel, khoanh chú thích ảnh chụp, quay màn hình terminal) hoặc phim bằng mã film.js (engine cine: Three.js, hạt, shader, chồng đoạn phim thật, nhạc nền từ thư viện) → render từng khung 1080p bằng Hyperframes / GPU không đầu → xuất bản Artifact → trang tổng hợp khóa học + video dẫn nhập. Kích hoạt: làm loạt bài giảng / làm video khóa học / biến một cuốn sách hay một dự án mã nguồn mở thành khóa học / video phổ biến kiến thức / video dạy học / bản đồ khóa học / video dẫn nhập / giáo án tương tác / "khóa mổ xẻ", "khóa làm quen", "khóa thực chiến", "khóa dàn dựng" / phim giảng giải cực mạnh / dùng phiên làm việc thật và thành phẩm để dạy người khác làm video. Không dùng cho: một phim quảng bá đơn lẻ (dùng promo-video), một infographic đơn lẻ, viết bài thuần túy.
 ---
 
 # Khóa Mổ xẻ AI · Xưởng làm loạt bài giảng
@@ -35,7 +35,7 @@ python3 ~/.claude/skills/ai-teardown/engine/scripts/new_series.py ~/Desktop/<kh�
 - Nếu đã có không gian làm việc (dự án gốc ở `~/Desktop/ai-teardown`) thì tạo loạt bài ngay trong đó.
 - Thư mục bài học phải nằm trong không gian làm việc: `<không-gian-làm-việc>/examples/<loạt-bài>/lessons/<NN>/`.
 
-Phụ thuộc môi trường và cấu hình một lần xem mục "Môi trường" trong `references/02-pipeline.md` (khóa Google Gemini, mô hình whisper, Playwright, Hyperframes, esbuild, thư viện nhạc nền).
+Phụ thuộc môi trường và cấu hình một lần xem mục "Môi trường" trong `references/02-pipeline.md` (khóa Google Gemini, khóa OpenAI cho căn chỉnh, Playwright, Hyperframes, esbuild, thư viện nhạc nền).
 
 ## Quy trình (sáu giai đoạn, ba điểm xác nhận)
 
@@ -59,7 +59,7 @@ Với loạt cine thì dàn cảnh và render đổi thành: viết `lessons/NN/
 
 ```bash
 L=examples/<loạt-bài>/lessons/NN
-python3 scripts/make_lesson.py $L voice > $L/voice.log 2>&1   # lồng tiếng + căn chỉnh whisper + whisper đọc lại
+python3 scripts/make_lesson.py $L voice > $L/voice.log 2>&1   # lồng tiếng Gemini + căn chỉnh và đọc lại bằng OpenAI whisper-1 (tốn phí OpenAI)
 python3 scripts/check_scenes.py $L                              # tự kiểm tra cảnh
 rm -rf $L/build/stills && python3 scripts/make_lesson.py $L build   # dàn cảnh + contact sheet
 echo NN >> examples/<loạt-bài>/render.queue                         # xếp vào hàng đợi render (runner xem 02-pipeline)
@@ -69,7 +69,7 @@ python3 scripts/course_page.py examples/<loạt-bài>/series.json examples/<lo�
 
 ## Cổng kiểm tra chất lượng (bài nào cũng phải qua)
 
-- voice.log: nhịp nào đọc lại < 95% hoặc xuất hiện "⚠ có số đọc đáng ngờ" thì xóa `build/audio/<nhịp>.*` rồi tổng hợp lại; tên riêng, từ viết tắt thì nghe lại bằng whisper-cli để xác nhận.
+- voice.log: nhịp nào đọc lại < 95% hoặc xuất hiện "⚠ có số đọc đáng ngờ" thì xóa `build/audio/<nhịp>.*` rồi tổng hợp lại; có "⚠ đọc thừa" cũng vậy; tên riêng, từ viết tắt thì nghe lại file mp3 của nhịp để xác nhận.
 - Contact sheet + các khung đơn đáng ngờ: chữ tràn/chồng lên nhau, khoanh chú thích lệch, màn hình trống, nhân vật che chữ, chữ nhỏ ghi nguồn bị đè.
 - Trích 6 khung từ thành phẩm ghép thành ảnh ghép và xem lại một lượt rồi mới xuất bản.
 - Toàn văn danh sách xem `references/07-qa-checklist.md`; các lỗi đã gặp xem `references/08-pitfalls.md` (bắt buộc đọc trước khi sửa engine).
@@ -80,7 +80,7 @@ python3 scripts/course_page.py examples/<loạt-bài>/series.json examples/<lo�
 |---|---|
 | references/01-workflow.md | Quy trình sáu giai đoạn, cách hỏi ở các điểm xác nhận, phân công đa tác tử, bản đồ khóa học/video dẫn nhập |
 | references/02-pipeline.md | Cấu trúc thư mục, phụ thuộc môi trường, ba đoạn của make_lesson, hàng đợi render, xuất bản và trang khóa học, tổng hợp video |
-| references/03-narration-voice.md | Cách viết lời dẫn, lồng tiếng Gemini (giọng, director), lexicon, kiểm tra bằng đọc lại, bản tiếng Anh |
+| references/03-narration-voice.md | Cách viết lời dẫn, lồng tiếng Gemini (giọng, không dùng director), lexicon, kiểm tra bằng đọc lại, bản tiếng Anh |
 | references/04-scenes-sketch.md | Toàn bộ mẫu và trường của engine vẽ tay (giao diện Notion), nhân vật giảng giải, góc máy |
 | references/05-scenes-lesson.md | Mẫu của trình biên dịch mẫu (mùa 1, 2), quay màn hình terminal, nét vẽ nguệch ngoạc |
 | references/06-visual-assets.md | Biểu tượng, minh họa, emoji động Noto, X6, nhập ảnh chụp và sổ cái, quy tắc ghi công |

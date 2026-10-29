@@ -16,10 +16,11 @@
 
 ## Lồng tiếng
 - Bẫy "số La Mã" của MiMo không còn với Gemini (đã bỏ tự động tách chữ cái); từ viết tắt và tên riêng bị đọc lệch thì cho vào lexicon.
-- Nên viết `director` (tiếng Anh) theo kiểu giảng bài thong thả để nhịp đọc không vội; nhịp độ chữ/giây cần đo lại với tiếng Việt rồi mới chỉnh `scenes.speed` (ví dụ 1.15).
+- **Không chèn chỉ dẫn `director` vào lời dẫn**: `gemini-3.8-flash-tts` đọc to mọi thứ trong văn bản (đo thật: 6/9 nhịp đọc cả chỉ dẫn tiếng Anh). Nhịp độ đo thật với Sulafat khoảng 3,5 âm tiết/giây trước `speed.py`, ~4 âm tiết/giây với `scenes.speed` 1.15.
 - Gemini thỉnh thoảng đọc thừa/lặp/bỏ sót từ: đọc lại (`--qa`) thấp thì tổng hợp lại nhịp đó.
-- Khi whisper dùng toàn văn làm prompt, mô hình có thể bỏ qua một đoạn âm thanh → dùng small căn chỉnh trước, medium cứu vớt, cả hai lần đều thất bại thì mới cắt ngắn nhịp.
-- Gemini có thể trả 429/500/503 khi chạy đồng thời: script tự động lùi thời gian và thử lại, không cần can thiệp thủ công.
+- Khi whisper dùng toàn văn làm prompt, mô hình có thể bỏ qua một đoạn âm thanh → script gọi OpenAI whisper-1 với prompt ngắn (thuật ngữ) trước, căn < 90% mới thêm lượt prompt toàn văn và giữ lượt căn tốt hơn; cả hai lượt đều thấp thì mới cắt ngắn nhịp.
+- Thiếu `OPENAI_API_KEY` thì script dừng ngay trước khi gọi Gemini; mỗi lần lồng tiếng tốn thêm phí OpenAI (cache ở `build/audio/<nhịp>.asr.json`). `whisper-1` sẽ bị OpenAI tắt ngày 26/02/2027.
+- Gemini và OpenAI có thể trả 429/5xx khi chạy đồng thời: script tự động lùi thời gian (tôn trọng `Retry-After`) và thử lại, không cần can thiệp thủ công.
 
 ## Tư liệu
 - SVG tĩnh của Noto có DOCTYPE/ENTITY sẽ bị Artifact từ chối (noto_emoji.py đã tự động loại bỏ).

@@ -5,7 +5,7 @@
  * Cách viết thời gian (chuỗi):
  *   "B03"          bắt đầu mở lời ở nhịp 3
  *   "B03.first"    dấu [[first]] của nhịp 3
- *   "B03@máy"      khoảnh khắc đọc đến “máy” trong nhịp 3 (thời gian từng chữ của whisper)
+ *   "B03@máy"      khoảnh khắc đọc đến “máy” trong nhịp 3 (thời gian từng chữ suy từ timestamp từng từ của OpenAI whisper-1)
  *   "B03.end"      nhịp 3 nói xong
  *   Tất cả các dạng trên đều có thể thêm độ lệch: "B03.first+0.4", "B03@máy-0.2"
  *

@@ -2,7 +2,7 @@
 
 ## Sau khi lồng tiếng (voice.log)
 - [ ] Mỗi nhịp đọc lại ≥ 95%, không có "⚠ 可疑读数"; nhịp thấp thì xoá `build/audio/<nhịp>.*` để tổng hợp lại, hai lần vẫn thấp thì sửa cách diễn đạt.
-- [ ] Tên người, tên sản phẩm, chữ viết tắt, số phiên bản đã nghe lại bằng whisper-cli (khi cần thêm `--prompt "tên riêng"`).
+- [ ] Tên người, tên sản phẩm, chữ viết tắt, số phiên bản đã nghe lại (file `build/audio/<nhịp>.mp3`, đối chiếu `qa.json`).
 - [ ] Không đọc thừa, lặp, sót hay thêm từ phủ định.
 - [ ] Thời lượng cả bài nằm trong khoảng mục tiêu (build in ra "总长", tổng độ dài).
 

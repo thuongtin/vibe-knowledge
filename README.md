@@ -76,7 +76,7 @@ Bấm vào ảnh bìa để phát (video đặt ở [Release v1.0.0](https://git
 | ② Tra cứu | Danh sách sự thật `facts.md`: mỗi con số, tên người, năm, trích dẫn đều có xuất xứ; khi các cách nói có bất đồng thì liệt kê song song hai thuyết |
 | ③ Viết | Viết lời dẫn theo bản gốc → sub-agent rà soát đối kháng (hook, xuất xứ, số chữ) → sửa |
 | **Xác nhận 2** | Xem bản thảo lời dẫn + phân cảnh (bản nâng cao kèm danh sách cảnh quay và báo giá Renoise), đồng ý rồi mới tạo |
-| ④ Lồng tiếng | Giọng Google Gemini TTS + căn chỉnh từng chữ (whisper.cpp) + đọc lại kiểm tra (phiên âm lại bằng whisper.cpp) + hậu kỳ giọng (tùy chọn) |
+| ④ Lồng tiếng | Giọng Google Gemini TTS + căn chỉnh từng chữ (OpenAI whisper-1 qua API) + đọc lại kiểm tra (cùng bản phiên âm đó) + hậu kỳ giọng (tùy chọn) |
 | ⑤ Dàn dựng | `film.js`: thư viện thành phần `know.js` (đẩy kéo ảnh minh họa, video từng khung hình, từ khóa, bộ đếm, cổ văn viết dọc, chú thích xuất xứ, nút lưỡng nan, con dấu, hình mặt cắt nét…) |
 | ⑥ Render | Ghi hình từng khung 1080p60 → trộn âm (BGM bắt buộc, hiệu chỉnh theo giọng người) → ghép ảnh bìa thành khung hình đầu |
 | ⑦ Kiểm tra chất lượng | Contact sheet + đọc lại OCR đối chiếu facts.md + độ ồn + phát hiện đóng băng + phát hiện BGM |
@@ -118,7 +118,8 @@ cp -R vibe-knowledge/skills/vibe-knowledge vibe-knowledge/skills/ai-teardown ~/.
 - `vibe-knowledge` là phần chính; `ai-teardown` cung cấp engine render cine, tạo không gian làm việc và script lồng tiếng, cả hai đều phải cài.
 - Python dùng để render: `python3 -m venv ~/.venvs/cine && ~/.venvs/cine/bin/pip install numpy scipy pillow playwright && ~/.venvs/cine/bin/python -m playwright install chromium-headless-shell`; sau đó `export CINE_PY=~/.venvs/cine/bin/python`.
 - `ffmpeg`; kiểm tra chất lượng OCR dùng Vision có sẵn của macOS (cần `swiftc`).
-- Lồng tiếng: Google Gemini TTS (mặc định model `gemini-3.8-flash-tts`, giọng `Sulafat`), đặt khóa vào biến môi trường `GOOGLE_API_KEY` hoặc `~/.config/ai-teardown/gemini.env` (**không ghi vào file dự án**). Muốn đổi giọng: chọn tên giọng có sẵn của Gemini (ví dụ Sulafat, Gacrux) và sửa `director` (chỉ dẫn diễn đọc, viết bằng tiếng Anh) trong `narration.json`; không còn nhân bản giọng.
+- Lồng tiếng: Google Gemini TTS (mặc định model `gemini-3.8-flash-tts`, giọng `Sulafat`), đặt khóa vào biến môi trường `GOOGLE_API_KEY` hoặc `~/.config/ai-teardown/gemini.env` (**không ghi vào file dự án**). Muốn đổi giọng: chọn tên giọng có sẵn của Gemini (ví dụ Sulafat, Gacrux) trong `narration.json`; không viết `director` (model đọc to cả chỉ dẫn), không còn nhân bản giọng.
+- Căn chỉnh từng chữ và đọc lại kiểm tra: OpenAI `whisper-1` qua API, đặt khóa vào `OPENAI_API_KEY` hoặc `~/.config/ai-teardown/openai.env` (**không ghi vào file dự án**). Mỗi lần lồng tiếng tốn thêm phí OpenAI (1–2 lần gọi mỗi nhịp, có cache); `whisper-1` sẽ bị OpenAI tắt ngày 26/02/2027. Không còn cần whisper.cpp trên máy.
 - Bản nâng cao (tùy chọn): [Renoise MCP](https://renoise.ai/mcp?utm_medium=xcom&utm_source=official), đăng ký và kết nối xem mục [Renoise](#renoise-nền-tảng-tạo-nội-dung-của-bản-nâng-cao) ở trên.
 
 Sau đó nói trong Claude Code:

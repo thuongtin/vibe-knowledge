@@ -6,10 +6,10 @@ Cách dùng: python3 scripts/voice_audition.py <voices.json> <thư mục đầu 
 voices.json:
 {"text": "đoạn văn cần đọc",
  "voices": [
-   {"id": "sulafat", "name": "Sulafat · giọng giảng bài", "voice": "Sulafat", "director": "chỉ dẫn diễn đọc bằng tiếng Anh, có chỗ giữ {text}"},
+   {"id": "sulafat", "name": "Sulafat · giọng giảng bài", "voice": "Sulafat"},
    {"id": "gacrux", "name": "Gacrux", "model": "gemini-3.8-flash-tts", "voice": "Gacrux"}
  ]}
-model mặc định gemini-3.8-flash-tts, director mặc định lấy từ tts_gemini.py. So sánh nhiều giọng có sẵn của Gemini (Sulafat, Gacrux, …) thì mỗi giọng một dòng.
+model mặc định gemini-3.8-flash-tts, director mặc định lấy từ tts_gemini.py ("{text}": chỉ gửi nguyên văn, vì gemini-3.8-flash-tts đọc to mọi chỉ dẫn). So sánh nhiều giọng có sẵn của Gemini (Sulafat, Gacrux, …) thì mỗi giọng một dòng.
 Giọng đã tạo rồi (thư mục đầu ra có <id>.wav) thì không gọi lại.
 
 Đầu ra: <id>.wav, <id>.mp3 (chuẩn hóa độ ồn), metrics.json:

@@ -1,5 +1,5 @@
 {
- "voice": {"engine": "gemini", "model": "gemini-3.8-flash-tts", "voice": "Sulafat", "lang": "vi", "director": "Read the following Vietnamese narration like a friendly, crisp young science blogger recording the introduction to a course: unhurried pace, each sentence clearly delivered, pauses between sentences, key words lightly stressed. Do not add or skip any word.\n\n{text}"},
+ "voice": {"engine": "gemini", "model": "gemini-3.8-flash-tts", "voice": "Sulafat", "lang": "vi"},
  "lexicon": {"Opus": "Opus", "AI": "A I"},
  "beats": [
   {"id": "B01", "narration": "[[all]]Sáu mươi hai giây vừa rồi, từng khung hình, từng nốt nhạc, [[code]]đều do đoạn mã Opus 5.5 viết ra tính toán thành. [[course]]Khóa học này sẽ kể nó làm được điều đó thế nào, và bạn làm sao để nó làm được cho bạn."},

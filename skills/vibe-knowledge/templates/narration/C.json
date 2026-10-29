@@ -5,8 +5,7 @@
   "engine": "gemini",
   "model": "gemini-3.8-flash-tts",
   "voice": "Sulafat",
-  "lang": "vi",
-  "director": "Read the following Vietnamese narration like a tech blogger sharing hardcore trivia: fast pace, tight rhythm, one sentence right after another without dragging, very short pauses between sentences; stress key numbers and keywords; a sense of suspense and a web-native tone, natural spoken Vietnamese, no announcer voice; questions are crisp, not read word by word. Do not add or skip any word.\n\n{text}"
+  "lang": "vi"
  },
  "lexicon": {
   "AI": "A I"

@@ -7,7 +7,7 @@ Mỗi kỳ hỏi rõ làm mức nào ngay ở xác nhận 1 (chọn chủ đề)
 
 | Lớp | Dùng gì |
 |---|---|
-| Lời dẫn | Google Gemini TTS (giọng có sẵn, mặc định Sulafat; chỉ dẫn diễn đọc `director`) + voice_post.py hậu kỳ giọng nói (tùy chọn) |
+| Lời dẫn | Google Gemini TTS (giọng có sẵn, mặc định Sulafat) + căn chỉnh từng chữ bằng OpenAI whisper-1 + voice_post.py hậu kỳ giọng nói (tùy chọn) |
 | Hình ảnh chính | **Opus viết trực tiếp minh hoạ SVG** (nhân vật vector phẳng / kiến trúc / đồ vật / đường viền bản đồ), dùng `layers` chia ba lớp xa, giữa, gần để tạo chuyển động thị sai; hạt, camera 3D, shader của cine (Particles, Tunnel, Liquid…) dùng cho khái niệm trừu tượng |
 | Dữ liệu và thông tin | know.js: counter, bars, spread, trail, vquote, keyword, chapter, foot |
 | Nhạc nền | **Mặc định: vibe-bgm đi kèm skill** (`tools/fit_bgm.py <out.wav> --lesson <thư mục kỳ>` cắt theo ô nhịp phù hợp độ dài phim, dùng chung cho cả hai mức); chỉ khi cần đổi bài mới dùng thư viện nhạc promo-video (`python3.12 ~/.claude/skills/promo-video/scripts/pick_music.py <out.wav> --mood … --seconds … --hit-at <giây hiện tên phim>`, cần numpy, chạy bằng python3.12); hoặc dùng bed.py của cine để tổng hợp theo sections |

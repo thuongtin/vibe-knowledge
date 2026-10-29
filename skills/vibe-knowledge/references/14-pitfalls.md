@@ -12,10 +12,11 @@ Mỗi mục đều là bẫy đã thực sự dẫm phải: hiện tượng → 
 
 - **Từ lặp lại trong cùng một nhịp sẽ làm căn chỉnh từng chữ bị đứt** (04b: "nhị chi nhật / tam chi nhật" mỗi cái xuất hiện hai lần, `check_timings.py` báo lỗi). Cách làm: viết lại thành cách nói không lặp ("đổi sang cách nói ngày nay: tháng Chạp đục băng, tháng Giêng cất vào hầm"), đừng cố chỉnh căn chỉnh.
 - **Sau khi lexicon đổi một từ thành chữ đồng âm, căn chỉnh cũng có thể đứt** ("lăng âm" sau khi thay thì không khớp). Cách làm: trước hết lồng tiếng một lần không có lexicon, đọc lại thấy thực sự đọc sai rồi mới thêm.
-- **Một nhịp chậm** (<5 chữ/giây) hoặc đọc lại <95%: xóa `build/audio/<nhịp>.*` rồi lồng lại riêng, thường một hai lần là bình thường.
-- **Gemini thỉnh thoảng đọc thừa, lặp hoặc bỏ sót từ**: `--qa` phiên âm lại bằng whisper.cpp, đọc lại thấp thì tổng hợp lại nhịp đó; nghĩa bị ngược hoặc mất ý thì bắt buộc làm lại.
-- **Chỉ dẫn diễn đọc `director` viết bằng tiếng Anh** (có chỗ giữ `{text}`), lời dẫn vẫn tiếng Việt; Gemini nghe chỉ dẫn tiếng Anh ổn định nhất. Muốn đổi giọng thì đổi tên giọng có sẵn (Sulafat, Gacrux…) và sửa `director`, không còn nhân bản giọng.
-- **429/500/503 khi gọi đồng thời**: script tự lùi thời gian và thử lại, kiên nhẫn chờ, giảm `--jobs` nếu gặp nhiều.
+- **Một nhịp chậm** (voice.log in từ/giây; dưới ~3 từ/giây là chậm, đo thật với Sulafat trung bình ~3,5 trước `speed.py`) hoặc đọc lại <95%: xóa `build/audio/<nhịp>.*` rồi lồng lại riêng, thường một hai lần là bình thường.
+- **Gemini thỉnh thoảng đọc thừa, lặp hoặc bỏ sót từ**: `--qa` dùng bản phiên âm OpenAI whisper-1 (cùng lần gọi căn chỉnh) để so lại, đọc lại thấp hoặc có "⚠ đọc thừa" thì tổng hợp lại nhịp đó; nghĩa bị ngược hoặc mất ý thì bắt buộc làm lại.
+- **Không viết chỉ dẫn diễn đọc `director`**: `gemini-3.8-flash-tts` đọc to mọi chỉ dẫn chèn vào lời dẫn (đo thật: 6/9 nhịp đọc cả đoạn chỉ dẫn tiếng Anh). Muốn đổi giọng thì đổi tên giọng có sẵn (Sulafat, Gacrux…), không còn nhân bản giọng.
+- **Căn chỉnh cần `OPENAI_API_KEY`** (biến môi trường hoặc `~/.config/ai-teardown/openai.env`): mỗi lần lồng tiếng tốn thêm phí OpenAI, kết quả cache ở `build/audio/<nhịp>.asr.json`; `whisper-1` sẽ bị OpenAI tắt ngày 26/02/2027.
+- **429/5xx khi gọi đồng thời** (Gemini hoặc OpenAI): script tự lùi thời gian (tôn trọng `Retry-After`) và thử lại, kiên nhẫn chờ, giảm `--jobs` nếu gặp nhiều.
 
 ## Dàn cảnh (film.js)
 

@@ -3,8 +3,7 @@
     "engine": "gemini",
     "model": "gemini-3.8-flash-tts",
     "voice": "Sulafat",
-    "lang": "vi",
-    "director": "Read the following Vietnamese narration like a friendly, crisp young science blogger recording a hands-on course for office workers: unhurried pace, each sentence clearly delivered, pauses between sentences, key words lightly stressed. Do not add or skip any word.\n\n{text}"
+    "lang": "vi"
   },
   "lexicon": {},
   "beats": [

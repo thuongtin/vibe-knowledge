@@ -15,8 +15,8 @@ Chữ ký tác giả @Berryxia (đầu phim cuối phim tự thêm, trong văn �
 
 ## Sản phẩm (mỗi bài một thư mục `examples/ai-practice/lessons/NN/`)
 1. `narration.json`: định dạng giống mùa một:
-   `{"voice": {"engine": "gemini", "model": "gemini-3.8-flash-tts", "voice": "Sulafat", "lang": "vi", "director": "Read the following Vietnamese narration like a friendly young science communicator giving a hands-on class to office workers: calm pace, every sentence clear, natural pauses between sentences, slight emphasis on key words. Do not add or skip any word.\n\n{text}"}, "lexicon": {}, "beats": [{"id": "B01", "narration": "[[hi]]……[[cue2]]……"}]}`
-   - Chuỗi `director` ở trên là chỉ dẫn diễn đọc cho Gemini TTS, viết bằng tiếng Anh (Gemini nghe ổn định nhất), `{text}` là chỗ chèn lời dẫn tiếng Việt (ý: một blogger khoa học phổ thông trẻ thân thiện, nhịp nói thong thả, mỗi câu rõ, giữa các câu ngắt nghỉ tự nhiên, từ trọng điểm nhấn nhẹ).
+   `{"voice": {"engine": "gemini", "model": "gemini-3.8-flash-tts", "voice": "Sulafat", "lang": "vi"}, "lexicon": {}, "beats": [{"id": "B01", "narration": "[[hi]]……[[cue2]]……"}]}`
+   - Không thêm `director` (chỉ dẫn diễn đọc): `gemini-3.8-flash-tts` đọc to mọi chỉ dẫn chèn vào lời dẫn. Đổi chất giọng bằng cách đổi `voice`.
    - Bẫy phát âm: từ viết tắt và tên riêng bị đọc lệch thì ghi vào lexicon; số phiên bản ghi vào lexicon đọc thành "0 chấm 155 chấm 1". Sau khi lồng tiếng xem trong voice.log có dòng cảnh báo "⚠" (đọc đáng ngờ) hay không.
    - Mỗi nhịp 60–140 chữ, mỗi nhịp 2–4 dấu `[[cue]]` (chữ thường tiếng Anh/số/gạch dưới, đặt ở đầu câu), hình ảnh chuyển theo cue.
    - Cả bài 2200–2800 chữ, 22–32 nhịp (lồng tiếng sẽ tăng tốc 1,15 lần, thành phẩm khoảng 8–10 phút).

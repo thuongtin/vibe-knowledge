@@ -60,7 +60,7 @@ Khi kể chuyện sửa bản (BeeGer, CelHive, 小互, rung cả đoạn) có t
 Mỗi bài dùng lượt nào: p02 lượt 1 (đọc website, trích phối màu) + đầu lượt 2 (lưu Logo); p03 thẻ chọn kiểu của lượt 1; p04 phân cảnh lượt 1 + chọn nhạc khớp nhịp lượt 2; p05 hiệu ứng chuyển động trong Film.tsx lượt 2 (`~/Desktop/quanwen-promo/src/`); p06 vận động ống kính trong Film.tsx; p07 chọn nhạc lượt 2 + giới hạn biên độ lượt 4; p08 lượt 3–5 (cạm bẫy, kiểm định chất lượng, sửa bản) và mức sử dụng toàn bộ quá trình.
 
 ## Bạn cần bàn giao (đều nằm trong `lessons/<số bài>/`, số bài p02…p07)
-1. `narration.json`: 16–20 nhịp, 1100–1400 chữ. Định dạng, giọng chép y theo `lessons/p00/narration.json` (ở `director` đổi "bài dẫn nhập" thành "một bài học").
+1. `narration.json`: 16–20 nhịp, 1100–1400 chữ. Định dạng, giọng chép y theo `lessons/p00/narration.json` (không thêm `director`).
 2. Lồng tiếng: `cd ~/Desktop/ai-teardown && python3 scripts/make_lesson.py examples/claude-video/lessons/<số bài> voice > examples/claude-video/lessons/<số bài>/voice.log 2>&1`, sau đó `python3 scripts/speed.py examples/claude-video/lessons/<số bài> 1.15`. Gemini có thể giới hạn tốc độ (429), kịch bản tự lùi lại thử lại, hãy kiên nhẫn chờ.
 3. Nhạc nền: `showcase/opus-intro/.venv/bin/python ~/.claude/skills/promo-video/scripts/pick_music.py lessons/<số bài>/assets/music/bgm.wav --track <bài nhạc trong bảng dưới> --seconds <tổng số giây của bài+2> --hit-at <giây tiêu đề mở đầu đập xuống>`, ghi BPM được in ra và `credit.txt` vào chú thích của film.js.
 4. `film.js`: cách viết theo `lessons/p00/film.js`. Tư liệu đặt vào `lessons/<số bài>/assets/`.

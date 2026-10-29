@@ -25,7 +25,7 @@
 | Phụ thuộc | Vị trí / cách làm |
 |---|---|
 | Khoá Google Gemini TTS | biến môi trường `GOOGLE_API_KEY` (hoặc `GEMINI_API_KEY`), hoặc `~/.config/ai-teardown/gemini.env` (quyền 600, dòng `GOOGLE_API_KEY=...`). **Tuyệt đối không ghi vào dự án, trang web hoặc bộ nhớ** |
-| whisper-cli | `brew install whisper-cpp`; mô hình `~/Library/Application Support/Murmur/models/ggml-medium-q5_0.bin` (căn chỉnh khắc phục) + `…/Memo/models/ggml-small.bin` (căn chỉnh nhanh). Đường dẫn ở đầu `scripts/tts_gemini.py` |
+| Khoá OpenAI (căn chỉnh + đọc lại) | biến môi trường `OPENAI_API_KEY`, hoặc `~/.config/ai-teardown/openai.env` (quyền 600, dòng `OPENAI_API_KEY=...`). Dùng `POST /v1/audio/transcriptions`, model `whisper-1` (model duy nhất của OpenAI trả timestamp từng từ; OpenAI báo tắt ngày 26/02/2027). **Mỗi lần lồng tiếng tốn thêm phí OpenAI** (1–2 lần gọi mỗi nhịp, tính theo thời lượng âm thanh; kết quả được cache ở `build/audio/<nhịp>.asr.json`). Không còn cần whisper-cli hay mô hình ggml trên máy |
 | Trình duyệt headless Playwright | `~/Library/Caches/ms-playwright/chromium_headless_shell-1243/…`(đầu `scripts/stills.py`, `export_cues.py`) |
 | Hyperframes | `npx hyperframes@0.6.x` cài một lần, trong make_lesson `NPX` trỏ tới `~/.npm/_npx/<hash>/node_modules` (đổi máy phải sửa) |
 | esbuild | `.bin/esbuild` trong cùng thư mục NPX |
@@ -37,7 +37,7 @@ Khi đổi máy, sửa các hằng số ở đầu `scripts/make_lesson.py`, `tt
 ## Ba giai đoạn của make_lesson
 
 ```bash
-python3 scripts/make_lesson.py <thư mục bài> voice   # tổng hợp theo nhịp (song song 2–3 luồng, cache theo văn bản) → whisper căn chỉnh từng chữ → whisper.cpp phiên âm lại để chấm điểm đọc lại
+python3 scripts/make_lesson.py <thư mục bài> voice   # tổng hợp theo nhịp (song song 2–3 luồng, cache theo văn bản) → OpenAI whisper-1 lấy thời gian từng từ, căn từng chữ → dùng chính bản phiên âm đó chấm điểm đọc lại
 python3 scripts/make_lesson.py <thư mục bài> build   # đổi tốc độ (scenes.speed, mặc định 1.15) → biên dịch scenes.json → esbuild đóng gói → preview.html → contact sheet
 python3 scripts/make_lesson.py <thư mục bài> final   # trộn âm (nhạc nền -24dB) → render Hyperframes 1080p → bản nén 720p đưa vào trang khoá học → thư mục bản tương tác → cập nhật series.json và trang khoá học
 ```

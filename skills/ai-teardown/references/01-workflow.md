@@ -32,7 +32,7 @@ Sửa xong mới bắt đầu viết. Sau đó các bước "viết" và "dàn c
 
 - Phiên chính: đưa cho mỗi trợ lý một bản mô tả nhiệm vụ tự đủ (thư mục bài học, tiêu đề, tên thư mục chương nguồn, lệnh nhập, tiêu đề các bài trước sau để nối mạch, yêu cầu về quyền riêng tư, các hạn chế đã biết của mẫu), mỗi lần 3 trợ lý, chạy ở nền.
 - Trợ lý: làm đúng theo `BRIEF.md` của thư mục loạt bài, chỉ động vào thư mục bài học của mình; không render, không xuất bản, không sửa mã engine, không sửa series.json; lỗi của mẫu ghi vào báo cáo.
-- Sau khi phiên chính nhận báo cáo: nghe lại các nhịp đáng ngờ (whisper-cli), chạy lại build để xem contact sheet, khi cần thì tự sửa scenes.json, rồi xếp vào hàng đợi render, đồng thời giao bài kế tiếp.
+- Sau khi phiên chính nhận báo cáo: nghe lại các nhịp đáng ngờ (file `build/audio/<nhịp>.mp3`, đối chiếu `qa.json`), chạy lại build để xem contact sheet, khi cần thì tự sửa scenes.json, rồi xếp vào hàng đợi render, đồng thời giao bài kế tiếp.
 - "Hạn chế của mẫu" mà trợ lý báo cáo phải tổng hợp thành "lỗi đã biết" trong bản mô tả nhiệm vụ của đợt sau, và sửa trong engine càng sớm càng tốt (sửa xong thì với các bài đã xếp hàng nhưng chưa render, hãy chạy lại build — final sẽ không chạy lại build).
 
 ## ⑤⑥ Render và xuất bản

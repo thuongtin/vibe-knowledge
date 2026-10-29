@@ -8,7 +8,7 @@ Cách dùng:
 Việc làm:
 1. Nếu không gian làm việc / series chưa tồn tại thì gọi new_series.py --style cine của ai-teardown để tạo (engine, phông chữ, công cụ render).
 2. Cài kit/know.js vào <series>/cine/engine/, vá cine/tools/record.py, stills.py: sau mỗi lần seek thì await window.__vk.wait() (chờ ảnh, khung video giải mã xong rồi mới chụp).
-3. Lồng tiếng dùng Google Gemini TTS (mặc định giọng Sulafat, khối voice trong narration.json), không cần bản ghi mẫu; đổi giọng thì sửa voice.voice / voice.director.
+3. Lồng tiếng dùng Google Gemini TTS (mặc định giọng Sulafat, khối voice trong narration.json), không cần bản ghi mẫu; đổi giọng thì sửa voice.voice (không viết voice.director: Gemini đọc to chỉ dẫn). Căn chỉnh cần OPENAI_API_KEY.
 4. lessons/<số kỳ>/: narration.json (khung lời dẫn của khuôn), film.js (khung hình ảnh), facts.md (danh sách sự kiện), assets.json (danh sách tài nguyên Renoise), assets/{img,clips,audio}/.
 """
 import argparse

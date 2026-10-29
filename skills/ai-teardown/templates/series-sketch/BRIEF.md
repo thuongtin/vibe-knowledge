@@ -11,7 +11,7 @@ Thư mục gốc kho mã: `~/Desktop/ai-teardown` (các lệnh bên dưới đ�
 - Chương rất dài (trên 1 vạn chữ): chọn 3 phần cốt lõi nhất để giảng rõ, không cần bao quát hết; chương dạng ca sử dụng thì giảng theo "tình huống → đã dùng gì (Skill/chuyên gia/connector) → giao nhiệm vụ thế nào → kết quả và nghiệm thu".
 
 ## Lời dẫn narration.json
-- `voice` chép nguyên đoạn voice của `lessons/03/narration.json` (giọng Gemini Sulafat + `director` tiếng Anh kiểu giảng bài), `lexicon` thêm khi cần (từ viết tắt hay tên riêng bị đọc lệch thì ghi vào lexicon; số phiên bản viết thành "0 chấm 1 chấm 2").
+- `voice` chép nguyên đoạn voice của `lessons/03/narration.json` (giọng Gemini Sulafat, không có `director`), `lexicon` thêm khi cần (từ viết tắt hay tên riêng bị đọc lệch thì ghi vào lexicon; số phiên bản viết thành "0 chấm 1 chấm 2").
 - 18–28 nhịp, cả bài 1200–2200 chữ (sau khi tăng tốc 1,15 lần là 4–7 phút). Mỗi nhịp 40–130 chữ, mỗi nhịp 2–4 `[[cue]]` (chữ thường tiếng Anh/chữ số/gạch dưới, đặt ở đầu mệnh đề).
 - Khẩu ngữ, câu ngắn, ngôi thứ hai; câu mở đầu nối với bài trước ("Bài trước chúng ta……"), kết thúc báo trước bài sau + cảm ơn tác giả sách trắng + "hẹn gặp lại ở bài sau".
 - Ít nhất một lần "tạm dừng suy nghĩ" (một nhịp đặt câu hỏi, nhịp sau `[[answer]]` công bố đáp án).

@@ -3,8 +3,7 @@
   "engine": "gemini",
   "model": "gemini-3.8-flash-tts",
   "voice": "Sulafat",
-  "lang": "vi",
-  "director": "Read the following Vietnamese narration like a friendly, crisp young science blogger recording the final lesson of a hands-on course: unhurried pace, each sentence clearly delivered, pauses between sentences, key words lightly stressed, the closing a little warmer. Do not add or skip any word.\n\n{text}"
+  "lang": "vi"
  },
  "lexicon": {
   "Opus": "Opus",
