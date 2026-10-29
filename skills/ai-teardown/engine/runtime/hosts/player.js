@@ -1,14 +1,14 @@
 /**
- * 互动课件宿主（V1 同步课件）：页面里实时渲染同一个舞台，<audio> 是主时钟。
- * 功能：播放 / 暂停、进度条（带章节刻度）、逐步前后（原语的 beats）、章节、字幕稿点击跳转、
- * 暂停时「点图看出处」（原语的 hotspots → 事实账本）。
- * 这里可以用 requestAnimationFrame——它只驱动交互播放，不参与出片。
+ * Host bài giảng tương tác (bài giảng đồng bộ V1): trang render trực tiếp cùng một sân khấu, <audio> là đồng hồ chính.
+ * Chức năng: phát / tạm dừng, thanh tiến độ (có vạch chia chương), tiến lùi từng bước (beats của primitive), chương, bấm vào bản lời giảng để nhảy tới,
+ * khi tạm dừng "bấm vào ảnh xem nguồn" (hotspots của primitive → sổ dữ kiện).
+ * Ở đây được dùng requestAnimationFrame: nó chỉ điều khiển phát tương tác, không tham gia xuất phim.
  */
 const CSS = `
 .pl{--pl-bg:#0B1122;--pl-panel:#111A31;--pl-line:#24324F;--pl-ink:#EAF0FF;--pl-ink2:#A9B5D6;--pl-ink3:#6F7CA3;--pl-acc:#5B8CFF;--pl-hl:#FFD84D;
   --pl-hover:rgba(255,255,255,.04);--pl-cur:rgba(91,140,255,.14);
   display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;color:var(--pl-ink);font:15px/1.6 "Geist","Noto Sans SC","PingFang SC",sans-serif}
-/* 浅色（马卡龙系列课）：mountPlayer(..., {light: true}) */
+/* Giao diện sáng (series bài giảng macaron): mountPlayer(..., {light: true}) */
 .pl.light{--pl-bg:#FFF8F2;--pl-panel:#FFFFFF;--pl-line:#EEDFD5;--pl-ink:#2F2A45;--pl-ink2:#5B5573;--pl-ink3:#7A7390;--pl-acc:#6548CC;--pl-hl:#C98A00;
   --pl-hover:rgba(101,72,204,.06);--pl-cur:rgba(101,72,204,.12)}
 .pl.light .pl-screen{background:#FFF8F2;box-shadow:0 14px 36px rgba(94,72,130,.12)}
@@ -66,16 +66,16 @@ export function mountPlayer(host, { stage, audio, chapters = [], captions = [], 
   screen.append(fit, hot);
 
   const dur = stage.duration;
-  const play = el("button", { class: "pl-btn", "aria-label": "播放", text: "▶" });
-  const prev = el("button", { class: "pl-btn", "aria-label": "上一步", text: "‹ 上一步" });
-  const next = el("button", { class: "pl-btn", "aria-label": "下一步", text: "下一步 ›" });
+  const play = el("button", { class: "pl-btn", "aria-label": "Phát", text: "▶" });
+  const prev = el("button", { class: "pl-btn", "aria-label": "Bước trước", text: "‹ Bước trước" });
+  const next = el("button", { class: "pl-btn", "aria-label": "Bước sau", text: "Bước sau ›" });
   const time = el("span", { class: "pl-time", text: `0:00 / ${fmt(dur)}` });
-  const range = el("input", { type: "range", min: "0", max: String(dur), step: "0.01", value: "0", "aria-label": "进度" });
+  const range = el("input", { type: "range", min: "0", max: String(dur), step: "0.01", value: "0", "aria-label": "Tiến độ" });
   const track = el("div", { class: "pl-track" }, range);
   for (const c of chapters) track.append(el("span", { class: "pl-tick", style: `left:calc(${(c.t / dur) * 100}% - 1px)` }));
-  const speed = el("button", { class: "pl-btn", "aria-label": "倍速", text: "1×" });
+  const speed = el("button", { class: "pl-btn", "aria-label": "Tốc độ", text: "1×" });
   const bar = el("div", { class: "pl-bar" }, play, prev, next, track, time, speed);
-  const hint = el("p", { class: "pl-hint", text: "空格播放 / 暂停，← → 逐步。暂停时，画面上带虚线框的元素可以点开看出处。" });
+  const hint = el("p", { class: "pl-hint", text: "Phím cách để phát / tạm dừng, ← → để tiến lùi từng bước. Khi tạm dừng, các phần tử có khung nét đứt trên màn hình có thể bấm để xem nguồn." });
   const main = el("div", { class: "pl-main" }, screen, bar, hint);
 
   const chapList = el("ol", { class: "pl-chap" });
@@ -90,7 +90,7 @@ export function mountPlayer(host, { stage, audio, chapters = [], captions = [], 
     lineList.append(el("li", {}, b));
     return b;
   });
-  const side = el("aside", { class: "pl-side" }, el("h3", { text: "章节" }), chapList, el("h3", { text: "讲稿" }), lineList);
+  const side = el("aside", { class: "pl-side" }, el("h3", { text: "Chương" }), chapList, el("h3", { text: "Lời giảng" }), lineList);
   root.append(main, side);
   host.append(root);
 
@@ -128,14 +128,14 @@ export function mountPlayer(host, { stage, audio, chapters = [], captions = [], 
   };
   audio.addEventListener("play", () => {
     play.textContent = "❚❚";
-    play.setAttribute("aria-label", "暂停");
+    play.setAttribute("aria-label", "Tạm dừng");
     hot.replaceChildren();
     closePop();
     raf = requestAnimationFrame(loop);
   });
   audio.addEventListener("pause", () => {
     play.textContent = "▶";
-    play.setAttribute("aria-label", "播放");
+    play.setAttribute("aria-label", "Phát");
     cancelAnimationFrame(raf);
     sync(now());
     drawHotspots();
@@ -151,7 +151,7 @@ export function mountPlayer(host, { stage, audio, chapters = [], captions = [], 
 
   // ---- steps: primitive beats + chapter starts, landing a moment after each change ----
   const points = [...new Set([...stage.beats().map((b) => b.t), ...chapters.map((c) => c.t)].map((t) => +t.toFixed(2)))].sort((a, b) => a - b);
-  // 每个逐步点落在变化完成之后（+0.7 秒），但不越过下一个点
+  // Mỗi điểm bước nằm sau khi thay đổi hoàn tất (+0,7 giây), nhưng không vượt quá điểm kế tiếp
   const settle = 0.7;
   const targets = points.map((p, i) => Math.min(p + settle, (points[i + 1] ?? dur) - 0.02));
   const stepTo = (dir) => {
@@ -169,14 +169,14 @@ export function mountPlayer(host, { stage, audio, chapters = [], captions = [], 
     if (e.key === "ArrowLeft") (e.preventDefault(), stepTo(-1));
   });
 
-  // ---- 点图看出处 ----
+  // ---- Bấm vào ảnh xem nguồn ----
   let pop = null;
   const closePop = () => (pop?.remove(), (pop = null));
   function drawHotspots() {
     hot.replaceChildren();
     if (!audio.paused) return;
     const box = screen.getBoundingClientRect();
-    // 看不见的元素（淡出的、被「打开」的节点）不给热点
+    // Phần tử không nhìn thấy (đã mờ dần, nút được "mở") thì không có điểm nóng
     const seen = (node) => {
       let o = 1;
       for (let n = node; n && n !== stage.el; n = n.parentElement) {
@@ -191,7 +191,7 @@ export function mountPlayer(host, { stage, audio, chapters = [], captions = [], 
       const r = hs.el.getBoundingClientRect();
       if (r.width < 4 || r.right < box.left || r.left > box.right || r.bottom < box.top || r.top > box.bottom) continue;
       const b = el("button", {
-        "aria-label": `查看出处：${hs.label}`,
+        "aria-label": `Xem nguồn: ${hs.label}`,
         style: `left:${r.left - box.left - 6}px;top:${r.top - box.top - 6}px;width:${r.width + 12}px;height:${r.height + 12}px`,
         onclick: (e) => {
           e.stopPropagation();
@@ -200,11 +200,11 @@ export function mountPlayer(host, { stage, audio, chapters = [], captions = [], 
           pop.append(el("h4", { text: hs.label }));
           for (const fid of hs.facts) {
             const f = facts[fid];
-            pop.append(el("p", { text: f ? f.claim : `${fid}（事实待核实）` }));
-            if (f?.status === "undisclosed") pop.append(el("div", { class: "src", text: "官方未披露 · 画面上用雾化方块表示" }));
+            pop.append(el("p", { text: f ? f.claim : `${fid} (dữ kiện chờ kiểm chứng)` }));
+            if (f?.status === "undisclosed") pop.append(el("div", { class: "src", text: "Chính thức chưa công bố · trên màn hình biểu thị bằng khối mờ" }));
             for (const ev of f?.evidence ?? []) {
               const s = sources[ev.source];
-              pop.append(el("div", { class: "src", text: s ? `来源 · ${s.publisher}：${s.title}` : ev.source }));
+              pop.append(el("div", { class: "src", text: s ? `Nguồn · ${s.publisher}: ${s.title}` : ev.source }));
             }
           }
           pop.style.left = `${Math.min(r.left - box.left, box.width - 370)}px`;

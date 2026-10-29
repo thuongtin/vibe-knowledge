@@ -1,26 +1,26 @@
-# 剪报拼字 · RANSOM NOTE
+# Cắt báo ghép chữ · RANSOM NOTE
 
-> 家族：印刷与纸　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles5_film.js → ransom()`
+> Họ: In ấn và giấy | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `styles/ransom/still.jpg` | Mã nguồn mẫu: `_samples/styles5_film.js → ransom()`
 
-**一句话**：灰白新闻纸上，每个字都像从不同报纸剪下来（字体、底色、角度各不相同），一个字一个字拍上去。
+**Một câu**: Trên giấy báo trắng xám, mỗi chữ như được cắt từ một tờ báo khác nhau (phông chữ, màu nền, góc nghiêng đều khác nhau), từng chữ một được đập lên.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 勒索信 / Zine 剪报：每个字都有态度，拼出来的过程就是悬念。 |
-| 材质 / 画法 | 新闻纸横线 + 分栏线 + 复印噪点（multiply）；每个字一个色块（7 组底色 / 字色、5 种字体、±8° 随机旋转、硬投影）；订书钉、红笔圈。 |
-| 配色逻辑 | 纸 #E6E2D6 · 黑 #111 · 白 · 报黄 #F2D43D · 报红 #E2463B · 报蓝 #5A7FB5 |
-| 字体 | NotoSC 900 / 宋体 / 楷体 / GeistMono / Geist 每字随机 |
-| 动态 | 逐字拍入（间隔 0.07 秒，1.35 → 1 缩放 0.12 秒）；高潮订书钉落下、红圈一笔画。 |
-| 镜头语法 | 锁定。 |
-| 声音 | 剪刀咔嚓、纸片拍、订书机；鼓点。 |
-| 标志镜头 | 「50 金!!」每个字底色、字体都不同，被一道红笔圈住。 |
+| Ý đồ đạo diễn | Thư tống tiền / báo cắt Zine: mỗi chữ đều có thái độ, quá trình ghép ra chính là hồi hộp. |
+| Chất liệu / Cách vẽ | Dòng kẻ ngang giấy báo + đường chia cột + nhiễu hạt photocopy (multiply); mỗi chữ một khối màu (7 bộ màu nền / màu chữ, 5 phông chữ, xoay ngẫu nhiên ±8°, đổ bóng cứng); ghim bấm, khoanh bút đỏ. |
+| Logic màu | Giấy #E6E2D6 · đen #111 · trắng · vàng báo #F2D43D · đỏ báo #E2463B · lam báo #5A7FB5 |
+| Phông chữ | NotoSC 900 / Songti / Kaiti / GeistMono / Geist ngẫu nhiên cho mỗi chữ |
+| Chuyển động | Đập vào từng chữ (cách nhau 0,07 giây, phóng 1,35 → 1 trong 0,12 giây); ở cao trào ghim bấm rơi xuống, vòng đỏ vẽ một nét. |
+| Ngữ pháp ống kính | Cố định. |
+| Âm thanh | Kéo cắt tách, giấy đập, máy bấm ghim; nhịp trống. |
+| Cảnh đặc trưng | "50 lượng vàng!!" mỗi chữ có màu nền và phông chữ khác nhau, bị một vòng bút đỏ khoanh lại. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换调色板、换字体池
-- **一改就变味**：字体和底色太统一（就成了普通字卡）
-- **不能改**：一次整句出现
+## Có thể sửa đến mức nào (dùng khi làm thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi bảng màu, đổi bộ phông chữ
+- **Sửa là mất vị**: phông chữ và màu nền quá đồng nhất (thành thẻ chữ bình thường)
+- **Không được sửa**: cả câu hiện ra một lần
 
-## 搭配
-- 适合母版：两难选择 B（反转）、痛点原理 C
-- 不适合：严肃悼念、学术推导
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Cách phối
+- Mẫu gốc phù hợp: B lựa chọn lưỡng nan (đảo chiều), C nguyên lý điểm đau
+- Không phù hợp: tưởng niệm nghiêm túc, suy luận học thuật
+- Tiền tố Renoise cấp tăng cường: `(bản cơ bản không cần)`

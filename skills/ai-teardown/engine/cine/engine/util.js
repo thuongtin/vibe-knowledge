@@ -1,4 +1,4 @@
-// 时间、缓动、随机数：全片所有动画都是「时间 t 的纯函数」，这里的工具都没有内部状态。
+// Thời gian, easing, số ngẫu nhiên: mọi hoạt ảnh trong video đều là "hàm thuần của thời gian t", các công cụ ở đây đều không có trạng thái nội bộ.
 export let TL = null;
 
 export async function loadTimeline() {
@@ -6,10 +6,10 @@ export async function loadTimeline() {
   return TL;
 }
 
-export const B = (bar) => bar * TL.bar;          // 小节 → 秒
-export const toBar = (t) => t / TL.bar;          // 秒 → 小节
+export const B = (bar) => bar * TL.bar;          // ô nhịp → giây
+export const toBar = (t) => t / TL.bar;          // giây → ô nhịp
 
-// 「ft」段的时间拖动：真实时间 → 场景时间（倒放、定格、快进），表由 tools/timeline.py 生成，配乐用的是同一张表
+// Kéo thời gian cho đoạn "ft": thời gian thực → thời gian cảnh (tua ngược, đứng hình, tua nhanh), bảng do tools/timeline.py sinh ra, nhạc nền dùng cùng một bảng
 export function warp(t) {
   const w = TL.warp;
   if (t <= w.from || t >= w.to) return t;
@@ -32,14 +32,14 @@ export const eOutQuint = (x) => 1 - Math.pow(1 - x, 5);
 export const eInOutQuint = (x) => (x < 0.5 ? 16 * x ** 5 : 1 - Math.pow(-2 * x + 2, 5) / 2);
 export const eOutBack = (x, s = 1.70158) => 1 + (s + 1) * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2);
 
-// 阻尼弹簧的阶跃响应：t 秒后从 0 走到 1，带过冲
+// Đáp ứng bước của lò xo giảm chấn: sau t giây đi từ 0 đến 1, có overshoot
 export function spring(t, f = 2.2, z = 0.42) {
   if (t <= 0) return 0;
   const w = 2 * Math.PI * f, wd = w * Math.sqrt(1 - z * z);
   return 1 - Math.exp(-z * w * t) * (Math.cos(wd * t) + ((z * w) / wd) * Math.sin(wd * t));
 }
 
-// 一次性冲击的包络：at 之后快速起、指数衰减
+// Đường bao của xung một lần: sau at tăng nhanh, rồi suy giảm theo hàm mũ
 export const hit = (t, at, decay = 9) => (t < at ? 0 : Math.exp(-(t - at) * decay));
 
 export function rng(seed) {
@@ -53,7 +53,7 @@ export function rng(seed) {
   };
 }
 
-// 小 DOM 工具
+// Công cụ DOM nhỏ
 export function el(parent, cls = "", style = "", html = "") {
   const d = document.createElement("div");
   if (cls) d.className = cls;

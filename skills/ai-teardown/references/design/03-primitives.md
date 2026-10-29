@@ -1,82 +1,82 @@
-# 03 · 教学原语（首批 13 个）
+# 03 · Primitive giảng dạy (13 cái đầu tiên)
 
-原语 = 可复用、带参数、由时间驱动的动画组件，接口见 `02-scene-contract.md`。
-状态：✅ 已实现，并在 Spike 或 Codex 整片里用过 · ◐ 部分实现 · ○ 仅规格。
-实际参数以源码顶部注释为准，与本表不同的地方已在状态栏注明（2026-09-26 整片后更新）。
+Primitive = thành phần hoạt họa có thể tái sử dụng, có tham số, điều khiển theo thời gian; giao diện xem `02-scene-contract.md`.
+Trạng thái: ✅ đã triển khai và đã dùng trong Spike hoặc trong video Codex hoàn chỉnh · ◐ triển khai một phần · ○ mới chỉ có đặc tả.
+Tham số thực tế lấy theo chú thích đầu mã nguồn; chỗ nào khác với bảng này đã ghi chú ở cột trạng thái (cập nhật sau video hoàn chỉnh ngày 2026-09-26).
 
-| 原语 | 讲什么 | 关键参数 | 逐步点 / cue 钩子 | 点图看出处 | 状态 |
+| Primitive | Giảng về | Tham số chính | Điểm từng bước / cue hook | Bấm vào hình để xem nguồn | Trạng thái |
 |---|---|---|---|---|---|
-| **SystemMap 总图** | 由什么组成、谁调用谁 | `nodes[{id,label,sub,role,x,y,w,h,icon,honesty,facts,ghost,labelAt}]`、`edges[{from,to,label,labelSide,bend,both,honesty,facts}]`、`reveal`、`lit`、`dim`、`open`/`close` | `reveal:<id>`、`open:<id>` | 节点、连线标签 | ✅ |
-| **Loop 循环** | 反复执行直到满足条件 | `steps[{label,role,angle,lx,ly}]`、`arrivals[]`（令牌到达各步的时刻）、`passAt`、`passLabel`、`title` | `step:<i>`、`pass` | 圆心 | ✅ |
-| **Morph 单形状** | 一条产品流程怎么走完 | 见 `04-morph.md` | `state:<i>` | 每个状态 | ✅（6 种状态） |
-| **Pipeline 管线** | 数据按什么顺序流过哪些环节 | `stages[{label,role,icon,facts}]`、`packets[{t0,t1,label}]`（在管线里移动的数据块）、`active[[t,i]]` | `stage:<i>` | 每个环节 | ○ |
-| **Terminal 终端** | 它实际跑了什么命令、看到什么输出 | `lines[{kind:cmd\|out\|err\|ok,text,at}]`、`prompt`、`cps`、`title` | `line:<i>` | 整个窗口 | ◐（Morph 内的终端状态） |
-| **ChatUI 对话** | 用户怎么交代任务、它怎么回复 | `messages[{role:user\|assistant\|tool,text,at,cps}]`、`skin` | `msg:<i>` | 每条消息 | ○ |
-| **CodeDiff 代码改动** | 它改了哪些代码 | `file`、`lines[{k:" "\|"+"\|"-",text,at}]`、`highlight[]` | `line:<i>` | 文件头 | ✅ `cards.js`，实际参数 `file`、`lines`、`actions`（按钮）、`checks`（检查项） |
-| **Cursor 光标** | 人在界面上点了什么、拖了什么 | `keys[[t,x,y]]`（世界坐标）、`presses[[t0,t1]]`、`visible[[t0,t1]]` | 按下时刻 | — | ✅（屏幕层叠加件） |
-| **Sandbox 权限边界** | 它能碰什么、不能碰什么、什么要你批准 | `frame{w,h}`、`gates[{label,state:open\|closed\|ask,facts}]`、`askAt`（弹出审批的时刻） | `gate:<i>`、`ask` | 每道闸门 | ✅ `sandbox.js`；闸门状态实际是 `scoped/closed/removed/open`，审批弹窗是 `ask{title,sub,at,buttons,pressAt}` |
-| **Analogy 类比** | 先用熟悉的东西打比方，再变形成真实结构 | `from{asset: svg\|lottie, label}`、`pairs[{from,to}]`（类比物 ↔ 真实部件）、`morphAt` | `pair:<i>`、`morph` | 每对映射 | ◐ `cards.js` 只做了对照行 `rows[{icon,from,to,role,at}]`；SVG/Lottie 类比物和变形还没做 |
-| **Compare 对比与误区** | 和同类差在哪；常见误解 vs 事实 | `mode: side\|myth`、`left/right{title,items[]}`、`myth{text,strikeAt}`、`truth{text,facts}` | `row:<i>`、`strike` | 每行、事实句 | ✅ `cards.js`：myth 模式（划线后出真相）、side 模式（左右两栏，`winnerAt` 高亮胜出一侧） |
-| **Metric 数据卡** | 有多好、有多大 | `value`、`unit`、`label`、`facts`（必填，且事实须有 `numbers`）、`countAt` | `count` | 整张卡（强制来源角标） | ○ |
-| **ConceptMap 概念地图** | 收束：刚才讲过的全部放回总图 | `from: master_map`、`order[{node,summary,t}]` | `node:<id>` | 每个节点 | ◐ 整片收束直接用 SystemMap 的 `lit` 按旁白逐个点亮，没有单独做 |
+| **SystemMap Sơ đồ tổng** | Gồm những gì, ai gọi ai | `nodes[{id,label,sub,role,x,y,w,h,icon,honesty,facts,ghost,labelAt}]`, `edges[{from,to,label,labelSide,bend,both,honesty,facts}]`, `reveal`, `lit`, `dim`, `open`/`close` | `reveal:<id>`, `open:<id>` | Node, nhãn đường nối | ✅ |
+| **Loop Vòng lặp** | Thực hiện lặp đi lặp lại đến khi thỏa điều kiện | `steps[{label,role,angle,lx,ly}]`, `arrivals[]` (thời điểm token đến từng bước), `passAt`, `passLabel`, `title` | `step:<i>`, `pass` | Tâm vòng tròn | ✅ |
+| **Morph Hình dạng đơn** | Một quy trình sản phẩm chạy hết như thế nào | Xem `04-morph.md` | `state:<i>` | Từng trạng thái | ✅ (6 loại trạng thái) |
+| **Pipeline Đường ống** | Dữ liệu chảy qua những khâu nào theo thứ tự nào | `stages[{label,role,icon,facts}]`, `packets[{t0,t1,label}]` (khối dữ liệu di chuyển trong đường ống), `active[[t,i]]` | `stage:<i>` | Từng khâu | ○ |
+| **Terminal Cửa sổ lệnh** | Thực tế nó đã chạy lệnh gì, thấy output gì | `lines[{kind:cmd\|out\|err\|ok,text,at}]`, `prompt`, `cps`, `title` | `line:<i>` | Toàn bộ cửa sổ | ◐ (trạng thái terminal bên trong Morph) |
+| **ChatUI Hội thoại** | Người dùng giao việc thế nào, nó trả lời ra sao | `messages[{role:user\|assistant\|tool,text,at,cps}]`, `skin` | `msg:<i>` | Từng tin nhắn | ○ |
+| **CodeDiff Thay đổi code** | Nó đã sửa những đoạn code nào | `file`, `lines[{k:" "\|"+"\|"-",text,at}]`, `highlight[]` | `line:<i>` | Tiêu đề file | ✅ `cards.js`, tham số thực tế `file`, `lines`, `actions` (nút bấm), `checks` (mục kiểm tra) |
+| **Cursor Con trỏ** | Người dùng đã bấm gì, kéo gì trên giao diện | `keys[[t,x,y]]` (tọa độ thế giới), `presses[[t0,t1]]`, `visible[[t0,t1]]` | Thời điểm nhấn xuống | — | ✅ (lớp phủ tầng màn hình) |
+| **Sandbox Ranh giới quyền** | Nó được đụng vào gì, không được đụng vào gì, việc gì cần bạn duyệt | `frame{w,h}`, `gates[{label,state:open\|closed\|ask,facts}]`, `askAt` (thời điểm hiện hộp thoại duyệt) | `gate:<i>`, `ask` | Từng cổng | ✅ `sandbox.js`; trạng thái cổng thực tế là `scoped/closed/removed/open`, hộp thoại duyệt là `ask{title,sub,at,buttons,pressAt}` |
+| **Analogy Ví von** | Trước hết dùng thứ quen thuộc để ví von, rồi biến hình thành cấu trúc thật | `from{asset: svg\|lottie, label}`, `pairs[{from,to}]` (vật ví von ↔ bộ phận thật), `morphAt` | `pair:<i>`, `morph` | Từng cặp ánh xạ | ◐ `cards.js` mới chỉ làm hàng đối chiếu `rows[{icon,from,to,role,at}]`; vật ví von SVG/Lottie và biến hình chưa làm |
+| **Compare So sánh và hiểu lầm** | Khác gì so với loại tương tự; hiểu lầm thường gặp so với sự thật | `mode: side\|myth`, `left/right{title,items[]}`, `myth{text,strikeAt}`, `truth{text,facts}` | `row:<i>`, `strike` | Từng hàng, câu sự thật | ✅ `cards.js`: chế độ myth (gạch bỏ rồi hiện sự thật), chế độ side (hai cột trái phải, `winnerAt` làm nổi bật bên thắng) |
+| **Metric Thẻ số liệu** | Tốt đến mức nào, lớn đến mức nào | `value`, `unit`, `label`, `facts` (bắt buộc, và sự thật phải có `numbers`), `countAt` | `count` | Toàn bộ thẻ (bắt buộc có huy hiệu nguồn) | ○ |
+| **ConceptMap Bản đồ khái niệm** | Chốt lại: đặt toàn bộ những gì vừa giảng trở lại sơ đồ tổng | `from: master_map`, `order[{node,summary,t}]` | `node:<id>` | Từng node | ◐ Phần chốt cả video dùng trực tiếp `lit` của SystemMap để làm sáng từng node theo lời dẫn, không làm riêng |
 
-## 系列课新增（2026-09-26，按看片反馈加的）
+## Bổ sung cho series bài giảng (2026-09-26, thêm theo phản hồi sau khi xem video)
 
-用户看完 Codex 整片说「全是来回的关系图，看着晕」「要打字效果、机器人、小图标、思维导图收尾」「可以做人物和历史」。下面这批原语都不需要镜头移动，换场景用转场（`overlays.wipe`）。
+Người dùng xem xong video Codex hoàn chỉnh nói: "toàn là sơ đồ quan hệ qua lại, xem hoa mắt", "cần hiệu ứng gõ chữ, robot, icon nhỏ, kết bằng sơ đồ tư duy", "có thể làm nhân vật và lịch sử". Các primitive dưới đây đều không cần di chuyển camera, chuyển cảnh dùng hiệu ứng chuyển (`overlays.wipe`).
 
-| 原语 | 讲什么 | 关键参数 | 文件 | 状态 |
+| Primitive | Giảng về | Tham số chính | File | Trạng thái |
 |---|---|---|---|---|
-| **Mascot 机器人讲解员** | 串场、提问、指向重点、收尾欢呼 | `spots[[t,x,y,size]]`（转场时换位）、`poses[[t,pose]]`（idle/wave/point-l/point-r/cheer/present）、`talk`（旁白逐词时间，按词张嘴）、`look` | `mascot.js` | ✅ |
-| **Typer 打字文字** | 标题、问题、引语、关键词 | `lines[{text,at,cps,size,weight,color,hl}]`，`*词*` 高亮后荧光笔划出；`box: bubble\|card`、`tail`、`src` 出处小字；光标跟随 | `typer.js` | ✅ |
-| **IconRow 图标排** | 几个角色或几件事并排出场 | `items[{icon,label,sub,color,at} \| {kind:wall} \| {kind:arrow}]`、`title` | `typer.js` | ✅ |
-| **Portrait 人物卡** | 人物介绍、历史照片 | `src,w,h,pos,tilt`、`name,sub`（打字）、`credit`（署名与许可，必填）、`kb` 缓慢推近 | `portrait.js` | ✅ |
-| **Timeline 时间线** | 历史脉络、版本演进 | `events[{year,title,sub,img,pos,zoom,credit,icon,color,at}]`、`heading`；进度线跟着最新事件走 | `timeline.js` | ✅ |
-| **MindMap 思维导图** | 每节收尾 | `center{label,icon,color,at}`、`branches[{label,sub,icon,color,side,y,at}]`、`celebrate` 撒星星 | `mindmap.js` | ✅ |
-| **Floaties 漂浮小图标** | 给开场、大标题添活气 | `items[{icon,x,y,size,color,at}]` | `floaties.js` | ✅ |
+| **Mascot Robot dẫn chuyện** | Nối cảnh, đặt câu hỏi, chỉ vào trọng điểm, reo hò khi kết | `spots[[t,x,y,size]]` (đổi vị trí khi chuyển cảnh), `poses[[t,pose]]` (idle/wave/point-l/point-r/cheer/present), `talk` (thời gian từng từ của lời dẫn, mở miệng theo từ), `look` | `mascot.js` | ✅ |
+| **Typer Chữ gõ** | Tiêu đề, câu hỏi, trích dẫn, từ khóa | `lines[{text,at,cps,size,weight,color,hl}]`, `*từ*` được tô nổi rồi bút dạ quang vạch ra; `box: bubble\|card`, `tail`, `src` chữ nhỏ ghi nguồn; con trỏ chạy theo | `typer.js` | ✅ |
+| **IconRow Hàng icon** | Vài nhân vật hoặc vài việc xuất hiện song song | `items[{icon,label,sub,color,at} \| {kind:wall} \| {kind:arrow}]`, `title` | `typer.js` | ✅ |
+| **Portrait Thẻ nhân vật** | Giới thiệu nhân vật, ảnh lịch sử | `src,w,h,pos,tilt`, `name,sub` (gõ chữ), `credit` (ghi tác giả và giấy phép, bắt buộc), `kb` từ từ zoom vào | `portrait.js` | ✅ |
+| **Timeline Dòng thời gian** | Mạch lịch sử, tiến hóa phiên bản | `events[{year,title,sub,img,pos,zoom,credit,icon,color,at}]`, `heading`; đường tiến độ chạy theo sự kiện mới nhất | `timeline.js` | ✅ |
+| **MindMap Sơ đồ tư duy** | Kết thúc mỗi bài | `center{label,icon,color,at}`, `branches[{label,sub,icon,color,side,y,at}]`, `celebrate` rắc sao | `mindmap.js` | ✅ |
+| **Floaties Icon nhỏ trôi nổi** | Thêm sinh khí cho phần mở đầu, tiêu đề lớn | `items[{icon,x,y,size,color,at}]` | `floaties.js` | ✅ |
 
-配套：
-- `runtime/typing.js`：所有打字效果的公共件（节奏、弹入、高亮、打字音效提示）。
-- `runtime/iconify.js`：开源图标（tabler / lucide / iconoir，离线在 `assets/iconsets/`），线条可以自己画出来；用 `scripts/icons.py` 按名字抽进 bundle。
-- `overlays.wipe`：两层马卡龙色圆转场，场景在铺满那一刻切换。
-- `theme.js`：新增 `macaron`（系列课默认）、`mint`、`night`，所有主题都有六个色位 `--m1…--m6`（主色、`-t` 浅底、`-d` 深色字）。
-- `scripts/fetch_images.py`：从 Wikimedia Commons 取图，只收公有领域、CC0、CC BY、CC BY-SA，自动记下作者与许可。
+Đi kèm:
+- `runtime/typing.js`: phần chung của mọi hiệu ứng gõ chữ (nhịp điệu, bật vào, tô nổi, gợi ý âm thanh gõ phím).
+- `runtime/iconify.js`: icon mã nguồn mở (tabler / lucide / iconoir, ngoại tuyến ở `assets/iconsets/`), nét có thể tự vẽ ra; dùng `scripts/icons.py` để rút theo tên vào bundle.
+- `overlays.wipe`: chuyển cảnh bằng hai lớp hình tròn màu macaron, cảnh được chuyển đúng khoảnh khắc màu phủ kín.
+- `theme.js`: thêm `macaron` (mặc định của series bài giảng), `mint`, `night`; mọi chủ đề đều có sáu ô màu `--m1…--m6` (màu chính, `-t` nền nhạt, `-d` chữ màu đậm).
+- `scripts/fetch_images.py`: lấy ảnh từ Wikimedia Commons, chỉ nhận phạm vi công cộng, CC0, CC BY, CC BY-SA, tự động ghi lại tác giả và giấy phép.
 
-## 基础件（不计入 13 个）
+## Thành phần cơ bản (không tính vào 13 cái)
 
-| 件 | 作用 | 状态 |
+| Thành phần | Tác dụng | Trạng thái |
 |---|---|---|
-| Captions 字幕 | 按词级时间戳断行，每行 ≤ 18 字，句读处断 | ✅ |
-| Tag 角标 | 「界面示意」「推断」「Spike 样片」 | ✅ |
-| Title 章节卡 | 章节开头的大字标题 | ✅ `cards.js` |
-| SourceBadge 来源角标 | 数据卡、截图旁的「来源 · 发布方」 | ○ |
-| EndCard 片尾 | 「信息截至 YYYY-MM-DD」+ 主要出处 | ✅ `cards.js` |
-| Layers 层级卡 | 自上而下的几层叠加（如 AGENTS.md 的合并顺序），`litAt` 点亮离你最近的一层 | ✅ `cards.js`（整片新增） |
-| ChapterLabel 章节角标 | 左上角「第 n 章 · 标题」 | ✅ `overlays.js` |
-| TermCard 术语卡 | 新术语第一次出现时，给出一句白话解释 | ✅ `overlays.js` |
-| Backdrop 压暗幕 | 屏幕层卡片出现时把世界层压暗 | ✅ `overlays.js` |
+| Captions Phụ đề | Ngắt dòng theo mốc thời gian từng từ, mỗi dòng ≤ 18 chữ, ngắt ở chỗ ngắt câu | ✅ |
+| Tag Nhãn góc | “Minh họa giao diện”, “Suy đoán”, “Bản mẫu Spike” | ✅ |
+| Title Thẻ chương | Tiêu đề chữ lớn ở đầu chương | ✅ `cards.js` |
+| SourceBadge Huy hiệu nguồn | “Nguồn · bên phát hành” cạnh thẻ số liệu, ảnh chụp | ○ |
+| EndCard Màn kết | “Thông tin tính đến YYYY-MM-DD” + các nguồn chính | ✅ `cards.js` |
+| Layers Thẻ tầng | Vài tầng chồng lên nhau từ trên xuống (như thứ tự gộp của AGENTS.md), `litAt` làm sáng tầng gần bạn nhất | ✅ `cards.js` (thêm trong video hoàn chỉnh) |
+| ChapterLabel Nhãn chương | Góc trên trái “Chương n · tiêu đề” | ✅ `overlays.js` |
+| TermCard Thẻ thuật ngữ | Khi thuật ngữ mới xuất hiện lần đầu, đưa ra một câu giải thích dễ hiểu | ✅ `overlays.js` |
+| Backdrop Màn làm tối | Khi thẻ tầng màn hình xuất hiện thì làm tối tầng thế giới | ✅ `overlays.js` |
 
-## 选型对照（给编排的模型看：内容形状 → 原语）
+## Bảng chọn loại (dành cho mô hình điều phối: hình dạng nội dung → primitive)
 
-| 讲稿在说 | 用 |
+| Lời thoại đang nói | Dùng |
 |---|---|
-| X 由 A、B、C 组成 / A 调用 B | SystemMap |
-| 反复做某事直到…… | Loop |
-| 用户从下任务到拿到结果的一连串操作 | Morph（速览）或 ChatUI + Terminal + CodeDiff（讲解） |
-| 数据依次经过几个处理环节 | Pipeline |
-| 它能做 / 不能做什么，什么要批准 | Sandbox |
-| 一个新术语第一次出现 | Analogy（先打比方）→ 对应原语（再看真实结构） |
-| 大家以为……其实…… | Compare（myth 模式） |
-| 基准分、价格、参数量 | Metric |
-| 全片收束 | ConceptMap |
+| X gồm A, B, C / A gọi B | SystemMap |
+| Lặp đi lặp lại việc gì đó cho đến khi... | Loop |
+| Chuỗi thao tác từ lúc người dùng giao việc đến lúc nhận kết quả | Morph (xem nhanh) hoặc ChatUI + Terminal + CodeDiff (giảng giải) |
+| Dữ liệu lần lượt đi qua vài khâu xử lý | Pipeline |
+| Nó làm được / không làm được gì, việc gì cần duyệt | Sandbox |
+| Một thuật ngữ mới xuất hiện lần đầu | Analogy (ví von trước) → primitive tương ứng (rồi xem cấu trúc thật) |
+| Mọi người tưởng... thực ra... | Compare (chế độ myth) |
+| Điểm benchmark, giá, số tham số | Metric |
+| Chốt cả video | ConceptMap |
 
-InkFlow 的教训：光罗列类型，模型不会选新类型；要给「内容形状 → 类型」的对照表。
+Bài học từ InkFlow: chỉ liệt kê các loại thì mô hình sẽ không biết chọn loại mới; phải đưa bảng đối chiếu "hình dạng nội dung → loại".
 
-## 写新原语的检查单
+## Checklist khi viết primitive mới
 
-- [ ] `create` 只建 DOM；`render(t)` 把负责的属性全部写一遍
-- [ ] 所有动画值来自 `spring.js` / `ease.js`
-- [ ] 文字切换有独立进出窗口
-- [ ] 颜色只用主题变量；角色色表达「谁在动」
-- [ ] 提供 `beats`；有事实的元素提供 `hotspots`
-- [ ] 16:9 与 9:16 两套布局
-- [ ] 在 `spike/preview.html` 里过一遍确定性测试（DOM 一致）和 Hyperframes `inspect`（0 问题）
+- [ ] `create` chỉ dựng DOM; `render(t)` ghi lại toàn bộ thuộc tính mà nó phụ trách
+- [ ] Mọi giá trị hoạt họa đều lấy từ `spring.js` / `ease.js`
+- [ ] Chuyển chữ có cửa sổ vào ra riêng
+- [ ] Màu chỉ dùng biến chủ đề; màu vai trò thể hiện "ai đang hoạt động"
+- [ ] Cung cấp `beats`; phần tử có sự thật thì cung cấp `hotspots`
+- [ ] Hai bố cục 16:9 và 9:16
+- [ ] Chạy qua kiểm thử xác định (DOM nhất quán) trong `spike/preview.html` và Hyperframes `inspect` (0 vấn đề)

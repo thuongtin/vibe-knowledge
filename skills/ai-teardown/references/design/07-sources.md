@@ -1,53 +1,53 @@
-# 07 · 信源政策、采集路由与事实账本
+# 07 · Chính sách nguồn tin, định tuyến thu thập và sổ sự kiện
 
-## 1. 信源分级
+## 1. Phân cấp nguồn tin
 
-| 等级 | 包括 | 能支撑什么 |
+| Cấp | Bao gồm | Có thể làm căn cứ cho |
 |---|---|---|
-| U 用户提供 | 用户给的文档、截图、录屏、链接 | 优先采用；与 T1 冲突时列给用户裁决，不静默覆盖 |
-| T1 官方 | 官网与产品页、官方文档、官方博客与发布说明、changelog、官方 GitHub（开源项目直接读源码）、官方论文与系统卡、官方账号公告、官方演示视频、本机已装产品的真实输出 | 机制、功能、数字、日期、界面 |
-| T2 权威第三方 | 同行评审论文与 arXiv、署名技术媒体、公认专家的深度拆解 | 背景与解读；数字需两个独立 T2 互证 |
-| T3 社区 | 论坛、X、Reddit、个人博客 | 只作「用户怎么说」的旁证，不支撑机制与数字 |
+| U Người dùng cung cấp | Tài liệu, ảnh chụp màn hình, ghi màn hình, liên kết do người dùng đưa | Ưu tiên dùng; mâu thuẫn với T1 thì liệt kê cho người dùng quyết, không lặng lẽ ghi đè |
+| T1 Chính thức | Trang web chính thức và trang sản phẩm, tài liệu chính thức, blog và ghi chú phát hành chính thức, changelog, GitHub chính thức (dự án mã nguồn mở thì đọc thẳng mã nguồn), bài báo và system card chính thức, thông báo từ tài khoản chính thức, video demo chính thức, đầu ra thực của sản phẩm đã cài trên máy | Cơ chế, tính năng, số liệu, ngày tháng, giao diện |
+| T2 Bên thứ ba có uy tín | Bài báo bình duyệt và arXiv, truyền thông kỹ thuật có ký tên, phân tích sâu của chuyên gia được công nhận | Bối cảnh và diễn giải; số liệu cần hai T2 độc lập đối chứng |
+| T3 Cộng đồng | Diễn đàn, X, Reddit, blog cá nhân | Chỉ làm bằng chứng phụ cho "người dùng nói gì", không làm căn cứ cho cơ chế và số liệu |
 
-## 2. 取用规则
+## 2. Quy tắc sử dụng
 
-1. 讲「内部怎么工作」（`category: how`）必须有 T1；没有 T1 的，`status` 只能是 `inferred` 或 `undisclosed`，画面按诚实编码处理。
-2. 上屏数字（基准分、价格、参数量、时长）必须有 `numbers` 字段，画面带来源角标。
-3. 同级冲突取最新发布的；冲突本身写进 `status: conflict` 与 `notes`，并在 CP1 提示用户。
-4. 每条事实写 `as_of`；片尾固定一屏「信息截至 YYYY-MM-DD」。
-5. 界面优先用 HTML 复刻，角落标「界面示意」；官方截图只作参照，不直接上屏。Logo 只用于识别。
-6. 本机已装的产品，可以取无副作用的真实输出（如 `--help`、`--version`）作 T1，`fetch_method: local`。
+1. Nói về "bên trong hoạt động thế nào" (`category: how`) phải có T1; không có T1 thì `status` chỉ có thể là `inferred` hoặc `undisclosed`, hình ảnh xử lý theo mã hoá trung thực.
+2. Số liệu lên màn hình (điểm benchmark, giá, số tham số, thời lượng) phải có trường `numbers`, hình ảnh kèm nhãn góc ghi nguồn.
+3. Mâu thuẫn cùng cấp thì lấy bản phát hành mới nhất; bản thân mâu thuẫn ghi vào `status: conflict` và `notes`, đồng thời nhắc người dùng ở CP1.
+4. Mỗi sự kiện ghi `as_of`; cuối phim cố định một màn hình "Thông tin tính đến YYYY-MM-DD".
+5. Giao diện ưu tiên dựng lại bằng HTML, góc ghi "giao diện minh hoạ"; ảnh chụp chính thức chỉ làm tham chiếu, không đưa thẳng lên màn hình. Logo chỉ dùng để nhận diện.
+6. Sản phẩm đã cài trên máy có thể lấy đầu ra thực không có tác dụng phụ (như `--help`, `--version`) làm T1, `fetch_method: local`.
 
-## 3. 采集路由（按本机实测）
+## 3. Định tuyến thu thập (theo thử nghiệm thực trên máy)
 
-| 信源 | 读法 | 原因 |
+| Nguồn | Cách đọc | Lý do |
 |---|---|---|
-| openai.com 等强反爬官网 | 内置浏览器 `get_page_text`；不行再用 Playwright | Jina、curl、WebFetch 都返回 403（dotey-writer 实测） |
-| GitHub | `api.github.com` + `raw.githubusercontent.com` | Jina 会丢代码块；curl 偶发 SSL 断开，重试 3 次 |
-| 文档站、博客 | curl 直读 → jina-reader → firecrawl | |
-| X 官方账号 | `api.fxtwitter.com` | 匿名直读 x.com 返回 403 |
-| 官方视频 | 抽字幕，关键帧另存 | 画面只作参照 |
-| 全网检索 | agent-reach、exa-search、GitHub 搜索 | 本机 WebSearch 不可用 |
+| Trang chính thức chống cào mạnh như openai.com | `get_page_text` của trình duyệt tích hợp; không được thì dùng Playwright | Jina, curl, WebFetch đều trả về 403 (dotey-writer thử thực tế) |
+| GitHub | `api.github.com` + `raw.githubusercontent.com` | Jina làm mất khối mã; curl thỉnh thoảng đứt SSL, thử lại 3 lần |
+| Trang tài liệu, blog | curl đọc thẳng → jina-reader → firecrawl | |
+| Tài khoản X chính thức | `api.fxtwitter.com` | Đọc thẳng x.com ẩn danh trả về 403 |
+| Video chính thức | Trích phụ đề, khung hình chính lưu riêng | Hình ảnh chỉ làm tham chiếu |
+| Tìm kiếm toàn mạng | agent-reach, exa-search, tìm kiếm GitHub | WebSearch trên máy này không dùng được |
 
-## 4. 快照
+## 4. Bản chụp nhanh
 
-- 每个来源一份快照：`research/snapshots/<SID>.md`（正文纯文本，顶部写 URL、抓取时间、方法），可选 `<SID>.png` 页面截图。
-- `sources.json` 记 `sha256`（快照文件的哈希），以后重跑调研可据此判断来源变没变。
+- Mỗi nguồn một bản chụp nhanh: `research/snapshots/<SID>.md` (nội dung thuần văn bản, đầu file ghi URL, thời gian thu thập, phương pháp), có thể kèm ảnh chụp trang `<SID>.png`.
+- `sources.json` ghi `sha256` (băm của file bản chụp), sau này chạy lại khảo sát có thể dựa vào đó để biết nguồn có thay đổi không.
 
-## 5. 原子事实怎么拆
+## 5. Tách sự kiện nguyên tử thế nào
 
-- 一条事实只说一件事，中文一句，60 字以内；能被一个「是 / 否」核对。
-- `evidence.quote` 摘原文（可英文），400 字以内，写清位置 `where`（小节名、行号）。
-- 专有名词进 `terms`，供读音词典和逐字核对用。
-- 编号：来源 `S01…`，事实 `F001…`，一旦发布不复用；事实被新版本替代时，新事实写 `supersedes`。
+- Một sự kiện chỉ nói một việc, một câu tiếng Trung, trong 60 chữ; có thể được đối chiếu bằng một câu "đúng / sai".
+- `evidence.quote` trích nguyên văn (có thể là tiếng Anh), trong 400 chữ, ghi rõ vị trí `where` (tên tiểu mục, số dòng).
+- Danh từ riêng đưa vào `terms`, dùng cho từ điển cách đọc và đối chiếu từng chữ.
+- Đánh số: nguồn `S01…`, sự kiện `F001…`, đã phát hành thì không dùng lại; sự kiện bị phiên bản mới thay thế thì sự kiện mới ghi `supersedes`.
 
-## 6. 出处怎么上屏
+## 6. Nguồn lên màn hình thế nào
 
-| 位置 | 格式 | 例子 |
+| Vị trí | Định dạng | Ví dụ |
 |---|---|---|
-| 数据卡、基准分 | 右下角角标 | `来源 · OpenAI Codex 文档` |
-| 界面复刻 | 左上角标签 | `界面示意` |
-| 推断的结构 | 虚线框 + 标签 | `推断` |
-| 未披露的部分 | 雾化方块 + 标签 | `未披露` |
-| 片尾 | 一屏列主要出处 | `信息截至 2026-09-26` |
-| 视频简介 | 完整出处清单，带链接 | 由 `sources.json` 生成 |
+| Thẻ dữ liệu, điểm benchmark | Nhãn góc phải dưới | `Nguồn · Tài liệu OpenAI Codex` |
+| Dựng lại giao diện | Nhãn góc trái trên | `Giao diện minh hoạ` |
+| Cấu trúc suy đoán | Khung nét đứt + nhãn | `Suy đoán` |
+| Phần chưa được công bố | Khối mờ sương + nhãn | `Chưa công bố` |
+| Cuối phim | Một màn hình liệt kê các nguồn chính | `Thông tin tính đến 2026-09-26` |
+| Mô tả video | Danh sách nguồn đầy đủ, kèm liên kết | Tạo từ `sources.json` |

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""扫一遍录屏帧，找还露在画面上的隐私字样：python3 scripts/rec_scan.py <frames.json>... [--pat 正则]
-每一帧按差分还原整屏，把整屏（拼接成一串，跨行也算）跟正则比对，报出第一次出现的时间和上下文。"""
+"""Quét qua các khung hình quay màn hình, tìm chữ riêng tư vẫn còn lộ trên hình: python3 scripts/rec_scan.py <frames.json>... [--pat regex]
+Mỗi khung hình được khôi phục toàn màn hình theo sai khác, rồi toàn màn hình (ghép thành một chuỗi, xuyên dòng cũng tính) được so khớp với regex, báo cáo thời điểm xuất hiện đầu tiên và ngữ cảnh."""
 import json, re, sys
 
 pat = r"andyhu|feishu|/Users/(?!myname)|chatcut|cowart|pireel|node_repl|codex_app|codex_tui|cua_repl|computer-use|memmy|dashi|youware|@(?!example)[\w-]+\.(com|cn|io)"
@@ -22,6 +22,6 @@ for f in args:
             key = m.group(0).lower()
             if key not in seen:
                 seen[key] = fr["t"]
-                print(f"{f}  t={fr['t']:.1f}s  「{txt[max(0, m.start()-30):m.end()+30].strip()}」")
+                print(f"{f}  t={fr['t']:.1f}s  \"{txt[max(0, m.start()-30):m.end()+30].strip()}\"")
                 bad += 1
-print("干净" if not bad else f"共 {bad} 处")
+print("sạch" if not bad else f"tổng {bad} chỗ")

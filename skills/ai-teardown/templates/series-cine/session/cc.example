@@ -1,8 +1,8 @@
 #!/bin/zsh
-# 录课专用的 Claude Code 启动脚本（示例）：清空环境变量后只留基本项，独立配置目录，关自动更新。
-# 这样日常配置里的模型路由（ANTHROPIC_BASE_URL 之类）不会带进录课实例，录到的就是官方模型本身。
-# 用法：复制成 ~/claude-course/cc，chmod +x，在 session.env 里写 SESSION_CC=~/claude-course/cc、SESSION_CONFIG=~/claude-course/config。
-# 第一次运行会要求登录：登录和授权码由用户本人在终端里输入。
+# Kịch bản khởi động Claude Code dành riêng cho quay bài giảng (ví dụ): xoá sạch biến môi trường rồi chỉ giữ các mục cơ bản, thư mục cấu hình riêng, tắt tự động cập nhật.
+# Nhờ vậy định tuyến mô hình trong cấu hình hằng ngày (như ANTHROPIC_BASE_URL) sẽ không lọt vào phiên quay bài giảng, thứ được quay chính là mô hình chính thức.
+# Cách dùng: sao chép thành ~/claude-course/cc, chmod +x, rồi trong session.env ghi SESSION_CC=~/claude-course/cc, SESSION_CONFIG=~/claude-course/config.
+# Lần chạy đầu tiên sẽ yêu cầu đăng nhập: việc đăng nhập và mã uỷ quyền do chính người dùng nhập trong terminal.
 P="${HTTPS_PROXY:-}"
 exec env -i HOME="$HOME" USER="$USER" SHELL="${SHELL:-/bin/zsh}" TERM="${TERM:-xterm-256color}" LANG=zh_CN.UTF-8 \
   PATH="$HOME/claude-course/bin:/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin" \

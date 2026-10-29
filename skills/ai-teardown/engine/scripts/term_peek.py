@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""看录屏某一时刻的整屏文字（写画面编排、定高亮行号时用）。
-用法：python3 scripts/term_peek.py <x.frames.json> <秒 或 mark:名字> [--nums]"""
+"""Xem toàn bộ chữ trên màn hình tại một thời điểm của bản quay màn hình (dùng khi viết bố cục hình ảnh, xác định số dòng cần làm nổi bật).
+Cách dùng: python3 scripts/term_peek.py <x.frames.json> <giây hoặc mark:tên> [--nums]"""
 import json, sys
 d = json.load(open(sys.argv[1]))
 t = sys.argv[2]

@@ -1,26 +1,26 @@
-# 深色数学 · DARK MATH
+# Toán nền tối · DARK MATH
 
-> 家族：暗场概念　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles3_film.js → manim()`
+> Họ: khái niệm nền tối | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles3_film.js → manim()`
 
-**一句话**：近黑底只放正在讲的东西，木头这条线直接变成数轴，金点滑过去，×5 的弧箭头；问题先写在最上面。
+**Một câu**: Nền gần đen chỉ đặt thứ đang nói tới, khúc gỗ biến thẳng thành trục số, điểm vàng trượt qua, mũi tên cung ×5; câu hỏi viết lên trên cùng trước.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 3Blue1Brown 式讲解语法：先写出问题；上一个对象直接形变成下一个，几乎不切；颜色 = 概念。 |
-| 材质 / 画法 | #0F1014 底 + SVG 线条 / 点 / 弧箭头；宋体标题；mono 刻度。 |
-| 配色逻辑 | 底 #0F1014 · 蓝 #58C4DD（对象）· 黄 #F4D35E（钱 / 结果）· 红 #FC6255（反常 / 0）· 白 #ECECEC |
-| 字体 | 宋体（问题、标签）+ GeistMono（刻度）+ Geist（计数） |
-| 动态 | 同一根线绕中心旋转并拉长变成数轴；刻度错开淡入；点沿数轴插值滑动；弧箭头 strokeDashoffset 画出。 |
-| 镜头语法 | 锁定，不切镜。 |
-| 声音 | 极少：柔和钢琴单音，点到位轻提示音。 |
-| 标志镜头 | 竖着的「一根木头」旋转成 0–50 的数轴，金点从 10 滑到 50，上方画出「× 5」弧。 |
+| Ý đồ đạo diễn | Ngữ pháp giải thích kiểu 3Blue1Brown: viết câu hỏi ra trước; đối tượng trước biến hình thẳng thành đối tượng sau, gần như không cắt; màu = khái niệm. |
+| Chất liệu / Cách vẽ | Nền #0F1014 + đường / điểm / mũi tên cung SVG; tiêu đề chữ Tống; vạch chia mono. |
+| Logic phối màu | Nền #0F1014 · xanh #58C4DD (đối tượng) · vàng #F4D35E (tiền / kết quả) · đỏ #FC6255 (bất thường / 0) · trắng #ECECEC |
+| Phông chữ | Chữ Tống (câu hỏi, nhãn) + GeistMono (vạch chia) + Geist (số đếm) |
+| Chuyển động | Cùng một đường xoay quanh tâm và kéo dài thành trục số; vạch chia hiện dần lệch nhịp; điểm trượt nội suy dọc trục số; mũi tên cung vẽ bằng strokeDashoffset. |
+| Ngữ pháp máy quay | Cố định, không cắt cảnh. |
+| Âm thanh | Rất ít: nốt piano đơn mềm mại, điểm tới nơi thì có tiếng nhắc nhẹ. |
+| Cảnh đặc trưng | "Một khúc gỗ" dựng đứng xoay thành trục số 0–50, điểm vàng trượt từ 10 đến 50, phía trên vẽ ra cung "× 5". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换语义色、换字体
-- **一改就变味**：一屏同时出现与当前句无关的对象
-- **不能改**：频繁硬切（失去形变接力）
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi màu ngữ nghĩa, đổi phông chữ
+- **Sửa là mất chất**: một màn hình cùng lúc xuất hiện đối tượng không liên quan đến câu đang nói
+- **Không được sửa**: cắt cứng thường xuyên (mất chuỗi biến hình tiếp nối)
 
-## 搭配
-- 适合母版：猜谜概念 A、痛点原理 C
-- 不适合：需要场景氛围的历史叙事
-- 增强档 Renoise 前缀：`（基础档不需要）。注：讲解语法借鉴 3Blue1Brown 的公开做法，画面为本 skill 原创，不使用其素材或品牌`
+## Kết hợp
+- Bản gốc phù hợp: câu đố khái niệm A, điểm đau nguyên lý C
+- Không phù hợp: tự sự lịch sử cần không khí bối cảnh
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`. Lưu ý: ngữ pháp giải thích mượn cách làm công khai của 3Blue1Brown, hình ảnh do skill này sáng tạo gốc, không dùng tư liệu hay thương hiệu của họ

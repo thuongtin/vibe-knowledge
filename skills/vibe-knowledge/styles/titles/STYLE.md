@@ -1,26 +1,26 @@
-# 剪影片头 · TITLE SEQUENCE
+# Mở đầu bóng đen · TITLE SEQUENCE
 
-> 家族：电影感　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles5_film.js → titles()`
+> Họ: Điện ảnh | Bậc: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles5_film.js → titles()`
 
-**一句话**：橘红底，黑色硬边色块从画外切进来拼成城门，木杆像一道竖线劈开画面，「没人动」时上下黑条合成一道缝，高潮黑块炸开。
+**Một câu**: Nền cam đỏ, các mảng đen cạnh cứng cắt vào từ ngoài khung ghép thành cổng thành, cột gỗ như một đường dọc chẻ đôi khung hình, đến "không ai động" thì hai thanh đen trên dưới khép thành một khe hở, cao trào các khối đen nổ tung.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | Saul Bass 式片头：平涂色块 + 硬边形状，形状本身就是转场。 |
-| 材质 / 画法 | 纯色底 + 黑色 div / SVG 块；从画外滑入组成场景；上下「眼睑」黑条；三角碎片四散。 |
-| 配色逻辑 | 橘红 #E8562A（高潮翻 #F2C14E）· 黑 #14110F · 米白 #F6EFE3 |
-| 字体 | Geist 900 / NotoSC 900，字距略开、轻微旋转（剪纸字感） |
-| 动态 | 色块 eOutQuint 0.3 秒滑入拼装；白板从左切入放大数字；黑条 0.25 秒合拢成一道缝；高潮 0.12 秒打开 + 碎片 0.7 秒飞散 + 底色翻黄。 |
-| 镜头语法 | 锁定；只用形状切换画面。 |
-| 声音 | 弦乐拨奏、低音鼓、铜管刺；爵士感。 |
-| 标志镜头 | 上下黑条合成一道橘色的缝，缝里只有「没 人 动」三个字。 |
+| Ý đồ đạo diễn | Phần mở đầu kiểu Saul Bass: mảng màu phẳng + hình cạnh cứng, bản thân hình khối chính là chuyển cảnh. |
+| Chất liệu / cách vẽ | Nền màu đặc + khối div / SVG đen; trượt vào từ ngoài khung để ghép thành cảnh; thanh đen "mí mắt" trên dưới; mảnh tam giác bắn tung. |
+| Logic phối màu | Cam đỏ #E8562A (cao trào đổi #F2C14E) · đen #14110F · trắng ngà #F6EFE3 |
+| Phông chữ | Geist 900 / NotoSC 900, giãn chữ hơi rộng, hơi xoay nhẹ (cảm giác chữ cắt giấy) |
+| Chuyển động | Mảng màu eOutQuint trượt vào ghép lại trong 0.3 giây; bảng trắng cắt vào từ trái phóng to số; thanh đen khép thành một khe trong 0.25 giây; cao trào mở ra trong 0.12 giây + mảnh vỡ bay tán loạn 0.7 giây + màu nền đổi sang vàng. |
+| Ngữ pháp ống kính | Cố định; chỉ dùng chuyển đổi hình khối để đổi hình ảnh. |
+| Âm thanh | Đàn dây gảy, trống bass, kèn đồng chói; chất jazz. |
+| Cảnh đặc trưng | Thanh đen trên dưới khép thành một khe màu cam, trong khe chỉ có ba chữ "Không ai động". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换两种底色、换形状母题
-- **一改就变味**：用照片或渐变
-- **不能改**：形状有柔和阴影
+## Có thể sửa đến mức nào (dùng khi chỉnh thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi hai màu nền, đổi mô-típ hình khối
+- **Sửa là mất chất**: dùng ảnh chụp hoặc gradient
+- **Không được sửa**: hình khối có bóng đổ mềm
 
-## 搭配
-- 适合母版：两难选择 B、一条主线 D 的开场
-- 不适合：轻松生活
-- 增强档 Renoise 前缀：`（基础档不需要）。注：手法借鉴 Saul Bass 公开作品的形状语言，画面为原创`
+## Phối hợp
+- Khuôn phù hợp: phần mở đầu của Lưỡng nan B, Một mạch chính D
+- Không phù hợp: đời sống nhẹ nhàng
+- Tiền tố Renoise bậc nâng cao: `(bậc cơ bản không cần). Ghi chú: thủ pháp mượn ngôn ngữ hình khối từ các tác phẩm công khai của Saul Bass, hình ảnh là nguyên bản`

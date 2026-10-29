@@ -1,4 +1,4 @@
-// 源码隧道：把本片自己的源码排成纹理，贴在圆筒内壁上，镜头沿轴线加速穿过去
+// Đường hầm mã nguồn: xếp chính mã nguồn của video thành texture, dán lên thành trong của hình trụ, camera tăng tốc xuyên qua dọc theo trục
 import * as THREE from "three";
 
 const VS = /* glsl */ `out vec2 vUv; out float vZ; void main(){ vUv = uv; vec4 mv = modelViewMatrix * vec4(position, 1.0); vZ = -mv.z; gl_Position = projectionMatrix * mv; }`;
@@ -17,7 +17,7 @@ const KW = /\b(const|let|function|return|uniform|float|vec2|vec3|vec4|if|else|fo
 
 export class Tunnel {
   constructor(source) {
-    // 源码排版：Geist Mono，关键字橙色、数字青色、注释灰色
+    // Dàn trang mã nguồn: Geist Mono, từ khóa màu cam, số màu xanh lơ, chú thích màu xám
     const W = 4096, H = 4096, c = document.createElement("canvas");
     c.width = W; c.height = H;
     const g = c.getContext("2d");
@@ -55,7 +55,7 @@ export class Tunnel {
     this.mesh = new THREE.Mesh(geo, new THREE.ShaderMaterial({ glslVersion: THREE.GLSL3, vertexShader: VS, fragmentShader: FS, uniforms: this.u, side: THREE.BackSide }));
     this.scene = new THREE.Scene();
     this.scene.add(this.mesh);
-    // 隧道尽头的光
+    // Ánh sáng cuối đường hầm
     const glowMat = new THREE.SpriteMaterial({ color: 0xffffff, blending: THREE.AdditiveBlending, depthWrite: false, transparent: true });
     const gc = document.createElement("canvas"); gc.width = gc.height = 256;
     const gg = gc.getContext("2d"), grad = gg.createRadialGradient(128, 128, 0, 128, 128, 128);
@@ -68,7 +68,7 @@ export class Tunnel {
     this.cam = new THREE.PerspectiveCamera(70, 16 / 9, 1, 12000);
   }
 
-  // dist：镜头已经前进的距离（单位：纹理里的「行」），gain：亮度，roll：镜头滚转，glow：尽头光的大小
+  // dist: quãng đường camera đã tiến (đơn vị: "dòng" trong texture), gain: độ sáng, roll: camera xoay lăn, glow: kích thước ánh sáng cuối hầm
   render(renderer, target, t, s) {
     this.u.uScroll.value = s.dist;
     this.u.uGain.value = s.gain;

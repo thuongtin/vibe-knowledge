@@ -1,26 +1,26 @@
-# 蒸汽波 · VAPORWAVE
+# Vaporwave · VAPORWAVE
 
-> 家族：明亮流行　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles6_film.js → vapor()`
+> Họ: Tươi sáng thịnh hành | Mức: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles6_film.js → vapor()`
 
-**一句话**：落日渐变天空、条纹太阳、滚动的霓虹网格地面、铬金属字；「没人动」VHS 跟踪错位；PLAY 和计时。
+**Một câu**: Bầu trời chuyển sắc hoàng hôn, mặt trời sọc ngang, mặt đất lưới neon cuộn tới, chữ kim loại crôm; "Không ai động" lệch dò đường VHS; PLAY và bộ đếm thời gian.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 蒸汽波 / 合成器浪潮：一盘旧录像带里的落日。 |
-| 材质 / 画法 | 四段渐变天空 + 条纹遮罩太阳 + canvas 透视网格（横线随时间滚动、竖线汇聚）+ 棕榈剪影 + 铬金属字（渐变 clip-text + 深紫投影）+ 扫描线 + VHS 跟踪条。 |
-| 配色逻辑 | 深紫 #1A0B3D · 品红 #FF6AD5 · 橙 #FFB86B · 网格 #FF4FD8 · 铬：白 → 天蓝 → 深紫 → 粉 |
-| 字体 | Geist / PingFang 900 斜体，字距 4 |
-| 动态 | 网格持续往前滚；太阳升起；字弹入并 skew -6°；「没人动」20 帧/秒错位 + 跟踪条扫过；高潮四芒星闪烁。 |
-| 镜头语法 | 锁定（网格提供运动）。 |
-| 声音 | 合成器浪潮、磁带噪声、倒带声。 |
-| 标志镜头 | 铬金属字「50 金」压在条纹落日前，四芒星闪一下。 |
+| Ý đồ đạo diễn | Vaporwave / synthwave: hoàng hôn trong một cuộn băng video cũ. |
+| Chất liệu / cách vẽ | Bầu trời chuyển sắc bốn đoạn + mặt trời mặt nạ sọc + lưới phối cảnh canvas (đường ngang cuộn theo thời gian, đường dọc hội tụ) + bóng cọ + chữ kim loại crôm (chuyển sắc clip-text + bóng đổ tím đậm) + đường quét + thanh dò đường VHS. |
+| Logic phối màu | Tím đậm #1A0B3D · hồng cánh sen #FF6AD5 · cam #FFB86B · lưới #FF4FD8 · crôm: trắng → xanh da trời → tím đậm → hồng |
+| Phông chữ | Geist / PingFang 900 nghiêng, giãn chữ 4 |
+| Chuyển động | Lưới liên tục cuộn về phía trước; mặt trời mọc lên; chữ bật vào và skew -6°; "Không ai động" lệch 20 khung/giây + thanh dò đường quét qua; cao trào ngôi sao bốn cánh nhấp nháy. |
+| Ngữ pháp ống kính | Khóa (lưới tạo ra chuyển động). |
+| Âm thanh | Synthwave, tiếng nhiễu băng từ, tiếng tua ngược. |
+| Cảnh đặc trưng | Chữ kim loại crôm "50 vàng" đè lên hoàng hôn sọc, ngôi sao bốn cánh nháy một cái. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换天空配色、换剪影物件
-- **一改就变味**：去掉网格或太阳（就只是渐变底了）
-- **不能改**：用写实照片
+## Có thể sửa đến mức nào (dùng khi làm thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi màu bầu trời, đổi vật thể bóng đen
+- **Sửa là mất vị**: bỏ lưới hoặc mặt trời (chỉ còn nền chuyển sắc)
+- **Không được sửa**: dùng ảnh chụp thực tế
 
-## 搭配
-- 适合母版：痛点原理 C、六面轮转 F
-- 不适合：严肃历史
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Cách phối
+- Bản mẫu gốc phù hợp: nguyên lý điểm đau C, sáu mặt xoay vòng F
+- Không phù hợp: lịch sử nghiêm túc
+- Tiền tố Renoise cấp tăng cường: `(cấp cơ bản không cần)`

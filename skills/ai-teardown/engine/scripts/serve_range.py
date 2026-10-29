@@ -1,4 +1,4 @@
-# 支持 Range 的静态服务器：本地测互动版（音频/视频 seek）用。python3 scripts/serve_range.py <发布目录> <端口>
+# Máy chủ tĩnh hỗ trợ Range: dùng để thử bản tương tác ở máy local (seek âm thanh/video). python3 scripts/serve_range.py <thư mục phát hành> <cổng>
 import os, re, sys
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 class H(SimpleHTTPRequestHandler):

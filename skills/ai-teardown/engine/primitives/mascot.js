@@ -1,15 +1,15 @@
 /**
- * Mascot 机器人讲解员：悬浮、眨眼、说话时按词张嘴，能挥手、指向、欢呼、摊手介绍。纯 SVG，render(t) 是纯函数。
- * 场景之间换位置用 spots（在转场遮住画面时瞬移，落地时弹一下），全程不需要镜头移动。
+ * Mascot robot thuyết minh: lơ lửng, chớp mắt, khi nói thì mở miệng theo từng từ, biết vẫy tay, chỉ tay, reo hò, dang tay giới thiệu. SVG thuần, render(t) là hàm thuần.
+ * Đổi vị trí giữa các cảnh dùng spots (dịch chuyển tức thời khi chuyển cảnh che khung hình, tiếp đất thì nảy một cái), suốt quá trình không cần di chuyển máy quay.
  *
  * params
- *   size                  高度 px（默认 320）
- *   at, out               出场、退场（本地秒）
- *   spots [[t, x, y, size?]]   从 t 起站到 (x, y)（相对场景原点），可顺便换大小；null 表示藏起来
+ *   size                  chiều cao px (mặc định 320)
+ *   at, out               vào cảnh, rời cảnh (giây cục bộ)
+ *   spots [[t, x, y, size?]]   từ t đứng tại (x, y) (so với gốc cảnh), có thể tiện đổi kích thước; null nghĩa là ẩn đi
  *   poses [[t, pose]]     idle | wave | point-l | point-r | cheer | present
- *   talk [[t0, t1]]       说话区间（一般直接用旁白逐词时间），嘴按词开合
- *   look [[t, x, y]]      眼睛看向，-1..1
- *   seed                  眨眼与悬浮相位
+ *   talk [[t0, t1]]       khoảng thời gian nói (thường dùng trực tiếp thời gian từng từ của lời dẫn), miệng mở khép theo từ
+ *   look [[t, x, y]]      mắt nhìn về hướng, -1..1
+ *   seed                  pha chớp mắt và lơ lửng
  */
 import { h, s, setAttr, setStyle } from "../runtime/dom.js";
 import { appear, track, hz } from "../runtime/spring.js";
@@ -20,7 +20,7 @@ const CSS = `
 .ms svg{position:absolute;overflow:visible}
 `;
 
-// [左臂抬起角, 右臂抬起角, 挥动幅度]
+// [góc nâng tay trái, góc nâng tay phải, biên độ vẫy]
 const POSE = {
   idle: [16, 16, 0],
   wave: [18, 148, 1],
@@ -97,7 +97,7 @@ export default {
     const kx = look.map(([t, x]) => [t, x]);
     const ky = look.map(([t, , y]) => [t, y]);
 
-    /** 按词开合：每个词是一个 0→1→0 的小鼓包 */
+    /** mở khép theo từ: mỗi từ là một gợn nhỏ 0→1→0 */
     const openAt = (t) => {
       let v = 0;
       for (const [a, b] of talk) {
@@ -113,7 +113,7 @@ export default {
         const vis = t >= at - 0.05 && t <= out + 0.5;
         setStyle(el, "display", vis ? "" : "none");
         if (!vis) return;
-        // 站位（瞬移，落地弹一下）
+        // vị trí đứng (dịch chuyển tức thời, tiếp đất nảy một cái)
         let sp = spots[0], spT = spots[0][0];
         for (const q of spots) if (q[0] <= t) { sp = q; spT = q[0]; }
         if (!sp || sp[1] == null) return setStyle(el, "display", "none");

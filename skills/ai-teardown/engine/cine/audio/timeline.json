@@ -19,8 +19,8 @@
    "to_bar": 2,
    "t": 0.0,
    "t_to": 3.870968,
-   "visual": "终端输入框里打出提示词，回车后穿过一条由本片源码组成的隧道",
-   "music": "无鼓。F1 低频铺底慢慢推起；第 1 小节起白噪声上升音 + 上扬扫频，第 2 小节前留 1/16 小节静音"
+   "visual": "Gõ prompt vào ô nhập của terminal, nhấn Enter rồi lao qua một đường hầm làm từ chính mã nguồn của video này",
+   "music": "Không có trống. Lớp nền tần số thấp F1 dâng lên từ từ; từ ô nhịp 1 có tiếng noise trắng tăng dần + quét tần đi lên, chừa 1/16 ô nhịp im lặng trước ô nhịp 2"
   },
   {
    "name": "identity",
@@ -28,8 +28,8 @@
    "to_bar": 6,
    "t": 3.870968,
    "t_to": 11.612903,
-   "visual": "粒子炸开，聚成 Claude Opus 5.5；再变成「每一帧，都是代码」；第 5 小节官方评价卡",
-   "music": "第 2 小节正拍大落地（drop）：底鼓四拍、反拍开镲、十六分闭镲、二四拍拍手、滚动低音、超锯齿铺底，和弦 Fm–Db–Ab–Eb 每小节一个"
+   "visual": "Hạt nổ tung, tụ lại thành Claude Opus 5.5; rồi biến thành \"Mỗi khung hình đều là code\"; ô nhịp 5 là thẻ đánh giá chính thức",
+   "music": "Ô nhịp 2 đúng phách là cú drop lớn: trống bass bốn phách, hi-hat mở ở phách ngược, hi-hat đóng nốt móc kép, vỗ tay phách 2 và 4, bass cuộn, lớp nền supersaw, hợp âm Fm–Db–Ab–Eb mỗi ô nhịp một hợp âm"
   },
   {
    "name": "ch1",
@@ -37,8 +37,8 @@
    "to_bar": 7,
    "t": 11.612903,
    "t_to": 13.548387,
-   "visual": "章节标题「01 为什么我能编排一支片子？」，粒子收成一条水平光线",
-   "music": "停顿小节：第 1 拍重击 + 和弦刺，之后反向镲声吸进第 7 小节"
+   "visual": "Tiêu đề chương \"01 Vì sao tôi có thể dàn dựng cả một video?\", hạt thu lại thành một tia sáng ngang",
+   "music": "Ô nhịp dừng: cú đánh mạnh ở phách 1 + hợp âm chích, sau đó tiếng chũm chọe đảo ngược hút vào ô nhịp 7"
   },
   {
    "name": "ft",
@@ -46,8 +46,8 @@
    "to_bar": 11,
    "t": 13.548387,
    "t_to": 21.290323,
-   "visual": "时钟机械雕塑 + 左侧代码卡 frame(t) + 底部时间轴；8.5 起倒放、定格、快进，画面和音乐一起被「拖动」",
-   "music": "极简律动：底鼓 + 像钟表一样的十六分滴答镲 + 低音 + 拨弦琶音。这一段整体按 warp 表重采样（见 warp 字段）"
+   "visual": "Máy điêu khắc cơ khí hình đồng hồ + thẻ code frame(t) bên trái + trục thời gian phía dưới; từ 8.5 tua ngược, đứng hình, tua nhanh, hình ảnh và âm nhạc cùng bị \"kéo\"",
+   "music": "Nhịp điệu tối giản: trống bass + chũm chọe tích tắc nốt móc kép như đồng hồ + bass + arpeggio gảy. Cả đoạn này được lấy mẫu lại theo bảng warp (xem trường warp)"
   },
   {
    "name": "board",
@@ -55,8 +55,8 @@
    "to_bar": 15,
    "t": 21.290323,
    "t_to": 29.032258,
-   "visual": "16 张分镜卡在第 11 小节按十六分音符依次落位，随后标签「分镜→节拍→镜头→代码」，14–15 镜头钻进一张卡",
-   "music": "第 11 小节：16 个拨弦音，每张卡落位一个音，沿和弦音向上爬两个八度；12–15 完整律动，琶音变轻；14–15 上升音，15 穿过"
+   "visual": "16 thẻ phân cảnh lần lượt rơi vào vị trí theo nốt móc kép ở ô nhịp 11, sau đó nhãn \"phân cảnh→nhịp→ống kính→code\", ở 14–15 ống kính chui vào một thẻ",
+   "music": "Ô nhịp 11: 16 nốt gảy, mỗi thẻ rơi vào vị trí là một nốt, leo lên hai quãng tám theo các nốt hợp âm; 12–15 nhịp điệu đầy đủ, arpeggio nhẹ đi; 14–15 tiếng tăng dần, 15 xuyên qua"
   },
   {
    "name": "check",
@@ -64,8 +64,8 @@
    "to_bar": 19,
    "t": 29.032258,
    "t_to": 36.774194,
-   "visual": "把当前画面截成一帧，扫描、标出两处问题、自己修好，再引用早期测试者评价",
-   "music": "半拍感（底鼓 1、3 拍，军鼓 3 拍）；15.5 快门；16–17 扫描音 + 每个识别框一个电子提示音，16.5 与 16.75 是错误提示；17 与 17.25 修好的「咔嗒」+ 17.5 清脆提示；18.75 军鼓滚奏"
+   "visual": "Chụp khung hình hiện tại thành một ảnh, quét, đánh dấu hai vấn đề, tự sửa xong, rồi trích dẫn đánh giá của người thử nghiệm sớm",
+   "music": "Cảm giác nửa nhịp (trống bass phách 1 và 3, trống snare phách 3); 15.5 tiếng màn trập; 16–17 tiếng quét + mỗi khung nhận diện một tiếng báo điện tử, 16.5 và 16.75 là tiếng báo lỗi; 17 và 17.25 tiếng \"tách\" khi sửa xong + 17.5 tiếng báo trong trẻo; 18.75 snare roll"
   },
   {
    "name": "ch2",
@@ -73,8 +73,8 @@
    "to_bar": 20,
    "t": 36.774194,
    "t_to": 38.709677,
-   "visual": "章节标题「02 怎么用好我的动效？」",
-   "music": "同第 6 小节：重击 + 和弦刺 + 反向镲吸入"
+   "visual": "Tiêu đề chương \"02 Làm sao dùng tốt hiệu ứng chuyển động của tôi?\"",
+   "music": "Giống ô nhịp 6: cú đánh mạnh + hợp âm chích + chũm chọe đảo ngược hút vào"
   },
   {
    "name": "rhythm",
@@ -82,8 +82,8 @@
    "to_bar": 23,
    "t": 38.709677,
    "t_to": 44.516129,
-   "visual": "跟着节拍跳动的 3D 柱阵；每小节第一拍砸出一句「说 BPM / 说卡点 / 说钩子」",
-   "music": "最满的律动，底鼓要有力（柱阵按底鼓跳）；20、21、22 小节第一拍各一个合成器刺音"
+   "visual": "Dàn cột 3D nhảy theo nhịp; phách đầu mỗi ô nhịp đập ra một câu \"nói BPM / nói điểm cắt nhịp / nói hook\"",
+   "music": "Nhịp điệu đầy nhất, trống bass phải mạnh (dàn cột nhảy theo trống bass); ô nhịp 20, 21, 22 mỗi phách đầu có một tiếng synth chích"
   },
   {
    "name": "camera",
@@ -91,8 +91,8 @@
    "to_bar": 26,
    "t": 44.516129,
    "t_to": 50.322581,
-   "visual": "展厅里三件物体：23 推近、24 甩镜、25 环绕",
-   "music": "22.5–23 上升音、23 低频轰；23.875–24.125 快速呼啸；25–26 旋转感铺底"
+   "visual": "Ba vật thể trong phòng triển lãm: 23 đẩy gần, 24 vung máy, 25 quay vòng quanh",
+   "music": "22.5–23 tiếng tăng dần, 23 tiếng ầm tần số thấp; 23.875–24.125 tiếng rít nhanh; 25–26 lớp nền cảm giác xoay"
   },
   {
    "name": "samples",
@@ -100,8 +100,8 @@
    "to_bar": 28,
    "t": 50.322581,
    "t_to": 54.193548,
-   "visual": "6 张不同风格的样帧，27 小节光标点选第 4 张，其余掉落，选中的放大成全屏液态金属",
-   "music": "变轻：镲 + 拨弦；26 起 6 个提示音（每 1/16 小节一个）；27 点击声；27–27.5 下落呼啸；27.5–28 上升音"
+   "visual": "6 khung mẫu phong cách khác nhau, ô nhịp 27 con trỏ chọn khung thứ 4, các khung còn lại rơi xuống, khung được chọn phóng to thành kim loại lỏng toàn màn hình",
+   "music": "Nhẹ đi: chũm chọe + gảy; từ 26 có 6 tiếng báo (mỗi 1/16 ô nhịp một tiếng); 27 tiếng click; 27–27.5 tiếng rít rơi xuống; 27.5–28 tiếng tăng dần"
   },
   {
    "name": "finale",
@@ -109,8 +109,8 @@
    "to_bar": 30,
    "t": 54.193548,
    "t_to": 58.064516,
-   "visual": "液态金属全屏翻涌；29.5 起一切塌缩成一个点",
-   "music": "全曲最满（加主旋律钩子）；29.5–30 反向吸入（反向混响），29.875–30 完全静音"
+   "visual": "Kim loại lỏng cuộn trào toàn màn hình; từ 29.5 mọi thứ sụp thành một điểm",
+   "music": "Đầy nhất cả bài (thêm hook giai điệu chính); 29.5–30 hút ngược (reverb đảo ngược), 29.875–30 im lặng hoàn toàn"
   },
   {
    "name": "end",
@@ -118,94 +118,94 @@
    "to_bar": 32,
    "t": 58.064516,
    "t_to": 61.935484,
-   "visual": "终卡：Claude Opus 5.5 · 一句话，编排一支片子（静止）",
-   "music": "30 正拍终极重击 + 持续 Fm(add9) 和弦，长混响尾，最后 1.2 秒淡出"
+   "visual": "Thẻ kết: Claude Opus 5.5 · Một câu, dàn dựng cả một video (tĩnh)",
+   "music": "30 cú đánh cuối cùng đúng phách + hợp âm Fm(add9) kéo dài, đuôi reverb dài, 1,2 giây cuối fade out"
   }
  ],
  "cues": [
   {
    "bar": 0.1,
    "type": "keyclick",
-   "visual": "打出第 1 个字",
+   "visual": "Gõ ra chữ thứ 1",
    "t": 0.193548
   },
   {
    "bar": 0.17,
    "type": "keyclick",
-   "visual": "打出第 2 个字",
+   "visual": "Gõ ra chữ thứ 2",
    "t": 0.329032
   },
   {
    "bar": 0.23,
    "type": "keyclick",
-   "visual": "打出第 3 个字",
+   "visual": "Gõ ra chữ thứ 3",
    "t": 0.445161
   },
   {
    "bar": 0.3,
    "type": "keyclick",
-   "visual": "打出第 4 个字",
+   "visual": "Gõ ra chữ thứ 4",
    "t": 0.580645
   },
   {
    "bar": 0.36,
    "type": "keyclick",
-   "visual": "打出第 5 个字",
+   "visual": "Gõ ra chữ thứ 5",
    "t": 0.696774
   },
   {
    "bar": 0.44,
    "type": "keyclick",
-   "visual": "打出第 6 个字",
+   "visual": "Gõ ra chữ thứ 6",
    "t": 0.851613
   },
   {
    "bar": 0.52,
    "type": "keyclick",
-   "visual": "打出第 7 个字",
+   "visual": "Gõ ra chữ thứ 7",
    "t": 1.006452
   },
   {
    "bar": 0.58,
    "type": "keyclick",
-   "visual": "打出第 8 个字",
+   "visual": "Gõ ra chữ thứ 8",
    "t": 1.122581
   },
   {
    "bar": 0.65,
    "type": "keyclick",
-   "visual": "打出第 9 个字",
+   "visual": "Gõ ra chữ thứ 9",
    "t": 1.258065
   },
   {
    "bar": 0.71,
    "type": "keyclick",
-   "visual": "打出第 10 个字",
+   "visual": "Gõ ra chữ thứ 10",
    "t": 1.374194
   },
   {
    "bar": 0.78,
    "type": "keyclick",
-   "visual": "打出第 11 个字",
+   "visual": "Gõ ra chữ thứ 11",
    "t": 1.509677
   },
   {
    "bar": 0.86,
    "type": "keyclick",
-   "visual": "打出第 12 个字",
+   "visual": "Gõ ra chữ thứ 12",
    "t": 1.664516
   },
   {
    "bar": 0.95,
    "type": "enter",
-   "visual": "回车，提问被发出",
+   "visual": "Nhấn Enter, câu hỏi được gửi đi",
    "t": 1.83871
   },
   {
    "bar": 1.0,
    "to": 2.0,
    "type": "riser",
-   "visual": "穿越源码隧道，越来越快",
+   "visual": "Xuyên qua đường hầm mã nguồn, càng lúc càng nhanh",
    "t": 1.935484,
    "t_to": 3.870968
   },
@@ -213,32 +213,32 @@
    "bar": 1.9375,
    "to": 2.0,
    "type": "gap",
-   "visual": "白光到顶前的一瞬静音",
+   "visual": "Khoảnh khắc im lặng ngay trước khi ánh sáng trắng lên đỉnh",
    "t": 3.75,
    "t_to": 3.870968
   },
   {
    "bar": 2.0,
    "type": "impact",
-   "visual": "粒子炸开（全片第 1 个镜头冲击）",
+   "visual": "Hạt nổ tung (cú va chạm ống kính thứ 1 của cả video)",
    "t": 3.870968
   },
   {
    "bar": 3.0,
    "type": "shimmer",
-   "visual": "粒子聚成 Claude Opus 5.5",
+   "visual": "Hạt tụ thành Claude Opus 5.5",
    "t": 5.806452
   },
   {
    "bar": 4.0,
    "type": "hit",
-   "visual": "粒子变成「每一帧，都是代码」",
+   "visual": "Hạt biến thành \"Mỗi khung hình đều là code\"",
    "t": 7.741935
   },
   {
    "bar": 5.0,
    "type": "stab",
-   "visual": "官方评价卡",
+   "visual": "Thẻ đánh giá chính thức",
    "t": 9.677419
   },
   {
@@ -251,28 +251,28 @@
   {
    "bar": 6.0,
    "type": "impact",
-   "visual": "章节 01（镜头冲击）",
+   "visual": "Chương 01 (va chạm ống kính)",
    "t": 11.612903
   },
   {
    "bar": 6.5,
    "to": 7.0,
    "type": "reverse-swell",
-   "visual": "光线变成时间轴",
+   "visual": "Tia sáng biến thành trục thời gian",
    "t": 12.580645,
    "t_to": 13.548387
   },
   {
    "bar": 8.375,
    "type": "click",
-   "visual": "光标抓住播放头",
+   "visual": "Con trỏ nắm lấy đầu phát",
    "t": 16.209677
   },
   {
    "bar": 8.5,
    "to": 9.25,
    "type": "rewind",
-   "visual": "倒放",
+   "visual": "Tua ngược",
    "t": 16.451613,
    "t_to": 17.903226
   },
@@ -280,7 +280,7 @@
    "bar": 9.25,
    "to": 9.625,
    "type": "freeze",
-   "visual": "定格",
+   "visual": "Đứng hình",
    "t": 17.903226,
    "t_to": 18.629032
   },
@@ -288,220 +288,220 @@
    "bar": 9.625,
    "to": 10.5,
    "type": "fast-forward",
-   "visual": "快进",
+   "visual": "Tua nhanh",
    "t": 18.629032,
    "t_to": 20.322581
   },
   {
    "bar": 10.5,
    "type": "hit",
-   "visual": "回到正常速度",
+   "visual": "Trở lại tốc độ bình thường",
    "t": 20.322581
   },
   {
    "bar": 11.0,
    "type": "card",
    "note_index": 0,
-   "visual": "第 1 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 1 vào vị trí",
    "t": 21.290323
   },
   {
    "bar": 11.0625,
    "type": "card",
    "note_index": 1,
-   "visual": "第 2 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 2 vào vị trí",
    "t": 21.41129
   },
   {
    "bar": 11.125,
    "type": "card",
    "note_index": 2,
-   "visual": "第 3 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 3 vào vị trí",
    "t": 21.532258
   },
   {
    "bar": 11.1875,
    "type": "card",
    "note_index": 3,
-   "visual": "第 4 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 4 vào vị trí",
    "t": 21.653226
   },
   {
    "bar": 11.25,
    "type": "card",
    "note_index": 4,
-   "visual": "第 5 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 5 vào vị trí",
    "t": 21.774194
   },
   {
    "bar": 11.3125,
    "type": "card",
    "note_index": 5,
-   "visual": "第 6 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 6 vào vị trí",
    "t": 21.895161
   },
   {
    "bar": 11.375,
    "type": "card",
    "note_index": 6,
-   "visual": "第 7 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 7 vào vị trí",
    "t": 22.016129
   },
   {
    "bar": 11.4375,
    "type": "card",
    "note_index": 7,
-   "visual": "第 8 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 8 vào vị trí",
    "t": 22.137097
   },
   {
    "bar": 11.5,
    "type": "card",
    "note_index": 8,
-   "visual": "第 9 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 9 vào vị trí",
    "t": 22.258065
   },
   {
    "bar": 11.5625,
    "type": "card",
    "note_index": 9,
-   "visual": "第 10 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 10 vào vị trí",
    "t": 22.379032
   },
   {
    "bar": 11.625,
    "type": "card",
    "note_index": 10,
-   "visual": "第 11 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 11 vào vị trí",
    "t": 22.5
   },
   {
    "bar": 11.6875,
    "type": "card",
    "note_index": 11,
-   "visual": "第 12 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 12 vào vị trí",
    "t": 22.620968
   },
   {
    "bar": 11.75,
    "type": "card",
    "note_index": 12,
-   "visual": "第 13 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 13 vào vị trí",
    "t": 22.741935
   },
   {
    "bar": 11.8125,
    "type": "card",
    "note_index": 13,
-   "visual": "第 14 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 14 vào vị trí",
    "t": 22.862903
   },
   {
    "bar": 11.875,
    "type": "card",
    "note_index": 14,
-   "visual": "第 15 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 15 vào vị trí",
    "t": 22.983871
   },
   {
    "bar": 11.9375,
    "type": "card",
    "note_index": 15,
-   "visual": "第 16 张分镜卡落位",
+   "visual": "Thẻ phân cảnh thứ 16 vào vị trí",
    "t": 23.104839
   },
   {
    "bar": 12.0,
    "type": "blip",
-   "visual": "标签 分镜",
+   "visual": "Nhãn Phân cảnh",
    "t": 23.225806
   },
   {
    "bar": 12.5,
    "type": "blip",
-   "visual": "标签 节拍",
+   "visual": "Nhãn Nhịp",
    "t": 24.193548
   },
   {
    "bar": 13.0,
    "type": "blip",
-   "visual": "标签 镜头",
+   "visual": "Nhãn Ống kính",
    "t": 25.16129
   },
   {
    "bar": 13.5,
    "type": "blip",
-   "visual": "标签 代码",
+   "visual": "Nhãn Code",
    "t": 26.129032
   },
   {
    "bar": 14.0,
    "to": 15.0,
    "type": "riser",
-   "visual": "镜头钻进分镜卡",
+   "visual": "Ống kính chui vào thẻ phân cảnh",
    "t": 27.096774,
    "t_to": 29.032258
   },
   {
    "bar": 15.0,
    "type": "whoosh-through",
-   "visual": "草图变成真实画面",
+   "visual": "Bản phác biến thành hình ảnh thật",
    "t": 29.032258
   },
   {
    "bar": 15.5,
    "type": "shutter",
-   "visual": "截下一帧",
+   "visual": "Chụp một khung hình",
    "t": 30.0
   },
   {
    "bar": 16.0,
    "to": 17.0,
    "type": "scan",
-   "visual": "逐个识别画面元素",
+   "visual": "Nhận diện từng thành phần của hình ảnh",
    "t": 30.967742,
    "t_to": 32.903226
   },
   {
    "bar": 16.0,
    "type": "blip",
-   "visual": "识别框 1",
+   "visual": "Khung nhận diện 1",
    "t": 30.967742
   },
   {
    "bar": 16.25,
    "type": "blip",
-   "visual": "识别框 2",
+   "visual": "Khung nhận diện 2",
    "t": 31.451613
   },
   {
    "bar": 16.5,
    "type": "error",
-   "visual": "问题 ①：标题压住主体",
+   "visual": "Vấn đề ①: tiêu đề đè lên chủ thể",
    "t": 31.935484
   },
   {
    "bar": 16.75,
    "type": "error",
-   "visual": "问题 ②：副标题出画",
+   "visual": "Vấn đề ②: phụ đề tràn ra ngoài khung hình",
    "t": 32.419355
   },
   {
    "bar": 17.0,
    "type": "snap",
-   "visual": "修好 ①",
+   "visual": "Sửa xong ①",
    "t": 32.903226
   },
   {
    "bar": 17.25,
    "type": "snap",
-   "visual": "修好 ②",
+   "visual": "Sửa xong ②",
    "t": 33.387097
   },
   {
    "bar": 17.5,
    "type": "chime",
-   "visual": "全部通过",
+   "visual": "Tất cả đều đạt",
    "t": 33.870968
   },
   {
@@ -514,7 +514,7 @@
   {
    "bar": 19.0,
    "type": "impact",
-   "visual": "章节 02（镜头冲击）",
+   "visual": "Chương 02 (va chạm ống kính)",
    "t": 36.774194
   },
   {
@@ -527,19 +527,19 @@
   {
    "bar": 20.0,
    "type": "stab",
-   "visual": "说 BPM",
+   "visual": "Nói BPM",
    "t": 38.709677
   },
   {
    "bar": 21.0,
    "type": "stab",
-   "visual": "说卡点",
+   "visual": "Nói điểm cắt nhịp",
    "t": 40.645161
   },
   {
    "bar": 22.0,
    "type": "stab",
-   "visual": "说钩子",
+   "visual": "Nói hook",
    "t": 42.580645
   },
   {
@@ -552,14 +552,14 @@
   {
    "bar": 23.0,
    "type": "boom",
-   "visual": "推近",
+   "visual": "Đẩy gần",
    "t": 44.516129
   },
   {
    "bar": 23.875,
    "to": 24.125,
    "type": "whoosh",
-   "visual": "甩镜",
+   "visual": "Vung máy",
    "t": 46.209677,
    "t_to": 46.693548
   },
@@ -567,57 +567,57 @@
    "bar": 25.0,
    "to": 26.0,
    "type": "swirl",
-   "visual": "环绕",
+   "visual": "Quay vòng quanh",
    "t": 48.387097,
    "t_to": 50.322581
   },
   {
    "bar": 26.0,
    "type": "blip",
-   "visual": "样帧 1 出现",
+   "visual": "Khung mẫu 1 xuất hiện",
    "t": 50.322581
   },
   {
    "bar": 26.0625,
    "type": "blip",
-   "visual": "样帧 2 出现",
+   "visual": "Khung mẫu 2 xuất hiện",
    "t": 50.443548
   },
   {
    "bar": 26.125,
    "type": "blip",
-   "visual": "样帧 3 出现",
+   "visual": "Khung mẫu 3 xuất hiện",
    "t": 50.564516
   },
   {
    "bar": 26.1875,
    "type": "blip",
-   "visual": "样帧 4 出现",
+   "visual": "Khung mẫu 4 xuất hiện",
    "t": 50.685484
   },
   {
    "bar": 26.25,
    "type": "blip",
-   "visual": "样帧 5 出现",
+   "visual": "Khung mẫu 5 xuất hiện",
    "t": 50.806452
   },
   {
    "bar": 26.3125,
    "type": "blip",
-   "visual": "样帧 6 出现",
+   "visual": "Khung mẫu 6 xuất hiện",
    "t": 50.927419
   },
   {
    "bar": 27.0,
    "type": "click",
-   "visual": "点选第 4 张样帧",
+   "visual": "Chọn khung mẫu thứ 4",
    "t": 52.258065
   },
   {
    "bar": 27.0,
    "to": 27.5,
    "type": "fall",
-   "visual": "其余样帧掉落",
+   "visual": "Các khung mẫu còn lại rơi xuống",
    "t": 52.258065,
    "t_to": 53.225806
   },
@@ -625,21 +625,21 @@
    "bar": 27.5,
    "to": 28.0,
    "type": "riser",
-   "visual": "选中的样帧放大",
+   "visual": "Khung mẫu được chọn phóng to",
    "t": 53.225806,
    "t_to": 54.193548
   },
   {
    "bar": 28.0,
    "type": "impact",
-   "visual": "液态金属全屏（镜头冲击）",
+   "visual": "Kim loại lỏng toàn màn hình (va chạm ống kính)",
    "t": 54.193548
   },
   {
    "bar": 29.5,
    "to": 30.0,
    "type": "implode",
-   "visual": "一切塌缩成一个点",
+   "visual": "Mọi thứ sụp thành một điểm",
    "t": 57.096774,
    "t_to": 58.064516
   },
@@ -653,7 +653,7 @@
   {
    "bar": 30.0,
    "type": "final",
-   "visual": "终卡",
+   "visual": "Thẻ kết",
    "t": 58.064516
   }
  ],
@@ -665,7 +665,7 @@
    "rewind": -2.0146,
    "fast_forward": 4.0125
   },
-  "note": "warp.table[i] = 场景时间（秒），对应真实时间 warp.from + i / rate；段外场景时间 = 真实时间",
+  "note": "warp.table[i] = thời gian cảnh (giây), tương ứng thời gian thực warp.from + i / rate; thời gian cảnh ngoài đoạn = thời gian thực",
   "table": [
    13.548387,
    13.552554,

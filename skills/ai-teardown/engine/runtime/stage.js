@@ -42,7 +42,7 @@ export class Stage {
     this.el = h("div", { class: "at-stage", style: { width: `${F.W}px`, height: `${F.H}px` } });
     applyTheme(this.el, theme);
     this.bg = h("div", { class: "at-bg" });
-    // 世界层随镜头推拉，出画是有意的；告诉 Hyperframes inspect 别把它当溢出（画面内的裁切由我们自己的探针查）
+    // Lớp thế giới di chuyển theo chuyển động đẩy kéo của ống kính, việc ra ngoài khung hình là có chủ ý; báo cho Hyperframes inspect đừng coi đó là tràn (việc cắt xén trong khung hình do đầu dò của chúng ta tự kiểm tra)
     this.world = h("div", { class: "at-world", "data-layout-allow-overflow": "" });
     this.screen = h("div", { class: "at-screen" });
     this.el.append(this.bg, this.world, this.screen);
@@ -136,7 +136,7 @@ export class Stage {
     return out.sort((a, b) => a.t - b.t);
   }
 
-  /** Clickable elements at time t for 「点图看出处」: [{el, facts, label, scene}]. */
+  /** Clickable elements at time t for "click image to see source": [{el, facts, label, scene}]. */
   hotspots(t = this.t) {
     const out = [];
     for (const sc of this.scenes) {

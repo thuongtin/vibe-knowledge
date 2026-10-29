@@ -1,26 +1,26 @@
-# 装饰艺术金线 · ART DECO
+# Đường vàng Art Deco · ART DECO
 
-> 家族：暗场概念　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles9_film.js → deco()`
+> Họ: Khái niệm cảnh tối | Mức: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles9_film.js → deco()`
 
-**一句话**：黑底，金线从中轴向两侧对称画出阶梯塔楼，顶部扇形放射线打开，数字在金框嵌板里，五十金嵌板填金。
+**Một câu**: nền đen, đường vàng từ trục giữa vẽ đối xứng sang hai bên thành toà tháp bậc thang, đỉnh mở ra các tia quạt toả ra, con số nằm trong tấm khảm khung vàng, tấm khảm "năm mươi vàng" được tô đầy vàng.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 1920 年代装饰艺术：绝对对称、阶梯几何、扇形放射，金线在黑底上一点点亮起来。 |
-| 材质 / 画法 | SVG 金线（左右镜像路径同时画）+ 扇形放射线 + 金框嵌板（双框 outline）；标题宋体大字距。 |
-| 配色逻辑 | 黑 #0D0C0A · 金 #D4AF37 · 浅金 #F3E2A9 · 填金渐变 #8A6A1E → #F7E39A |
-| 字体 | 宋体（中文大字距）+ Geist 300 细数字（字距 20） |
-| 动态 | 左右路径同时从中轴往外画；扇形 0.6 秒展开；标题字距从 80 收到 40；高潮嵌板填金、字转黑。 |
-| 镜头语法 | 锁定（中轴对称）。 |
-| 声音 | 爵士铜管、钢琴、香槟杯叮。 |
-| 标志镜头 | 对称阶梯塔楼中间的金框嵌板，从「10」翻成填满金色的「50」。 |
+| Ý đồ đạo diễn | Art Deco thập niên 1920: đối xứng tuyệt đối, hình học bậc thang, toả tia hình quạt, đường vàng từng chút sáng lên trên nền đen. |
+| Chất liệu / Cách vẽ | Đường vàng SVG (các đường dẫn đối xứng trái phải vẽ đồng thời) + tia quạt toả ra + tấm khảm khung vàng (outline hai khung); tiêu đề chữ Song giãn chữ rộng. |
+| Logic màu | Đen #0D0C0A · vàng #D4AF37 · vàng nhạt #F3E2A9 · gradient tô vàng #8A6A1E → #F7E39A |
+| Phông chữ | Song (chữ Trung giãn chữ rộng) + Geist 300 số mảnh (giãn chữ 20) |
+| Chuyển động | Các đường dẫn trái phải đồng thời vẽ ra ngoài từ trục giữa; quạt mở ra trong 0.6 giây; giãn chữ tiêu đề thu từ 80 về 40; cao trào tấm khảm được tô vàng, chữ chuyển sang đen. |
+| Ngữ pháp ống kính | Cố định (đối xứng qua trục giữa). |
+| Âm thanh | Kèn đồng jazz, piano, ly champagne chạm nhau. |
+| Cảnh đặc trưng | Tấm khảm khung vàng giữa toà tháp bậc thang đối xứng, lật từ "10" thành "50" tô đầy vàng. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换金为银 / 铜、换塔楼轮廓
-- **一改就变味**：不对称构图
-- **不能改**：用圆润或手写字体
+## Có thể sửa đến mức nào (dùng khi chuyển thành "phong cách của tôi")
+- **Sửa thoải mái**: đổi vàng thành bạc / đồng, đổi đường viền toà tháp
+- **Sửa là mất chất**: bố cục không đối xứng
+- **Không được sửa**: dùng phông chữ tròn hoặc viết tay
 
-## 搭配
-- 适合母版：猜谜概念 A、一条主线 D
-- 不适合：田园、儿童
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Mẫu gốc phù hợp: đố vui khái niệm A, một mạch chính D
+- Không phù hợp: đồng quê, trẻ em
+- Tiền tố Renoise của mức nâng cao: `(mức cơ bản không cần)`

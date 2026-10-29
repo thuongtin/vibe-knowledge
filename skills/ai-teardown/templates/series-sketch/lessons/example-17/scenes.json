@@ -1,7 +1,7 @@
 {
  "n": 17,
- "title": "自媒体的增长闭环",
- "series": "WorkBuddy 上手课",
+ "title": "Vòng tăng trưởng của tự truyền thông",
+ "series": "Khóa làm quen WorkBuddy",
  "theme": "paper",
  "engine": "sketch",
  "skin": "notion",
@@ -12,8 +12,8 @@
   {
    "t": "cover",
    "at": "B01",
-   "title": "自媒体的增长闭环",
-   "question": "写得很深，阅读量却个位数？",
+   "title": "Vòng tăng trưởng của tự truyền thông",
+   "question": "Viết rất sâu mà lượt đọc chỉ một con số?",
    "questionAt": "B01.zero",
    "iconImg": "host-avatar",
    "illus": "ip-7-72"
@@ -24,7 +24,7 @@
    "pose": "idea",
    "lines": [
     {
-     "text": "起号前期，先要解决的",
+     "text": "Giai đoạn đầu mở kênh, việc cần giải quyết trước",
      "size": 60,
      "y": -190,
      "color": "gray",
@@ -32,7 +32,7 @@
      "at": "B02.real"
     },
     {
-     "text": "不是写得够不够好",
+     "text": "không phải là viết đã đủ hay chưa",
      "size": 72,
      "y": -60,
      "color": "gray",
@@ -40,7 +40,7 @@
      "at": "B02.real+1.2"
     },
     {
-     "text": "而是*有没有人愿意点进来*",
+     "text": "mà là *có ai chịu bấm vào hay không*",
      "size": 100,
      "y": 110,
      "at": "B02.click"
@@ -48,7 +48,7 @@
    ],
    "tips": [
     {
-     "text": "这个坑，作者真踩过",
+     "text": "Cái hố này, tác giả thật sự đã giẫm phải",
      "at": "B02.book",
      "until": "B02.real",
      "pose": "talk"
@@ -61,18 +61,18 @@
    "cards": [
     {
      "emoji": "icon-park:cycle",
-     "title": "增长闭环",
-     "sub": "选题 → 创作 → 发布 → 复盘"
+     "title": "Vòng tăng trưởng",
+     "sub": "Chọn đề tài → Sáng tạo → Đăng → Nhìn lại"
     },
     {
      "emoji": "icon-park:search",
-     "title": "选题",
-     "sub": "看账号匹配，不只看热度"
+     "title": "Chọn đề tài",
+     "sub": "Xem độ khớp với tài khoản, không chỉ xem độ hot"
     },
     {
      "emoji": "icon-park:chart-line",
-     "title": "数据复盘",
-     "sub": "下一篇不从零开始"
+     "title": "Nhìn lại dữ liệu",
+     "sub": "Bài sau không bắt đầu từ con số không"
     }
    ],
    "cam": [
@@ -105,9 +105,9 @@
   {
    "t": "diagram",
    "at": "B04",
-   "chapter": "① 增长闭环",
-   "title": "自媒体增长闭环：四步转一圈",
-   "src": "出处：《WorkBuddy 实战蓝皮书》第 20 章 · MIT",
+   "chapter": "① Vòng tăng trưởng",
+   "title": "Vòng tăng trưởng tự truyền thông: bốn bước quay một vòng",
+   "src": "Nguồn: Sách xanh thực chiến WorkBuddy chương 20 · MIT",
    "pose": "point",
    "colGap": 760,
    "rowGap": 250,
@@ -115,7 +115,7 @@
    "nodes": [
     {
      "id": "a",
-     "label": "① 选题",
+     "label": "① Chọn đề tài",
      "icon": "icon-park:search",
      "col": 0,
      "row": 0,
@@ -125,27 +125,27 @@
     },
     {
      "id": "b",
-     "label": "② 创作",
+     "label": "② Sáng tạo",
      "icon": "icon-park:write",
      "col": 1,
      "row": 0,
      "tone": "coral",
      "bg": "peach",
-     "at": "B04@创作"
+     "at": "B04@sáng tạo"
     },
     {
      "id": "c",
-     "label": "③ 发布",
+     "label": "③ Đăng bài",
      "icon": "icon-park:send",
      "col": 1,
      "row": 1,
      "tone": "purple",
      "bg": "purple",
-     "at": "B04@发布"
+     "at": "B04@đăng"
     },
     {
      "id": "d",
-     "label": "④ 数据复盘",
+     "label": "④ Nhìn lại dữ liệu",
      "icon": "icon-park:chart-line",
      "col": 0,
      "row": 1,
@@ -158,12 +158,12 @@
     {
      "from": "a",
      "to": "b",
-     "at": "B04@创作-0.3"
+     "at": "B04@sáng tạo-0.3"
     },
     {
      "from": "b",
      "to": "c",
-     "at": "B04@发布-0.3"
+     "at": "B04@đăng-0.3"
     },
     {
      "from": "c",
@@ -174,11 +174,11 @@
      "from": "d",
      "to": "a",
      "at": "B04.back",
-     "label": "再选题"
+     "label": "Chọn lại đề tài"
     }
    ],
    "caption": {
-    "text": "复盘的数据和修改，流回选题池",
+    "text": "Dữ liệu nhìn lại và chỉnh sửa chảy ngược về kho đề tài",
     "at": "B04.back+0.8"
    }
   },
@@ -188,40 +188,40 @@
    "textAt": "B05.quote",
    "size": 60,
    "w": 1320,
-   "from": "《WorkBuddy 实战蓝皮书》第 20 章",
+   "from": "Sách xanh thực chiến WorkBuddy chương 20",
    "emoji": "memo",
-   "text": "Skill 的作用是补上其中一个环节，*不是接管账号判断*。"
+   "text": "Vai trò của Skill là bù vào một khâu trong đó, *không phải tiếp quản phán đoán về tài khoản*."
   },
   {
    "t": "stickers",
    "at": "B06",
-   "title": "每个环节，都有对应的 Skill",
-   "src": "出处：《WorkBuddy 实战蓝皮书》第 20 章 · MIT",
+   "title": "Mỗi khâu đều có Skill tương ứng",
+   "src": "Nguồn: Sách xanh thực chiến WorkBuddy chương 20 · MIT",
    "arrows": true,
    "pose": "check",
    "items": [
     {
      "emoji": "icon-park:search",
-     "label": "① 选题",
-     "sub": "热门文章查询\n评论洞察",
+     "label": "① Chọn đề tài",
+     "sub": "Tra bài viết hot\nThấu hiểu bình luận",
      "at": "B06.k1"
     },
     {
      "emoji": "icon-park:write",
-     "label": "② 创作",
-     "sub": "标题生成\n与评分",
-     "at": "B06@创作"
+     "label": "② Sáng tạo",
+     "sub": "Tạo tiêu đề\nvà chấm điểm",
+     "at": "B06@sáng tạo"
     },
     {
      "emoji": "icon-park:send",
-     "label": "③ 发布",
-     "sub": "违禁词检测\n排版",
+     "label": "③ Đăng bài",
+     "sub": "Kiểm tra từ cấm\nBố cục",
      "at": "B06.k3"
     },
     {
      "emoji": "icon-park:chart-line",
-     "label": "④ 复盘",
-     "sub": "公众号写作\n自我迭代",
+     "label": "④ Nhìn lại",
+     "sub": "Viết cho tài khoản công chúng\nTự lặp cải tiến",
      "at": "B06.k4"
     }
    ]
@@ -229,18 +229,18 @@
   {
    "t": "say",
    "at": "B07",
-   "chapter": "② 选题",
+   "chapter": "② Chọn đề tài",
    "illus": "ip-6-53",
    "pose": "think",
-   "src": "出处：《WorkBuddy 实战蓝皮书》第 20 章 · MIT",
+   "src": "Nguồn: Sách xanh thực chiến WorkBuddy chương 20 · MIT",
    "lines": [
-    "每天刷热点，还是不知道写什么",
+    "Ngày nào cũng lướt tin hot, vẫn không biết viết gì",
     {
-     "text": "热榜说大家在看什么",
+     "text": "Bảng xếp hạng nói mọi người đang xem gì",
      "at": "B07.why"
     },
     {
-     "text": "却不说*这个账号为什么值得写*",
+     "text": "nhưng không nói *vì sao tài khoản này đáng viết*",
      "at": "B07.not"
     }
    ]
@@ -249,7 +249,7 @@
    "t": "shot",
    "at": "B08",
    "img": "wb17-01",
-   "label": "一次调用四个 Skill",
+   "label": "Gọi bốn Skill trong một lần",
    "crop": [
     0.04,
     0.42,
@@ -271,7 +271,7 @@
    ],
    "tips": [
     {
-     "text": "灵感捕手：想法收进收件箱",
+     "text": "Người bắt cảm hứng: ý tưởng thu vào hộp thư đến",
      "at": "B08.k4",
      "pose": "point"
     }
@@ -281,7 +281,7 @@
    "t": "shot",
    "at": "B09",
    "img": "wb17-01",
-   "label": "任务：先建选题池，不直接写文章",
+   "label": "Nhiệm vụ: lập kho đề tài trước, không viết bài ngay",
    "crop": [
     0.04,
     0.48,
@@ -328,7 +328,7 @@
    "t": "shot",
    "at": "B10",
    "img": "wb17-01",
-   "label": "结合账号定位，输出 12 个候选选题",
+   "label": "Kết hợp định vị tài khoản, xuất 12 đề tài ứng viên",
    "crop": [
     0.05,
     0.76,
@@ -366,7 +366,7 @@
    "pose": "stop",
    "lines": [
     {
-     "text": "指令里最关键的一句",
+     "text": "Câu then chốt nhất trong chỉ thị",
      "size": 60,
      "y": -150,
      "color": "gray",
@@ -374,7 +374,7 @@
      "at": "B10.warn"
     },
     {
-     "text": "阅读量高 ≠ *一定适合我*",
+     "text": "Lượt đọc cao ≠ *chắc chắn hợp với tôi*",
      "size": 104,
      "y": 30,
      "at": "B10.warn+1.2"
@@ -384,15 +384,15 @@
   {
    "t": "pause",
    "at": "B11",
-   "q": "十万加的热门选题，照着写\n就*一定适合你的账号*吗？",
-   "a": "*不一定*：先看和账号匹不匹配",
+   "q": "Đề tài hot trên một trăm nghìn lượt đọc, cứ thế viết theo\nthì *chắc chắn hợp với tài khoản của bạn* sao?",
+   "a": "*Chưa chắc*: trước hết xem có khớp với tài khoản không",
    "revealAt": "B12.answer"
   },
   {
    "t": "shot",
    "at": "B12.res",
    "img": "wb17-02",
-   "label": "结果：阅读量最高的两篇，都不适合",
+   "label": "Kết quả: hai bài có lượt đọc cao nhất đều không phù hợp",
    "crop": [
     0.0,
     0.3,
@@ -436,13 +436,13 @@
    ],
    "tips": [
     {
-     "text": "空白区：验收和合规",
+     "text": "Vùng trống: nghiệm thu và tuân thủ",
      "at": "B12.gap",
      "until": "B13",
      "pose": "point"
     },
     {
-     "text": "这才是选题的真正信号",
+     "text": "Đây mới là tín hiệu thật của đề tài",
      "at": "B13.this",
      "pose": "idea"
     }
@@ -452,23 +452,23 @@
    "t": "kinetic",
    "at": "B14",
    "pose": "idea",
-   "src": "出处：《WorkBuddy 实战蓝皮书》第 20 章 · MIT",
+   "src": "Nguồn: Sách xanh thực chiến WorkBuddy chương 20 · MIT",
    "lines": [
     {
-     "text": "起号：找*低粉爆款*",
+     "text": "Mở kênh: tìm *bài bùng nổ của tài khoản ít fan*",
      "size": 72,
      "y": -170,
      "weight": 600,
      "at": "B14.low"
     },
     {
-     "text": "参考的是*选题*",
+     "text": "Cái được tham khảo là *đề tài*",
      "size": 110,
      "y": 10,
      "at": "B14.copy"
     },
     {
-     "text": "不是原封不动地抄内容",
+     "text": "không phải sao chép nguyên xi nội dung",
      "size": 56,
      "y": 170,
      "color": "gray",
@@ -478,7 +478,7 @@
    ],
    "tips": [
     {
-     "text": "viral-topic：找低粉爆款",
+     "text": "viral-topic: tìm bài bùng nổ của tài khoản ít fan",
      "at": "B14.skill",
      "until": "B14.copy",
      "pose": "point"
@@ -488,19 +488,19 @@
   {
    "t": "quote",
    "at": "B15",
-   "chapter": "闭环里的创作与发布",
+   "chapter": "Sáng tạo và đăng bài trong vòng khép kín",
    "textAt": "B15.quote",
    "size": 60,
    "w": 1320,
-   "from": "《WorkBuddy 实战蓝皮书》第 20 章",
+   "from": "Sách xanh thực chiến WorkBuddy chương 20",
    "emoji": "speech-balloon",
-   "text": "标题不是独立文案，它是读者与正文之间的*一份承诺*。"
+   "text": "Tiêu đề không phải văn án độc lập, nó là *một lời hứa* giữa người đọc và nội dung chính."
   },
   {
    "t": "shot",
    "at": "B16",
    "img": "wb17-07",
-   "label": "每个标题：面向谁 · 承诺什么 · 哪段兑现",
+   "label": "Mỗi tiêu đề: hướng tới ai · hứa điều gì · đoạn nào thực hiện",
    "crop": [
     0.515,
     0.085,
@@ -533,7 +533,7 @@
    ],
    "tips": [
     {
-     "text": "A/B 测试：一次只改一个变量",
+     "text": "Thử nghiệm A/B: mỗi lần chỉ đổi một biến",
      "at": "B16.ab",
      "pose": "idea"
     }
@@ -544,21 +544,21 @@
    "at": "B17",
    "illus": "ip-9-104",
    "pose": "point",
-   "src": "出处：《WorkBuddy 实战蓝皮书》第 20 章 · MIT",
+   "src": "Nguồn: Sách xanh thực chiến WorkBuddy chương 20 · MIT",
    "lines": [
-    "发布链，建议停在",
+    "Chuỗi đăng bài, nên dừng ở",
     {
-     "text": "*草稿箱*",
+     "text": "*Hộp nháp*",
      "at": "B17.pub+1.5"
     },
     {
-     "text": "事实 · 版权 · 合规 · 链接 · 手机预览",
+     "text": "Sự thật · bản quyền · tuân thủ · liên kết · xem trước trên điện thoại",
      "at": "B17.chain"
     }
    ],
    "tips": [
     {
-     "text": "人工确认账号，再发布",
+     "text": "Người xác nhận tài khoản rồi mới đăng",
      "at": "B17.human",
      "pose": "stop"
     }
@@ -567,11 +567,11 @@
   {
    "t": "kinetic",
    "at": "B18",
-   "chapter": "③ 数据复盘",
+   "chapter": "③ Nhìn lại dữ liệu",
    "pose": "think",
    "lines": [
     {
-     "text": "发布后不复盘",
+     "text": "Đăng xong không nhìn lại",
      "size": 72,
      "y": -130,
      "color": "gray",
@@ -579,7 +579,7 @@
      "at": "B18.zero"
     },
     {
-     "text": "下一篇仍*从零开始*",
+     "text": "Bài sau vẫn *bắt đầu từ con số không*",
      "size": 110,
      "y": 40,
      "at": "B18.zero+1.2"
@@ -589,8 +589,8 @@
   {
    "t": "diagram",
    "at": "B19",
-   "title": "复盘：初稿 + 终稿 + 数据 → 下一篇",
-   "src": "出处：《WorkBuddy 实战蓝皮书》第 20 章 · MIT",
+   "title": "Nhìn lại: bản nháp đầu + bản cuối + dữ liệu → bài sau",
+   "src": "Nguồn: Sách xanh thực chiến WorkBuddy chương 20 · MIT",
    "pose": "point",
    "nodeW": 380,
    "colGap": 470,
@@ -598,7 +598,7 @@
    "nodes": [
     {
      "id": "ai",
-     "label": "AI 初稿",
+     "label": "Bản nháp đầu của AI",
      "icon": "icon-park:robot",
      "col": 0,
      "row": 0,
@@ -608,7 +608,7 @@
     },
     {
      "id": "hu",
-     "label": "人工终稿",
+     "label": "Bản cuối do người viết",
      "icon": "icon-park:edit",
      "col": 0,
      "row": 1,
@@ -618,7 +618,7 @@
     },
     {
      "id": "da",
-     "label": "本期数据",
+     "label": "Dữ liệu kỳ này",
      "icon": "icon-park:data",
      "col": 0,
      "row": 2,
@@ -628,7 +628,7 @@
     },
     {
      "id": "rv",
-     "label": "复盘",
+     "label": "Nhìn lại",
      "icon": "icon-park:refresh-one",
      "col": 1,
      "row": 1,
@@ -638,7 +638,7 @@
     },
     {
      "id": "rp",
-     "label": "复盘报告",
+     "label": "Báo cáo nhìn lại",
      "icon": "icon-park:file-text",
      "col": 2,
      "row": 0,
@@ -659,7 +659,7 @@
     },
     {
      "id": "nx",
-     "label": "下一篇",
+     "label": "Bài sau",
      "icon": "icon-park:write",
      "col": 3,
      "row": 1,
@@ -699,27 +699,27 @@
   {
    "t": "checklist",
    "at": "B20",
-   "title": "复盘指令的三条规矩",
+   "title": "Ba quy tắc của chỉ thị nhìn lại",
    "numbered": true,
    "cols": 1,
    "rowH": 130,
-   "src": "出处：《WorkBuddy 实战蓝皮书》第 20 章 · MIT",
+   "src": "Nguồn: Sách xanh thực chiến WorkBuddy chương 20 · MIT",
    "items": [
     {
      "emoji": "icon-park:data",
-     "label": "先陈述数据事实",
-     "sub": "最多 3 个可验证假设，不把相关写成因果",
+     "label": "Trước hết trình bày sự thật dữ liệu",
+     "sub": "Tối đa 3 giả thuyết kiểm chứng được, không viết tương quan thành nhân quả",
      "at": "B20.r1"
     },
     {
      "emoji": "icon-park:experiment",
-     "label": "设计 2 个单变量实验",
+     "label": "Thiết kế 2 thí nghiệm một biến",
      "at": "B20.r2"
     },
     {
      "emoji": "icon-park:bookmark",
-     "label": "长期规则才写进 style-guide",
-     "sub": "一次性热点不写",
+     "label": "Chỉ quy tắc dài hạn mới ghi vào style-guide",
+     "sub": "Tin hot dùng một lần thì không ghi",
      "at": "B20.r3"
     }
    ]
@@ -728,7 +728,7 @@
    "t": "shot",
    "at": "B21",
    "img": "wb17-16",
-   "label": "复盘结论 + 下轮实验 + style-guide",
+   "label": "Kết luận nhìn lại + thí nghiệm vòng sau + style-guide",
    "crop": [
     0.0,
     0.08,
@@ -774,39 +774,39 @@
   {
    "t": "stickers",
    "at": "B22",
-   "title": "一套够用的自媒体 Skill 栈",
-   "src": "出处：《WorkBuddy 实战蓝皮书》第 20 章 · MIT",
+   "title": "Một bộ Skill tự truyền thông đủ dùng",
+   "src": "Nguồn: Sách xanh thực chiến WorkBuddy chương 20 · MIT",
    "arrows": true,
    "pose": "check",
    "items": [
     {
      "emoji": "icon-park:level",
-     "label": "入门",
-     "sub": "热门查询 · 标题评分\n图片生成",
+     "label": "Nhập môn",
+     "sub": "Tra bài hot · chấm điểm tiêu đề\nTạo ảnh",
      "at": "B22.l1"
     },
     {
      "emoji": "icon-park:protect",
-     "label": "稳定",
-     "sub": "评论洞察 · 封面\n排版 · 违禁词检测",
+     "label": "Ổn định",
+     "sub": "Thấu hiểu bình luận · ảnh bìa\nBố cục · kiểm tra từ cấm",
      "at": "B22.l2"
     },
     {
      "emoji": "icon-park:layers",
-     "label": "多平台",
-     "sub": "小红书卡片\n短视频脚本",
-     "at": "B22@有了统一"
+     "label": "Đa nền tảng",
+     "sub": "Thẻ Xiaohongshu\nKịch bản video ngắn",
+     "at": "B22@có bộ"
     },
     {
      "emoji": "icon-park:chart-line",
-     "label": "进阶",
-     "sub": "数据回流\n风格迭代",
+     "label": "Nâng cao",
+     "sub": "Dữ liệu chảy ngược\nLặp phong cách",
      "at": "B22.l4"
     }
    ],
    "tips": [
     {
-     "text": "人工流程先跑通 4 周",
+     "text": "Chạy thông quy trình thủ công 4 tuần trước",
      "at": "B22.l4+1.5",
      "pose": "stop"
     }
@@ -815,26 +815,26 @@
   {
    "t": "recap",
    "at": "B23",
-   "center": "自媒体增长闭环",
+   "center": "Vòng tăng trưởng tự truyền thông",
    "branches": [
     {
      "emoji": "icon-park:cycle",
-     "text": "选题 → 创作 → 发布 → 复盘",
+     "text": "Chọn đề tài → Sáng tạo → Đăng → Nhìn lại",
      "at": "B23.r1"
     },
     {
      "emoji": "icon-park:search",
-     "text": "选题看账号匹配，不只看阅读量",
+     "text": "Đề tài xem độ khớp tài khoản, không chỉ xem lượt đọc",
      "at": "B23.r2"
     },
     {
      "emoji": "icon-park:send",
-     "text": "标题是承诺，发布停在草稿箱",
+     "text": "Tiêu đề là lời hứa, đăng bài dừng ở hộp nháp",
      "at": "B23.r3"
     },
     {
      "emoji": "icon-park:bookmark",
-     "text": "复盘写进 style-guide",
+     "text": "Kết quả nhìn lại ghi vào style-guide",
      "at": "B23.r4"
     }
    ]
@@ -842,23 +842,23 @@
   {
    "t": "outro",
    "at": "B24",
-   "next": "下一节：WorkBuddy 也能做 GEO 专家",
+   "next": "Bài sau: WorkBuddy cũng làm được chuyên gia GEO",
    "thanksAt": "B24.thanks",
-   "thanks": "感谢《WorkBuddy 实战蓝皮书》的作者们开源分享",
+   "thanks": "Cảm ơn các tác giả Sách xanh thực chiến WorkBuddy đã chia sẻ mã nguồn mở",
    "pose": "cheer",
    "tips": [
     {
-     "text": "我们下节见 👋",
+     "text": "Hẹn gặp lại bài sau 👋",
      "at": "B24.thanks+2",
      "pose": "wave"
     }
    ],
    "credits": [
-    "内容与截图：《WorkBuddy 实战蓝皮书》第 20 章（MIT）",
+    "Nội dung và ảnh chụp màn hình: Sách xanh thực chiến WorkBuddy chương 20 (MIT)",
     "github.com/AlephAITech/WorkBuddyGuide",
-    "插画：IconPark 插画库（字节跳动）· 图标：IconPark、Noto Emoji",
-    "流程图：AntV X6 · lottie-web · rough.js（MIT）",
-    "讲解小人：@Berryxia 像素头像 · 配音：小米 MiMo（AI 生成）"
+    "Minh hoạ: thư viện minh hoạ IconPark (ByteDance) · Icon: IconPark, Noto Emoji",
+    "Sơ đồ quy trình: AntV X6 · lottie-web · rough.js (MIT)",
+    "Nhân vật thuyết minh: avatar pixel của @Berryxia · Lồng tiếng: Google Gemini (AI tạo)"
    ]
   }
  ],

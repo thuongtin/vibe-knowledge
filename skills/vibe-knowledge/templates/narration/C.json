@@ -1,10 +1,11 @@
 {
- "_template": "母版 C · 痛点原理片 · 2:00–2:30 · 约 480–600 字",
- "_how": "把每拍 narration 换成正式旁白（口语、短句、每句 ≤22 字），保留需要的 [[cue]]（只用小写字母数字下划线），删掉 _guide。旁白里英文名不要带连字符。",
+ "_template": "Bản mẫu gốc C · Phim nguyên lý điểm đau · 2:00–2:30 · khoảng 480–600 chữ",
+ "_how": "Thay narration của mỗi nhịp bằng lời dẫn chính thức (văn nói, câu ngắn, mỗi câu ≤22 chữ), giữ lại các [[cue]] cần thiết (chỉ dùng chữ thường, chữ số, gạch dưới), xóa _guide. Tên tiếng Anh trong lời dẫn không được có dấu gạch nối.",
  "voice": {
-  "engine": "mimo",
-  "clone": "../../voice/host-ref.wav",
-  "style": "科技博主讲硬核冷知识：语速快、节奏紧凑，一句接一句不拖音，句间停顿很短；关键数字和关键词加重落下；有悬念感和网感，自然口语，不要播音腔，问句也干脆，不要一字一顿。"
+  "engine": "gemini",
+  "model": "gemini-3.8-flash-tts",
+  "voice": "Sulafat",
+  "lang": "vi"
  },
  "lexicon": {
   "AI": "A I"
@@ -12,43 +13,43 @@
  "beats": [
   {
    "id": "B01",
-   "_guide": "日常反常（≤50 字）：两个对比场景，体感和直觉相反。[[scene]]",
-   "narration": "（待写）日常反常（≤50 字）：两个对比场景，体感和直觉相反。[[scene]]"
+   "_guide": "Điều bất thường thường ngày (≤50 chữ): hai cảnh đối lập, cảm nhận cơ thể trái ngược trực giác.[[scene]]",
+   "narration": "(Chưa viết) Điều bất thường thường ngày (≤50 chữ): hai cảnh đối lập, cảm nhận cơ thể trái ngược trực giác.[[scene]]"
   },
   {
    "id": "B02",
-   "_guide": "追问（≤25 字）：「到底是谁偷走了……」[[who]]",
-   "narration": "（待写）追问（≤25 字）：「到底是谁偷走了……」[[who]]"
+   "_guide": "Đặt câu hỏi truy vấn (≤25 chữ): \"Rốt cuộc là ai đã đánh cắp…\"[[who]]",
+   "narration": "(Chưa viết) Đặt câu hỏi truy vấn (≤25 chữ): \"Rốt cuộc là ai đã đánh cắp…\"[[who]]"
   },
   {
    "id": "B03",
-   "_guide": "冷门原理（≤110 字）：人名 + 年份 + 一句话原理，公式最多一个。[[law]]",
-   "narration": "（待写）冷门原理（≤110 字）：人名 + 年份 + 一句话原理，公式最多一个。[[law]]"
+   "_guide": "Nguyên lý ít người biết (≤110 chữ): tên người + năm + nguyên lý trong một câu, công thức nhiều nhất một cái.[[law]]",
+   "narration": "(Chưa viết) Nguyên lý ít người biết (≤110 chữ): tên người + năm + nguyên lý trong một câu, công thức nhiều nhất một cái.[[law]]"
   },
   {
    "id": "B04",
-   "_guide": "贯穿道具（≤90 字）：把原理变成一个道具（4 格小黑板、电量条），之后每一拍都用它。[[prop]]",
-   "narration": "（待写）贯穿道具（≤90 字）：把原理变成一个道具（4 格小黑板、电量条），之后每一拍都用它。[[prop]]"
+   "_guide": "Đạo cụ xuyên suốt (≤90 chữ): biến nguyên lý thành một đạo cụ (bảng đen nhỏ 4 ô, thanh pin), sau đó nhịp nào cũng dùng nó.[[prop]]",
+   "narration": "(Chưa viết) Đạo cụ xuyên suốt (≤90 chữ): biến nguyên lý thành một đạo cụ (bảng đen nhỏ 4 ô, thanh pin), sau đó nhịp nào cũng dùng nó.[[prop]]"
   },
   {
    "id": "B05",
-   "_guide": "代入（≤110 字）：观众的一个下午在道具上是怎么被消耗的，挂论文出处。[[drain]]",
-   "narration": "（待写）代入（≤110 字）：观众的一个下午在道具上是怎么被消耗的，挂论文出处。[[drain]]"
+   "_guide": "Đặt mình vào (≤110 chữ): một buổi chiều của khán giả bị tiêu hao trên đạo cụ ra sao, kèm nguồn bài báo.[[drain]]",
+   "narration": "(Chưa viết) Đặt mình vào (≤110 chữ): một buổi chiều của khán giả bị tiêu hao trên đạo cụ ra sao, kèm nguồn bài báo.[[drain]]"
   },
   {
    "id": "B06",
-   "_guide": "解法（≤80 字）：一个 3 秒能做的动作。[[fix]]",
-   "narration": "（待写）解法（≤80 字）：一个 3 秒能做的动作。[[fix]]"
+   "_guide": "Cách giải (≤80 chữ): một động tác làm được trong 3 giây.[[fix]]",
+   "narration": "(Chưa viết) Cách giải (≤80 chữ): một động tác làm được trong 3 giây.[[fix]]"
   },
   {
    "id": "B07",
-   "_guide": "第二个反常（≤70 字）：为什么「休息」反而更累。[[rest]]",
-   "narration": "（待写）第二个反常（≤70 字）：为什么「休息」反而更累。[[rest]]"
+   "_guide": "Điều bất thường thứ hai (≤70 chữ): vì sao \"nghỉ ngơi\" lại càng mệt hơn.[[rest]]",
+   "narration": "(Chưa viết) Điều bất thường thứ hai (≤70 chữ): vì sao \"nghỉ ngơi\" lại càng mệt hơn.[[rest]]"
   },
   {
    "id": "B08",
-   "_guide": "治愈收尾（≤60 字）：一个不耗能的画面（钓鱼、看水），一句温柔的话。[[end]]",
-   "narration": "（待写）治愈收尾（≤60 字）：一个不耗能的画面（钓鱼、看水），一句温柔的话。[[end]]"
+   "_guide": "Kết thúc chữa lành (≤60 chữ): một hình ảnh không tiêu hao năng lượng (câu cá, ngắm nước), một câu nói dịu dàng.[[end]]",
+   "narration": "(Chưa viết) Kết thúc chữa lành (≤60 chữ): một hình ảnh không tiêu hao năng lượng (câu cá, ngắm nước), một câu nói dịu dàng.[[end]]"
   }
  ]
 }

@@ -2,12 +2,12 @@
  * Theme tokens. The stage writes them onto its root as CSS custom properties,
  * so primitives style DOM/SVG with var(--x) and canvas/WebGL code reads THEMES.
  * Role colours carry meaning across the whole series:
- *   user 蓝 · model 紫 · tool 绿 · env 灰 · boundary 橙；推断=虚线，未披露=雾化。
+ *   user xanh dương · model tím · tool xanh lá · env xám · boundary cam; suy đoán = nét đứt, chưa công bố = mờ sương.
  */
 
 /**
- * 马卡龙色板位 m1–m6（粉、桃、柠檬、薄荷、天蓝、薰衣草；各主题可换成自己的六色）。
- * 每位三个值：--mN 主色（描边、图标）、--mN-t 浅底（卡片填充）、--mN-d 深色（在浅底上写字，过 AA）。
+ * Các ô bảng màu macaron m1–m6 (hồng, đào, chanh, bạc hà, xanh da trời, oải hương; mỗi chủ đề có thể đổi thành sáu màu riêng).
+ * Mỗi ô có ba giá trị: --mN màu chính (viền, icon), --mN-t nền nhạt (tô thẻ), --mN-d màu đậm (viết chữ trên nền nhạt, đạt AA).
  */
 const pal = (...cols) => Object.fromEntries(cols.flatMap(([m, t, d], i) => [[`m${i + 1}`, m], [`m${i + 1}-t`, t], [`m${i + 1}-d`, d]]));
 export const MAC = ["m1", "m2", "m3", "m4", "m5", "m6"];
@@ -71,7 +71,7 @@ export const THEMES = {
       ["#3DB68A", "#DDF2E9", "#0B7A55"], ["#4F8BF0", "#E3EAFE", "#2B55C4"], ["#8B67EE", "#EEE7FD", "#5E3BC9"]),
     bgStyle: "plain",
   },
-  /** 浅色马卡龙：奶油底 + 六个粉彩色位。系列课默认主题。 */
+  /** Macaron sáng: nền kem + sáu ô màu pastel. Chủ đề mặc định của series bài giảng. */
   macaron: {
     bg: "#FFF8F2",
     grid: "rgba(47,42,69,0.08)",
@@ -101,7 +101,7 @@ export const THEMES = {
       ["#86D9B0", "#D9F5E7", "#1B8558"], ["#8CC2F4", "#DCEEFF", "#2A6CBF"], ["#B7A6F4", "#EAE4FF", "#6548CC"]),
     bgStyle: "dots",
   },
-  /** 薄荷：更清爽的浅绿底。 */
+  /** Bạc hà: nền xanh lá nhạt mát mắt hơn. */
   mint: {
     bg: "#F0FAF6",
     grid: "rgba(20,70,60,0.08)",
@@ -131,7 +131,7 @@ export const THEMES = {
       ["#8FC8F0", "#DFF0FC", "#2A6DAF"], ["#F7A8B8", "#FDE5EA", "#B83A55"], ["#C3B3F0", "#EEE9FD", "#5F49BD"]),
     bgStyle: "dots",
   },
-  /** 夜间粉彩：深紫底，色位提亮。 */
+  /** Pastel ban đêm: nền tím sẫm, các ô màu được làm sáng lên. */
   night: {
     bg: "#1D1A2C",
     grid: "rgba(255,255,255,0.06)",

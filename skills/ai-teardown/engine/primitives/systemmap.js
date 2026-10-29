@@ -1,15 +1,15 @@
 /**
- * SystemMap 总图：节点 + 带动作标签的连线，支持逐个出现、点亮、压暗其他、打开（为推进下一层让路）。
- * 诚实编码：official 实线；inferred 虚线 + 「推断」；undisclosed 雾化填充 + 「未披露」。
+ * SystemMap sơ đồ tổng: các nút + đường nối có nhãn hành động, hỗ trợ xuất hiện từng cái, làm sáng, làm tối các nút khác, mở ra (nhường chỗ để chuyển sang tầng tiếp theo).
+ * Mã hoá trung thực: official nét liền; inferred nét đứt + "suy đoán"; undisclosed tô mờ + "chưa công bố".
  *
  * params
  *   nodes  [{id, label, sub?, subAt?, role, x, y, w=260, h=110, r=22, icon?, honesty?, facts?, ghost?, labelAt?}]
  *   edges  [{from, to, label?, labelSide?, honesty?, facts?, bend=0, both=false, gap=10}]   labelSide: above | below
- *   reveal {id | "from>to": t}   出现时刻（本地秒）；缺省 0
- *   lit    {id: [[t0, t1?], ...]}  点亮窗口
- *   dim    [[t0, t1, [keepIds]]]    压暗窗口：除 keepIds 外都变暗
- *   open   {id: t}                  打开节点：标签和底色淡出，给下一层内容让位
- *   close  {id: t}                  关上：镜头拉回后，标签和底色回来
+ *   reveal {id | "from>to": t}   thời điểm xuất hiện (giây cục bộ); mặc định 0
+ *   lit    {id: [[t0, t1?], ...]}  cửa sổ làm sáng
+ *   dim    [[t0, t1, [keepIds]]]    cửa sổ làm tối: trừ keepIds ra đều tối đi
+ *   open   {id: t}                  mở nút: nhãn và màu nền mờ dần, nhường chỗ cho nội dung tầng sau
+ *   close  {id: t}                  đóng lại: sau khi ống kính kéo về, nhãn và màu nền quay lại
  *   font   {label=34, sub=22, edge=24}
  */
 import { s, h, setStyle, setAttr, icon } from "../runtime/dom.js";
@@ -110,7 +110,7 @@ export default {
       labels.append(label);
       let honest = null;
       if (n.honesty !== "official") {
-        honest = h("div", { class: "sm-honest", text: n.honesty === "inferred" ? "推断" : "未披露" });
+        honest = h("div", { class: "sm-honest", text: n.honesty === "inferred" ? "Suy đoán" : "Chưa công bố" });
         honest.style.fontSize = `${Math.round(font.sub * 0.9)}px`;
         honest.style.left = `${n.x + n.w / 2 - 10}px`;
         honest.style.top = `${n.y - n.h / 2}px`;
@@ -164,7 +164,7 @@ export default {
 
     const beats = [
       ...nodes.filter((n) => !n.ghost).map((n) => ({ t: reveal[n.id] ?? 0, id: `reveal:${n.id}`, label: n.label })),
-      ...Object.entries(p.open ?? {}).map(([id, t]) => ({ t, id: `open:${id}`, label: `推进：${byId[id]?.label ?? id}` })),
+      ...Object.entries(p.open ?? {}).map(([id, t]) => ({ t, id: `open:${id}`, label: `Chuyển tiếp: ${byId[id]?.label ?? id}` })),
     ].sort((a, b) => a.t - b.t);
 
     return {

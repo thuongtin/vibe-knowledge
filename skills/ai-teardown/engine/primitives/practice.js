@@ -1,11 +1,11 @@
 /**
- * 实战课用的两个原语。
+ * Hai primitive dùng cho bài thực chiến.
  *
- * Steps 步骤卡：编号步骤依次出现，每步一句说明 + 一行要敲的命令（深色等宽框）+ 可选的「你会看到」。
- *   params: items [{text, cmd, see, at}], title, w, at, out, active（当前步骤高亮，按 at 自动推进）
- * Pause 暂停想一想：大徽章 + 问题，3-2-1 倒计时圈，然后揭晓答案。
+ * Steps thẻ bước: các bước đánh số lần lượt xuất hiện, mỗi bước một câu giải thích + một dòng lệnh cần gõ (khung đơn cách nền tối) + “Bạn sẽ thấy” tùy chọn.
+ *   params: items [{text, cmd, see, at}], title, w, at, out, active (bước hiện tại được làm nổi, tự động chuyển theo at)
+ * Pause tạm dừng nghĩ một chút: huy hiệu lớn + câu hỏi, vòng đếm ngược 3-2-1, rồi công bố đáp án.
  *   params: q, a, at, revealAt, out, sub
- * render(t) 只依赖 t。
+ * render(t) chỉ phụ thuộc vào t.
  */
 import { h, setStyle } from "../runtime/dom.js";
 import { appear, hz, UI } from "../runtime/spring.js";
@@ -26,7 +26,7 @@ const CSS = `
 .st-cmd::before{content:"$ ";color:#99C794}
 .st-cmd.plain::before{content:""}
 .st-see{margin-top:10px;font:600 26px/1.4 var(--sans);color:var(--ink2)}
-.st-see::before{content:"你会看到：";color:var(--m4-d);font-weight:800}
+.st-see::before{content:"Bạn sẽ thấy: ";color:var(--m4-d);font-weight:800}
 .pz{position:absolute;left:0;top:0;width:1500px;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;text-align:center;gap:26px}
 .pz-badge{display:flex;align-items:center;gap:14px;font:800 34px/1 var(--sans);color:var(--m6-d);background:var(--m6-t);padding:14px 26px;border-radius:999px}
 .pz-q{font:800 64px/1.3 var(--sans);color:var(--ink);max-width:1400px;text-wrap:balance}
@@ -87,7 +87,7 @@ export const Pause = {
     ctx.css("pr-practice", CSS);
     const at = p.at ?? 0, out = p.out ?? Infinity, rv = p.revealAt ?? at + 4.2;
     const el = h("div", { class: "pz" });
-    const badge = h("div", { class: "pz-badge", text: "⏸ 暂停想一想" });
+    const badge = h("div", { class: "pz-badge", text: "⏸ Tạm dừng nghĩ một chút" });
     const q = h("div", { class: "pz-q", text: p.q });
     const ring = h("div", { class: "pz-ring" });
     ring.innerHTML = `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--line)" stroke-width="10"/><circle class="arc" cx="60" cy="60" r="52" fill="none" stroke="var(--m6)" stroke-width="10" stroke-linecap="round" pathLength="1" stroke-dasharray="1 1"/></svg>`;
@@ -98,7 +98,7 @@ export const Pause = {
     ans.innerHTML = (p.a ?? "").replace(/\*(.+?)\*/g, "<b>$1</b>");
     el.append(badge, q, ring, ans);
     root.append(el);
-    const cd0 = at + 1.0, cd1 = rv - 0.2;   // 倒计时区间
+    const cd0 = at + 1.0, cd1 = rv - 0.2;   // khoảng đếm ngược
     return {
       duration: out,
       render(t) {
@@ -124,8 +124,8 @@ export const Pause = {
 };
 
 /**
- * Shot 截图：官方截图、实拍网页截图。不加相框、不歪斜，位置精确，方便在上面画涂鸦。
- *   params: src, w, h, at, out, credit, push（慢推近的幅度，默认 0.03）
+ * Shot ảnh chụp: ảnh chụp chính thức, ảnh chụp trang web thực tế. Không thêm khung ảnh, không nghiêng, vị trí chính xác, tiện vẽ nét nguệch ngoạc lên trên.
+ *   params: src, w, h, at, out, credit, push (biên độ đẩy gần chậm, mặc định 0.03)
  */
 const SHOT_CSS = `
 .sh{position:absolute;left:0;top:0;transform:translate(-50%,-50%)}
@@ -141,7 +141,7 @@ export const Shot = {
     const el = h("div", { class: "sh", style: { width: `${p.w}px`, height: `${p.h}px` } });
     const box = h("div", { class: "sh-img", style: { width: `${p.w}px`, height: `${p.h}px`, position: "relative" } });
     const img = h("img", { src: p.src, alt: p.alt ?? "" });
-    if (p.crop) {   // 只显示原图的一部分：crop = [x0, y0, x1, y1]（占原图宽高的比例）
+    if (p.crop) {   // Chỉ hiển thị một phần ảnh gốc: crop = [x0, y0, x1, y1] (tỷ lệ so với chiều rộng và chiều cao ảnh gốc)
       const [c0, c1, c2, c3] = p.crop, iw = p.w / (c2 - c0), ih = p.h / (c3 - c1);
       Object.assign(img.style, { position: "absolute", width: `${iw}px`, height: `${ih}px`, left: `${-c0 * iw}px`, top: `${-c1 * ih}px`, objectFit: "fill", maxWidth: "none" });
     }

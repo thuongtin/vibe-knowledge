@@ -1,17 +1,17 @@
 /**
- * Portrait 人物/图片卡：拍立得相框 + 两条胶带，落下时带一点旋转；照片缓慢推近（幅度很小，不晕）；
- * 名字打字，相框外下方放署名与许可（网上取的图必须带）。以原点为中心；render 是纯函数。
+ * Portrait thẻ nhân vật/ảnh: khung polaroid + hai dải băng dính, khi rơi xuống hơi xoay một chút; ảnh đẩy gần chậm rãi (biên độ rất nhỏ, không gây chóng mặt);
+ * Tên được gõ ra, phía dưới ngoài khung đặt ghi công và giấy phép (ảnh lấy trên mạng bắt buộc phải có). Lấy gốc toạ độ làm tâm; render là hàm thuần.
  *
  * params
- *   src, w, h         照片地址与显示尺寸
- *   pos               object-position，裁切焦点（默认 "50% 30%"）
- *   tilt              相框角度（度，默认 -3）
- *   at, out           出场、退场
- *   kb {z0, z1, dur}  推近幅度（默认 1 → 1.06，持续到 out，没有 out 就 12 秒）
- *   name, sub         相框下沿的名字（打字）与一句说明
- *   credit            署名与许可
- *   tape [c1, c2]     两条胶带的色位（默认 m1、m5）；false 不要胶带
- *   facts             点图看出处
+ *   src, w, h         địa chỉ ảnh và kích thước hiển thị
+ *   pos               object-position, tiêu điểm cắt (mặc định "50% 30%")
+ *   tilt              góc của khung (độ, mặc định -3)
+ *   at, out           vào cảnh, rút ra
+ *   kb {z0, z1, dur}  biên độ đẩy gần (mặc định 1 → 1.06, kéo dài đến out, không có out thì 12 giây)
+ *   name, sub         tên ở mép dưới khung (gõ ra) và một câu mô tả
+ *   credit            ghi công và giấy phép
+ *   tape [c1, c2]     vị trí màu của hai dải băng dính (mặc định m1, m5); false thì không dùng băng dính
+ *   facts             bấm vào ảnh để xem nguồn
  */
 import { h, setStyle } from "../runtime/dom.js";
 import { appear, hz, UI } from "../runtime/spring.js";
@@ -49,7 +49,7 @@ export default {
     let name = null, sub = null, tyN = null, tyS = null;
     if (p.name || p.sub) {
       const cap = h("div", { class: "pt-cap", style: { width: `${p.w}px` } });
-      // 名字字号跟着卡片宽度走，窄卡片放长名字也不折行
+      // Cỡ chữ của tên theo chiều rộng thẻ, thẻ hẹp đặt tên dài cũng không xuống dòng
       const nameSize = p.nameSize ?? Math.min(40, Math.floor((p.w - 16) / Math.max(4, Array.from(p.name ?? "").length)));
       if (p.name) { name = h("div", { class: "pt-name", style: { fontSize: `${nameSize}px` } }); cap.append(name); tyN = mountTyping(name, p.name, { cps: 9, seed: 11 }); }
       if (p.sub) { sub = h("div", { class: "pt-sub" }); cap.append(sub); tyS = mountTyping(sub, p.sub, { cps: 15, seed: 17 }); }

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""讲解课逐帧录制：python3 cine/tools/record.py <课号> [--from 秒] [--to 秒] [--port 8964] [--crf 18]
-从冷开场之后（film.COLD）渲到旁白结束；film.blur 里的时间段做子帧运动模糊。输出 lessons/<课号>/build/picture.mp4"""
+"""Quay từng khung hình bài giảng: python3 cine/tools/record.py <số bài> [--from giây] [--to giây] [--port 8964] [--crf 18]
+Render từ sau đoạn mở đầu lạnh (film.COLD) đến khi lời dẫn kết thúc; các khoảng thời gian trong film.blur được làm mờ chuyển động ở mức dưới khung hình. Đầu ra: lessons/<số bài>/build/picture.mp4"""
 import io
 import subprocess
 import sys
@@ -55,11 +55,11 @@ def main():
             enc.stdin.write(frame.tobytes())
             if (i - n0) % 600 == 0:
                 el, done = time.time() - st, i - n0 + 1
-                print(f"  {t:7.2f}s  {done}/{n1 - n0}  {el:5.0f}s  ≈剩 {el / done * (n1 - n0 - done):5.0f}s", flush=True)
+                print(f"  {t:7.2f}s  {done}/{n1 - n0}  {el:5.0f}s  ≈còn {el / done * (n1 - n0 - done):5.0f}s", flush=True)
         b.close()
     enc.stdin.close(); enc.wait()
     if errs:
-        print("页面报错：", errs[:5])
+        print("Trang báo lỗi:", errs[:5])
     print(f"→ {out}  ({time.time() - st:.0f}s)")
 
 

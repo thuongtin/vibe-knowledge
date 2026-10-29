@@ -1,6 +1,6 @@
 /**
- * 文字类原语：Typer 打字文字（可套气泡或卡片）· IconRow 图标排。
- * 时间参数都是本地秒；render 是纯函数。
+ * Nguyên thuỷ dạng chữ: Typer chữ gõ (có thể bọc bóng thoại hoặc thẻ) · IconRow hàng icon.
+ * Các tham số thời gian đều là giây cục bộ; render là hàm thuần.
  */
 import { h, s, setStyle } from "../runtime/dom.js";
 import { appear, hz, UI } from "../runtime/spring.js";
@@ -30,17 +30,17 @@ const ANCHOR = { tl: "", center: "translate(-50%,-50%)", left: "translate(0,-50%
 const BOX = { w: hz(2.8), z: 0.62 };
 
 /**
- * Typer 打字文字
+ * Typer chữ gõ
  * params
- *   lines [{text, at, cps=11, size=64, weight=700, color="var(--ink)", lh=1.3, mt=0, hl}]   *词* 为高亮
- *   w         文字区宽度（px）；不给就按内容宽
- *   anchor    tl（默认）| center | left | tc | right
- *   box       null | "bubble" | "card"，boxAt 为它弹出的时刻（默认第一行前 0.3 秒）
- *   tail      气泡尾巴：left | right | bottom（默认 left）
- *   src {text, at}   气泡底部的出处小字
- *   caret     是否显示光标（默认 true）
- *   align     文字对齐：left（默认）| center
- *   out       退场时刻
+ *   lines [{text, at, cps=11, size=64, weight=700, color="var(--ink)", lh=1.3, mt=0, hl}]   *từ* là nổi bật
+ *   w         chiều rộng vùng chữ (px); không cho thì theo chiều rộng nội dung
+ *   anchor    tl (mặc định) | center | left | tc | right
+ *   box       null | "bubble" | "card", boxAt là thời điểm nó bật ra (mặc định 0.3 giây trước dòng đầu)
+ *   tail      đuôi bóng thoại: left | right | bottom (mặc định left)
+ *   src {text, at}   chữ nhỏ ghi nguồn ở đáy bóng thoại
+ *   caret     có hiện con trỏ hay không (mặc định true)
+ *   align     căn chữ: left (mặc định) | center
+ *   out       thời điểm rút ra
  */
 export const Typer = {
   name: "typer",
@@ -107,10 +107,10 @@ export const Typer = {
           setStyle(src, "opacity", clamp01(a).toFixed(3));
           setStyle(src, "transform", `translateY(${((1 - a) * 10).toFixed(2)}px)`);
         }
-        // 光标跟着正在打的那一行；打完后闪烁，下一行开始或退场时消失
+        // Con trỏ đi theo dòng đang gõ; gõ xong thì nhấp nháy, biến mất khi dòng sau bắt đầu hoặc khi rút ra
         const showCaret = p.caret !== false && active && active.caret !== false;
         if (showCaret) {
-          // 没打出的字是 display:none，光标放在行尾就正好跟在最后一个字后面
+          // Chữ chưa gõ ra là display:none, con trỏ đặt ở cuối dòng thì vừa vặn nằm ngay sau chữ cuối cùng
           if (caret.parentNode !== active.div) active.div.append(caret);
           const done = active.at + active.ty.last + 0.12;
           const on = t < done || (t - done) % 1.0 < 0.55;
@@ -122,10 +122,10 @@ export const Typer = {
 };
 
 /**
- * IconRow 图标排：圆形图标依次弹出（线条自己画出来），下面打出标签；可插竖墙、箭头。整排以原点为中心。
+ * IconRow hàng icon: các icon tròn lần lượt bật ra (nét tự vẽ ra), phía dưới gõ ra nhãn; có thể chèn tường dọc, mũi tên. Cả hàng lấy gốc toạ độ làm tâm.
  * params
  *   items [{icon, label, sub, color:"m1".."m6", at} | {kind:"wall", at, h} | {kind:"arrow", at}]
- *   size 圆直径（默认 120）、gap 间距（默认 56）、out、title {text, at}
+ *   size đường kính hình tròn (mặc định 120), gap khoảng cách (mặc định 56), out, title {text, at}
  */
 export const IconRow = {
   name: "iconrow",

@@ -1,5 +1,5 @@
-// 讲解课引擎：一节课 = 一个 seek(t)。旁白时间轴来自 lessons/<id>/build/timings.json，镜头表来自 lessons/<id>/film.js。
-// 片头冷开场直接用样片片段（成片时拼接），这里从 film.COLD 秒开始渲染。
+// Engine bài giảng: một bài học = một seek(t). Trục thời gian lời dẫn lấy từ lessons/<id>/build/timings.json, bảng cảnh quay lấy từ lessons/<id>/film.js.
+// Đoạn mở đầu lạnh dùng thẳng đoạn phim mẫu (ghép khi ra thành phẩm), ở đây bắt đầu render từ giây film.COLD.
 import * as THREE from "three";
 import { Post } from "./post.js";
 import { clamp, el, css } from "./util.js";
@@ -24,7 +24,7 @@ function hitcam(t) {
   return `translate(${x.toFixed(2)}px,${y.toFixed(2)}px) scale(${s.toFixed(4)})`;
 }
 
-// 片头冷开场两种：COLD_SRC（成片时拼现成片段，从 COLD 秒开始渲）或本课自己渲（从 0 秒开始）
+// Đoạn mở đầu lạnh có hai kiểu: COLD_SRC (khi ra thành phẩm ghép đoạn phim có sẵn, render từ giây COLD) hoặc bài này tự render (từ giây 0)
 const start = () => (film.COLD_SRC ? film.COLD : 0);
 
 function seek(t) {
@@ -34,7 +34,7 @@ function seek(t) {
   const sh = shots.find((x) => t >= x.from && t < x.to) || shots[shots.length - 1];
   css(sh.ui.s, { display: "block" });
   sh.render(t, sh.ui, sh);
-  // 字幕
+  // Phụ đề
   const s = ctx.narr.sub(t);
   const hide = sh.noSub || !s;
   if (!hide && subNode.textContent !== s.text) subNode.textContent = s.text;
@@ -57,15 +57,15 @@ async function boot() {
   ctx.r = r;
   ctx.post = new Post(r, W, H);
   ctx.snap = (draw) => { ctx.post.reset(); draw(); ctx.post.finish(0); return r.domElement.toDataURL("image/jpeg", 0.92); };
-  // 字幕层（在所有镜头之上）
+  // Lớp phụ đề (nằm trên mọi cảnh quay)
   subWrap = el($("ui"), "abs", "left:0;top:940px;width:1920px;height:90px;display:flex;justify-content:center;align-items:center;z-index:50;pointer-events:none;");
   subNode = el(subWrap, "cn", "max-width:1500px;padding:10px 28px;border-radius:14px;background:rgba(6,6,9,0.55);font-size:40px;line-height:54px;font-weight:600;color:#f6f2ea;text-align:center;letter-spacing:1px;text-shadow:0 2px 12px rgba(0,0,0,0.6);");
   const list = await film.build(ctx);
   shots = list.map((s) => ({ ...s, ui: s.build($("ui")) }));
-  // 字幕层要在最上面
+  // Lớp phụ đề phải nằm trên cùng
   $("ui").appendChild(subWrap);
   fit();
-  if (film.TAIL) ctx.narr.total += film.TAIL;   // 旁白结束后再停 TAIL 秒（片尾地址卡、Logo 定格），build 里的 N.total 仍是旁白结束
+  if (film.TAIL) ctx.narr.total += film.TAIL;   // Sau khi lời dẫn kết thúc còn dừng thêm TAIL giây (thẻ địa chỉ cuối phim, logo đứng hình), N.total trong build vẫn là lúc lời dẫn kết thúc
   window.__film = { duration: ctx.narr.total, from: start(), cold: film.COLD, coldSrc: film.COLD_SRC || null, fps: 60, seek, blur: film.blur || [], ready: true, meta: film.meta || {}, at: (s) => ctx.narr.t(s), sfx: film.sfx || [], sections: film.sections || [], subs: ctx.narr.subs, clips: film.clips || [], music: film.music || [] };
   if (q.has("play")) play(parseFloat(q.get("play") || String(start())));
   else seek(parseFloat(q.get("t") || String(start())));

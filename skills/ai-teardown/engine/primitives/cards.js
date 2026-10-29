@@ -1,6 +1,6 @@
 /**
- * 卡片类原语：Title 标题 · Compare 对比与误区 · Analogy 类比 · CodeDiff 代码改动 · Layers 层级 · EndCard 片尾。
- * 都以场景原点为中心排版；时间参数都是本地秒；render 是纯函数。
+ * Nguyên ngữ dạng thẻ: Title tiêu đề · Compare so sánh và hiểu lầm · Analogy ví von · CodeDiff thay đổi mã · Layers tầng lớp · EndCard cuối phim.
+ * Đều dàn trang lấy gốc cảnh làm tâm; tham số thời gian đều là giây cục bộ; render là hàm thuần.
  */
 import { h, s, setStyle, setText, icon } from "../runtime/dom.js";
 import { appear, pulse, step, REVEAL, UI } from "../runtime/spring.js";
@@ -54,7 +54,7 @@ const place = (el, x, y, anchor = "center") => {
   return anchor === "center" ? "translate(-50%,-50%)" : anchor === "left" ? "translate(0,-50%)" : "translate(0,0)";
 };
 
-/** 进出窗口 + 轻微位移，给整张卡用 */
+/** Cửa sổ vào ra + dịch chuyển nhẹ, dùng cho cả tấm thẻ */
 const cardIn = (el, t, tin, tout, base) => applySwap(el, swap(t, tin, tout, 0.28, 0.2), `${base} translateY(${((1 - appear(t, tin)) * 18).toFixed(2)}px)`);
 
 export const Title = {
@@ -87,7 +87,7 @@ export const Compare = {
     const base = place(card, 0, 0);
     const parts = [];
     if (p.mode === "myth") {
-      const eb = h("div", { class: "cd-eyebrow", text: p.label ?? "常见误解" });
+      const eb = h("div", { class: "cd-eyebrow", text: p.label ?? "Hiểu lầm thường gặp" });
       const myth = h("div", { class: "cd-myth", text: p.myth });
       const strike = h("div", { class: "cd-strike" });
       myth.append(strike);
@@ -124,12 +124,12 @@ export const Compare = {
       } });
     }
     return {
-      beats: [p.strikeAt, p.truthAt, p.leftAt, p.rightAt].filter((x) => x != null).map((t, i) => ({ t, id: `cmp:${i}`, label: "对比" })),
+      beats: [p.strikeAt, p.truthAt, p.leftAt, p.rightAt].filter((x) => x != null).map((t, i) => ({ t, id: `cmp:${i}`, label: "So sánh" })),
       render(t) {
         cardIn(card, t, p.at ?? 0, p.out ?? Infinity, base);
         for (const q of parts) q.render(t);
       },
-      hotspots() { return p.facts?.length ? [{ el: card, facts: p.facts, label: p.label ?? "对比" }] : []; },
+      hotspots() { return p.facts?.length ? [{ el: card, facts: p.facts, label: p.label ?? "So sánh" }] : []; },
     };
   },
 };
@@ -144,7 +144,7 @@ export const Analogy = {
     Object.assign(card.style, { width: `${W}px`, height: `${H}px` });
     root.append(card);
     const base = place(card, 0, 0);
-    card.append(h("div", { class: "cd-eyebrow", text: p.title ?? "打个比方", style: { position: "absolute", left: "80px", top: "54px" } }));
+    card.append(h("div", { class: "cd-eyebrow", text: p.title ?? "Ví dụ so sánh", style: { position: "absolute", left: "80px", top: "54px" } }));
     const rows = p.rows.map((r, i) => {
       const row = h("div", { class: "cd-row" });
       row.style.left = "80px";
@@ -166,7 +166,7 @@ export const Analogy = {
           setStyle(to, "opacity", appear(t, r.at + 0.45).toFixed(3));
         }
       },
-      hotspots() { return p.facts?.length ? [{ el: card, facts: p.facts, label: p.title ?? "打个比方" }] : []; },
+      hotspots() { return p.facts?.length ? [{ el: card, facts: p.facts, label: p.title ?? "Ví dụ so sánh" }] : []; },
     };
   },
 };
@@ -230,14 +230,14 @@ export const Layers = {
     const card = h("div", { class: "cd-card" });
     Object.assign(card.style, { width: `${W + (n - 1) * step0 + 160}px`, height: `${total + 190}px` });
     root.append(card);
-    card.append(h("div", { class: "cd-eyebrow", text: p.title ?? "逐层拼接", style: { position: "absolute", left: "80px", top: "52px" } }));
+    card.append(h("div", { class: "cd-eyebrow", text: p.title ?? "Ghép từng lớp", style: { position: "absolute", left: "80px", top: "52px" } }));
     const els = p.layers.map((ly, i) => {
       const e = h("div", { class: "cd-layer" }, icon("doc", 34, "var(--env)", 1.9), h("span", { class: "l", text: ly.label }), h("span", { class: "p", text: ly.sub ?? "" }));
       Object.assign(e.style, { width: `${W}px`, height: `${H}px`, top: `${110 + i * (H + gap)}px`, left: `${80 + i * step0}px` });
       card.append(e);
       return e;
     });
-    const badge = h("div", { class: "cd-badge", text: p.badge ?? "越近越优先" });
+    const badge = h("div", { class: "cd-badge", text: p.badge ?? "Càng gần càng ưu tiên" });
     const last = n - 1;
     Object.assign(badge.style, { left: `${80 + last * step0 + W - 20}px`, top: `${110 + last * (H + gap) + H / 2}px`, transform: "translate(-100%,-50%)" });
     card.append(badge);
@@ -253,7 +253,7 @@ export const Layers = {
         });
         applySwap(badge, swap(t, p.litAt ?? Infinity, Infinity, 0.25, 0.1), "translate(-100%,-50%)");
       },
-      hotspots() { return p.facts?.length ? [{ el: card, facts: p.facts, label: p.title ?? "层级" }] : []; },
+      hotspots() { return p.facts?.length ? [{ el: card, facts: p.facts, label: p.title ?? "Tầng lớp" }] : []; },
     };
   },
 };
@@ -266,7 +266,7 @@ export const EndCard = {
     el.append(h("div", { class: "k", text: p.title }), h("div", { class: "a", text: p.sub ?? "" }));
     const ol = h("ol");
     for (const s0 of p.sources) ol.append(h("li", {}, h("b", { text: s0.publisher }), s0.title));
-    el.append(ol, h("div", { class: "brand", text: p.brand ?? "AI 拆机课" }));
+    el.append(ol, h("div", { class: "brand", text: p.brand ?? "Khoá giải phẫu AI" }));
     root.append(el);
     const base = place(el, 0, 0, "tl");
     return { render(t) { applySwap(el, swap(t, p.at ?? 0, Infinity, 0.3, 0.1), base); } };

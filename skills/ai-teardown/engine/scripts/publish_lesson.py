@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""把互动课件打包成可发布的自包含目录：字体按用到的字裁剪成 woff2 并内联，脚本与音频作为同目录文件。
+"""Đóng gói bài giảng tương tác thành thư mục tự chứa có thể xuất bản: phông chữ được cắt theo các chữ đã dùng thành woff2 rồi nhúng trực tiếp, script và âm thanh là các file cùng thư mục.
 
-用法：python3 scripts/publish_lesson.py <app.js> <audio.mp3> <out_dir> [--title 标题] [--subtitle 副标题] [--facts facts.js]
-                                       [--light] [--images 图片目录]
---light：浅色页面与播放器（马卡龙系列课用）。
---images：把 app.js 里用到的图片（按文件名匹配）拷到 <out_dir>/img/，舞台用 imgBase "img/" 加载。
-输出 <out_dir>/index.html（不含 html/head/body 外壳，适配 Artifact）、app.js、audio.<扩展名>（Artifact 只收 mp3/wav/ogg/mp4/webm）。
+Cách dùng: python3 scripts/publish_lesson.py <app.js> <audio.mp3> <out_dir> [--title tiêu-đề] [--subtitle phụ-đề] [--facts facts.js]
+                                       [--light] [--images thư-mục-ảnh]
+--light: trang và trình phát nền sáng (dùng cho loạt bài macaron).
+--images: sao chép các ảnh dùng trong app.js (khớp theo tên file) vào <out_dir>/img/, sân khấu tải bằng imgBase "img/".
+Đầu ra: <out_dir>/index.html (không có vỏ html/head/body, phù hợp với Artifact), app.js, audio.<phần-mở-rộng> (Artifact chỉ nhận mp3/wav/ogg/mp4/webm).
 """
 import base64
 import json
@@ -26,12 +26,12 @@ def arg(name, default):
 
 def main():
     app, audio, out = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3])
-    title = arg("--title", "Codex 互动课件样片")
-    subtitle = arg("--subtitle", "Spike 样片 · 与视频同一份源文件 · 暂停后可点图看出处")
+    title = arg("--title", "Bản mẫu bài giảng tương tác Codex")
+    subtitle = arg("--subtitle", "Bản mẫu Spike · cùng một file nguồn với video · sau khi tạm dừng có thể bấm vào hình để xem nguồn")
     facts_js = Path(arg("--facts", "")) if "--facts" in sys.argv else None
     out.mkdir(parents=True, exist_ok=True)
     js = app.read_text(encoding="utf-8")
-    # JS 里的中文可能是 \uXXXX 转义，先还原再收集用到的字
+    # Chữ Trung Quốc trong JS có thể là dạng thoát \uXXXX, khôi phục trước rồi mới thu thập các chữ đã dùng
     decoded = re.sub(r"\\u([0-9a-fA-F]{4})", lambda m: chr(int(m.group(1), 16)), js)
     extra = facts_js.read_text(encoding="utf-8") if facts_js else ""
     chars = set(decoded) | set(extra) | set(title + subtitle) | {chr(c) for c in range(0x20, 0x7F)} | set("‹›▶❚×·—…「」：，。？！")
@@ -41,7 +41,7 @@ def main():
         tf = Path(tmp) / "chars.txt"
         tf.write_text(text, encoding="utf-8")
         fonts = [(f, fn, "100 900") for f, fn in FONTS]
-        if "LXGW WenKai" in decoded:   # 手账风用霞鹜文楷（OFL），两档字重
+        if "LXGW WenKai" in decoded:   # Phong cách sổ tay dùng LXGW WenKai (OFL), hai mức độ đậm
             fonts += [("LXGW WenKai", "LXGWWenKai-Regular.ttf", "100 450"), ("LXGW WenKai", "LXGWWenKai-Medium.ttf", "451 900")]
         for family, fn, wr in fonts:
             dst = Path(tmp) / (Path(fn).stem + ".woff2")
@@ -59,9 +59,9 @@ def main():
         used = [f for f in img_dir.iterdir() if f.is_file() and f.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp", ".svg"} and f.name in decoded]
         for f in used:
             shutil.copy(f, out / "img" / f.name)
-        print(f"图片 {len(used)} 张 → {out / 'img'}")
+        print(f"Ảnh {len(used)} tấm → {out / 'img'}")
         start_opts = '{imgBase: "img/"}'
-    # 视频贴纸：按 cues.json 的 videos 登记表把片段拷到 <out>/video/（去音轨、压到 720p 省体积），舞台用 vidBase "video/" 加载
+    # Sticker video: sao chép các đoạn theo bảng đăng ký videos của cues.json vào <out>/video/ (bỏ track âm thanh, nén xuống 720p để tiết kiệm dung lượng), sân khấu tải bằng vidBase "video/"
     if "--videos" in sys.argv:
         vids = json.loads(Path(arg("--videos", "")).read_text(encoding="utf-8")).get("videos", [])
         vdir = Path(arg("--vdir", "."))
@@ -70,10 +70,10 @@ def main():
             for f in sorted({v["file"] for v in vids}):
                 subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(vdir / f), "-an", "-vf", "scale=1280:-2", "-c:v", "libx264", "-preset", "slow", "-crf", "26",
                                 "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(out / "video" / f)], check=True)
-                jpg = vdir / (Path(f).stem + ".jpg")  # 封面（fx_render 生成的同名 jpg），暂停在开始前时显示
+                jpg = vdir / (Path(f).stem + ".jpg")  # Ảnh bìa (jpg cùng tên do fx_render tạo), hiển thị khi tạm dừng trước lúc bắt đầu
                 if jpg.exists():
                     shutil.copy(jpg, out / "video" / jpg.name)
-            print(f"视频贴纸 {len({v['file'] for v in vids})} 段 → {out / 'video'}")
+            print(f"Sticker video {len({v['file'] for v in vids})} đoạn → {out / 'video'}")
             start_opts = start_opts[:-1] + ', vidBase: "video/"}' if start_opts != "{}" else '{vidBase: "video/"}'
     bg, ink, ink2 = ("#FFF8F2", "#2F2A45", "#7A7390") if light else ("#070B18", "#EAF0FF", "#8A96BA")
     audio_name = f"audio{audio.suffix}"
@@ -114,7 +114,7 @@ header p{{margin:0;color:{ink2};font-size:13px}}
 """
     (out / "index.html").write_text(html, encoding="utf-8")
     size = sum(p.stat().st_size for p in out.iterdir())
-    print(f"→ {out}（共 {size / 1024 / 1024:.1f} MB）")
+    print(f"→ {out} (tổng {size / 1024 / 1024:.1f} MB)")
 
 
 if __name__ == "__main__":

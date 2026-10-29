@@ -1,10 +1,10 @@
-// 讲解课的 DOM 组件：大字、代码卡、提示词条、引用卡、出处小字、暂停卡、回顾导图。
-// 每个组件只负责「长什么样」；动画由镜头函数按时间 t 算（appear / slam / type …），没有任何内部状态。
+// Các thành phần DOM của bài giảng: chữ lớn, thẻ code, thanh prompt, thẻ trích dẫn, chữ nhỏ nguồn, thẻ tạm dừng, sơ đồ ôn tập.
+// Mỗi thành phần chỉ lo "trông như thế nào"; hoạt ảnh do hàm ống kính tính theo thời gian t (appear / slam / type …), không có bất kỳ trạng thái nội bộ nào.
 import { el, css, clamp, lerp, eOutCubic, eOutQuint, spring } from "./util.js";
 
 export const C = { orange: "#ff7a3d", teal: "#3fe0d0", ivory: "#f6f2ea", dim: "#bdb6aa", mute: "#77737d", red: "#ff5a5a" };
 
-// ── 通用动画 ──
+// ── Hoạt ảnh dùng chung ──
 export function appear(node, t, at, o = {}) {
   const { dy = 26, dur = 0.28, out = null, outDur = 0.22, scale = 0, blur = 0 } = o;
   const k = eOutCubic(clamp((t - at) / dur));
@@ -26,7 +26,7 @@ export function slam(node, t, at, o = {}) {
     transform: `scale(${k > 0 ? lerp(from, 1, spring(k, 3, 0.55)) : from})`, filter: `blur(${Math.max(0, 16 * (1 - k / 0.1)) + ko * 10}px)` });
   return a;
 }
-export function wipeUp(node, t, at, dur = 0.32) {   // 包在 overflow:hidden 里的一行字从下面推上来
+export function wipeUp(node, t, at, dur = 0.32) {   // một dòng chữ bọc trong overflow:hidden được đẩy lên từ phía dưới
   css(node, { transform: `translateY(${(1 - eOutQuint(clamp((t - at) / dur))) * 110}%)` });
 }
 export function typeText(node, text, t, t0, t1) {
@@ -36,7 +36,7 @@ export function typeText(node, text, t, t0, t1) {
   return n;
 }
 
-// ── 组件 ──
+// ── Các thành phần ──
 export function bigText(parent, html, style = "") {
   return el(parent, "abs cn", `font-size:84px;line-height:1.18;font-weight:900;color:${C.ivory};white-space:nowrap;${style}`, html);
 }
@@ -45,7 +45,7 @@ export function kicker(parent, html, style = "") {
   return el(parent, "abs mono", `font-size:22px;letter-spacing:4px;color:${C.orange};white-space:nowrap;${style}`, html);
 }
 
-// 代码卡：lines 是 HTML 字符串数组（可用 <k> <t> <n> <c> 标记关键字、变量、数字、注释）
+// Thẻ code: lines là mảng chuỗi HTML (có thể dùng thẻ <k> <t> <n> <c> đánh dấu từ khoá, biến, số, chú thích)
 export function codeCard(parent, { x, y, w, h, file = "film.js", lines, size = 25, lh = 38 }) {
   const card = el(parent, "abs", `left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-radius:22px;background:rgba(13,13,18,0.84);border:1px solid rgba(255,255,255,0.09);box-shadow:0 40px 100px rgba(0,0,0,0.55);overflow:hidden;`);
   el(card, "abs", "left:26px;top:22px;width:12px;height:12px;border-radius:6px;background:#ff5f57;box-shadow:20px 0 0 #febc2e,40px 0 0 #28c840;");
@@ -62,8 +62,8 @@ export function codeCard(parent, { x, y, w, h, file = "film.js", lines, size = 2
   return { card, rows, hl(i, on, col = "rgba(255,122,61,0.16)") { css(rows[i], { background: on ? col : "transparent", boxShadow: on ? `inset 4px 0 0 ${C.orange}` : "none" }); } };
 }
 
-// 提示词条：标签 + 打字
-export function promptChip(parent, text, { y = 968, label = "提示词", x = null, w = null } = {}) {
+// Thanh prompt: nhãn + gõ chữ
+export function promptChip(parent, text, { y = 968, label = "Prompt", x = null, w = null } = {}) {
   const pos = x == null ? `left:50%;transform:translateX(-50%);` : `left:${x}px;`;
   const box = el(parent, "abs", `${pos}top:${y}px;min-height:62px;border-radius:31px;background:rgba(16,15,20,0.9);border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;gap:14px;padding:12px 28px 12px 18px;${w ? `width:${w}px;white-space:normal;` : "white-space:nowrap;"}box-shadow:0 20px 50px rgba(0,0,0,0.45);`);
   el(box, "mono", `flex:none;font-size:17px;color:#111;background:${C.orange};border-radius:14px;padding:3px 10px;font-weight:700;`, label);
@@ -73,7 +73,7 @@ export function promptChip(parent, text, { y = 968, label = "提示词", x = nul
     update(t, t0, t1) { const n = typeText(tx, text, t, t0, t1); css(caret, { opacity: n < text.length || Math.floor(t * 2.2) % 2 ? "1" : "0" }); } };
 }
 
-// 引用卡（社区作者原句）：英文原文 + 中文意思 + 出处
+// Thẻ trích dẫn (câu gốc của tác giả cộng đồng): nguyên văn tiếng Anh + nghĩa tiếng Trung + nguồn
 export function quoteCard(parent, { x, y, w, who, text, zh, src }) {
   const c = el(parent, "abs", `left:${x}px;top:${y}px;width:${w}px;border-radius:20px;background:rgba(18,17,24,0.9);border:1px solid rgba(255,255,255,0.1);padding:26px 30px;box-shadow:0 30px 80px rgba(0,0,0,0.5);`);
   el(c, "mono", `font-size:20px;color:${C.orange};margin-bottom:12px;`, who);
@@ -83,21 +83,21 @@ export function quoteCard(parent, { x, y, w, who, text, zh, src }) {
   return c;
 }
 
-// 左下角出处小字
+// Chữ nhỏ nguồn ở góc dưới trái
 export function sourceTag(parent, text) {
   return el(parent, "abs mono", "left:110px;top:1012px;font-size:18px;color:#7c7884;white-space:nowrap;", text);
 }
 
-// 暂停想一想
+// Tạm dừng suy nghĩ
 export function pauseCard(parent, q) {
   const c = el(parent, "abs", "left:0;top:0;width:1920px;height:1080px;");
-  const tag = el(c, "abs cn", `left:0;width:1920px;top:300px;text-align:center;font-size:34px;font-weight:700;letter-spacing:10px;color:${C.teal};`, "暂停想一想");
+  const tag = el(c, "abs cn", `left:0;width:1920px;top:300px;text-align:center;font-size:34px;font-weight:700;letter-spacing:10px;color:${C.teal};`, "Tạm dừng suy nghĩ");
   const qq = el(c, "abs cn", "left:260px;width:1400px;top:380px;text-align:center;font-size:64px;line-height:92px;font-weight:900;color:#f6f2ea;", q);
-  const hint = el(c, "abs mono", "left:0;width:1920px;top:640px;text-align:center;font-size:22px;color:#77737d;", "⏸ 按空格暂停，想好再继续");
+  const hint = el(c, "abs mono", "left:0;width:1920px;top:640px;text-align:center;font-size:22px;color:#77737d;", "⏸ Nhấn phím cách để tạm dừng, nghĩ kỹ rồi tiếp tục");
   return { c, tag, qq, hint };
 }
 
-// 回顾导图：中心 + 三个分支（SVG 连线随时间画出来）
+// Sơ đồ ôn tập: trung tâm + ba nhánh (đường nối SVG được vẽ ra theo thời gian)
 export function recapMap(parent, center, branches) {
   const c = el(parent, "abs", "left:0;top:0;width:1920px;height:1080px;");
   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -126,7 +126,7 @@ export function recapMap(parent, center, branches) {
     } };
 }
 
-// 案例片段框：预览和接触表里显示封面图，出片时 finish.py 用 ffmpeg 把真实片段逐帧叠到同一位置（框上不要压任何字）
+// Khung đoạn minh hoạ: bản xem trước và contact sheet hiển thị ảnh bìa, khi xuất phim finish.py dùng ffmpeg chồng đoạn thật từng khung hình lên cùng vị trí (trên khung đừng đè bất kỳ chữ nào)
 export function clipBox(parent, { x, y, w, h, poster, label = "", sub = "" }) {
   const c = el(parent, "abs", `left:${x - 4}px;top:${y - 4}px;width:${w + 8}px;height:${h + 8}px;border-radius:10px;background:#000;box-shadow:0 0 0 2px rgba(255,255,255,0.16),0 40px 100px rgba(0,0,0,0.6);`);
   el(c, "abs", `left:4px;top:4px;width:${w}px;height:${h}px;background:#000 url(${poster}) center/cover no-repeat;`);

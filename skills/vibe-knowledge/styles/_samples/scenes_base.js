@@ -1,11 +1,11 @@
-// 基础档场景：Opus 手写的分层矢量插画（扁平古风剪影），给 know.js 的 layers() 用。0 积分。
-// 每个场景返回 [{ svg, depth }]：depth 小 = 远景（动得少），大 = 近景（动得多）。
+// Cảnh bản cơ bản: minh họa vector phân lớp do Opus viết tay (bóng đen phẳng phong cách cổ), dùng cho layers() của know.js. 0 điểm.
+// Mỗi cảnh trả về [{ svg, depth }]: depth nhỏ = hậu cảnh (ít chuyển động), lớn = cận cảnh (chuyển động nhiều).
 const V = (inner, defs = "") => `<svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg"><defs>${defs}</defs>${inner}</svg>`;
 let _id = 0;
 const uid = (p) => `${p}${++_id}`;
 function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6d2b79f5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
 
-// 天空：上下渐变 + 太阳 / 月亮光晕
+// Bầu trời: gradient trên dưới + quầng sáng mặt trời / mặt trăng
 function sky(top, bottom, { sun = null, sunColor = "#ffd9a0", glow = 0.55, moon = false } = {}) {
   const g = uid("sky"), r = uid("glow");
   const defs = `<linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bottom}"/></linearGradient>
@@ -14,17 +14,17 @@ function sky(top, bottom, { sun = null, sunColor = "#ffd9a0", glow = 0.55, moon 
   if (sun) inner += `<circle cx="${sun[0]}" cy="${sun[1]}" r="420" fill="url(#${r})"/><circle cx="${sun[0]}" cy="${sun[1]}" r="${moon ? 46 : 60}" fill="${sunColor}" opacity="${moon ? 0.95 : 0.9}"/>`;
   return V(inner, defs);
 }
-// 两层歇山顶
+// Mái hồi hai tầng
 const roof = (cx, y, w, h, c) => `<path d="M${cx - w / 2} ${y + h} Q${cx - w / 2 + w * 0.08} ${y + h * 0.55} ${cx - w * 0.3} ${y + h * 0.4} L${cx + w * 0.3} ${y + h * 0.4} Q${cx + w / 2 - w * 0.08} ${y + h * 0.55} ${cx + w / 2} ${y + h} Z M${cx - w * 0.22} ${y + h * 0.4} L${cx - w * 0.12} ${y} L${cx + w * 0.12} ${y} L${cx + w * 0.22} ${y + h * 0.4} Z" fill="${c}"/>`;
-// 楼阁：底座 + 楼身 + 两层屋顶
+// Lầu các: bệ đế + thân lầu + mái hai tầng
 const tower = (cx, base, w, h, c, c2) => `<rect x="${cx - w * 0.36}" y="${base - h * 0.55}" width="${w * 0.72}" height="${h * 0.55}" fill="${c2}"/>${roof(cx, base - h * 0.78, w * 0.95, h * 0.26, c)}<rect x="${cx - w * 0.28}" y="${base - h * 0.62}" width="${w * 0.56}" height="${h * 0.08}" fill="${c2}"/>${roof(cx, base - h, w * 0.7, h * 0.24, c)}`;
-// 远处屋脊天际线
+// Đường chân trời nóc nhà phía xa
 function skyline(y, c, seed, op = 1) {
   const R = rng(seed); let s = "";
   for (let x = -40; x < 1960;) { const w = 90 + R() * 160, h = 30 + R() * 70; s += roof(x + w / 2, y - h, w, h, c) + `<rect x="${x + w * 0.1}" y="${y - h * 0.15}" width="${w * 0.8}" height="${h * 0.6}" fill="${c}"/>`; x += w * (0.75 + R() * 0.3); }
   return `<g opacity="${op}">${s}<rect x="0" y="${y + 20}" width="1920" height="${1080 - y}" fill="${c}"/></g>`;
 }
-// 人（背影剪影）：站、低头、跪、披斗篷
+// Người (bóng lưng): đứng, cúi đầu, quỳ, khoác áo choàng
 function person(x, y, s, c, pose = "stand") {
   const h = 120 * s, hw = 26 * s;
   if (pose === "kneel") return `<g fill="${c}"><circle cx="${x}" cy="${y - h * 0.62}" r="${hw * 0.55}"/><path d="M${x - hw * 1.3} ${y} Q${x - hw * 1.2} ${y - h * 0.45} ${x - hw * 0.5} ${y - h * 0.52} L${x + hw * 0.5} ${y - h * 0.52} Q${x + hw * 1.2} ${y - h * 0.45} ${x + hw * 1.4} ${y} Z"/></g>`;
@@ -32,7 +32,7 @@ function person(x, y, s, c, pose = "stand") {
   const lean = pose === "hunch" ? hw * 0.5 : 0, hy = pose === "hunch" ? h * 0.82 : h * 0.9;
   return `<g fill="${c}"><circle cx="${x + lean}" cy="${y - hy}" r="${hw * 0.5}"/><circle cx="${x + lean}" cy="${y - hy - hw * 0.55}" r="${hw * 0.2}"/><path d="M${x - hw * 0.55 + lean * 0.6} ${y - h * 0.78} L${x + hw * 0.55 + lean * 0.6} ${y - h * 0.78} L${x + hw * 1.05} ${y} L${x - hw * 1.05} ${y} Z"/></g>`;
 }
-// 人群：按纵深从远到近，越近越大越暗
+// Đám đông: theo chiều sâu từ xa đến gần, càng gần càng lớn càng tối
 function crowd({ n, x0, x1, y0, y1, seed, c, avoid = null, pose = "stand" }) {
   const R = rng(seed), ps = [];
   for (let i = 0; i < n; i++) { const y = y0 + (y1 - y0) * Math.pow(R(), 0.7), x = x0 + (x1 - x0) * R(); if (avoid && Math.abs(x - avoid[0]) < avoid[1] && y < avoid[2]) continue; ps.push([x, y]); }
@@ -42,7 +42,7 @@ function crowd({ n, x0, x1, y0, y1, seed, c, avoid = null, pose = "stand" }) {
 const ground = (y, a, b) => { const g = uid("gr"); return [`<linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`, `<rect x="0" y="${y}" width="1920" height="${1080 - y}" fill="url(#${g})"/>`]; };
 const haze = (y, c, op) => { const g = uid("hz"); return [`<linearGradient id="${g}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}" stop-opacity="0"/><stop offset="0.5" stop-color="${c}" stop-opacity="${op}"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></linearGradient>`, `<rect x="0" y="${y - 160}" width="1920" height="320" fill="url(#${g})"/>`]; };
 
-// 城门：夯土城墙 + 门洞透光 + 城楼
+// Cổng thành: tường thành đất nện + cửa vòm lọt sáng + lầu thành
 function gateLayer({ dark = false } = {}) {
   const W = dark ? "#3a2a24" : "#5b3626", W2 = dark ? "#2c201c" : "#4a2b1f", R = dark ? "#231814" : "#2f1a12", L = dark ? "#8c7a66" : "#f0c27e";
   const lg = uid("door");

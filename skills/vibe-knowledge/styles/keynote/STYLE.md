@@ -1,26 +1,26 @@
-# 发布会极简 · KEYNOTE
+# Tối giản phát hành · KEYNOTE
 
-> 家族：暗场概念　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles6_film.js → keynote()`
+> Họ: Nền tối khái niệm | Bậc: cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles6_film.js → keynote()`
 
-**一句话**：纯黑底、一屏一件事、超大白字，数字在说出来的那一刻落定，五十金带渐变和光晕。
+**Một câu**: Nền đen thuần, mỗi màn hình một việc, chữ trắng siêu lớn, con số chốt lại đúng lúc được nói ra, "năm mươi vàng" kèm gradient và quầng sáng.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | Apple 发布会语法：一屏一件事，大字留白，数字落定那一下就是高潮。 |
-| 材质 / 画法 | 纯黑底 + 中心蓝色微光；无图形，只有字和数字。 |
-| 配色逻辑 | 黑 #000 · 白 #F5F5F7 · 灰 #86868B · 高潮渐变 #FFE7A3 → #F2A54A → #E8603C |
-| 字体 | Geist / PingFang 700–800，数字 420px |
-| 动态 | 每屏 0.45 秒模糊上浮进场、0.15 秒退场；全程 4% 极慢推近；高潮数字带渐变、光晕变亮。 |
-| 镜头语法 | 锁定 + 极慢推近。 |
-| 声音 | 几乎无音效，干净的合成器 pad；数字落定时一声低频。 |
-| 标志镜头 | 黑屏中央「50 金」渐变大字落下，下方一行灰色「× 5」。 |
+| Ý đồ đạo diễn | Ngữ pháp họp báo Apple: mỗi màn hình một việc, chữ lớn chừa trắng, khoảnh khắc con số chốt lại chính là cao trào. |
+| Chất liệu / cách vẽ | Nền đen thuần + ánh xanh mờ ở giữa; không có hình, chỉ có chữ và số. |
+| Logic phối màu | Đen #000 · trắng #F5F5F7 · xám #86868B · gradient cao trào #FFE7A3 → #F2A54A → #E8603C |
+| Phông chữ | Geist / PingFang 700–800, số 420px |
+| Chuyển động | Mỗi màn hình vào cảnh bằng nổi lên mờ nhoè trong 0.45 giây, rút đi trong 0.15 giây; suốt phim zoom gần cực chậm 4%; số ở cao trào kèm gradient, quầng sáng sáng lên. |
+| Ngữ pháp ống kính | Cố định + zoom gần cực chậm. |
+| Âm thanh | Gần như không có hiệu ứng, pad synth sạch; khi số chốt lại có một tiếng tần số thấp. |
+| Cảnh đặc trưng | Giữa màn hình đen chữ lớn gradient "50 vàng" rơi xuống, bên dưới một dòng xám "× 5". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换渐变色、换字体
-- **一改就变味**：一屏两件事
-- **不能改**：加装饰图形
+## Có thể sửa đến mức nào (dùng khi chỉnh thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi màu gradient, đổi phông chữ
+- **Sửa là mất chất**: một màn hình hai việc
+- **Không được sửa**: thêm hình trang trí
 
-## 搭配
-- 适合母版：猜谜概念 A、痛点原理 C
-- 不适合：需要场景叙事的历史
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Phối hợp
+- Khuôn phù hợp: Khái niệm đoán đố A, Nỗi đau + nguyên lý C
+- Không phù hợp: lịch sử cần kể theo cảnh
+- Tiền tố Renoise bậc nâng cao: `(bậc cơ bản không cần)`

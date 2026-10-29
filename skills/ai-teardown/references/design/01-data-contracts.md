@@ -1,46 +1,46 @@
-# 01 · 数据契约
+# 01 · Hợp đồng dữ liệu
 
-一个课题一个目录（如 `examples/codex/`），五份 JSON 串起整条流水线。Schema 在 `schemas/`，校验用 `scripts/check.py`。
+Mỗi chủ đề một thư mục (như `examples/codex/`), năm file JSON nối thành cả dây chuyền. Schema nằm trong `schemas/`, kiểm tra bằng `scripts/check.py`.
 
 ```
 brief.json ──► research/sources.json ──► research/facts.json ──► lesson/concepts.json ──► lesson/lesson.json
-   立项            信源登记（含快照）          事实账本（原子事实）         总图 · 概念 · 目标            教案（唯一源文件）
-                                                                                                    │ 配音
+   lập dự án       đăng ký nguồn (có snapshot)   sổ sự thật (sự thật nguyên tử)   sơ đồ tổng · khái niệm · mục tiêu     giáo án (file nguồn duy nhất)
+                                                                                                    │ lồng tiếng
                                                                                                     ▼
-                                                                                        build/timings.json（自动生成）
+                                                                                        build/timings.json (tự động sinh)
 ```
 
-## 五份文件各管什么
+## Năm file, mỗi file lo việc gì
 
-| 文件 | 谁写 | 关键字段 | 下游谁用 |
+| File | Ai viết | Trường chính | Hạ nguồn ai dùng |
 |---|---|---|---|
-| `brief.json` | 第 1 步，与用户确认 | `subject.resolved`（消歧后的实体）、`subject.not`（排除的同名物）、`archetype`、`duration_s`、`depth_ceiling`、`voice`、`as_of` | 全部 |
-| `research/sources.json` | 第 2 步 | `tier`（U/T1/T2/T3）、`fetch_method`、`snapshot`、`sha256` | facts 的证据核对；片尾出处清单 |
-| `research/facts.json` | 第 3 步 | `claim`、`category`、`status`、`evidence[].quote`（必须在快照里逐字找得到）、`numbers`、`terms` | 讲稿、画面、课件「点图看出处」 |
-| `lesson/concepts.json` | 第 4 步 | `master_map`（总图节点与连线，带 `role` 与 `honesty`）、`concepts[].prereqs`、`misconceptions`、`objectives`（冷读题） | 教案排序、总图、冷读盲测 |
-| `lesson/lesson.json` | 第 5 步，CP1 确认 | `chapters[].focus_node`、`beats[].move`（四拍）、`narration`（带 `[[cue]]`）、`visual.primitive/params`、`facts` | 配音、编译成舞台、课件 |
+| `brief.json` | Bước 1, xác nhận với người dùng | `subject.resolved` (thực thể sau khi phân biệt), `subject.not` (những thứ trùng tên bị loại trừ), `archetype`, `duration_s`, `depth_ceiling`, `voice`, `as_of` | Tất cả |
+| `research/sources.json` | Bước 2 | `tier` (U/T1/T2/T3), `fetch_method`, `snapshot`, `sha256` | Đối chiếu bằng chứng của facts; danh sách nguồn ở màn kết |
+| `research/facts.json` | Bước 3 | `claim`, `category`, `status`, `evidence[].quote` (phải tìm thấy nguyên văn trong snapshot), `numbers`, `terms` | Lời thoại, hình ảnh, giáo cụ "bấm vào hình để xem nguồn" |
+| `lesson/concepts.json` | Bước 4 | `master_map` (node và đường nối của sơ đồ tổng, kèm `role` và `honesty`), `concepts[].prereqs`, `misconceptions`, `objectives` (câu hỏi đọc nguội) | Sắp xếp giáo án, sơ đồ tổng, kiểm tra mù đọc nguội |
+| `lesson/lesson.json` | Bước 5, CP1 xác nhận | `chapters[].focus_node`, `beats[].move` (bốn nhịp), `narration` (kèm `[[cue]]`), `visual.primitive/params`, `facts` | Lồng tiếng, biên dịch thành sân khấu, giáo cụ |
 
-## 约定
+## Quy ước
 
-- **编号永不复用**：来源 `S01…`、事实 `F001…`、概念 `C01…`、误区 `M01…`、目标 `Q01…`、章节 `CH01…`、beat `B001…`。事实被新版本替代时，新事实写 `supersedes`。
-- **cue 标记**：旁白里用 `[[名字]]` 标出画面动作对齐的位置，例如 `它先[[read]]读代码，再[[test]]跑测试`。每个标记在 `beats[].cues` 里声明它触发哪个原语钩子（`reveal:model`、`state:3`、`press`）。配音脚本把标记换算成绝对秒数写进 `timings.json`。
-- **四拍**：`move` 取 `ask`（问：为什么需要它）→ `show`（演）→ `name`（名：给术语）→ `place`（归：放回总图点亮），另有 `hook`、`compare`、`recap`、`quiz`、`transition`、`end`。
-- **一个 beat 至多引入一个新概念**（`concept` 字段只能填一个）。
-- **诚实编码**：引用了 `inferred` / `undisclosed` 事实的 beat，要么 `visual.honesty` 标成对应值，要么旁白里明说（「推断」「官方没有公开」）。
+- **Số hiệu không bao giờ dùng lại**: nguồn `S01…`, sự thật `F001…`, khái niệm `C01…`, hiểu lầm `M01…`, mục tiêu `Q01…`, chương `CH01…`, beat `B001…`. Khi sự thật bị phiên bản mới thay thế, sự thật mới ghi `supersedes`.
+- **Đánh dấu cue**: trong lời dẫn dùng `[[tên]]` để đánh dấu vị trí hành động hình ảnh cần khớp, ví dụ `Nó trước hết [[read]]đọc code, rồi [[test]]chạy test`. Mỗi dấu đánh dấu khai báo trong `beats[].cues` rằng nó kích hoạt hook primitive nào (`reveal:model`, `state:3`, `press`). Script lồng tiếng quy đổi dấu đánh dấu thành số giây tuyệt đối rồi ghi vào `timings.json`.
+- **Bốn nhịp**: `move` nhận `ask` (hỏi: vì sao cần nó) → `show` (diễn) → `name` (gọi tên: đưa thuật ngữ) → `place` (đặt lại: đặt trở lại sơ đồ tổng và làm sáng), ngoài ra còn `hook`, `compare`, `recap`, `quiz`, `transition`, `end`.
+- **Mỗi beat nhiều nhất đưa vào một khái niệm mới** (trường `concept` chỉ được điền một).
+- **Mã hóa trung thực**: beat trích dẫn sự thật `inferred` / `undisclosed` thì hoặc `visual.honesty` đánh dấu đúng giá trị tương ứng, hoặc nói rõ trong lời dẫn ("suy đoán", "chính thức không công bố").
 
-## check.py 查什么
+## check.py kiểm tra gì
 
-| 类别 | 检查 | 级别 |
+| Loại | Kiểm tra | Mức |
 |---|---|---|
-| Schema | 五份文件分别过 JSON Schema 2020-12 | ERROR |
-| 信源 | id 唯一；快照文件存在；sha256 对得上 | ERROR / WARN |
-| 事实 | 摘录能在快照里逐字找到（NFKC 归一、忽略空白）；`verified` 至少一个 T1 或两个 T2；讲机制（`how`）必须有 T1；`conflict/inferred/undisclosed` 必须写 notes；`number` 类必须填 numbers | ERROR |
-| 概念 | 先修存在且无环；总图节点、连线、parent 引用有效；学习目标引用的概念存在 | ERROR |
-| 教案 | 章节串起来的 beat 顺序与 beats 一致；每个 `[[cue]]` 都有声明，反之亦然；引入概念前先修已讲；`show/name/place/compare/recap` 必须挂事实；推断与未披露的事实按诚实编码处理；**旁白里的每个数字都能在所引事实里找到** | ERROR |
-| 节奏 | 讲稿字数 ÷ 目标语速 与 `duration_s` 偏差超过 15% | WARN |
-| 覆盖 | 深度上限内的概念没有 beat 引入 | WARN |
+| Schema | Năm file lần lượt qua JSON Schema 2020-12 | ERROR |
+| Nguồn | id duy nhất; file snapshot tồn tại; sha256 khớp | ERROR / WARN |
+| Sự thật | Trích đoạn tìm thấy nguyên văn trong snapshot (chuẩn hóa NFKC, bỏ qua khoảng trắng); `verified` cần ít nhất một T1 hoặc hai T2; giảng cơ chế (`how`) phải có T1; `conflict/inferred/undisclosed` phải ghi notes; loại `number` phải điền numbers | ERROR |
+| Khái niệm | Điều kiện tiên quyết tồn tại và không có chu trình; node, đường nối, tham chiếu parent của sơ đồ tổng hợp lệ; khái niệm mà mục tiêu học tập tham chiếu tồn tại | ERROR |
+| Giáo án | Thứ tự beat khi nối các chương khớp với beats; mỗi `[[cue]]` đều có khai báo và ngược lại; điều kiện tiên quyết đã giảng trước khi đưa khái niệm vào; `show/name/place/compare/recap` phải gắn sự thật; sự thật suy đoán và chưa công bố xử lý theo mã hóa trung thực; **mỗi con số trong lời dẫn đều tìm thấy được trong sự thật được trích** | ERROR |
+| Nhịp độ | Số chữ lời thoại ÷ tốc độ nói mục tiêu lệch quá 15% so với `duration_s` | WARN |
+| Phạm vi | Khái niệm trong giới hạn độ sâu mà không có beat nào đưa vào | WARN |
 
-## timings.json（配音后自动生成）
+## timings.json (tự động sinh sau khi lồng tiếng)
 
 ```json
 {
@@ -54,4 +54,4 @@ brief.json ──► research/sources.json ──► research/facts.json ──�
 }
 ```
 
-`words[].i0/i1` 是原文字符区间：字幕按它断行，读音词典替换了发音也能对回原文。
+`words[].i0/i1` là khoảng ký tự của văn bản gốc: phụ đề ngắt dòng theo nó, từ điển cách đọc có thay phát âm thì vẫn đối chiếu lại được với văn bản gốc.

@@ -1,14 +1,14 @@
-# Notice / 说明
+# Notice / Thông báo
 
-MIT 协议（LICENSE）只覆盖本仓库的代码和文档。以下素材另作说明：
+Giấy phép MIT (LICENSE) chỉ bao phủ mã và tài liệu của kho này. Các tư liệu sau được giải thích riêng:
 
-- **示例视频**（Release 里的 mp4）、`docs/` 里的封面、风格墙、动图，以及 `skills/vibe-knowledge/styles/*/still.jpg`：作者的作品，仅作演示。不要当成你自己的作品重新上传。片中标「AI 示意」的配图和动态镜头由 Renoise（Midjourney、Wan、Seedance 等模型）生成，人物均为 AI 生成，不是真人。
-- **默认 BGM**（`skills/vibe-knowledge/assets/music/vibe-bgm.m4a`）：作者已取得授权，随本仓库提供，可以在用本工具做的视频里使用。不要把它单独拿去分发或出售。
-- **默认配音音色**（`skills/vibe-knowledge/assets/voice/default-voice-ref.wav`，试听见 `docs/audio/`）：用小米 MiMo 音色设计生成的 AI 声音，不对应任何真人。
-- **克隆音色**：本工具支持用参照录音克隆音色。只能使用你本人或已获明确授权的声音。仓库不包含作者本人的声音样本和形象图。
-- **参考过的开源项目**：逐一列在 ACKNOWLEDGEMENTS.md，包括借鉴了什么、用在哪里、对方的许可证。
-- **事实与出处**：示例视频里的史料和数据都列在片中脚注；涉及有争议的说法时片中已两说并列。用于你自己的选题时，请自行核对出处。
+- **Video ví dụ** (mp4 trong Release), ảnh bìa, tường phong cách, ảnh động trong `docs/`, và `skills/vibe-knowledge/styles/*/still.jpg`: tác phẩm của tác giả, chỉ dùng để trình diễn. Đừng đăng lại như tác phẩm của chính bạn. Các ảnh minh họa và góc máy động được ghi "Minh họa AI" trong phim do Renoise (các mô hình như Midjourney, Wan, Seedance) tạo ra, nhân vật đều do AI tạo, không phải người thật.
+- **BGM mặc định** (`skills/vibe-knowledge/assets/music/vibe-bgm.m4a`): tác giả đã được cấp phép, đi kèm kho này, có thể dùng trong video làm bằng công cụ này. Đừng lấy riêng nó đi phân phối hay bán.
+- **Âm thanh demo** (`docs/audio/mix-demo-voice-plus-bgm.m4a`): lời dẫn trong đó là giọng AI do Xiaomi MiMo tạo trước khi công cụ chuyển sang Google Gemini TTS, không tương ứng với bất kỳ người thật nào.
+- **Giọng lồng tiếng**: công cụ này dùng các giọng có sẵn của Google Gemini TTS, không còn nhân bản giọng từ bản ghi tham chiếu. Kho không chứa mẫu giọng và ảnh hình tượng của chính tác giả.
+- **Các dự án mã nguồn mở đã tham khảo**: liệt kê từng cái trong ACKNOWLEDGEMENTS.md, gồm đã mượn gì, dùng ở đâu, giấy phép của bên đó.
+- **Sự kiện và nguồn**: sử liệu và dữ liệu trong video ví dụ đều được liệt kê ở chú thích trong phim; khi liên quan đến cách nói gây tranh cãi thì trong phim đã đặt hai cách nói song song. Khi dùng cho đề tài của chính bạn, hãy tự đối chiếu nguồn.
 
 ---
 
-The MIT license covers the code and docs only. Sample videos, posters, style previews and `still.jpg` files are the author's work, provided for demonstration — do not re-upload them as your own. AI-labelled imagery was generated with Renoise and depicts no real people. The default BGM is licensed by the author and bundled for use in videos made with this tool; do not redistribute or sell it on its own. The default narrator voice is an AI voice made with Xiaomi MiMo voice design and does not belong to any real person. Only clone voices you own or have explicit permission to use.
+The MIT license covers the code and docs only. Sample videos, posters, style previews and `still.jpg` files are the author's work, provided for demonstration — do not re-upload them as your own. AI-labelled imagery was generated with Renoise and depicts no real people. The default BGM is licensed by the author and bundled for use in videos made with this tool; do not redistribute or sell it on its own. The voice in the bundled demo mix (`docs/audio/mix-demo-voice-plus-bgm.m4a`) is an AI voice made with Xiaomi MiMo before this tool moved to Google Gemini TTS and does not belong to any real person; the default narrator is now a built-in Gemini voice (Sulafat). This tool no longer clones voices.

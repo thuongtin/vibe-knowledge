@@ -1,26 +1,26 @@
-# 蓝图专利图 · BLUEPRINT
+# Bản vẽ bằng sáng chế xanh · BLUEPRINT
 
-> 家族：图解与设计　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles3_film.js → blueprint()`
+> Họ: minh họa và thiết kế | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles3_film.js → blueprint()`
 
-**一句话**：普鲁士蓝方格纸上，先构造线、再物体线、最后尺寸线，标号、图框、红铅笔批注。
+**Một câu**: Trên giấy kẻ ô xanh Phổ, trước là đường dựng hình, rồi đường vật thể, cuối cùng là đường kích thước, kèm số hiệu, khung bản vẽ, chú thích bút chì đỏ.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 把一件事当一项发明来「出图」：精确、可拆解、有尺寸。 |
-| 材质 / 画法 | #123F74 底 + 40px 细网格 + 200px 粗网格 + 图框；白线 SVG；右下角图签表格（FIG / SOURCE / REWARD / TAKERS）。 |
-| 配色逻辑 | 底 #123F74 · 线 #EAF2FF · 构造线 50% 虚线 · 批注红铅笔 #FF6B5B |
-| 字体 | GeistMono（标号、图签）+ 楷体（红铅笔手写批注） |
-| 动态 | 构造线淡入 → 物体线按顺序画出（错开 0.16 秒）→ 尺寸线和标号 → 图签逐字打出；数字变化用红线划掉旧值再写新值。 |
-| 镜头语法 | 锁定或极慢推近局部。 |
-| 声音 | 铅笔划线、绘图仪嗒嗒；极简电子氛围。 |
-| 标志镜头 | 木杆旁的尺寸线「三丈 ≈ 6.9 m」+ 红铅笔圈住木杆写「无人应募」。 |
+| Ý đồ đạo diễn | Coi một việc như một phát minh để "ra bản vẽ": chính xác, có thể tháo rời, có kích thước. |
+| Chất liệu / Cách vẽ | Nền #123F74 + lưới mảnh 40px + lưới thô 200px + khung bản vẽ; SVG nét trắng; góc dưới phải có bảng ghi chú bản vẽ (FIG / SOURCE / REWARD / TAKERS). |
+| Logic phối màu | Nền #123F74 · đường #EAF2FF · đường dựng hình nét đứt 50% · chú thích bút chì đỏ #FF6B5B |
+| Phông chữ | GeistMono (số hiệu, bảng ghi chú) + chữ Khải (chú thích viết tay bằng bút chì đỏ) |
+| Chuyển động | Đường dựng hình hiện dần → đường vật thể vẽ theo thứ tự (lệch 0,16 giây) → đường kích thước và số hiệu → bảng ghi chú gõ từng chữ; khi số đổi thì gạch đỏ giá trị cũ rồi viết giá trị mới. |
+| Ngữ pháp máy quay | Cố định hoặc đẩy gần cực chậm vào chi tiết. |
+| Âm thanh | Tiếng bút chì kẻ đường, máy vẽ lách cách; ambient điện tử tối giản. |
+| Cảnh đặc trưng | Đường kích thước cạnh cây gỗ "ba trượng ≈ 6,9 m" + bút chì đỏ khoanh cây gỗ và viết "không ai ứng tuyển". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换图签字段、换批注颜色
-- **一改就变味**：线条有粗细渐变或阴影
-- **不能改**：去掉构造线 → 物体线 → 尺寸的出图顺序
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi trường trong bảng ghi chú, đổi màu chú thích
+- **Sửa là mất chất**: đường nét có chuyển độ dày hoặc đổ bóng
+- **Không được sửa**: bỏ thứ tự ra bản vẽ đường dựng hình → đường vật thể → kích thước
 
-## 搭配
-- 适合母版：一条主线 D（技术史）、概念 A
-- 不适合：情绪叙事、人物故事
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Bản gốc phù hợp: một mạch chính D (lịch sử kỹ thuật), khái niệm A
+- Không phù hợp: tự sự cảm xúc, truyện nhân vật
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

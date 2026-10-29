@@ -1,26 +1,26 @@
-# 田园像素 · COZY FARM
+# Nông trại pixel · COZY FARM
 
-> 家族：游戏　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles8_film.js → farm()`
+> Họ: game | Bậc: bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles8_film.js → farm()`
 
-**一句话**：春天的农场村庄像素画，木框 HUD 里时钟按 10 分钟跳、金币在涨，羊皮纸对话框配像素头像，村民冒「…」，主角把东西举过头顶。
+**Một câu**: Ngôi làng nông trại mùa xuân bằng tranh pixel, trong HUD khung gỗ đồng hồ nhảy mỗi 10 phút, đồng xu tăng dần, hộp thoại giấy da kèm chân dung pixel, dân làng nổi bong bóng "…", nhân vật chính giơ vật phẩm qua đầu.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 星露谷式农场游戏的温暖日常：讲一个道理就像过游戏里的一天——时间在走、钱在涨、村民有反应、主角拿到东西。（气质参考《星露谷物语》，画面、角色、界面、字体全部原创，不使用其素材、角色或 Logo） |
-| 材质 / 画法 | 320×180 像素画放大 6 倍（树林、篱笆、泥路、菜田、花、城门、告示板、村民、草帽主角、飘落花瓣、暖光）；DOM 木框 HUD（季节 · 日 · 时钟 · 昼夜表盘）、金币框、羊皮纸对话框 + 32×32 像素头像 + 名牌、白色「…」气泡、获得提示。 |
-| 配色逻辑 | 草 #6DB54A · 泥路 #C89A5E · 木框 #5C3317 / #C98A43 / #F2D49B · 羊皮纸 #F6E3B4 · 字 #4A2A12 · 金币 #F2B21B |
-| 字体 | NotoSC 900 + 浅色硬投影（像素游戏字感）；时钟和金币用 GeistMono |
-| 动态 | 时钟每 0.7 秒跳 10 分钟、表盘指针跟着转；对话 22 字/秒打字 + ▼ 闪；村民 2 帧呼吸；「…」气泡错开弹出；金币滚动 + 金币框轻顿；主角 8 帧/秒走路、举过头顶闪光；获得提示从左滑入。 |
-| 镜头语法 | 锁定俯视（像游戏画面）。 |
-| 声音 | 木琴 / 尤克里里轻快配乐、对话哔哔、金币叮、拾取音。 |
-| 标志镜头 | 主角把木头举过头顶，左下滑出「获得 +50 金」。 |
+| Ý đồ đạo diễn | Đời thường ấm áp của game nông trại kiểu Stardew Valley: kể một đạo lý như trải qua một ngày trong game: thời gian trôi, tiền tăng, dân làng có phản ứng, nhân vật chính nhận được đồ. (Khí chất tham khảo "Stardew Valley", hình ảnh, nhân vật, giao diện, phông chữ đều nguyên bản, không dùng tài nguyên, nhân vật hay Logo của nó) |
+| Chất liệu / Cách vẽ | Tranh pixel 320×180 phóng to 6 lần (rừng cây, hàng rào, đường đất, ruộng rau, hoa, cổng thành, bảng thông báo, dân làng, nhân vật chính đội nón rơm, cánh hoa rơi, ánh sáng ấm); HUD khung gỗ DOM (mùa · ngày · đồng hồ · mặt đồng hồ ngày đêm), khung đồng xu, hộp thoại giấy da + chân dung pixel 32×32 + bảng tên, bong bóng "…" trắng, thông báo nhận vật phẩm. |
+| Logic phối màu | Cỏ #6DB54A · đường đất #C89A5E · khung gỗ #5C3317 / #C98A43 / #F2D49B · giấy da #F6E3B4 · chữ #4A2A12 · đồng xu #F2B21B |
+| Phông chữ | NotoSC 900 + bóng đổ cứng màu sáng (cảm giác chữ game pixel); đồng hồ và đồng xu dùng GeistMono |
+| Chuyển động | Đồng hồ cứ 0,7 giây nhảy 10 phút, kim mặt đồng hồ quay theo; hội thoại gõ 22 ký tự/giây + ▼ nhấp nháy; dân làng thở 2 khung hình; bong bóng "…" bật ra lệch nhịp; đồng xu cuộn số + khung đồng xu khựng nhẹ; nhân vật chính đi 8 khung hình/giây, giơ qua đầu loé sáng; thông báo nhận vật phẩm trượt vào từ trái. |
+| Ngữ pháp máy quay | Cố định nhìn từ trên xuống (như màn hình game). |
+| Âm thanh | Nhạc nền xylophone / ukulele vui tươi, tiếng bíp hội thoại, tiếng đồng xu leng keng, âm nhặt đồ. |
+| Cảnh đặc trưng | Nhân vật chính giơ khúc gỗ qua đầu, dưới trái trượt ra "Nhận +50 vàng". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换季节（夏绿 / 秋橙 / 冬白）、换场景物件、换 NPC 名字
-- **一改就变味**：用其他游戏的真实素材或角色（版权）
-- **不能改**：去掉 HUD 和对话框（就只是普通像素画了）
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi mùa (hè xanh / thu cam / đông trắng), đổi đồ vật trong cảnh, đổi tên NPC
+- **Sửa là mất chất**: dùng tài nguyên hoặc nhân vật thật của game khác (bản quyền)
+- **Không được sửa**: bỏ HUD và hộp thoại (khi đó chỉ còn là tranh pixel thông thường)
 
-## 搭配
-- 适合母版：痛点原理 C、闯关 E、两难选择 B
-- 不适合：严肃悼念、灾难
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Kết hợp
+- Bản gốc phù hợp: điểm đau nguyên lý C, vượt màn E, lựa chọn lưỡng nan B
+- Không phù hợp: tang lễ nghiêm trang, thảm hoạ
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

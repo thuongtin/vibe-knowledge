@@ -1,8 +1,8 @@
 /**
- * 打字效果的公共件：把一段文字拆成可逐个出现的字块，按打字节奏排时间，render(t, t0) 逐字弹出。
- *   *词* 表示高亮：整段打完后，荧光笔从左往右划出底色。
- *   西文单词、数字整词出现（逐字母出现会在词中间折行）。
- * 所有 Typer、人物卡、时间线、思维导图的文字都走这里，节奏一致。
+ * Thành phần chung của hiệu ứng gõ chữ: tách một đoạn chữ thành các khối chữ xuất hiện lần lượt, sắp thời gian theo nhịp gõ, render(t, t0) bật ra từng chữ.
+ *   *từ* biểu thị làm nổi bật: sau khi gõ xong cả đoạn, bút dạ quang vạch màu nền từ trái sang phải.
+ *   Từ tiếng Tây và số xuất hiện nguyên cả từ (nếu xuất hiện từng chữ cái sẽ bị xuống dòng giữa từ).
+ * Chữ của tất cả Typer, thẻ nhân vật, dòng thời gian, sơ đồ tư duy đều đi qua đây, nhịp thống nhất.
  */
 import { h, setStyle } from "./dom.js";
 import { appear, hz } from "./spring.js";
@@ -23,7 +23,7 @@ const MARK = { w: hz(2.6), z: 1 };
 
 export const typingCss = (css) => css("rt-typing", CSS);
 
-/** 把 "*高亮*" 标记拆开，返回 [{text, hl}] */
+/** Tách dấu hiệu "*nổi bật*" ra, trả về [{text, hl}] */
 const segments = (text) => {
   const out = [];
   let hl = false;
@@ -35,8 +35,8 @@ const segments = (text) => {
 };
 
 /**
- * 在 container 里建好字块。返回 { dur, render(t, t0), last }，t0 是开始打字的时刻。
- * opts: cps（每秒字数，默认 11）、seed、hl（高亮色，CSS 颜色或变量，默认 var(--hl)）、pop（是否弹入，默认 true）
+ * Dựng sẵn các khối chữ trong container. Trả về { dur, render(t, t0), last }, t0 là thời điểm bắt đầu gõ.
+ * opts: cps (số chữ mỗi giây, mặc định 11), seed, hl (màu nổi bật, màu CSS hoặc biến, mặc định var(--hl)), pop (có bật vào hay không, mặc định true)
  */
 export function mountTyping(container, text, { cps = 11, seed = 1, hl = "var(--hl)", pop = true } = {}) {
   const toks = [];
@@ -53,7 +53,7 @@ export function mountTyping(container, text, { cps = 11, seed = 1, hl = "var(--h
     }
     for (const m of seg.text.matchAll(TOKEN)) {
       const ch = m[0];
-      // 人名间隔号「·」字形很窄，两侧各留一点，免得和前后字挤在一起
+      // Dấu chấm giữa tên người "·" có nét rất hẹp, hai bên chừa một chút, để khỏi bị chen với các chữ trước sau
       const el = h("span", { class: ch === "·" ? "tp-c dot" : "tp-c", text: ch });
       host.append(el);
       toks.push({ ch, el, kind: /^\s+$/.test(ch) ? "space" : PUNCT.test(ch) ? "punct" : /^[A-Za-z0-9]/.test(ch) ? "latin" : "cjk" });
@@ -62,7 +62,7 @@ export function mountTyping(container, text, { cps = 11, seed = 1, hl = "var(--h
   }
   container.append(wrap);
 
-  // 打字节奏：带种子的抖动，标点多停一拍，空格很快，西文整词按长度算
+  // Nhịp gõ: rung có hạt giống, dấu câu dừng thêm một nhịp, khoảng trắng rất nhanh, từ Tây nguyên cả từ tính theo độ dài
   const rel = [];
   let at = 0;
   toks.forEach((tk, i) => {
@@ -77,7 +77,7 @@ export function mountTyping(container, text, { cps = 11, seed = 1, hl = "var(--h
     dur,
     tokens: toks,
     rel,
-    /** 最后一个字出现的相对时刻 */
+    /** Thời điểm tương đối khi chữ cuối cùng xuất hiện */
     last: rel.length ? rel[rel.length - 1] : 0,
     render(t, t0) {
       for (let i = 0; i < toks.length; i++) {
@@ -103,7 +103,7 @@ export function mountTyping(container, text, { cps = 11, seed = 1, hl = "var(--h
   };
 }
 
-/** 打字音效提示：每隔一两个字一声，音量压低；返回 [{t, name, gain}]（绝对时刻 = t0 + 相对时刻） */
+/** Gợi ý hiệu ứng âm gõ chữ: cứ một hai chữ lại một tiếng, âm lượng hạ thấp; trả về [{t, name, gain}] (thời điểm tuyệt đối = t0 + thời điểm tương đối) */
 export function typingSfx(ty, t0, { every = 2, gain = -27, seed = 3 } = {}) {
   const out = [];
   let n = 0;

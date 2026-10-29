@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
-"""真实终端录制：在固定尺寸的伪终端里跑一条命令，按脚本「等提示 → 打字 → 回车」，把原始输出连同时间戳录下来。
-录出来的是 asciinema v2 风格的 .cast（第一行头信息，之后每行 [秒, "o"|"i"|"m", 数据]），再交给 term_frames.py 回放成画面。
+"""Ghi terminal thật: chạy một lệnh trong pseudo-terminal có kích thước cố định, theo kịch bản "chờ gợi ý → gõ chữ → Enter", ghi lại đầu ra thô kèm dấu thời gian.
+Thứ ghi ra là .cast kiểu asciinema v2 (dòng đầu là thông tin đầu file, các dòng sau là [giây, "o"|"i"|"m", dữ liệu]), rồi giao cho term_frames.py phát lại thành hình ảnh.
 
-用法：python3 scripts/term_record.py <脚本.json> <输出.cast>
-脚本.json：
+Cách dùng: python3 scripts/term_record.py <kịch-bản.json> <đầu-ra.cast>
+kịch-bản.json:
 {
   "cmd": ["codex"], "cwd": "~/Desktop/codex-demo", "cols": 110, "rows": 32,
   "env": {"FOO": "1"},
   "steps": [
-    {"wait": "正则，出现在屏幕上才往下走", "timeout": 60},
-    {"type": "要打的字", "cps": 14},          # 像人一样逐字打
+    {"wait": "regex, xuất hiện trên màn hình mới đi tiếp", "timeout": 60},
+    {"type": "chữ cần gõ", "cps": 14},          # gõ từng chữ như người thật
     {"key": "enter"},                          # enter / esc / tab / up / down / ctrl-c / y / n ……
     {"sleep": 1.5},
-    {"mark": "submit"},                        # 打个时间标记，配旁白时用
-    {"wait_idle": 4, "timeout": 600},          # 屏幕连续 N 秒没变化才往下走（等智能体干完）
-    {"exit": true}                             # 结束录制（会先发 ctrl-c，再等进程退出）
+    {"mark": "submit"},                        # đánh dấu thời gian, dùng khi ghép lời dẫn
+    {"wait_idle": 4, "timeout": 600},          # màn hình liên tục N giây không đổi mới đi tiếp (chờ tác tử làm xong)
+    {"exit": true}                             # kết thúc ghi (gửi ctrl-c trước, rồi chờ tiến trình thoát)
   ]
 }
-屏幕状态用 pyte 实时模拟，所以 wait 看到的就是观众会看到的画面。
+Trạng thái màn hình được mô phỏng thời gian thực bằng pyte, nên thứ wait nhìn thấy chính là hình ảnh khán giả sẽ thấy.
 """
 import json, os, pty, re, select, signal, struct, sys, termios, fcntl, time
 from pathlib import Path
@@ -45,7 +45,7 @@ def main():
 
     t0 = time.monotonic()
     import codecs
-    dec = codecs.getincrementaldecoder("utf-8")("replace")   # 一个汉字的字节可能被拆在两次读里，不能逐块独立解码
+    dec = codecs.getincrementaldecoder("utf-8")("replace")   # byte của một chữ Hán có thể bị tách ra hai lần đọc, không được giải mã độc lập từng khối
     events = []
     last_change = [time.monotonic()]
     alive = [True]
@@ -73,10 +73,10 @@ def main():
             last_change[0] = time.monotonic()
 
     def text():
-        # 不用 pyte 的 screen.display：宽字符后半格是空串时它会报错
+        # Không dùng screen.display của pyte: khi nửa ô sau của ký tự rộng là chuỗi rỗng thì nó sẽ báo lỗi
         return "\n".join("".join(screen.buffer[y][x].data for x in range(cols)) for y in range(rows))
 
-    # 实时把当前屏幕写到 <输出>.screen.txt（每 2 秒），录制卡住时能看到停在哪个画面
+    # Ghi màn hình hiện tại vào <đầu-ra>.screen.txt theo thời gian thực (mỗi 2 giây), khi ghi bị kẹt thì thấy được đang dừng ở hình nào
     shot_path, last_shot = out.with_suffix(".screen.txt"), [0.0]
     _pump = pump
 
@@ -105,7 +105,7 @@ def run_steps(spec, pump, text, send, now, events, last_change, alive):
             pat, deadline = re.compile(st["wait"]), time.monotonic() + st.get("timeout", 60)
             while not pat.search(text()):
                 if time.monotonic() > deadline or not alive[0]:
-                    sys.exit(f"等不到「{st['wait']}」。当前屏幕：\n{text()}")
+                    sys.exit(f"Chờ không thấy \"{st['wait']}\". Màn hình hiện tại:\n{text()}")
                 pump()
         elif "wait_idle" in st:
             deadline = time.monotonic() + st.get("timeout", 600)
@@ -114,7 +114,7 @@ def run_steps(spec, pump, text, send, now, events, last_change, alive):
                     break
                 pump()
         elif "work" in st:
-            # 等智能体干完：屏幕连续 work 秒不动算完；中途若出现审批提示，按 approve_key 批准一次并把当时的画面记进日志
+            # Chờ tác tử làm xong: màn hình liên tục work giây không động là xong; nếu giữa chừng xuất hiện gợi ý phê duyệt thì bấm approve_key để duyệt một lần và ghi hình lúc đó vào nhật ký
             appr = re.compile(st.get("approve_re", r"(?i)(allow|approve|run this command|proceed)\?|Yes, (and )?(proceed|allow)"))
             deadline, n = time.monotonic() + st.get("timeout", 600), 0
             while time.monotonic() < deadline and alive[0]:
@@ -122,18 +122,18 @@ def run_steps(spec, pump, text, send, now, events, last_change, alive):
                 if time.monotonic() - last_change[0] >= 1.2 and appr.search(text()) and n < st.get("max_approvals", 3):
                     n += 1
                     events.append([now(), "m", f"approve{n}"])
-                    print(f"—— 第 {n} 次审批，当时画面 ——\n{text()}\n", file=sys.stderr)
+                    print(f"—— Lần phê duyệt thứ {n}, màn hình lúc đó ——\n{text()}\n", file=sys.stderr)
                     end = time.monotonic() + st.get("approve_delay", 1.5)
                     while time.monotonic() < end:
                         pump(0.05)
                     send(KEYS.get(st.get("approve_key", "enter"), st.get("approve_key", "enter")))
                     continue
-                # until_file：要等到工作目录里出现这个文件（如 renders/*.mp4）才算干完，中途停顿思考不算
+                # until_file: phải chờ đến khi thư mục làm việc xuất hiện file này (như renders/*.mp4) mới tính là xong, dừng lại suy nghĩ giữa chừng không tính
                 done = not st.get("until_file") or any(Path(os.path.expanduser(spec.get("cwd", "."))).glob(st["until_file"]))
                 if time.monotonic() - last_change[0] >= st["work"] and done:
                     break
         elif "select" in st:
-            # 菜单里用方向键移到目标项（当前项所在行以 › 或 > 开头）再回车
+            # Trong menu dùng phím mũi tên di chuyển tới mục đích (dòng của mục hiện tại bắt đầu bằng › hoặc >) rồi Enter
             pat = re.compile(st["select"])
             for _ in range(st.get("max", 10)):
                 end = time.monotonic() + 0.6
@@ -144,14 +144,14 @@ def run_steps(spec, pump, text, send, now, events, last_change, alive):
                     break
                 send(KEYS[st.get("dir", "down")])
             else:
-                sys.exit(f"菜单里找不到「{st['select']}」。当前屏幕：\n{text()}")
+                sys.exit(f"Không tìm thấy \"{st['select']}\" trong menu. Màn hình hiện tại:\n{text()}")
             end = time.monotonic() + st.get("pause", 1.0)
             while time.monotonic() < end:
                 pump(0.05)
-            k = st.get("confirm", "enter")   # 例如 /model 里按 s 只对本次会话生效，不改默认配置
+            k = st.get("confirm", "enter")   # Ví dụ trong /model bấm s chỉ có hiệu lực với phiên này, không đổi cấu hình mặc định
             send(KEYS.get(k, k))
         elif "shell" in st:
-            # 在镜头外跑一条命令（例如把中间版本的文件备份下来），不会出现在录屏里
+            # Chạy một lệnh ngoài khung hình (ví dụ sao lưu file của phiên bản trung gian), sẽ không xuất hiện trong bản quay màn hình
             import subprocess
             subprocess.run(st["shell"], shell=True, executable="/bin/zsh")
         elif "type" in st:
@@ -175,11 +175,11 @@ def run_steps(spec, pump, text, send, now, events, last_change, alive):
 
 
 def finish(pid, fd, pump, alive, events, out, cols, rows, spec, cwd, now, text):
-    # 收尾：给程序一点时间刷新，再结束
+    # Kết thúc: cho chương trình chút thời gian làm mới, rồi mới kết thúc
     end = time.monotonic() + 1.0
     while time.monotonic() < end and alive[0]:
         pump(0.1)
-    for sig in (signal.SIGINT, signal.SIGTERM, signal.SIGKILL):   # 交互式 shell 会忽略前两个信号
+    for sig in (signal.SIGINT, signal.SIGTERM, signal.SIGKILL):   # shell tương tác sẽ bỏ qua hai tín hiệu đầu
         try:
             if os.waitpid(pid, os.WNOHANG)[0]:
                 break
@@ -187,7 +187,7 @@ def finish(pid, fd, pump, alive, events, out, cols, rows, spec, cwd, now, text):
         except (ProcessLookupError, ChildProcessError):
             break
         time.sleep(0.5)
-    os.close(fd)   # macOS：不关主端，被杀的子进程会卡在冲刷终端输出上，waitpid 永远等不到
+    os.close(fd)   # macOS: nếu không đóng đầu chính, tiến trình con bị giết sẽ kẹt khi xả đầu ra terminal, waitpid sẽ chờ mãi không được
     try:
         os.waitpid(pid, 0)
     except ChildProcessError:
@@ -198,7 +198,7 @@ def finish(pid, fd, pump, alive, events, out, cols, rows, spec, cwd, now, text):
         f.write(json.dumps(head, ensure_ascii=False) + "\n")
         for e in events:
             f.write(json.dumps(e, ensure_ascii=False) + "\n")
-    print(f"录好：{out}（{now():.1f} 秒，{len(events)} 条事件）")
+    print(f"Đã ghi xong: {out} ({now():.1f} giây, {len(events)} sự kiện)")
     print(text())
 
 

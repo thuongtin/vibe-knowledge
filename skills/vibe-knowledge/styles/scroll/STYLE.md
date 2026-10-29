@@ -1,26 +1,26 @@
-# 长卷 · HANDSCROLL
+# Cuộn dài · HANDSCROLL
 
-> 家族：东方　|　档位：增强档 · 每段约 2 张生图（mj-v8.2，4 积分/张）　|　风格图：`still.jpg`　|　样片源码：`_samples/styles7_film.js → scroll()`
+> Họ: Phương Đông | Mức: tăng cường · mỗi đoạn khoảng 2 ảnh tạo (mj-v8.2, 4 điểm/ảnh) | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles7_film.js → scroll()`
 
-**一句话**：木轴从右往左展开工笔绢本长卷，题签竖排贴上，画卷继续往左卷动，放大镜推到人物局部。
+**Một câu**: Trục gỗ mở cuộn dài lụa công bút từ phải sang trái, nhãn đề dọc dán lên, cuộn tranh tiếp tục cuộn sang trái, kính lúp đẩy tới chi tiết nhân vật.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 中国长卷的读法：从右往左一段段展开，时间和空间都在横向流动；关键处用放大镜看局部。 |
-| 材质 / 画法 | 增强档：Nano Banana 2 出 4:1 全卷（12 积分，Midjourney 最宽只有 16:9）+ 16:9 局部特写（12 积分）。代码：clip-path 跟着木轴展卷、整卷横移、圆形放大镜（局部图做背景）、竖排题签、朱印。 |
-| 配色逻辑 | 绢本 #D8C8A4 · 淡设色 · 题签米白 #EFE4C8 + 朱红边 #9E2B1F · 印 #B0261C · 木轴棕 |
-| 字体 | 宋体 700 竖排题签 60px |
-| 动态 | 木轴 1.1 秒从右往左展开；题签自上而下揭开；高潮画卷 1.8 秒往左卷动，放大镜 eOutBack 弹出。 |
-| 镜头语法 | 横移（展卷 / 卷动）+ 极慢推近。 |
-| 声音 | 卷轴展开的纸声、古琴、市井环境声。 |
-| 标志镜头 | 放大镜圆框里出现扛木人的局部特写，旁边题签「五十金」。 |
+| Ý đồ đạo diễn | Cách đọc cuộn dài Trung Hoa: mở ra từng đoạn từ phải sang trái, thời gian và không gian đều chảy theo chiều ngang; ở chỗ then chốt dùng kính lúp xem chi tiết. |
+| Chất liệu / cách vẽ | Mức tăng cường: Nano Banana 2 tạo toàn cuộn 4:1 (12 điểm, Midjourney rộng nhất chỉ 16:9) + cận cảnh chi tiết 16:9 (12 điểm). Mã: clip-path mở cuộn theo trục gỗ, dịch ngang cả cuộn, kính lúp tròn (ảnh chi tiết làm nền), nhãn đề dọc, ấn son. |
+| Logic phối màu | Lụa #D8C8A4 · thiết sắc nhạt · nhãn đề trắng ngà #EFE4C8 + viền son #9E2B1F · ấn #B0261C · nâu trục gỗ |
+| Phông chữ | Song (Tống thể) 700 nhãn đề dọc 60px |
+| Chuyển động | Trục gỗ mở từ phải sang trái trong 1,1 giây; nhãn đề mở từ trên xuống dưới; cao trào cuộn tranh cuộn sang trái trong 1,8 giây, kính lúp bật ra theo eOutBack. |
+| Ngữ pháp ống kính | Dịch ngang (mở cuộn / cuộn) + đẩy tới cực chậm. |
+| Âm thanh | Tiếng giấy khi mở cuộn, cổ cầm, âm thanh môi trường phố chợ. |
+| Cảnh đặc trưng | Trong khung tròn kính lúp hiện cận cảnh người vác khúc gỗ, bên cạnh là nhãn đề "Năm mươi vàng". |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换题签文字、换放大镜位置
-- **一改就变味**：生图只出 16:9（卷不起来）
-- **不能改**：从左往右展（中国长卷从右往左读）
+## Có thể sửa đến mức nào (dùng khi làm thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi chữ nhãn đề, đổi vị trí kính lúp
+- **Sửa là mất vị**: tạo ảnh chỉ ra 16:9 (không cuộn lên được)
+- **Không được sửa**: mở từ trái sang phải (cuộn dài Trung Hoa đọc từ phải sang trái)
 
-## 搭配
-- 适合母版：一条主线 D、两难选择 B
-- 不适合：抽象数学、科技
-- 增强档 Renoise 前缀：`A long Chinese handscroll painting in fine gongbi style with light ink and soft mineral color washes on aged silk, one continuous panoramic scene read from right to left, flat traditional perspective, delicate linework, faded silk texture, no text, no letters, no calligraphy, no seals（用 nano-banana-2，ratio 4:1，2k；人物写明时代服饰）`
+## Cách phối
+- Bản mẫu gốc phù hợp: một mạch chính D, tiến thoái lưỡng nan B
+- Không phù hợp: toán trừu tượng, công nghệ
+- Tiền tố Renoise cấp tăng cường: `A long Chinese handscroll painting in fine gongbi style with light ink and soft mineral color washes on aged silk, one continuous panoramic scene read from right to left, flat traditional perspective, delicate linework, faded silk texture, no text, no letters, no calligraphy, no seals (dùng nano-banana-2, ratio 4:1, 2k; ghi rõ trang phục thời đại của nhân vật)`

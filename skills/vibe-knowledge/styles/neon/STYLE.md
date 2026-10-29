@@ -1,26 +1,26 @@
-# 霓虹赛博 · NEON CYBER
+# Neon Cyber · NEON CYBER
 
-> 家族：暗场概念　|　档位：基础档 · 0 积分　|　风格图：`still.jpg`　|　样片源码：`_samples/styles5_film.js → neon()`
+> Họ: Khái niệm cảnh tối | Bậc: Bản cơ bản · 0 điểm | Ảnh phong cách: `still.jpg` | Mã nguồn bản mẫu: `_samples/styles5_film.js → neon()`
 
-**一句话**：雨夜深紫底，霓虹灯管一节节闪着点亮，招牌字通电，「没人动」故障错位，高潮电流暴涨加扫描线。
+**Một câu**: Nền tím sẫm đêm mưa, ống neon nhấp nháy sáng lên từng đoạn, chữ bảng hiệu được cấp điện, “Không ai động” bị lỗi lệch chữ, cao trào dòng điện tăng vọt kèm đường quét.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 霓虹夜景：画面是「通电」出来的，信息像招牌一样亮起。 |
-| 材质 / 画法 | 深紫径向底 + canvas 雨丝 + SVG 灯管（多层 drop-shadow 发光）+ 扫描线遮罩；故障字用三层 screen 叠加错位。 |
-| 配色逻辑 | 底 #05040B→#3A0D52 · 青 #00F0FF · 品红 #FF2BD6 · 灯管芯 #FFF2FC |
-| 字体 | NotoSC 800，text-shadow 四层同色发光；读数 GeistMono |
-| 动态 | 灯管按段「闪三下再亮」（0.35 秒内 30 帧/秒随机开关）；故障 24 帧/秒随机位移 + 切片 0.45 秒后归位；高潮亮度冲高 + 扫描线从上扫到下。 |
-| 镜头语法 | 锁定；雨丝提供运动。 |
-| 声音 | 电流嗡、霓虹啪嗒、雨声；Synthwave。 |
-| 标志镜头 | 「赏 10 金」招牌通电闪亮，「没人动」RGB 错位抖一下，下方闪 ERR · NO TAKERS。 |
+| Ý đồ đạo diễn | Cảnh đêm neon: hình ảnh được “cấp điện” mà hiện ra, thông tin sáng lên như bảng hiệu. |
+| Chất liệu / cách vẽ | Nền hướng tâm tím sẫm + mưa canvas + ống đèn SVG (phát sáng bằng nhiều lớp drop-shadow) + mặt nạ đường quét; chữ lỗi dùng ba lớp screen chồng lệch. |
+| Logic phối màu | Nền #05040B→#3A0D52 · lục lam #00F0FF · đỏ tươi #FF2BD6 · lõi ống đèn #FFF2FC |
+| Phông chữ | NotoSC 800, text-shadow bốn lớp phát sáng cùng màu; số đọc GeistMono |
+| Chuyển động | Ống đèn từng đoạn “nháy ba lần rồi sáng” (bật tắt ngẫu nhiên 30 khung hình/giây trong 0,35 giây); lỗi dịch chuyển ngẫu nhiên 24 khung hình/giây + cắt lát, sau 0,45 giây trả về vị trí; cao trào độ sáng vọt lên + đường quét quét từ trên xuống dưới. |
+| Ngữ pháp ống kính | Cố định; mưa tạo chuyển động. |
+| Âm thanh | Tiếng dòng điện ù, neon tách tách, tiếng mưa; Synthwave. |
+| Cảnh đặc trưng | Bảng hiệu “Thưởng 10 lượng vàng” được cấp điện sáng lóe, “Không ai động” lệch RGB rung một cái, bên dưới nháy ERR · NO TAKERS. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换两种霓虹色、换雨的密度
-- **一改就变味**：发光太多层（糊成一片）
-- **不能改**：改成亮底
+## Có thể sửa đến mức nào (dùng khi đổi thành “phong cách của tôi”)
+- **Cứ yên tâm sửa**: đổi hai màu neon, đổi mật độ mưa
+- **Sửa là mất chất**: phát sáng quá nhiều lớp (nhòe thành một mảng)
+- **Không được sửa**: đổi sang nền sáng
 
-## 搭配
-- 适合母版：猜谜概念 A、痛点原理 C
-- 不适合：古代史、田园
-- 增强档 Renoise 前缀：`（基础档不需要）`
+## Phối hợp
+- Phù hợp bản gốc: khái niệm giải đố A, nguyên lý điểm đau C
+- Không phù hợp: lịch sử cổ đại, đồng quê
+- Tiền tố Renoise bản nâng cao: `(bản cơ bản không cần)`

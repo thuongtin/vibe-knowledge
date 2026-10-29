@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""把动效库里的效果渲成「视频贴纸」用的片段：<系列>/assets/fx/<id>.mp4 + <id>.jpg（封面），并更新 fx.json 清单。
+"""Render các hiệu ứng trong thư viện chuyển động thành đoạn dùng làm "sticker video": <series>/assets/fx/<id>.mp4 + <id>.jpg (ảnh bìa), đồng thời cập nhật danh sách fx.json.
 
-用法：python3 scripts/fx_render.py <系列目录> <id> [<id> …] [--force] [--lib ~/Desktop/motionlab-replica]
+Cách dùng: python3 scripts/fx_render.py <thư mục series> <id> [<id> …] [--force] [--lib ~/Desktop/motionlab-replica]
 
-- HyperFrames 官方模板（动效实验室 hf/<id>/）：拷到临时项目，用 HyperFrames CLI 正式渲染（确定性、30fps、1920×1080）。
-- 动效实验室原创（demos/*.js 里 ML.register 的）：在无头浏览器里加载 kit.js + demos（只读），逐帧 seek 截图，管道给 ffmpeg。
-- <系列>/assets/fx/overrides.json 可以按 id 改文案：{"typewriter": {"variables": {...}, "replace": [["旧", "新"]], "vars": {...}, "duration": 6}}
-  · variables：HyperFrames 模板声明的变量（render --variables）；replace：渲染前对模板 HTML 做字符串替换（换掉默认的 HyperFrames 字样）
-  · vars / duration：原创文案场景的变量和时长
-动效库目录只读，不往里写任何东西。
+- Mẫu chính thức của HyperFrames (hf/<id>/ của phòng thí nghiệm chuyển động): sao chép vào dự án tạm, dùng HyperFrames CLI render chính thức (tất định, 30fps, 1920×1080).
+- Bản gốc của phòng thí nghiệm chuyển động (những cái được ML.register trong demos/*.js): nạp kit.js + demos vào trình duyệt không đầu (chỉ đọc), seek từng khung chụp màn hình, truyền qua pipe cho ffmpeg.
+- <series>/assets/fx/overrides.json có thể sửa văn án theo id: {"typewriter": {"variables": {...}, "replace": [["cũ", "mới"]], "vars": {...}, "duration": 6}}
+  · variables: biến do mẫu HyperFrames khai báo (render --variables); replace: thay chuỗi trong HTML của mẫu trước khi render (đổi dòng chữ HyperFrames mặc định)
+  · vars / duration: biến và thời lượng của cảnh văn án gốc
+Thư mục thư viện chuyển động chỉ đọc, không ghi bất cứ thứ gì vào đó.
 """
 import json
 import os
@@ -50,7 +50,7 @@ def render_hf(lib, item, out, ov):
         tmp = Path(tmp)
         for f in src.iterdir():
             (shutil.copytree if f.is_dir() else shutil.copy)(f, tmp / f.name)
-        # block 直接渲本体；component 是片段，用官方自带的 demo.html（把片段包进一个合成里）
+        # block render thẳng bản thân; component là đoạn, dùng demo.html có sẵn của chính thức (bọc đoạn vào một composition)
         entry = tmp / "demo.html" if item.get("type") == "component" and (tmp / "demo.html").exists() else tmp / f"{item['id']}.html"
         html = entry.read_text(encoding="utf-8")
         for a, b in ov.get("replace", []):
@@ -86,7 +86,7 @@ def render_ml(lib, id_, out, ov, fps=30):
                            [id_, ov.get("vars", {}), ov.get("duration")])
         if not meta:
             b.close()
-            raise RuntimeError(f"动效实验室里没有：{id_}")
+            raise RuntimeError(f"Phòng thí nghiệm chuyển động không có: {id_}")
         pg.evaluate("document.fonts.ready")
         n = max(1, round(meta["duration"] * fps))
         enc = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", str(fps), "-c:v", "mjpeg", "-i", "-",
@@ -98,7 +98,7 @@ def render_ml(lib, id_, out, ov, fps=30):
         enc.wait()
         b.close()
     if errs:
-        print("   ⚠ 页面报错：", errs[:2])
+        print("   ⚠ Trang báo lỗi:", errs[:2])
     return meta
 
 
@@ -118,7 +118,7 @@ def main():
     for id_ in ids:
         out, jpg = fxdir / f"{id_}.mp4", fxdir / f"{id_}.jpg"
         if out.exists() and not force and id_ in man:
-            print(f"· {id_} 已有，跳过（--force 重渲）")
+            print(f"· {id_} đã có, bỏ qua (--force để render lại)")
             continue
         ov = ovs.get(id_, {})
         try:
@@ -127,18 +127,18 @@ def main():
                 render_hf(lib, it, out, ov)
                 dur, w, h = probe(out)
                 poster(out, min(it.get("poster", dur * 0.6), dur - 0.05), jpg)
-                man[id_] = {"name": it["name"], "source": "HyperFrames 模板", "license": "Apache-2.0", "category": it.get("category"),
+                man[id_] = {"name": it["name"], "source": "Mẫu HyperFrames", "license": "Apache-2.0", "category": it.get("category"),
                             "cmd": f"npx hyperframes add {id_}", "duration": round(dur, 3), "width": w, "height": h, "poster": jpg.name,
                             "description": it.get("description")}
             else:
                 meta = render_ml(lib, id_, out, ov)
                 dur, w, h = probe(out)
                 poster(out, min(meta.get("poster") or dur * 0.6, dur - 0.05), jpg)
-                man[id_] = {"name": meta["name"], "source": "动效实验室原创", "license": "自有", "category": meta.get("category"),
+                man[id_] = {"name": meta["name"], "source": "Bản gốc của phòng thí nghiệm chuyển động", "license": "Tự sở hữu", "category": meta.get("category"),
                             "cmd": None, "duration": round(dur, 3), "width": w, "height": h, "poster": jpg.name, "description": meta.get("description")}
             print(f"✓ {id_}  {man[id_]['duration']}s  {man[id_]['width']}×{man[id_]['height']}  {man[id_]['source']}")
-        except Exception as e:  # 单个失败不影响其余
-            print(f"✗ {id_}：{str(e)[-600:]}")
+        except Exception as e:  # một cái thất bại không ảnh hưởng các cái còn lại
+            print(f"✗ {id_}: {str(e)[-600:]}")
         man_p.write_text(json.dumps(man, ensure_ascii=False, indent=1), encoding="utf-8")
 
 

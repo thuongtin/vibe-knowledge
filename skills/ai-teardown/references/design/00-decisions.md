@@ -1,19 +1,19 @@
-# 00 · 拍板记录
+# 00 · Ghi chép chốt phương án
 
-2026-09-26，用户确认「按推荐的来」。
+2026-09-26, người dùng xác nhận "cứ làm theo đề xuất".
 
-| # | 事项 | 决定 | 落到设计里 |
+| # | Hạng mục | Quyết định | Đưa vào thiết kế |
 |---|---|---|---|
-| 1 | 主引擎 | Hyperframes 为主，Remotion 做兼容轨 | 原语写成引擎无关的 ES module，靠 `render(t)` 被驱动；Hyperframes 用本机 npx 缓存里的 0.6.119，不联网也能跑 |
-| 2 | 默认规格 | 3–5 分钟，16:9 1920×1080，30fps，中文，面向懂点技术的非开发者 | 9:16 是重新排版，原语自带竖版布局 |
-| 3 | 配音 | edge-tts 起步，定稿可换 | 读音词典 `lexicon.json`；时间轴由配音驱动 |
-| 4 | AE / AI 的交互形式 | 两种都接：AE 导出 Lottie、AI 导出 SVG，作为素材进原语；AetherViz 式拖拽实验放 M3 以后 | 原语参数允许 `lottie` / `svg` 资产 |
-| 5 | 互动课件 | V1 做同步课件：章节、逐步、点图看出处、小测 | 原语必须提供 `beats`（逐步点）和 `hotspots(t)`（点图看出处） |
+| 1 | Engine chính | Hyperframes là chính, Remotion làm đường tương thích | Nguyên thủy viết thành ES module độc lập với engine, được điều khiển qua `render(t)`; Hyperframes dùng bản 0.6.119 trong cache npx trên máy, không có mạng vẫn chạy được |
+| 2 | Quy cách mặc định | 3–5 phút, 16:9 1920×1080, 30fps, tiếng Trung, hướng đến người không làm lập trình nhưng hiểu chút công nghệ | 9:16 là dàn trang lại, nguyên thủy có sẵn bố cục dọc |
+| 3 | Lồng tiếng | Bắt đầu bằng edge-tts, bản chốt có thể đổi | Từ điển cách đọc `lexicon.json`; trục thời gian do lồng tiếng điều khiển |
+| 4 | Hình thức tương tác của AE / AI | Nối cả hai: AE xuất Lottie, AI xuất SVG, làm tư liệu đưa vào nguyên thủy; thí nghiệm kéo thả kiểu AetherViz để sau M3 | Tham số nguyên thủy cho phép tài sản `lottie` / `svg` |
+| 5 | Bài giảng tương tác | V1 làm bài giảng đồng bộ: chương, từng bước, nhấp vào hình xem nguồn, bài kiểm tra nhỏ | Nguyên thủy bắt buộc cung cấp `beats` (các điểm từng bước) và `hotspots(t)` (nhấp vào hình xem nguồn) |
 
-## 贯穿所有文档的原则
+## Các nguyên tắc xuyên suốt mọi tài liệu
 
-1. **场景只认时间 t。** 所有动画值都是时间的纯函数，统一用闭式弹簧（`runtime/spring.js`）。
-2. **没有出处不上屏。** 讲稿每句、图上每个元素都挂事实编号；官方公开画实线，推断画虚线并写明，未披露画成雾化方块。
-3. **一张总图，逐层放大。** 全片共用一张系统总图，章节就是镜头推进到哪个节点。
-4. **每一步都落成文件。** 改哪一步，只重跑它下游的部分。
-5. **先演后名。** 每个概念按「问 · 演 · 名 · 归」四拍走。
+1. **Cảnh chỉ nhận thời gian t.** Mọi giá trị hoạt ảnh đều là hàm thuần của thời gian, thống nhất dùng lò xo dạng đóng (`runtime/spring.js`).
+2. **Không có nguồn thì không lên hình.** Mỗi câu trong kịch bản, mỗi phần tử trên hình đều gắn mã số sự thật; thông tin công khai chính thức vẽ nét liền, suy đoán vẽ nét đứt và ghi rõ, chưa công bố thì vẽ thành khối mờ sương.
+3. **Một sơ đồ tổng, phóng to từng lớp.** Cả phim dùng chung một sơ đồ tổng hệ thống, chương chính là máy quay đẩy đến nút nào.
+4. **Mỗi bước đều thành file.** Sửa bước nào thì chỉ chạy lại phần phía sau nó.
+5. **Diễn trước rồi gọi tên.** Mỗi khái niệm đi theo bốn nhịp "hỏi · diễn · tên · quy".

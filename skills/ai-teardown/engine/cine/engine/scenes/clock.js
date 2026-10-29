@@ -1,5 +1,5 @@
-// 时间雕塑：一组嵌套的星盘环 + 沿环飞行的光珠 + 多面体核心。
-// 所有运动只取决于「场景时间」ts：把 ts 往回拨，整座雕塑就倒着转——这就是「视频 = f(t)」。
+// Tác phẩm điêu khắc thời gian: một nhóm vòng tinh bàn lồng nhau + hạt sáng bay dọc theo vòng + lõi đa diện.
+// Mọi chuyển động chỉ phụ thuộc vào “thời gian cảnh” ts: quay ts ngược lại thì cả tác phẩm quay ngược — đó chính là “video = f(t)”.
 import * as THREE from "three";
 import { rng } from "../util.js";
 
@@ -50,7 +50,7 @@ export class Clock {
       this.root.add(holder);
       this.rings.push({ holder, spin, u, w: (0.35 + R() * 0.5) * (i % 2 ? -1 : 1), ax: R() < 0.5 ? "x" : "y", phase: R() * 6.28, cw: (0.12 + R() * 0.2) * (R() < 0.5 ? -1 : 1) });
     });
-    // 刻度盘：120 根刻度
+    // Mặt chia độ: 120 vạch
     const ticks = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.9, 0.86, 0.8) }), 120);
     const mtx = new THREE.Matrix4();
     for (let i = 0; i < 120; i++) {
@@ -62,18 +62,18 @@ export class Clock {
     this.dial.add(ticks);
     this.dial.rotation.x = -1.05;
     this.root.add(this.dial);
-    // 底盘网格
+    // Lưới đế
     this.plateU = { uA: { value: 1 }, uRot: { value: 0 } };
     const plate = new THREE.Mesh(new THREE.PlaneGeometry(1100, 1100), new THREE.ShaderMaterial({ glslVersion: THREE.GLSL3, vertexShader: RING_VS, fragmentShader: PLATE_FS, uniforms: this.plateU, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
     plate.rotation.x = -1.05;
     this.root.add(plate);
-    // 核心
+    // Lõi
     this.coreU = { uPulse: { value: 0 } };
     this.core = new THREE.Mesh(new THREE.IcosahedronGeometry(64, 0), new THREE.ShaderMaterial({ glslVersion: THREE.GLSL3, vertexShader: RING_VS, fragmentShader: CORE_FS, uniforms: this.coreU, flatShading: true }));
     this.root.add(this.core);
     this.coreWire = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(92, 1)), new THREE.LineBasicMaterial({ color: new THREE.Color(0.25, 1.2, 1.1), transparent: true, opacity: 0.55 }));
     this.root.add(this.coreWire);
-    // 光珠和拖尾：每颗珠子 48 个点，点的位置都是「过去某个时刻」的位置
+    // Hạt sáng và vệt đuôi: mỗi hạt có 48 điểm, vị trí của các điểm đều là vị trí ở “một thời điểm trong quá khứ”
     this.beads = [];
     const TR = 48;
     for (let j = 0; j < 9; j++) {
@@ -92,7 +92,7 @@ export class Clock {
     this.v = new THREE.Vector3();
   }
 
-  // ts：场景时间（秒）；speed：场景时间相对真实时间的速度（倒放为负）；beat：底鼓包络（按场景时间算）
+  // ts: thời gian cảnh (giây); speed: tốc độ của thời gian cảnh so với thời gian thực (phát ngược thì âm); beat: đường bao trống kick (tính theo thời gian cảnh)
   render(renderer, target, ts, s) {
     const dir = Math.sign(s.speed) || 0, tail = Math.min(1, Math.abs(s.speed) / 2);
     for (const rg of this.rings) {
@@ -110,7 +110,7 @@ export class Clock {
     this.coreU.uPulse.value = s.beat ?? 0;
     const sc = 1 + 0.1 * (s.beat ?? 0);
     this.core.scale.setScalar(sc);
-    const span = 0.55 * Math.min(Math.abs(s.speed), 2.5);       // 拖尾长度跟着「时间的流速」变：定格时没有拖尾
+    const span = 0.55 * Math.min(Math.abs(s.speed), 2.5);       // Độ dài vệt đuôi thay đổi theo “tốc độ chảy của thời gian”: khi dừng hình thì không có vệt đuôi
     for (const b of this.beads) {
       const arr = b.pts.geometry.attributes.position.array;
       for (let i = 0; i < b.TR; i++) {

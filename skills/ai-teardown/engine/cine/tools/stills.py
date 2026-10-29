@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""讲解课样帧：python3 cine/tools/stills.py <课号> out.png <时间…> [--cols 4] [--w 480] [--port 8964]
-时间可以写秒（12.5）或旁白位置（B07.ring、B03@三千、B05+1.2）。"""
+"""Khung mẫu của bài giảng: python3 cine/tools/stills.py <số bài> out.png <thời gian…> [--cols 4] [--w 480] [--port 8964]
+Thời gian có thể ghi giây (12.5) hoặc vị trí lời dẫn (B07.ring, B03@三千, B05+1.2)."""
 import io
 import sys
 from pathlib import Path
@@ -32,7 +32,7 @@ def main():
         try:
             pg.wait_for_function("window.__film && window.__film.ready", timeout=120000)
         except Exception:
-            print("页面没就绪：", errs[:5]); raise
+            print("Trang chưa sẵn sàng:", errs[:5]); raise
         shots = []
         for a in times:
             t = float(a) if a[0].isdigit() else pg.evaluate("(s) => window.__film.at(s)", a)
@@ -40,7 +40,7 @@ def main():
             shots.append((a, t, Image.open(io.BytesIO(pg.screenshot(type="png"))).convert("RGB")))
         b.close()
     if errs:
-        print("页面报错：", errs[:5])
+        print("Trang báo lỗi:", errs[:5])
     if len(shots) == 1:
         shots[0][2].save(out); print("→", out); return
     th = int(tw * 9 / 16)

@@ -1,80 +1,80 @@
-# 12 · 风格家族与扩充路线（2026-10-27）
+# 12 · Họ phong cách và lộ trình mở rộng (2026-10-27)
 
-## 一、为什么只有 7 套时显得单薄
+## 1. Vì sao khi chỉ có 7 bộ thì trông mỏng
 
-1. **亮度单一**：7 张风格图的平均亮度（0–255）：星空 12、暗金 17、字幕新闻 47、古风 61、像素 61、视觉调查 135、水墨 180。5 套是暗底，没有一套明亮、高饱和的。
-2. **换皮不换讲法**：差别主要在配色和材质，镜头语言都是「摆上元素 → 淡入 → 推近」。观众分得出风格靠的是讲法（形变接力、尺度穿越、边讲边写、纸片拍下来），不靠色板。
-3. **整个家族空着**：明亮流行、印刷与纸、图解与设计学派一套都没有。
+1. **Độ sáng đơn điệu**: độ sáng trung bình (0–255) của 7 ảnh phong cách: Sao trời 12, Vàng sẫm 17, Tin tức phụ đề 47, Cổ phong 61, Pixel 61, Điều tra trực quan 135, Thuỷ mặc 180. 5 bộ nền tối, không có bộ nào sáng và bão hoà cao.
+2. **Đổi lớp áo không đổi cách kể**: khác biệt chủ yếu ở bảng màu và chất liệu, ngôn ngữ ống kính đều là "đặt phần tử lên → mờ dần vào → zoom gần". Người xem phân biệt được phong cách là nhờ cách kể (tiếp sức biến hình, xuyên thang đo, vừa kể vừa viết, chụp những mảnh giấy), không nhờ bảng màu.
+3. **Cả một họ bị bỏ trống**: họ Sáng và đại chúng, In ấn và giấy, trường phái Minh hoạ và thiết kế đều chưa có bộ nào.
 
-所以扩充按「家族」补，每套新风格同时规定**长相 + 讲法**（STYLE.md 的「动态」「标志镜头」两行）。
+Vì vậy việc mở rộng bổ sung theo "họ", mỗi bộ phong cách mới đồng thời quy định **diện mạo + cách kể** (hai dòng "Chuyển động" và "Cảnh chiêu bài" của STYLE.md).
 
-## 二、两条轴：风格 × 手法
+## 2. Hai trục: phong cách × thủ pháp
 
-- **风格（长相 + 讲法，44 套，8 个家族，每个家族至少 3 套）**：本目录 `styles/`，`catalog.json` 的 `fam` 字段。
-- **手法（可以叠在任何风格上的镜头组织方式）**：见第五节。一期片子选 1 套风格 + 至多 2 种手法。
+- **Phong cách (diện mạo + cách kể, 44 bộ, 8 họ, mỗi họ ít nhất 3 bộ)**: thư mục `styles/` này, trường `fam` của `catalog.json`.
+- **Thủ pháp (cách tổ chức ống kính có thể chồng lên bất kỳ phong cách nào)**: xem mục 5. Một kỳ phim chọn 1 phong cách + tối đa 2 thủ pháp.
 
-| 家族 | 风格 | 档位 |
+| Họ | Phong cách | Bậc |
 |---|---|---|
-| 东方 | 古风、水墨纸本、留白极简、敦煌壁画、青花、木刻、长卷 | 前三套基础，后四套增强 |
-| 暗场概念 | 星空光点、暗金线描、深色数学、霓虹赛博、发布会极简、极光、装饰艺术金线 | 基础 |
-| 明亮流行 | 综艺花字、孟菲斯波普、手账涂鸦、蒸汽波、黏土卡哇伊 | 基础 |
-| 印刷与纸 | 孔版印刷、剪报拼字、杂志编辑、国家公园海报、半调拼贴 | 拼贴增强，其余基础 |
-| 图解与设计 | 粉笔黑板、手绘过程、蓝图专利图、等轴测剖面、瑞士网格动态字、地铁线路图、象形统计、铜版博物 | 铜版增强，其余基础 |
-| 剪辑与纪实 | 字幕新闻、视觉调查、复古桌面、档案灯台、电视新闻包装 | 基础 |
-| 电影感 | 剪影片头（Saul Bass 式）、默片字卡、构成主义蒙太奇 | 基础 |
-| 游戏 | 像素、RPG 对话框、卡牌对战、田园像素（星露谷式，画面原创） | 基础 |
+| Phương Đông | Cổ phong, Thuỷ mặc giấy nền, Tối giản chừa trắng, Bích hoạ Đôn Hoàng, Men xanh trắng, Khắc gỗ, Trường quyển | Ba bộ đầu cơ bản, bốn bộ sau nâng cao |
+| Nền tối khái niệm | Điểm sáng sao trời, Nét vàng sẫm, Toán học nền tối, Neon cyber, Tối giản phát hành, Cực quang, Nét vàng Art Deco | Cơ bản |
+| Sáng và đại chúng | Chữ hoa tạp kỹ, Memphis pop, Sổ tay vẽ nguệch ngoạc, Vaporwave, Đất sét kawaii | Cơ bản |
+| In ấn và giấy | In lụa stencil, Ghép chữ báo cắt, Tạp chí biên tập, Poster công viên quốc gia, Cắt dán bán sắc | Cắt dán nâng cao, còn lại cơ bản |
+| Minh hoạ và thiết kế | Bảng phấn, Quá trình vẽ tay, Bản vẽ blueprint bằng sáng chế, Mặt cắt đẳng cự, Chữ động lưới Thuỵ Sĩ, Sơ đồ tuyến tàu điện ngầm, Thống kê hình tượng, Đồng bản bảo tàng | Đồng bản nâng cao, còn lại cơ bản |
+| Dựng phim và phóng sự | Tin tức phụ đề, Điều tra trực quan, Desktop cổ điển, Đèn hải đăng lưu trữ, Bao bì bản tin truyền hình | Cơ bản |
+| Điện ảnh | Mở đầu bóng đen (kiểu Saul Bass), Thẻ chữ phim câm, Dựng phim kiến tạo chủ nghĩa | Cơ bản |
+| Game | Pixel, Hộp thoại RPG, Đấu bài, Pixel đồng quê (kiểu Stardew Valley, hình ảnh nguyên bản) | Cơ bản |
 
-样片：`styles`（5 套视觉系统）、`styles2`（剪辑与纪实 2 套）、`styles3`（补空白家族 8 套）、`styles4`（增强档 4 套）、`styles5`（第五批 8 套）、`styles6`（第六批 8 套）、`styles7`（增强档长卷 / 铜版 2 套）、`styles8`（田园像素）、`styles9`（候选收尾 5 套）、`styles10`（手绘过程），全部用同一段 B01 开场渲染。新样片集用 `tools/style_reel.py <名> <段数>` 生成时间轴和旁白。
+Mẫu: `styles` (5 hệ thống hình ảnh), `styles2` (2 bộ Dựng phim và phóng sự), `styles3` (8 bộ bù họ trống), `styles4` (4 bộ bậc nâng cao), `styles5` (đợt 5, 8 bộ), `styles6` (đợt 6, 8 bộ), `styles7` (2 bộ bậc nâng cao Trường quyển / Đồng bản), `styles8` (Pixel đồng quê), `styles9` (5 bộ chốt danh sách ứng viên), `styles10` (Quá trình vẽ tay), tất cả dùng cùng một đoạn mở đầu B01 để render. Tuyển tập mẫu mới dùng `tools/style_reel.py <tên> <số đoạn>` để tạo trục thời gian và lời dẫn.
 
-## 三、那份「87 种网页 / UI 卡片风格大全」怎么用
+## 3. "Bộ sưu tập 87 phong cách thẻ web / UI" dùng thế nào
 
-那是网页卡片风格，直接搬成 87 套视频风格会大量重复，推荐时也选不出来。处理方式：
+Đó là phong cách thẻ web, chuyển thẳng thành 87 phong cách video sẽ bị trùng lặp rất nhiều, và khi đề xuất cũng không chọn ra được. Cách xử lý:
 
-| 处理 | 风格（编号是原清单序号） |
+| Xử lý | Phong cách (số là thứ tự trong danh sách gốc) |
 |---|---|
-| **已做成整片风格** | 拼贴 19 / 孔版印刷 33 → 半调拼贴、孔版印刷；孟菲斯 9 / 波普 70 / 企业孟菲斯 87 → 孟菲斯波普；瑞士 6 / 包豪斯 24 / 荷兰风格派 35 / 施比克曼 58 → 瑞士网格动态字；蓝图 38 / 技术图解 62 → 蓝图专利图；等轴测 26 → 等轴测剖面；动态排版 17 → 瑞士网格动态字的讲法；像素 18 → 像素；版画 32 → 木刻；书道墨绘 42 → 水墨纸本 |
-| **第五批已做** | 赛博朋克 10 / 新东京 44 / 故障艺术 36 → 霓虹赛博；侘寂 39 / 原研哉 45 / 深泽直人 47 → 留白极简；索尔·巴斯 68 → 剪影片头；早期 Mac 79 → 复古桌面；Zine 82 → 剪报拼字；手绘 11 / 涂鸦 14 → 手账涂鸦；艾歇 50 → 象形统计、地铁线路图 |
-| **第六批已做** | 极光 8 / 全息 25 → 极光；蒸汽波 29 / Y2K 31 → 蒸汽波；好莱坞黄金时代 86 → 默片字卡；构成主义 → 构成主义蒙太奇；promo-video keynote / editorial → 发布会极简、杂志编辑；新增游戏家族 RPG 对话框、卡牌对战 |
-| **第七批已做（增强档）** | 浮世绘 / 中国长卷 → 长卷；铜版博物图版 → 铜版博物 |
-| **第九批已做（候选清单收尾）** | 黏土 13 / 卡哇伊 43 → 黏土卡哇伊；装饰艺术 22 / 71 → 装饰艺术金线；国家公园海报 83 → 国家公园海报；档案灯台；电视新闻包装（虚构台名） |
-| **只当「卡片质感」参数，叠在任何风格上** | 质感设计 1、扁平 2、新拟态 3、玻璃拟态 4、野兽派 5、拟物 7、单色 15、便当格 16、纸艺 28、浮生千禧 37、硅谷 UI 75 |
-| **只当配色 / 字体参考** | 德国、美国流派里中文知识区观众不熟的：制造联盟 54、柏林 Techno 56、青年风格 57、新德国浪潮 59、摩利尔 60、哥特体 61、生态设计 63、发电站乐队 64、达波芬 65、浪漫主义 66、兰堡 67、埃姆斯 69、加州现代 72、Googie 73、刻奇 74、抽象表现 76、震颤派 77、迷幻 78、赖特 80、Tiki 81、克兰布鲁克 84、滑板 85、好莱坞 86 等 |
-| **不做** | 反设计 34（做成片就是难看）、极繁主义 20（和「画面字 ≤8 字」冲突） |
+| **Đã làm thành phong cách cả phim** | Cắt dán 19 / In stencil 33 → Cắt dán bán sắc, In stencil; Memphis 9 / Pop 70 / Memphis doanh nghiệp 87 → Memphis pop; Thuỵ Sĩ 6 / Bauhaus 24 / De Stijl Hà Lan 35 / Spiekermann 58 → Chữ động lưới Thuỵ Sĩ; Blueprint 38 / Minh hoạ kỹ thuật 62 → Bản vẽ blueprint bằng sáng chế; Đẳng cự 26 → Mặt cắt đẳng cự; Typography động 17 → cách kể của Chữ động lưới Thuỵ Sĩ; Pixel 18 → Pixel; Bản khắc 32 → Khắc gỗ; Thư pháp mực 42 → Thuỷ mặc giấy nền |
+| **Đã làm ở đợt 5** | Cyberpunk 10 / Tân Tokyo 44 / Glitch 36 → Neon cyber; Wabi-sabi 39 / Hara Kenya 45 / Fukasawa Naoto 47 → Tối giản chừa trắng; Saul Bass 68 → Mở đầu bóng đen; Mac đời đầu 79 → Desktop cổ điển; Zine 82 → Ghép chữ báo cắt; Vẽ tay 11 / Vẽ nguệch ngoạc 14 → Sổ tay vẽ nguệch ngoạc; Escher 50 → Thống kê hình tượng, Sơ đồ tuyến tàu điện ngầm |
+| **Đã làm ở đợt 6** | Cực quang 8 / Hologram 25 → Cực quang; Vaporwave 29 / Y2K 31 → Vaporwave; Hollywood thời hoàng kim 86 → Thẻ chữ phim câm; Kiến tạo chủ nghĩa → Dựng phim kiến tạo chủ nghĩa; promo-video keynote / editorial → Tối giản phát hành, Tạp chí biên tập; bổ sung họ Game: Hộp thoại RPG, Đấu bài |
+| **Đã làm ở đợt 7 (bậc nâng cao)** | Ukiyo-e / Trường quyển Trung Hoa → Trường quyển; Đồ bản đồng bản bảo tàng → Đồng bản bảo tàng |
+| **Đã làm ở đợt 9 (chốt danh sách ứng viên)** | Đất sét 13 / Kawaii 43 → Đất sét kawaii; Art Deco 22 / 71 → Nét vàng Art Deco; Poster công viên quốc gia 83 → Poster công viên quốc gia; Đèn hải đăng lưu trữ; Bao bì bản tin truyền hình (tên đài hư cấu) |
+| **Chỉ dùng làm tham số "chất liệu thẻ", chồng lên bất kỳ phong cách nào** | Material Design 1, Phẳng 2, Neumorphism 3, Glassmorphism 4, Brutalism 5, Skeuomorphism 7, Đơn sắc 15, Bento 16, Nghệ thuật giấy 28, Phù sinh thiên niên kỷ 37, UI Thung lũng Silicon 75 |
+| **Chỉ làm tham chiếu màu sắc / phông chữ** | Các trường phái Đức, Mỹ mà người xem khu vực tri thức tiếng Trung không quen: Werkbund 54, Berlin Techno 56, Jugendstil 57, Làn sóng mới Đức 59, Moriyer 60, Chữ Gothic 61, Thiết kế sinh thái 63, Kraftwerk 64, Dada 65, Chủ nghĩa lãng mạn 66, Lanbao 67, Eames 69, California hiện đại 72, Googie 73, Kitsch 74, Biểu hiện trừu tượng 76, Shaker 77, Ảo giác 78, Wright 80, Tiki 81, Cranbrook 84, Ván trượt 85, Hollywood 86, v.v. |
+| **Không làm** | Phản thiết kế 34 (làm thành phim chỉ là xấu), Chủ nghĩa cực nhiều 20 (xung đột với "chữ trên hình ≤8 chữ") |
 
-## 四、从 promo-video 借了什么
+## 4. Mượn gì từ promo-video
 
-| promo-video 里的东西 | 在这里变成 |
+| Thứ trong promo-video | Ở đây biến thành |
 |---|---|
-| 视觉基调：综艺花字（顺德 vlog 口碑好）、瑞士网格动态字、剪纸 | 综艺花字、瑞士网格动态字；剪纸并进半调拼贴的做法 |
-| 视觉基调：keynote 发布会、aurora 极光、editorial 杂志、浅色便当格 | 下一批候选（发布会极简、极光）；便当格当卡片质感 |
-| 单形状连续变形（one-shape.md） | 深色数学的「一个对象形变成下一个」 |
-| 风格扩展包 01：无限穿越 / 透视揭示 / 数据叙事 / 液态融合 | 手法轴（见下） |
-| 风格扩展包 02：一镜到底接力 | 手法轴 |
-| 动效图标（lucide-animated）、Noto 动态 emoji | 手法轴（综艺花字、孟菲斯可直接用） |
+| Tông hình ảnh: Chữ hoa tạp kỹ (vlog Thuận Đức được đánh giá tốt), chữ động lưới Thuỵ Sĩ, cắt giấy | Chữ hoa tạp kỹ, Chữ động lưới Thuỵ Sĩ; cắt giấy gộp vào cách làm của Cắt dán bán sắc |
+| Tông hình ảnh: keynote phát hành, aurora cực quang, editorial tạp chí, bento sáng | Đợt ứng viên tiếp theo (Tối giản phát hành, Cực quang); bento làm chất liệu thẻ |
+| Biến hình liên tục của một hình (one-shape.md) | "Một đối tượng biến thành đối tượng tiếp theo" của Toán học nền tối |
+| Gói mở rộng phong cách 01: xuyên thấu vô hạn / hé lộ phối cảnh / kể bằng dữ liệu / hoà tan chất lỏng | Trục thủ pháp (xem dưới) |
+| Gói mở rộng phong cách 02: tiếp sức một ống kính | Trục thủ pháp |
+| Icon động (lucide-animated), emoji động Noto | Trục thủ pháp (Chữ hoa tạp kỹ, Memphis có thể dùng trực tiếp) |
 
-## 五、手法轴（叠在任何风格上，一期最多 2 种）
+## 5. Trục thủ pháp (chồng lên bất kỳ phong cách nào, một kỳ tối đa 2 loại)
 
-| 手法 | 什么时候用 | 出处 |
+| Thủ pháp | Khi nào dùng | Xuất xứ |
 |---|---|---|
-| 尺度穿越（Kurzgesagt 式） | 从一个物体钻进下一个世界；数量级、宇宙、细胞 | promo-video style-pack-01 InfiniteZoom；11-absorbed 语法 1 |
-| 形变接力 | 上一个对象直接变成下一个，几乎不切 | one-shape.md；深色数学 |
-| 一镜到底接力 | 一条线索贯穿：输入 → 产出 → 持续运行 | style-pack-02 |
-| 透视揭示 | 机器 / 建筑 / 身体内部结构 | style-pack-01 XRayReveal |
-| 数据叙事 | 先搭坐标轴再长数据，只标一件事 | style-pack-01 DataStory；11-absorbed 财经图表 |
-| 桌面材料（Vox 式） | 史料、报道、截图摊在桌上，荧光笔扫 | 视觉调查、半调拼贴 |
-| 边讲边写 | 说一句写一句，板书累积 | 粉笔黑板 |
-| 画给你看（手 + 笔） | 显示作画过程：铅笔稿 → 墨线 → 上色，手跟着笔尖；可叠在任何线描类风格上 | 手绘过程（styles10_film.js 的 addPath / addText / addFill + hand） |
-| 动效图标 / 动态 emoji | 流程节点逐个亮起 | promo-video animated-icons |
+| Xuyên thang đo (kiểu Kurzgesagt) | Từ một vật chui vào thế giới tiếp theo; bậc độ lớn, vũ trụ, tế bào | promo-video style-pack-01 InfiniteZoom; ngữ pháp 1 của 11-absorbed |
+| Tiếp sức biến hình | Đối tượng trước trực tiếp biến thành đối tượng sau, gần như không cắt | one-shape.md; Toán học nền tối |
+| Một ống kính tiếp sức | Một mạch xuyên suốt: đầu vào → sản phẩm → tiếp tục vận hành | style-pack-02 |
+| Hé lộ phối cảnh | Cấu trúc bên trong máy móc / kiến trúc / cơ thể | style-pack-01 XRayReveal |
+| Kể bằng dữ liệu | Dựng trục toạ độ trước rồi mới mọc dữ liệu, chỉ đánh dấu một việc | style-pack-01 DataStory; biểu đồ tài chính của 11-absorbed |
+| Vật liệu trên bàn (kiểu Vox) | Sử liệu, bài báo, ảnh chụp màn hình bày trên bàn, bút dạ quang quét qua | Điều tra trực quan, Cắt dán bán sắc |
+| Vừa kể vừa viết | Nói một câu viết một câu, bảng viết cộng dồn | Bảng phấn |
+| Vẽ cho bạn xem (tay + bút) | Hiển thị quá trình vẽ: bản phác bút chì → nét mực → tô màu, tay đi theo đầu bút; có thể chồng lên mọi phong cách nét vẽ | Quá trình vẽ tay (addPath / addText / addFill + hand của styles10_film.js) |
+| Icon động / emoji động | Các nút quy trình sáng lên lần lượt | promo-video animated-icons |
 
-## 六、这次踩的坑（做增强档风格时先看）
+## 6. Những bẫy lần này (làm phong cách bậc nâng cao thì xem trước)
 
-0. **推荐关键词不要写单字**：「聪明」会命中古风的「明」（明朝）。catalog 里一律写双字以上（明朝、唐代、诗词…），recommend.py 也已忽略单字词。
+0. **Từ khoá đề xuất đừng viết một chữ đơn**: "聪明" sẽ trúng chữ "明" của Cổ phong (triều Minh). Trong catalog luôn viết từ hai chữ trở lên (triều Minh, đời Đường, thi từ…), recommend.py cũng đã bỏ qua từ đơn chữ.
 
-1. **MJ 把「某某瓷器上的画」画成器物实物照**：提示词写 porcelain painting，出来的是碗和盘子的产品照。要写 `flat full-frame painting in ... style` 并加 `no bowl, no plate, no vase, no ceramic object`。
-2. **年代风格词会带偏人物时代**：写「1930s woodcut」，人物就戴近代帽子。人物时代要单独写清楚（`ancient Warring States China, long hemp robes, hair tied in topknots`），再加 `no modern clothing, no caps`。
-3. **Real-ESRGAN 用 x4plus 模型配 `-s 2` 会分块错位**（画面像被切成方块后拼乱）。只需放大 1.3 倍时直接用 Lanczos 加轻微锐化；要放大就用 `-s 4` 再缩小。
-4. **画布画图要等图片解码**：用 canvas 画生图时，第一帧可能在解码完成前就画了（出现黑洞）。styles4 的 `redraw()`：没解码完就往 `__vk.pend` 登记一次「解码后用同一个 t 重画」。
-5. **Vision 抠图的投影不在蒙版里**：主体抠走后地面投影还留在底图上。补洞时把蒙版往投影方向（右下）拖拽求并集再膨胀；纯色纸面用中位色加噪声补，比 inpaint 干净。
-6. **Vision 的 `generateMaskedImage` 输出会错位**：改用 `generateScaledMaskForImage` 只导出蒙版，再用 PIL 合成（工具 `tools/vision_layers.swift`）。
-8. **超宽画幅用 Nano Banana 2**：Midjourney 最宽 16:9，长卷要 4:1 时用 nano-banana-2（2k，12 积分/张，比 MJ 贵）；4128×1024 按 1080 高缩放后约 4354 宽，正好够横移。
-7. **离屏挖洞用 destination-out，不要用 evenodd 裁剪**：多块剥落区域重叠时，evenodd 会把重叠处又补回来。
+1. **MJ vẽ "tranh trên đồ sứ nào đó" thành ảnh sản phẩm khí vật**: prompt viết porcelain painting thì ra ảnh sản phẩm của bát và đĩa. Phải viết `flat full-frame painting in ... style` và thêm `no bowl, no plate, no vase, no ceramic object`.
+2. **Từ phong cách niên đại sẽ làm lệch thời đại nhân vật**: viết "1930s woodcut" thì nhân vật đội mũ cận đại. Thời đại nhân vật phải viết riêng cho rõ (`ancient Warring States China, long hemp robes, hair tied in topknots`), rồi thêm `no modern clothing, no caps`.
+3. **Real-ESRGAN dùng mô hình x4plus kèm `-s 2` sẽ chia khối lệch** (ảnh như bị cắt thành ô vuông rồi ghép loạn). Chỉ cần phóng 1.3 lần thì dùng thẳng Lanczos kèm làm nét nhẹ; muốn phóng to thì dùng `-s 4` rồi thu nhỏ.
+4. **Canvas vẽ ảnh phải chờ ảnh giải mã xong**: khi dùng canvas vẽ ảnh tạo sinh, khung đầu tiên có thể vẽ trước khi giải mã xong (xuất hiện lỗ đen). `redraw()` của styles4: chưa giải mã xong thì đăng ký vào `__vk.pend` một lần "sau khi giải mã dùng cùng t vẽ lại".
+5. **Bóng đổ của Vision không nằm trong mặt nạ**: sau khi chủ thể bị tách đi, bóng đổ trên nền vẫn còn ở ảnh nền. Khi lấp lỗ, kéo mặt nạ theo hướng bóng đổ (dưới phải) lấy hợp rồi nở ra; giấy nền đơn sắc thì dùng màu trung vị cộng nhiễu để lấp, sạch hơn inpaint.
+6. **Đầu ra `generateMaskedImage` của Vision bị lệch**: đổi sang dùng `generateScaledMaskForImage` chỉ xuất mặt nạ, rồi dùng PIL ghép (công cụ `tools/vision_layers.swift`).
+8. **Khổ siêu rộng dùng Nano Banana 2**: Midjourney rộng nhất 16:9, trường quyển cần 4:1 thì dùng nano-banana-2 (2k, 12 điểm/ảnh, đắt hơn MJ); 4128×1024 co theo chiều cao 1080 thì rộng khoảng 4354, vừa đủ để trượt ngang.
+7. **Khoét lỗ ngoài màn hình dùng destination-out, đừng dùng cắt evenodd**: khi nhiều vùng bong tróc chồng lên nhau, evenodd sẽ lấp lại phần chồng.

@@ -1,26 +1,26 @@
-# 视觉调查 · VISUAL INVESTIGATION
+# Điều tra trực quan · VISUAL INVESTIGATION
 
-> 类别：剪辑与纪实（新增，思路参考 Lemo-Opuscar）　|　风格图：`still.jpg`　|　样片源码：`_samples/styles2_film.js → investigation()；组件 marker / ring / focus`
+> Loại: dựng phim và tài liệu (mới thêm, ý tưởng tham khảo Lemo-Opuscar) | Ảnh phong cách: `still.jpg` | Mã nguồn bản mẫu: `_samples/styles2_film.js → investigation(); thành phần marker / ring / focus`
 
-**一句话**：把史料原文、现场图、时间线摆在一起对照：划重点、画红圈、推近定格。
+**Một câu**: Đặt nguyên văn sử liệu, ảnh hiện trường, dòng thời gian cạnh nhau để đối chiếu: gạch trọng điểm, vẽ vòng đỏ, đẩy gần rồi dừng hình.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 可信、较真、「证据就在这」；把 facts.md 直接搬上屏。 |
-| 材质 / 画法 | 原文排成文献页（逐字等宽格，便于精确定位）、现场图拍立得、顶部时间线；增强档可用 GPT Image 2.5 生成书影底图（不带字，字由代码排）。 |
-| 配色逻辑 | 底 #101114 · 纸 #efe6d0 · 墨 #2a2420 · 红圈 #ff3b30 · 荧光黄 rgba(255,214,0,.55)。 |
-| 字体 | 原文用宋体（繁体照录原本），标注用等宽小字。 |
-| 动态 | 荧光笔一笔扫过（0.35 秒）、红圈按笔顺画出（0.5 秒）、镜头推近到被标注的句子并定格。 |
-| 镜头语法 | focus() 关键帧推拉：全页 → 第二行 → 第三行，越来越近。 |
-| 声音 | 低频脉冲 + 打字机 / 圆珠笔 / 相机快门音效。 |
-| 标志镜头 | 红圈圈住原文里的关键词 + 顶部时间线逐格点亮。 |
+| Ý đồ đạo diễn | Đáng tin, nghiêm túc, “bằng chứng ở ngay đây”; đưa thẳng facts.md lên màn hình. |
+| Chất liệu / cách vẽ | Nguyên văn xếp thành trang tài liệu (từng chữ trong ô đơn cách, tiện định vị chính xác), ảnh hiện trường dạng Polaroid, dòng thời gian ở trên cùng; bản nâng cao có thể dùng GPT Image 2.5 tạo ảnh nền sách (không có chữ, chữ do code xếp). |
+| Logic phối màu | Nền #101114 · giấy #efe6d0 · mực #2a2420 · vòng đỏ #ff3b30 · vàng dạ quang rgba(255,214,0,.55). |
+| Phông chữ | Nguyên văn dùng font Tống thể (chữ phồn thể chép đúng như bản gốc), chú thích dùng chữ nhỏ đơn cách. |
+| Chuyển động | Bút dạ quang quét một nét (0,35 giây), vòng đỏ vẽ ra theo thứ tự nét (0,5 giây), ống kính đẩy gần đến câu được chú thích rồi dừng hình. |
+| Ngữ pháp ống kính | Đẩy kéo theo khung hình then chốt của focus(): cả trang → dòng thứ hai → dòng thứ ba, càng lúc càng gần. |
+| Âm thanh | Xung tần thấp + hiệu ứng máy đánh chữ / bút bi / màn trập máy ảnh. |
+| Cảnh đặc trưng | Vòng đỏ khoanh từ khóa trong nguyên văn + dòng thời gian ở trên cùng sáng lên từng ô. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换标注颜色、换文献来源、换时间线节点
-- **一改就变味**：把原文改成白话（失去「证据感」）
-- **不能改**：去掉原文和标注
+## Có thể sửa đến mức nào (dùng khi đổi thành “phong cách của tôi”)
+- **Cứ yên tâm sửa**: đổi màu chú thích, đổi nguồn tài liệu, đổi nút trên dòng thời gian
+- **Sửa là mất chất**: đổi nguyên văn thành văn nói (mất “cảm giác bằng chứng”)
+- **Không được sửa**: bỏ nguyên văn và chú thích
 
-## 搭配
-- 适合母版：B 两难选择片的史料段、辟谣、事件复盘、考据类
-- 不适合：纯情绪、纯抽象的片子
-- 增强档 Renoise 前缀：`（书影底图）antique paper document texture, aged edges, no text, no letters`
+## Phối hợp
+- Phù hợp bản gốc: đoạn sử liệu của phim lựa chọn khó xử B, bác tin đồn, nhìn lại sự kiện, khảo cứu
+- Không phù hợp: phim thuần cảm xúc, thuần trừu tượng
+- Tiền tố Renoise bản nâng cao: `(ảnh nền sách) antique paper document texture, aged edges, no text, no letters`

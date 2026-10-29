@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""从离线图标集里抽出片子用到的图标，写成一个小 JSON 打进 bundle。
+"""Rút các icon mà phim dùng từ bộ icon ngoại tuyến, ghi thành một JSON nhỏ rồi đóng vào bundle.
 
-用法：python3 scripts/icons.py <输出.json> <源文件或目录>...
-扫描源码里形如 "icon-park:robot"（IconPark 多色）、"icon-park-outline:robot"、"tabler:robot" 的名字；图标集在 assets/iconsets/。
+Cách dùng: python3 scripts/icons.py <đầu ra.json> <file nguồn hoặc thư mục>...
+Quét trong mã nguồn các tên có dạng "icon-park:robot" (IconPark nhiều màu), "icon-park-outline:robot", "tabler:robot"; bộ icon nằm ở assets/iconsets/.
 """
 import json, re, sys
 from pathlib import Path
@@ -34,7 +34,7 @@ def main():
             continue
         res[name] = {"body": rec["body"], "w": rec.get("width", s.get("width", 24)), "h": rec.get("height", s.get("height", 24))}
     out.write_text(json.dumps(res, ensure_ascii=False), encoding="utf-8")
-    print(f"{len(res)} 个图标 → {out}" + (f"；缺 {miss}" if miss else ""))
+    print(f"{len(res)} icon → {out}" + (f"; thiếu {miss}" if miss else ""))
     if miss:
         sys.exit(1)
 

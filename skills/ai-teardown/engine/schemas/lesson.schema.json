@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ai-teardown.local/schemas/lesson.schema.json",
-  "title": "lesson.json · 教案（唯一源文件）",
-  "description": "章节与 beat。旁白、上屏关键词、原语与参数、出处都在这里；视频与课件都由它编译。第 5 步产出，配音后回填 audio。",
+  "title": "lesson.json · Giáo án (file nguồn duy nhất)",
+  "description": "Chương và beat. Lời dẫn, từ khóa lên màn hình, nguyên thủy và tham số, nguồn đều ở đây; video và bài giảng tương tác đều được biên dịch từ nó. Đầu ra của bước 5, sau khi lồng tiếng thì điền ngược lại audio.",
   "type": "object",
   "required": [
     "meta",
@@ -65,7 +65,7 @@
           "minimum": 2.5,
           "maximum": 5,
           "default": 3.5,
-          "description": "目标语速，字/秒"
+          "description": "Tốc độ nói mục tiêu, chữ/giây"
         }
       }
     },
@@ -123,7 +123,7 @@
         },
         "focus_node": {
           "type": "string",
-          "description": "这一章镜头推进到总图的哪个节点"
+          "description": "Chương này đẩy góc máy tới nút nào của sơ đồ tổng"
         },
         "beats": {
           "type": "array",
@@ -146,11 +146,11 @@
         "name": {
           "type": "string",
           "pattern": "^[a-z][a-z0-9_-]*$",
-          "description": "对应旁白里的 [[name]] 标记"
+          "description": "Tương ứng với dấu [[name]] trong lời dẫn"
         },
         "action": {
           "type": "string",
-          "description": "原语钩子，如 reveal:model、press、state:3"
+          "description": "Móc nguyên thủy, như reveal:model, press, state:3"
         }
       }
     },
@@ -215,12 +215,12 @@
         "ui_mock": {
           "type": "boolean",
           "default": false,
-          "description": "true 时角落标「界面示意」"
+          "description": "Khi true thì góc ghi \"Minh họa giao diện\""
         },
         "continues": {
           "type": "boolean",
           "default": false,
-          "description": "true 时沿用上一个 beat 的原语实例，不重建"
+          "description": "Khi true thì dùng tiếp thể hiện nguyên thủy của beat trước, không dựng lại"
         }
       }
     },
@@ -257,16 +257,16 @@
             "transition",
             "end"
           ],
-          "description": "四拍：ask=问 show=演 name=名 place=归"
+          "description": "Bốn nhịp: ask=hỏi show=trình diễn name=gọi tên place=quy về"
         },
         "concept": {
           "type": "string",
           "pattern": "^C\\d{2}$",
-          "description": "本 beat 首次引入的概念，至多一个"
+          "description": "Khái niệm lần đầu được đưa vào ở beat này, nhiều nhất một cái"
         },
         "narration": {
           "type": "string",
-          "description": "旁白；用 [[cue名]] 标记画面动作对齐的位置"
+          "description": "Lời dẫn; dùng [[tên cue]] đánh dấu vị trí căn khớp với động tác của hình ảnh"
         },
         "keywords": {
           "type": "array",
@@ -275,7 +275,7 @@
             "maxLength": 12
           },
           "maxItems": 3,
-          "description": "上屏关键词，≤ 3 个；每个不超过 8 个汉字，英文按宽度折算最多 12 个字符"
+          "description": "Từ khóa lên màn hình, ≤ 3 cái; mỗi cái không quá 8 chữ Hán, tiếng Anh quy đổi theo độ rộng tối đa 12 ký tự"
         },
         "visual": {
           "$ref": "#/$defs/visual"
@@ -296,7 +296,7 @@
         },
         "audio": {
           "type": "object",
-          "description": "配音后由脚本回填",
+          "description": "Script điền ngược lại sau khi lồng tiếng",
           "additionalProperties": false,
           "properties": {
             "file": {

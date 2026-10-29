@@ -1,6 +1,6 @@
 /**
- * Floaties 漂浮小图标：几枚马卡龙色小圆徽章依次弹出，之后轻轻上下漂、微微摆动，给大标题、开场、收尾添点活气。
- * 位置固定，不跟镜头走；render 是纯函数（漂浮相位由序号决定，不用随机数）。
+ * Floaties biểu tượng nhỏ bay lơ lửng: vài huy hiệu tròn nhỏ màu macaron lần lượt bật ra, rồi nhẹ nhàng trôi lên xuống, lắc nhẹ, thêm sinh khí cho tiêu đề lớn, phần mở đầu và phần kết.
+ * Vị trí cố định, không đi theo máy quay; render là hàm thuần (pha lơ lửng do số thứ tự quyết định, không dùng số ngẫu nhiên).
  *
  * params
  *   items [{icon, x, y, size=72, color:"m1".."m6", at}]

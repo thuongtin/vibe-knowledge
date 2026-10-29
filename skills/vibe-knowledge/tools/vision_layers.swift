@@ -1,5 +1,5 @@
-// Vision 前景实例分割：导出与原图等大的灰度蒙版（_all = 全部实例，_N = 单个实例），再用 PIL 合成主体层、补洞做底层。
-// 编译：swiftc -O vision_layers.swift -o ~/.cache/vibe-knowledge/vision_layers   用法：vision_layers in.jpg out/prefix
+// Phân đoạn thể hiện tiền cảnh của Vision: xuất mặt nạ xám bằng kích thước ảnh gốc (_all = toàn bộ thể hiện, _N = một thể hiện đơn), rồi dùng PIL ghép lớp chủ thể, vá lỗ để làm lớp nền.
+// Biên dịch: swiftc -O vision_layers.swift -o ~/.cache/vibe-knowledge/vision_layers   Cách dùng: vision_layers in.jpg out/prefix
 import Foundation
 import Vision
 import CoreImage

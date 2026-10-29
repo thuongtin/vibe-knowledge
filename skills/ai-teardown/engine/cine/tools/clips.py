@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""从镜头表读出案例片段（film.js 导出的 clips），裁好放进 lessons/<课号>/assets/clips/：<id>.mp4（只取那一段、缩到框的大小、60 帧）+ <id>.jpg（封面，给预览和接触表）。
-用法：python3 cine/tools/clips.py <课号> [--port 8964]
-clips 每项：{id, src（绝对路径）, from（源片起点秒）, dur, at（本课第几秒出现）, x, y, w, h, audio: "full"|"duck"|"mute", gain?（dB）, fade?（秒，0=硬切）, poster_at?（秒）, seg?（只放源片前 seg 秒，剩下定格）}"""
+"""Đọc các đoạn minh hoạ từ bảng cảnh quay (clips do film.js xuất ra), cắt gọn rồi đặt vào lessons/<số bài>/assets/clips/: <id>.mp4 (chỉ lấy đúng đoạn đó, co về kích thước khung, 60 khung hình) + <id>.jpg (ảnh bìa, dùng cho xem trước và contact sheet).
+Cách dùng: python3 cine/tools/clips.py <số bài> [--port 8964]
+Mỗi mục của clips: {id, src (đường dẫn tuyệt đối), from (giây bắt đầu của phim gốc), dur, at (xuất hiện ở giây thứ mấy của bài này), x, y, w, h, audio: "full"|"duck"|"mute", gain? (dB), fade? (giây, 0=cắt cứng), poster_at? (giây), seg? (chỉ phát seg giây đầu của phim gốc, phần còn lại giữ nguyên khung hình)}"""
 import subprocess
 import sys
 from pathlib import Path
@@ -33,8 +33,8 @@ def main():
     for c in clips:
         mp4, jpg, sig = out / f"{c['id']}.mp4", out / f"{c['id']}.jpg", out / f"{c['id']}.sig"
         w, h = int(c["w"]) // 2 * 2, int(c["h"]) // 2 * 2
-        seg = float(c.get("seg", c["dur"]))                       # seg < dur：源片只放 seg 秒，之后定格在最后一帧
-        key = f"{c['src']}|{c['from']}|{c['dur']}|{seg}|{w}x{h}"      # 起点、时长、框大小变了就重裁
+        seg = float(c.get("seg", c["dur"]))                       # seg < dur: phim gốc chỉ phát seg giây, sau đó giữ nguyên ở khung hình cuối
+        key = f"{c['src']}|{c['from']}|{c['dur']}|{seg}|{w}x{h}"      # điểm bắt đầu, thời lượng, kích thước khung thay đổi thì cắt lại
         if not mp4.exists() or mp4.stat().st_mtime < Path(c["src"]).stat().st_mtime or not sig.exists() or sig.read_text() != key:
             hold = max(0.0, float(c["dur"]) - seg)
             vf = f"scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h},fps=60" + (f",tpad=stop_mode=clone:stop_duration={hold:.3f}" if hold > 0.01 else "")
@@ -43,11 +43,11 @@ def main():
                             "-vf", vf, *af, "-c:v", "libx264", "-preset", "slow", "-crf", "16",
                             "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-ac", "2", str(mp4)], check=True)
             sig.write_text(key)
-        # 封面：默认取片段第 0.4 秒；poster_at=0 取第一帧（画面里先用封面做飞入动画、落位后无缝换成真视频）
+        # Ảnh bìa: mặc định lấy giây thứ 0.4 của đoạn; poster_at=0 lấy khung hình đầu (trong hình ảnh dùng ảnh bìa làm hiệu ứng bay vào trước, khi vào vị trí thì chuyển liền mạch sang video thật)
         pa = float(c.get("poster_at", min(0.4, c["dur"] / 2)))
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{pa:.3f}", "-i", str(mp4), "-frames:v", "1", "-q:v", "2", str(jpg)], check=True)
         print(f"✓ {c['id']}  {Path(c['src']).name} {c['from']}s+{c['dur']}s → {w}×{h}")
-    print(f"→ {out}（{len(clips)} 段）")
+    print(f"→ {out} ({len(clips)} đoạn)")
 
 
 if __name__ == "__main__":

@@ -1,100 +1,100 @@
-# 01 · 六种脚本母版（有旁白版）
+# 01 · Sáu khuôn kịch bản (bản có lời dẫn)
 
-来源：2026-10-27 拆解 15 条知识区作品（抖音 #Vibe知识大赏 头部 + 知识年终大赏），证据和数据见 `references/06-benchmarks.md`。
-原作头部大多无旁白；这里全部改写成**旁白讲故事、画面只给关键词 / 数字 / 出处**的版本。
+Nguồn: phân tích 15 tác phẩm mảng kiến thức ngày 2026-10-27 (Douyin #Vibe Đại Thưởng Kiến Thức nhóm đầu bảng + tổng kết kiến thức cuối năm), bằng chứng và số liệu xem `references/06-benchmarks.md`.
+Phần lớn tác phẩm nhóm đầu bảng gốc không có lời dẫn; ở đây tất cả đều được viết lại thành phiên bản **lời dẫn kể chuyện, hình ảnh chỉ đưa từ khóa / con số / nguồn trích**.
 
-旁白语速：科技博主快节奏，成片 5.5–6 字/秒（配音后 speed.py 1.1）。字数 ≈ 目标秒数 × 5.5（2:30 约 850 字），骨架里的字数上限按旧的 4 字/秒写，可放宽 30%。
-每拍写成口语短句，一句 ≤22 字；骨架里每拍的字数是**上限**。`tools/new_film.py --template X` 会把对应骨架放进 narration.json。
+Tốc độ lời dẫn: nhịp nhanh kiểu blogger công nghệ, thành phẩm 5.5–6 chữ/giây (sau khi lồng tiếng chạy speed.py 1.1). Số chữ ≈ số giây mục tiêu × 5.5 (2:30 khoảng 850 chữ); giới hạn số chữ trong khung xương đang viết theo mức cũ 4 chữ/giây, có thể nới thêm 30%.
+Mỗi nhịp viết thành câu khẩu ngữ ngắn, mỗi câu ≤22 chữ; số chữ của mỗi nhịp trong khung xương là **giới hạn trên**. `tools/new_film.py --template X` sẽ đặt khung xương tương ứng vào narration.json.
 
 ---
 
-## A · 猜谜概念片（对标：电子智人《信息论》142 万赞）
+## A · Phim đố khái niệm (chuẩn đối chiếu: Điện Tử Trí Nhân "Lý thuyết thông tin" 1,42 triệu like)
 
-**适合**：一个抽象概念（熵、本福特定律、贝叶斯、纳什均衡、相变）。**时长** 3:30–4:30。
+**Phù hợp**: một khái niệm trừu tượng (entropy, định luật Benford, Bayes, cân bằng Nash, chuyển pha). **Thời lượng** 3:30–4:30.
 
-| 拍 | 做什么 | 画面 |
+| Nhịp | Làm gì | Hình ảnh |
 |---|---|---|
-| B01 冷开场 | 给一个人人能接的半句话或一道直觉题，停 1 秒，再给一个猜不到的版本 | 大问题卡（ask）/ 字在乱跳；**先不出标题** |
-| B02 点题 | 一句话说出这个反差就是本期的概念 | 系列片头 + 片名（seriesCard），配乐第一次到达 |
-| B03–B04 第一章 | 一个能玩的小游戏把概念量化 → 谁、哪年第一次命名它 | 计数器 / 柱状 / 人物配图（plate，AI 示意图） |
-| B05–B06 第二章 | 两个中国观众熟悉的例子（一个≈0、一个很大）→ 公式只出现一次 + 一句大白话 | 关键词 slam；公式淡入 |
-| B07–B08 第三章 | 让观众**亲身体验**一次（乱序字、错觉）→ 金句收段 | 互动画面 + 金句关键词 |
-| B09–B10 第四章 + 反转 | 尺度拉到宇宙 / 历史；被当成噪声的东西恰恰是最大发现 | **主视觉动态镜头（vclip，Renoise 视频）** |
-| B11 升华 | 概念的边界：它解释不了什么 | 对比两栏 |
-| B12 落回观众 | 回到观众今天的手机 / 工作 | 生活化配图 |
-| B13 回环 | 重现 B01 那一幕，这一次让观众来填 | 与 B01 同构图 |
+| B01 Mở đầu lạnh | Đưa nửa câu ai cũng nói tiếp được hoặc một câu hỏi trực giác, dừng 1 giây, rồi đưa phiên bản không đoán ra được | Thẻ câu hỏi lớn (ask) / chữ nhảy loạn; **chưa hiện tiêu đề** |
+| B02 Nêu đề | Một câu nói ra rằng chính sự tương phản này là khái niệm của tập | Mở đầu series + tên phim (seriesCard), nhạc nền xuất hiện lần đầu |
+| B03–B04 Chương một | Một trò chơi nhỏ chơi được để định lượng khái niệm → ai, năm nào lần đầu đặt tên cho nó | Bộ đếm / cột / ảnh nhân vật (plate, hình minh họa AI) |
+| B05–B06 Chương hai | Hai ví dụ khán giả Trung Quốc quen thuộc (một cái ≈0, một cái rất lớn) → công thức chỉ xuất hiện một lần + một câu bạch thoại | Từ khóa slam; công thức hiện dần |
+| B07–B08 Chương ba | Để khán giả **tự trải nghiệm** một lần (chữ đảo thứ tự, ảo giác) → câu vàng chốt đoạn | Hình tương tác + từ khóa câu vàng |
+| B09–B10 Chương bốn + đảo chiều | Kéo thước đo lên vũ trụ / lịch sử; thứ bị coi là nhiễu lại chính là phát hiện lớn nhất | **Cảnh quay động chủ đạo (vclip, video Renoise)** |
+| B11 Thăng hoa | Biên giới của khái niệm: nó không giải thích được điều gì | Hai cột đối chiếu |
+| B12 Trở về với khán giả | Quay lại chiếc điện thoại / công việc của khán giả hôm nay | Ảnh minh họa đời thường |
+| B13 Khép vòng | Tái hiện cảnh B01, lần này để khán giả điền | Bố cục giống hệt B01 |
 
-**关键手法**：标题延后（原作 27 秒才出标题）；一个视觉主角贯穿全片（原作是一颗金色光点：游标 → 柱 → 星群 → 弧线节点）；章节签（chapter）带英文小标题。
+**Thủ pháp chính**: lùi tiêu đề (bản gốc đến giây 27 mới hiện tiêu đề); một nhân vật hình ảnh xuyên suốt cả phim (bản gốc là một điểm sáng vàng: con trỏ → cột → đàn sao → nút cung); bảng chương (chapter) kèm tiêu đề phụ tiếng Anh.
 
-## B · 两难选择片（对标：Iwanau《唐太宗放死囚回家》22.7 万赞）
+## B · Phim lựa chọn lưỡng nan (chuẩn đối chiếu: Iwanau "Đường Thái Tông thả tử tù về nhà" 227 nghìn like)
 
-**适合**：历史事件、博弈论、心理学实验。**时长** 定长 2:55（系列化，观众形成预期）。
+**Phù hợp**: sự kiện lịch sử, lý thuyết trò chơi, thí nghiệm tâm lý. **Thời lượng** cố định 2:55 (làm theo series, khán giả hình thành kỳ vọng).
 
-| 拍 | 做什么 | 画面 |
+| Nhịp | Làm gì | Hình ảnh |
 |---|---|---|
-| B01 冷开场 | 一句话讲完离奇事实，最后几个字是结果 | 全屏配图 + 史书原文脚注 |
-| B02 换你 | 「换你：……你，……不……？」 | 大问题卡 |
-| B03 系列片头 | 「如果你活在古代，第 N 期」 | seriesCard |
-| B04 前情 | 事件前一个具体细节让人物立起来；一句古今连接（「这条规矩用到今天」） | 场景配图 + 竖排古文（vquote） |
-| B05 经过 | 时间、地点、动作，数字一步步滚上去；史书分歧两说并列 | 地图 + 扩散点（spread）+ 计数器 |
-| B06 等待 | 倒计时，普通人这段时间在做什么 | 动态镜头（春耕、麦收） |
-| B07 揭晓 | 结果，停顿 | 关键词 slam + 音效 |
-| B08 反转 | 另一位史家 / 后人怎么拆穿，原话上屏 | 竖排古文 |
-| B09 对照组 | 另一个时代照做，结果完全不同 | 同一张地图，点数对比 |
-| B10 回问 | 再问一遍 B02，出现两个按钮 + 下期预告 | choice 按钮 |
+| B01 Mở đầu lạnh | Một câu kể xong sự thật kỳ lạ, mấy chữ cuối là kết quả | Ảnh toàn màn hình + chú thích nguyên văn sử sách |
+| B02 Đến lượt bạn | "Đổi lại là bạn: ......bạn, ......không......?" | Thẻ câu hỏi lớn |
+| B03 Mở đầu series | "Nếu bạn sống thời cổ đại, kỳ N" | seriesCard |
+| B04 Bối cảnh | Một chi tiết cụ thể trước sự kiện để nhân vật hiện lên; một câu nối cổ kim ("quy tắc này dùng đến tận hôm nay") | Ảnh bối cảnh + cổ văn dọc (vquote) |
+| B05 Diễn biến | Thời gian, địa điểm, hành động, con số tăng dần từng bước; sử sách có hai thuyết khác nhau thì đặt song song | Bản đồ + điểm lan tỏa (spread) + bộ đếm |
+| B06 Chờ đợi | Đếm ngược, người bình thường trong khoảng thời gian này đang làm gì | Cảnh quay động (cày xuân, gặt lúa mạch) |
+| B07 Công bố | Kết quả, dừng một nhịp | Từ khóa slam + hiệu ứng âm thanh |
+| B08 Đảo chiều | Một sử gia khác / người đời sau vạch trần thế nào, nguyên văn lên màn hình | Cổ văn dọc |
+| B09 Nhóm đối chứng | Một thời đại khác làm y như vậy, kết quả hoàn toàn khác | Cùng một bản đồ, so sánh số điểm |
+| B10 Hỏi lại | Hỏi lại B02 một lần nữa, xuất hiện hai nút + giới thiệu kỳ sau | Nút choice |
 
-**关键手法**：每一句底部都有出处小字（foot），示意画面写「为示意」；数字有分歧时两个都写。
+**Thủ pháp chính**: mỗi câu đều có chú thích nguồn nhỏ ở đáy (foot), hình minh họa ghi "chỉ mang tính minh họa"; con số có bất đồng thì ghi cả hai.
 
-## C · 痛点原理片（对标：墨有意思《兰道尔原理》，转发 2.4 万 > 收藏）
+## C · Phim nguyên lý nỗi đau (chuẩn đối chiếu: Mặc Hữu Ý Tư "Nguyên lý Landauer", chia sẻ 24 nghìn > lưu)
 
-**适合**：打工人 / 学生的日常困扰 × 一个冷门物理或心理学原理。**时长** 2:00–2:30。
+**Phù hợp**: nỗi phiền toái hằng ngày của dân văn phòng / học sinh × một nguyên lý vật lý hay tâm lý học ít người biết. **Thời lượng** 2:00–2:30.
 
-日常反常 → 「到底是谁偷走了……」→ 冷门原理（人名 + 年份）→ **一个贯穿道具**（4 格小黑板、电量条）→ 代入观众的一个下午（每条挂论文出处）→ 3 秒能做的解法 → 第二个反常（为什么休息更累）→ 治愈收尾。
-道具在每一拍都要出现并变形；结尾电量回升。
+Điều bất thường thường ngày → "rốt cuộc ai đã đánh cắp......" → nguyên lý ít người biết (tên người + năm) → **một đạo cụ xuyên suốt** (bảng đen 4 ô, thanh pin) → đặt khán giả vào một buổi chiều (mỗi mục kèm nguồn bài báo) → cách giải quyết làm được trong 3 giây → điều bất thường thứ hai (vì sao nghỉ ngơi lại mệt hơn) → kết thúc chữa lành.
+Đạo cụ phải xuất hiện và biến hình ở mỗi nhịp; cuối phim pin hồi lại.
 
-## D · 一条主线片（对标：FredTao《高考政治七本书》、骑老爷爷《opus家族史》17 万赞）
+## D · Phim một mạch chính (chuẩn đối chiếu: FredTao "Bảy cuốn sách chính trị thi đại học", Kỵ Lão Gia Gia "Lịch sử gia tộc opus" 170 nghìn like)
 
-**适合**：学科体系、技术史、一门课的全貌、一个家族 / 器物的身世。**时长** 约 3:00。
+**Phù hợp**: hệ thống môn học, lịch sử công nghệ, toàn cảnh một khóa học, lai lịch của một gia tộc / vật dụng. **Thời lượng** khoảng 3:00.
 
-N 个碎片看似无关 → 「其实有一条线」→ 一条发光的线（trail）依次穿过 5–7 个节点，每个节点一张时代配图（每个时代一种画风）→ 线收成网 / 树 → 问观众哪两个联系最紧。
-opus家族史的做法：每个时代一张 AI 场景图，首尾用同一张图回环。
+N mảnh ghép tưởng chừng không liên quan → "thực ra có một sợi dây" → một đường phát sáng (trail) lần lượt xuyên qua 5–7 nút, mỗi nút một ảnh thời đại (mỗi thời đại một phong cách vẽ) → dây thu lại thành mạng / cây → hỏi khán giả hai mối liên hệ nào chặt chẽ nhất.
+Cách làm của lịch sử gia tộc opus: mỗi thời đại một ảnh cảnh AI, đầu cuối dùng cùng một ảnh để khép vòng.
 
-## E · 闯关片（对标：考蛙蛙《加强削弱》收藏率 54%）
+## E · Phim vượt ải (chuẩn đối chiếu: Khảo Oa Oa "Tăng cường và làm yếu" tỷ lệ lưu 54%)
 
-**适合**：考试题型、方法论、流程。**时长** 4–6 分钟。
+**Phù hợp**: dạng đề thi, phương pháp luận, quy trình. **Thời lượng** 4–6 phút.
 
-冒险地图（几个世界、几只 Boss）→ 每关：题干 → 陷阱选项 → 正解「暴击」→ 掉落一张秘籍卡 → 最终 Boss 综合题 → **一屏秘籍总表**（这一屏就是被收藏的理由）。
-像素风精灵可以用 pixel-mv 的流程做，或用 Renoise 生成后像素化。
+Bản đồ phiêu lưu (vài thế giới, vài con Boss) → mỗi ải: đề bài → đáp án bẫy → đáp án đúng "chí mạng" → rơi ra một thẻ bí kíp → đề tổng hợp Boss cuối → **một màn hình bảng tổng bí kíp** (màn hình này chính là lý do khiến phim được lưu).
+Sprite pixel có thể làm theo quy trình pixel-mv, hoặc tạo bằng Renoise rồi pixel hóa.
 
-## F · 六面轮转片（对标：骑老爷爷《悟了》45 秒 1.9 万赞）
+## F · Phim xoay sáu mặt (chuẩn đối chiếu: Kỵ Lão Gia Gia "Ngộ rồi" 45 giây 19 nghìn like)
 
-**适合**：哲学流派、观点对比、「一件事的六种答法」。**时长** 45–60 秒。
+**Phù hợp**: trường phái triết học, so sánh quan điểm, "sáu cách trả lời cho một việc". **Thời lượng** 45–60 giây.
 
-一个大问题 → 「有人给过六种答案」→ 每种：人名 · 书名 · 年份 + 一句原话（每种 5–7 秒）→ 「没有一面是纯色的」→ 「你，转到哪一面了？」
-画面：一个立方体 / 魔方 / 蛋糕每转一面换一种颜色（主道具），每面一张 Renoise 风格图。
-
----
-
-## 所有母版共用（写稿时逐条自查）
-
-1. **前 3 秒让观众参与**：猜一个字、选一个按钮、认出一个日常场景。不要先上标题、不要先自我介绍。
-2. **标题延后**：钩子讲完再出系列片头。
-3. **一个主道具贯穿全片**，概念变了道具变形，不换道具。
-4. **每个事实挂出处**；示意画面标明；分歧两说并列。
-5. **画面字只放关键词**（≤8 字）、数字、出处；整句交给旁白和字幕。
-6. **每章一句金句收尾**，能截图。
-7. **结尾回扣开头、把问题交回观众**（评论区互动）。
+Một câu hỏi lớn → "có người từng đưa ra sáu đáp án " → mỗi đáp án: tên người · tên sách · năm + một câu nguyên văn (mỗi đáp án 5–7 giây) → "không có mặt nào là màu thuần " → "bạn đã xoay đến mặt nào rồi?"
+Hình ảnh: một khối lập phương / Rubik / chiếc bánh mỗi lần xoay một mặt lại đổi một màu (đạo cụ chính), mỗi mặt một ảnh phong cách Renoise.
 
 ---
 
-## 母版 × 风格 推荐（风格详见 styles/INDEX.md）
+## Dùng chung cho mọi khuôn (tự kiểm tra từng mục khi viết kịch bản)
 
-| 母版 | 首选风格 | 也可以 | 可叠加段落 |
+1. **3 giây đầu cho khán giả tham gia**: đoán một chữ, chọn một nút, nhận ra một cảnh đời thường. Đừng lên tiêu đề trước, đừng tự giới thiệu trước.
+2. **Lùi tiêu đề**: nói xong phần mở đầu thu hút rồi mới ra phần mở đầu series.
+3. **Một đạo cụ chính xuyên suốt cả phim**, khái niệm đổi thì đạo cụ biến hình, không đổi đạo cụ.
+4. **Mỗi sự thật đều gắn nguồn**; hình minh họa phải ghi rõ; bất đồng thì đặt hai thuyết song song.
+5. **Chữ trên hình chỉ đặt từ khóa** (≤8 chữ), con số, nguồn; nguyên câu giao cho lời dẫn và phụ đề.
+6. **Mỗi chương kết bằng một câu vàng**, chụp màn hình được.
+7. **Kết thúc nối lại phần đầu, trả câu hỏi về cho khán giả** (tương tác ở phần bình luận).
+
+---
+
+## Khuôn × phong cách đề xuất (chi tiết phong cách xem styles/INDEX.md)
+
+| Khuôn | Phong cách ưu tiên | Cũng có thể | Đoạn có thể chồng thêm |
 |---|---|---|---|
-| A 猜谜概念片 | 星空光点 | 水墨纸本（诗词类）、暗金线描 | 字幕新闻（开场钩子） |
-| B 两难选择片 | 古风 | 水墨纸本 | **视觉调查**（史料段）、字幕新闻（反转） |
-| C 痛点原理片 | 暗金线描 | 字幕新闻 | — |
-| D 一条主线片 | 水墨纸本 / 时代拼贴 | 暗金线描、古风 | 视觉调查（关键文献） |
-| E 闯关片 | 像素 | 暗金线描 | — |
-| F 六面轮转片 | 水墨纸本 | 星空光点 | — |
-| 热点快讯 / 辟谣 | 字幕新闻 / 视觉调查 | — | — |
+| A Phim đố khái niệm | Điểm sáng sao trời | Thủy mặc giấy bản (loại thơ từ), nét vàng tối | Bản tin phụ đề (móc câu mở đầu) |
+| B Phim lựa chọn lưỡng nan | Cổ phong | Thủy mặc giấy bản | **Điều tra hình ảnh** (đoạn sử liệu), bản tin phụ đề (đảo chiều) |
+| C Phim nguyên lý nỗi đau | Nét vàng tối | Bản tin phụ đề | — |
+| D Phim một mạch chính | Thủy mặc giấy bản / cắt dán thời đại | Nét vàng tối, cổ phong | Điều tra hình ảnh (văn kiện then chốt) |
+| E Phim vượt ải | Pixel | Nét vàng tối | — |
+| F Phim xoay sáu mặt | Thủy mặc giấy bản | Điểm sáng sao trời | — |
+| Tin nóng / bác bỏ tin đồn | Bản tin phụ đề / điều tra hình ảnh | — | — |

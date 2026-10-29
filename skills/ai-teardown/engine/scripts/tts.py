@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-"""配音与对齐：逐 beat 合成，取词级时间戳，把旁白里的 [[cue]] 标记换算成时刻。
+"""Lồng tiếng và căn chỉnh: tổng hợp giọng từng beat, lấy mốc thời gian mức từ, quy đổi các đánh dấu [[cue]] trong lời dẫn thành thời điểm.
 
-用法：
-    python3 scripts/tts.py <narration.json 或 lesson.json> <输出目录> [--gap 0.35] [--lead 0.4] [--lexicon lexicon.json] [--rate -10%]
+Cách dùng:
+    python3 scripts/tts.py <narration.json hoặc lesson.json> <thư mục đầu ra> [--gap 0.35] [--lead 0.4] [--lexicon lexicon.json] [--rate -10%]
 
-输入（二选一）：
-    lesson.json（读 meta.voice 与 beats[].narration）
-    或 {"voice": {"id": "...", "rate": "-10%"}, "lexicon": {...}, "beats": [{"id": "B001", "narration": "..."}]}
-读音词典：{"原文": "给 TTS 读的写法"}，只影响发音，时间戳仍然对回原文。
+Đầu vào (chọn một trong hai):
+    lesson.json (đọc meta.voice và beats[].narration)
+    hoặc {"voice": {"id": "...", "rate": "-10%"}, "lexicon": {...}, "beats": [{"id": "B001", "narration": "..."}]}
+Từ điển cách đọc: {"văn gốc": "cách viết để TTS đọc"}, chỉ ảnh hưởng phát âm, mốc thời gian vẫn quy về văn gốc.
 
-输出：
-    <out>/audio/<beat>.mp3            每段配音
-    <out>/narration.wav               按 gap 串起来的整条旁白（48 kHz 单声道）
-    <out>/timings.json                每段的起止、逐词时间（含原文字符区间）、cue 时刻，全部是绝对秒
+Đầu ra:
+    <out>/audio/<beat>.mp3            lồng tiếng từng đoạn
+    <out>/narration.wav               toàn bộ lời dẫn nối theo gap (48 kHz đơn âm)
+    <out>/timings.json                điểm đầu/cuối của từng đoạn, thời gian từng từ (kèm khoảng ký tự trong văn gốc), thời điểm cue, tất cả đều là giây tuyệt đối
 """
 import asyncio
 import json
@@ -27,7 +27,7 @@ CUE_RE = re.compile(r"\[\[([a-z][a-z0-9_-]*)\]\]")
 
 
 def strip_cues(text):
-    """去掉 [[cue]]，返回 (干净文本, {cue: 干净文本里的字符位置})。"""
+    """Bỏ [[cue]], trả về (văn bản sạch, {cue: vị trí ký tự trong văn bản sạch})."""
     out, cues, pos = [], {}, 0
     for m in CUE_RE.finditer(text):
         out.append(text[pos:m.start()])
@@ -38,7 +38,7 @@ def strip_cues(text):
 
 
 def apply_lexicon(text, lexicon):
-    """按词典替换发音；返回 (TTS 文本, 映射表)，映射表把 TTS 文本的每个字符对回原文位置。"""
+    """Thay cách phát âm theo từ điển; trả về (văn bản TTS, bảng ánh xạ), bảng ánh xạ đưa từng ký tự của văn bản TTS về vị trí trong văn gốc."""
     if not lexicon:
         return text, list(range(len(text) + 1))
     keys = sorted(lexicon, key=len, reverse=True)
@@ -72,23 +72,23 @@ async def synth_once(text, voice, rate):
 
 
 async def synth(text, voice, rate, tries=4):
-    """edge-tts 偶发 NoAudioReceived / 连接中断，指数退避重试。"""
+    """edge-tts thỉnh thoảng gặp NoAudioReceived / mất kết nối, thử lại với độ lùi theo cấp số mũ."""
     for k in range(tries):
         try:
             return await synth_once(text, voice, rate)
         except Exception as e:  # noqa: BLE001
             if k == tries - 1:
                 raise
-            print(f"  重试 {k + 1}：{type(e).__name__}", file=sys.stderr)
+            print(f"  Thử lại {k + 1}: {type(e).__name__}", file=sys.stderr)
             await asyncio.sleep(1.5 * 2 ** k)
 
 
 def locate(words, tts_text, back):
-    """把每个词按顺序定位到 TTS 文本，再映射回原文字符区间。"""
+    """Định vị từng từ theo thứ tự vào văn bản TTS, rồi ánh xạ ngược về khoảng ký tự trong văn gốc."""
     i = 0
     for w in words:
         k = tts_text.find(w["text"], i)
-        if k < 0:  # 找不到时退化为紧接上一个词
+        if k < 0:  # khi không tìm thấy thì lùi về nối ngay sau từ trước
             k = i
         w["i0"], w["i1"] = back[k], back[min(k + len(w["text"]), len(back) - 1)]
         i = k + len(w["text"])
@@ -108,7 +108,7 @@ def main():
     gap = float(sys.argv[sys.argv.index("--gap") + 1]) if "--gap" in sys.argv else 0.35
     lead = float(sys.argv[sys.argv.index("--lead") + 1]) if "--lead" in sys.argv else 0.4
     data = json.loads(src.read_text(encoding="utf-8"))
-    if "meta" in data:  # lesson.json：读音词典与语速从命令行给（lesson 本身不放发音细节）
+    if "meta" in data:  # lesson.json: từ điển cách đọc và tốc độ nói truyền từ dòng lệnh (bản thân lesson không chứa chi tiết phát âm)
         voice = {"id": data["meta"]["voice"], "rate": sys.argv[sys.argv.index("--rate") + 1] if "--rate" in sys.argv else "-10%"}
         lexicon = json.loads(Path(sys.argv[sys.argv.index("--lexicon") + 1]).read_text(encoding="utf-8")) if "--lexicon" in sys.argv else {}
     else:
@@ -136,12 +136,12 @@ def main():
             "words": words, "cues": cues,
         }
         parts.append((mp3, t))
-        print(f"{b['id']}  {dur:5.2f}s  {len(clean):3d} 字  cues={list(cues)}")
+        print(f"{b['id']}  {dur:5.2f}s  {len(clean):3d} chữ  cues={list(cues)}")
         t += dur + max(gap, b.get("gap", 0), b.get("min_hold_s", 0))
     total = round(t - gap + lead, 3)
     timings["total"] = total
 
-    # 串成一条旁白：每段按绝对起点放置
+    # Nối thành một lời dẫn: mỗi đoạn đặt theo điểm bắt đầu tuyệt đối
     inputs, filters = [], []
     for i, (mp3, start) in enumerate(parts):
         inputs += ["-i", str(mp3)]
@@ -151,7 +151,7 @@ def main():
     subprocess.run(["ffmpeg", "-y", "-v", "error", *inputs, "-filter_complex", ";".join(filters),
                     "-map", "[out]", "-ac", "1", "-ar", "48000", str(out / "narration.wav")], check=True)
     (out / "timings.json").write_text(json.dumps(timings, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"合计 {total:.2f}s → {out / 'timings.json'}")
+    print(f"Tổng cộng {total:.2f}s → {out / 'timings.json'}")
 
 
 if __name__ == "__main__":

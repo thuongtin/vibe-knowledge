@@ -1,102 +1,102 @@
-# 04 · 手绘引擎（Notion 皮肤）场景编排
+# 04 · Dàn dựng cảnh cho engine vẽ tay (skin Notion)
 
-适用 `"engine": "sketch"` 的系列（WorkBuddy 上手课那套）。编译器 `runtime/sketch.js`，图元 `primitives/sketch.js`、`primitives/motion.js`。下面先是系列里给助手用的规范原文（SCENES_GUIDE），再是补充：全部字段速查与已修过的版式规则。
+Áp dụng cho series có `"engine": "sketch"` (bộ WorkBuddy nhập môn). Trình biên dịch `runtime/sketch.js`, primitive `primitives/sketch.js`, `primitives/motion.js`. Phần dưới đây trước tiên là nguyên văn quy phạm dành cho trợ lý trong series (SCENES_GUIDE), sau đó là phần bổ sung: tra nhanh toàn bộ trường và các quy tắc bố cục đã được sửa.
 
 ---
 
-# WorkBuddy 上手课 · 画面编排规范（手绘引擎 + Notion 皮肤 + 动效）
+# WorkBuddy nhập môn · Quy phạm dàn dựng hình ảnh (engine vẽ tay + skin Notion + hiệu ứng chuyển động)
 
-每节一个 `lessons/NN/scenes.json`，编译器是 `runtime/sketch.js`（图元在 `primitives/sketch.js`、`primitives/motion.js`）。
+Mỗi bài có một `lessons/NN/scenes.json`, trình biên dịch là `runtime/sketch.js` (primitive nằm ở `primitives/sketch.js`, `primitives/motion.js`).
 
-## 文件头
+## Phần đầu tệp
 ```json
-{"n": 2, "title": "…", "series": "WorkBuddy 上手课", "engine": "sketch", "skin": "notion", "presenter": "hp", "sticker": true,
+{"n": 2, "title": "…", "series": "WorkBuddy nhập môn", "engine": "sketch", "skin": "notion", "presenter": "hp", "sticker": true,
  "speed": 1.15, "author": "@Berryxia", "scenes": [ … ]}
 ```
-- `sticker: true`（**新课默认**）：贴纸风——stickers 卡片变成白边贴纸（随机倾斜 1.5–3°、放大落下回弹、投影收紧、高光划过），插画套模切白边，卡片里的 Noto emoji 也描白边；标签放不下自动缩字号。单页关掉：stickers 写 `"style": "card"`，say 写 `"illusSticker": false`。
-- `engine: "sketch"` 用手绘引擎；`skin: "notion"` 是 Notion 极简风（`"paper"` 是手账风，备用）。
-- `presenter: "host"`：右下角讲解小人（作者像素头像，会眨眼、说话时张嘴）。封面和收尾导图自动不出现，单个场景可写 `"host": "none"` 关掉。
-- 时间写法同第二季：`"B03"`、`"B03.cue"`、`"B03@词"`、`"B03.end"`，都可加 ±秒。
+- `sticker: true` (**mặc định cho bài mới**): phong cách sticker — thẻ của stickers biến thành sticker viền trắng (nghiêng ngẫu nhiên 1.5–3°, phóng to rơi xuống nảy lại, bóng đổ co chặt, ánh sáng quét qua), minh hoạ được bọc viền trắng cắt khuôn, emoji Noto trong thẻ cũng được vẽ viền trắng; nhãn không vừa thì tự co cỡ chữ. Tắt cho một trang: stickers ghi `"style": "card"`, say ghi `"illusSticker": false`.
+- `engine: "sketch"` dùng engine vẽ tay; `skin: "notion"` là phong cách tối giản Notion (`"paper"` là phong cách sổ tay, dự phòng).
+- `presenter: "host"`: nhân vật nhỏ dẫn giải ở góc dưới phải (ảnh đại diện pixel của tác giả, biết chớp mắt, mở miệng khi nói). Trang bìa và sơ đồ ôn tập cuối bài tự động không xuất hiện, từng cảnh có thể ghi `"host": "none"` để tắt.
+- Cách ghi thời gian giống mùa hai: `"B03"`, `"B03.cue"`, `"B03@từ"`, `"B03.end"`, đều có thể cộng trừ ± giây.
 
-## 素材
-- **图标三层分工**：界面、流程、清单用 **IconPark 线条图标**（写 `icon-park:robot`，Apache 2.0，一笔笔描出来、配 Notion 色；缺的用 `lucide:` / `tabler:`）；主角、情绪、物件用 **Noto emoji**（写 `robot`，有动画自动播）。
-- **插画**：IconPark 插画库 88 张（`assets/illustrations/iconpark/`，总览 `_sheet.html`，名单 `catalog.json`）。`python3 scripts/illus.py lessons/NN ip-5-48 …` 放进课目录，场景里 `say` / `cover` 写 `"illus": "ip-5-48"`：轮廓描线 + 色块淡入；来源只在片尾 credits 标注（inlineCredits 默认关）。
-- **流程 / 协作图**：`diagram` 模板（AntV X6，MIT）：节点按 col / row 摆，连线自动走直角圆弧，节点弹出 → 连线画出 → 虚线流动。
-- 图标：`python3 scripts/noto_emoji.py lessons/NN robot light-bulb …`（名字用小写连字符英文名）。有官方动画的会同时放进 `lessons/NN/lottie/`，场景里写同一个名字就**自动播动画**，没有就用静态图。
-- 蓝皮书截图：放进 `assets/img/`，在 `images.json` 登记 `credit`（「截图出处：《WorkBuddy 实战蓝皮书》第 X 章 · MIT」），画面自动标出处。
-- 引用原文必须逐字、标章节；**不编数字**，示意数据要写明「示例数据」。
+## Tư liệu
+- **Phân công ba lớp biểu tượng**: giao diện, quy trình, danh sách dùng **biểu tượng nét IconPark** (ghi `icon-park:robot`, Apache 2.0, vẽ từng nét, phối màu Notion; thiếu thì dùng `lucide:` / `tabler:`); nhân vật chính, cảm xúc, đồ vật dùng **emoji Noto** (ghi `robot`, có hoạt ảnh thì tự phát).
+- **Minh hoạ**: thư viện minh hoạ IconPark 88 hình (`assets/illustrations/iconpark/`, tổng quan `_sheet.html`, danh sách `catalog.json`). `python3 scripts/illus.py lessons/NN ip-5-48 …` đặt vào thư mục bài, trong cảnh `say` / `cover` ghi `"illus": "ip-5-48"`: vẽ nét đường viền + khối màu mờ vào; nguồn chỉ ghi ở credits cuối phim (inlineCredits mặc định tắt).
+- **Sơ đồ quy trình / cộng tác**: mẫu `diagram` (AntV X6, MIT): nút xếp theo col / row, đường nối tự đi góc vuông bo tròn, nút bật ra → vẽ đường nối → nét đứt chảy.
+- Biểu tượng: `python3 scripts/noto_emoji.py lessons/NN robot light-bulb …` (tên dùng tên tiếng Anh chữ thường nối bằng gạch ngang). Cái nào có hoạt ảnh chính thức sẽ được đặt đồng thời vào `lessons/NN/lottie/`, trong cảnh ghi cùng một tên thì **tự phát hoạt ảnh**, không có thì dùng ảnh tĩnh.
+- Ảnh chụp màn hình Sách xanh: đặt vào `assets/img/`, đăng ký `credit` trong `images.json` ("Nguồn ảnh chụp màn hình: 《WorkBuddy 实战蓝皮书》Chương X · MIT"), hình ảnh tự ghi nguồn.
+- Trích dẫn nguyên văn phải từng chữ, ghi rõ chương; **không bịa số liệu**, dữ liệu minh hoạ phải ghi rõ "Dữ liệu ví dụ".
 
-## 通用字段（每个场景都能写）
-| 字段 | 作用 |
+## Trường dùng chung (cảnh nào cũng có thể ghi)
+| Trường | Tác dụng |
 |---|---|
-| `chapter` | 章节名：左上角面包屑 + 切页转场 |
-| `src` | 左下角出处小字 |
-| `tips: [{text, at, until}]` | 讲解小人的话（气泡），6–16 字，复述旁白要点，**不替作者编观点** |
-| `cam: [[时刻, x, y, z], …]` | 镜头推拉摇移；时刻可写秒（相对场景开头）或 `"B02@词"` |
+| `chapter` | Tên chương: breadcrumb ở góc trên trái + chuyển trang |
+| `src` | Chữ nhỏ nguồn ở góc dưới trái |
+| `tips: [{text, at, until}]` | Lời của nhân vật dẫn giải (bong bóng), 6–16 chữ, nhắc lại ý chính của lời dẫn, **không bịa quan điểm thay tác giả** |
+| `cam: [[thời điểm, x, y, z], …]` | Ống kính đẩy kéo lia dịch; thời điểm có thể ghi bằng giây (tính từ đầu cảnh) hoặc `"B02@từ"` |
 | `host` | `"right"` / `"none"` |
 
-## 模板
-| 模板 | 用途 | 关键参数 |
+## Mẫu
+| Mẫu | Công dụng | Tham số chính |
 |---|---|---|
-| cover | Notion 页面式封面 | title（`\n` 分行）、question、iconImg（`host-avatar`）、stickers（3 个图标）、props |
-| kinetic | **大字逐字弹出**（金句、转折） | lines[{text（`*词*` 强调色）, size, y, at, color}]、lottie[{name, x, y, size, at}] |
-| say | 普通大字（不弹字） | lines、emoji |
-| stickers | 一排卡片（3–5 张） | title、items[{emoji, label, sub, at, tick/cross/circle}]、caption、arrows |
-| pan | **镜头摇过一排卡片**（列举「三件事」） | cards[{emoji, title, sub}]、cam、word（结尾大字） |
-| quote | Notion 引用块（原文） | text、from、emoji、textAt |
-| shot | 截图 + 手绘圈注（写 clip 播放录屏帧序列） | img 或 clip、crop、label、marks[{kind: circle/box/underline, area, at, note, side, color}] |
-| flow | 流程（图标圆 + 箭头 + 返工箭头） | nodes[{emoji, label, at, star}]、back{from, to, label, at} |
-| compare | 左右对比（叉 / 勾） | left/right{title, emoji, items, at} |
-| checklist | 清单（打勾或编号） | items[{emoji, label, sub, at}]、numbered、cols |
-| note | 任务说明 callout + 右侧标签 | lines[{text, tag, tagColor, at}] |
-| pause | 暂停想一想（倒计时后揭晓） | q、a、revealAt |
-| diagram | **X6 流程/协作图** | title、nodes[{id, label, icon（icon-park:…）, col, row, tone, at}]、edges[{from, to, at, flow}]、caption |
-| iconwall | **动态图标墙**（2×3） | items[{lottie, label, at}] |
-| dataviz | **数字滚动 + 柱状图生长 + 折线绘制** | count{label, to, prefix, suffix, sub}、bars{items}、line{values, labels}、note（写「示例数据」或数据出处） |
-| map | **点阵世界地图 + 飞线 + 脉冲标点**（不画国界） | arcs[{from:[经,纬], to, at, color}]、pins[{ll, label, at}]、cam（推近）、note |
-| recap | 收尾导图 | center、branches[{emoji, text, at}] |
-| outro | 下一节预告 + 开源素材鸣谢 | next、credits（每行一条，别太长）、thanks |
+| cover | Trang bìa kiểu trang Notion | title (`\n` xuống dòng), question, iconImg (`host-avatar`), stickers (3 biểu tượng), props |
+| kinetic | **Chữ lớn bật ra từng chữ** (câu vàng, bước ngoặt) | lines[{text (`*từ*` màu nhấn), size, y, at, color}], lottie[{name, x, y, size, at}] |
+| say | Chữ lớn thường (không bật chữ) | lines, emoji |
+| stickers | Một hàng thẻ (3–5 thẻ) | title, items[{emoji, label, sub, at, tick/cross/circle}], caption, arrows |
+| pan | **Ống kính lia qua một hàng thẻ** (liệt kê "ba việc") | cards[{emoji, title, sub}], cam, word (chữ lớn ở cuối) |
+| quote | Khối trích dẫn Notion (nguyên văn) | text, from, emoji, textAt |
+| shot | Ảnh chụp màn hình + khoanh chú thích vẽ tay (ghi clip để phát chuỗi khung hình quay màn hình) | img hoặc clip, crop, label, marks[{kind: circle/box/underline, area, at, note, side, color}] |
+| flow | Quy trình (vòng tròn biểu tượng + mũi tên + mũi tên làm lại) | nodes[{emoji, label, at, star}], back{from, to, label, at} |
+| compare | So sánh trái phải (dấu X / dấu tick) | left/right{title, emoji, items, at} |
+| checklist | Danh sách (đánh dấu hoặc đánh số) | items[{emoji, label, sub, at}], numbered, cols |
+| note | Callout mô tả nhiệm vụ + nhãn bên phải | lines[{text, tag, tagColor, at}] |
+| pause | Tạm dừng suy nghĩ (đếm ngược rồi công bố) | q, a, revealAt |
+| diagram | **Sơ đồ quy trình/cộng tác X6** | title, nodes[{id, label, icon (icon-park:…), col, row, tone, at}], edges[{from, to, at, flow}], caption |
+| iconwall | **Tường biểu tượng động** (2×3) | items[{lottie, label, at}] |
+| dataviz | **Số cuộn + cột mọc lên + đường vẽ ra** | count{label, to, prefix, suffix, sub}, bars{items}, line{values, labels}, note (ghi "Dữ liệu ví dụ" hoặc nguồn dữ liệu) |
+| map | **Bản đồ thế giới chấm điểm + đường bay + điểm đánh dấu xung** (không vẽ biên giới quốc gia) | arcs[{from:[kinh, vĩ], to, at, color}], pins[{ll, label, at}], cam (đẩy gần), note |
+| recap | Sơ đồ ôn tập cuối bài | center, branches[{emoji, text, at}] |
+| outro | Xem trước bài sau + cảm ơn tư liệu mã nguồn mở | next, credits (mỗi dòng một mục, đừng quá dài), thanks |
 
-## 节奏建议
-- 每节至少用上：1 个 kinetic（金句）、1 个 pan 或 cam（镜头动起来）、2–4 条 tips（小人说话）、截图圈注若干。
-- 有数字的课（额度、价格、效率对比）用 dataviz；讲地域 / 流程流转用 map。
-- 自检：`python3 scripts/check_scenes.py lessons/NN`，再 `make_lesson.py … build` 看接触表。
+## Gợi ý nhịp điệu
+- Mỗi bài ít nhất dùng: 1 kinetic (câu vàng), 1 pan hoặc cam (cho ống kính chuyển động), 2–4 tips (nhân vật nói), một số khoanh chú thích trên ảnh chụp màn hình.
+- Bài có số liệu (hạn mức, giá cả, so sánh hiệu quả) dùng dataviz; nói về địa lý / luồng quy trình dùng map.
+- Tự kiểm: `python3 scripts/check_scenes.py lessons/NN`, rồi `make_lesson.py … build` xem contact sheet.
 
 ---
 
-## 补充 A · 文件头全部开关
+## Bổ sung A · Toàn bộ công tắc ở phần đầu tệp
 
-| 字段 | 作用 |
+| Trường | Tác dụng |
 |---|---|
-| `n` | 课号（封面「第 N 节」）；导学等非数字课用 `eyebrow`/`props` 覆盖 |
-| `skin` | `notion`（纯白、Geist+Noto 无衬线、Notion 文字色/底色、callout、面包屑、白闪转场）/ `paper`（手账纸、霞鹜文楷、胶带便利贴） |
-| `skin: "cream"` | Notion 版式 + 奶油底 #FAF6EE + 香槟金强调（医美 / 高端品牌培训课；`SKINS.cream`，模板逻辑同 notion） |
-| `presenter` 其他写法 | `"<前缀>"`：系列 assets/img 里有 `<前缀>-0/-blink/-talk/-talk-blink` 四帧（如 Renoise 生成的女讲师 `lady`），按字张嘴、眨眼、冒 tips；`"emoji:<名>"`：一个 Noto emoji 当讲解员 |
-| `presenterSmooth` | 讲解员是插画（非像素）时写 true：平滑缩放、300px 大一号 |
-| `presenter` | `hp`：像素小人 10 动作（talk wave point idea think stop check cheer thumbsup type，各 8 帧，talk 按字张嘴、帧 4 眨眼）；`host`：旧版单头像 |
-| `sticker` | **新课默认 true**：贴纸风（见上）；老课不写 = 原来的卡片样式 |
-| `speed` | 旁白变速，默认写 1.15 |
-| `lang` | `en` 切英文界面文字与字幕断句 |
-| `inlineCredits` | 默认关：插画下方不带出处小字，图标/插画库来源只进片尾 credits；`true` 才逐处标 |
-| `shotCredit` | 截图出处前缀（英文版用） |
-| `noCaptions` | 关字幕 |
-| `videoOnly` | final 只出片：不做互动版、不改 series.json（导学、英文版用） |
+| `n` | Số bài (bìa ghi "Bài N"); bài dẫn nhập và các bài không đánh số dùng `eyebrow`/`props` để ghi đè |
+| `skin` | `notion` (trắng tinh, Geist+Noto không chân, màu chữ/màu nền Notion, callout, breadcrumb, chuyển cảnh chớp trắng) / `paper` (giấy sổ tay, LXGW WenKai, băng dính giấy nhớ) |
+| `skin: "cream"` | Bố cục Notion + nền kem #FAF6EE + nhấn vàng champagne (bài đào tạo thẩm mỹ y khoa / thương hiệu cao cấp; `SKINS.cream`, logic mẫu giống notion) |
+| `presenter` cách ghi khác | `"<tiền tố>"`: trong assets/img của series có bốn khung `<tiền tố>-0/-blink/-talk/-talk-blink` (như nữ giảng viên do Renoise tạo `lady`), mở miệng theo chữ, chớp mắt, nổi tips; `"emoji:<tên>"`: dùng một emoji Noto làm người dẫn giải |
+| `presenterSmooth` | Khi người dẫn giải là minh hoạ (không phải pixel) thì ghi true: thu phóng mượt, to hơn một cỡ 300px |
+| `presenter` | `hp`: nhân vật nhỏ pixel 10 động tác (talk wave point idea think stop check cheer thumbsup type, mỗi động tác 8 khung hình, talk mở miệng theo chữ, khung 4 chớp mắt); `host`: ảnh đại diện đơn kiểu cũ |
+| `sticker` | **Bài mới mặc định true**: phong cách sticker (xem trên); bài cũ không ghi = kiểu thẻ ban đầu |
+| `speed` | Đổi tốc độ lời dẫn, mặc định ghi 1.15 |
+| `lang` | `en` chuyển chữ giao diện và cách ngắt phụ đề sang tiếng Anh |
+| `inlineCredits` | Mặc định tắt: dưới minh hoạ không kèm chữ nhỏ nguồn, nguồn thư viện biểu tượng/minh hoạ chỉ vào credits cuối phim; `true` mới ghi từng chỗ |
+| `shotCredit` | Tiền tố nguồn ảnh chụp màn hình (dùng cho bản tiếng Anh) |
+| `noCaptions` | Tắt phụ đề |
+| `videoOnly` | final chỉ xuất phim: không làm bản tương tác, không sửa series.json (dùng cho bài dẫn nhập, bản tiếng Anh) |
 
-## 补充 B · 模板字段速查（以编译器为准）
+## Bổ sung B · Tra nhanh trường của mẫu (lấy trình biên dịch làm chuẩn)
 
-| 模板 | 字段 |
+| Mẫu | Trường |
 |---|---|
-| cover | title, titleAt, eyebrow, eyebrowAt, question, questionAt, iconImg, illus, stickers, photo（notion/cream 也支持：右侧圆角大图 + 出处小字，photoW/photoX/photoY）, photoAt, props, coverBg |
+| cover | title, titleAt, eyebrow, eyebrowAt, question, questionAt, iconImg, illus, stickers, photo (notion/cream cũng hỗ trợ: ảnh lớn bo góc bên phải + chữ nhỏ nguồn, photoW/photoX/photoY), photoAt, props, coverBg |
 | say | lines, illus, illusAt, illusSticker, emoji, emojiAt, underline, dy |
-| stickers | title, items[{emoji, label, sub, at, rot, tick/cross（写时刻，不能写 true）}], caption, arrows, style（sticker / card）, w, h, y |
+| stickers | title, items[{emoji, label, sub, at, rot, tick/cross (ghi thời điểm, không được ghi true)}], caption, arrows, style (sticker / card), w, h, y |
 | quote | text, textAt, from, emoji, stamp, size, w, y, cps |
-| shot | img 或 clip, clipDelay, loop, crop, label, marks[{kind, area, at, note, side, color}], rot, w, h, x, y |
+| shot | img hoặc clip, clipDelay, loop, crop, label, marks[{kind, area, at, note, side, color}], rot, w, h, x, y |
 | flow | nodes[{emoji, label, at, star}], back{from, to, label, at}, caption, gap, title, y |
 | compare | left/right{title, emoji, at, items}, neutral, h, y |
 | checklist | title, items[{emoji, label, sub, at}], numbered, cols, rowH, y |
 | note | title, lines[{text, tag, tagColor, at}], mono, size, lh, w, x, y, cps, textAt |
 | pause | q, a, revealAt, emoji |
-| recap | center, branches[{emoji, text, at}]（最多 6 条） |
+| recap | center, branches[{emoji, text, at}] (tối đa 6 mục) |
 | outro | next, thanks, thanksAt, credits[] |
 | kinetic | lines[{text, size, y, at, color, weight}], lottie[{name, x, y, size, at}] |
 | iconwall | title, items[{lottie, label, at}], cols |
@@ -104,24 +104,24 @@
 | map | title, arcs, pins, cam, note |
 | diagram | title, nodes[{id, label, icon, col, row, tone, bg, at}], edges[{from, to, at, label, color, flow}], caption, captionY, colGap, rowGap, nodeW, nodeH, h, y |
 | pan | cards[{emoji, title, sub}], word, cam |
-| 通用 | chapter, src, tips[{text, at, until, pose}], pose, cam[[t, x, y, z]], host |
+| Dùng chung | chapter, src, tips[{text, at, until, pose}], pose, cam[[t, x, y, z]], host |
 
-## 补充 C · 版式规则（踩坑后定下的）
+## Bổ sung C · Quy tắc bố cục (đúc kết sau khi vấp lỗi)
 
-- **say**：第二行 96px 大字，长句会自动折行，下面的行按估算行数下移；仍建议第二行 ≤ 10 字。
-- **diagram**：节点写了 `tone` 底色自动取同色系便签色（不用再写 `bg`）；标签太长图标会压字 → 标签写短或加大 `nodeW`；连线不能指定出线边，靠 col/row 摆位避免交叉（蛇形两行常用）；`caption` 默认 y=298，在出处小字上方。
-- **recap**：中心椭圆随 `center` 文字长度自动加宽；第 5、6 条分支（正上/正下）从椭圆边出线；每条分支 ≤ 9 个字，否则折行。
-- **stickers**：长英文名别放卡片标题（会折行），放 sub；5 张卡时每张约 300px 宽，标签 ≤ 5 个汉字。
-- **quote**：自动折行会拆词，需要时手动 `\n`。
-- **shot**：`note` 标签容易盖住原图文字，优先用小人 `tips` 说明；截图圈注 `area` 是原图比例 [x0,y0,x1,y1]，先看原图再估；圈注前用 `crop` 裁掉隐私区域。
-- **dataviz**：`note` 在右下角会被小人挡，出处改写 `src`（左下）。
-- **cam**：镜头推近会裁掉卡片，stickers 一排 4 张时别推；pan 就是专门的镜头摇卡片。
-- 场景开头要尽快有东西出现（标题挂本拍第一个 cue），否则接触表上是空屏。
-- 小人 tips 6–16 字，复述旁白要点，不替作者发表观点；安全提醒用 `pose: "stop"`。
+- **say**: dòng thứ hai chữ lớn 96px, câu dài sẽ tự xuống dòng, các dòng bên dưới dịch xuống theo số dòng ước tính; vẫn nên giữ dòng thứ hai ≤ 10 chữ.
+- **diagram**: nút ghi `tone` màu nền thì tự lấy màu giấy nhớ cùng tông (không cần ghi `bg`); nhãn quá dài biểu tượng sẽ đè chữ → viết nhãn ngắn hoặc tăng `nodeW`; đường nối không chỉ định được cạnh xuất phát, dựa vào việc xếp col/row để tránh cắt nhau (hai hàng hình rắn thường dùng); `caption` mặc định y=298, nằm phía trên chữ nhỏ nguồn.
+- **recap**: elip trung tâm tự mở rộng theo độ dài chữ `center`; nhánh thứ 5, 6 (ngay trên/ngay dưới) toả ra từ mép elip; mỗi nhánh ≤ 9 chữ, nếu không sẽ xuống dòng.
+- **stickers**: tên tiếng Anh dài đừng đặt vào tiêu đề thẻ (sẽ xuống dòng), đặt vào sub; khi có 5 thẻ mỗi thẻ rộng khoảng 300px, nhãn ≤ 5 chữ.
+- **quote**: tự xuống dòng sẽ cắt giữa từ, khi cần thì tự thêm `\n`.
+- **shot**: nhãn `note` dễ đè lên chữ của ảnh gốc, ưu tiên dùng `tips` của nhân vật nhỏ để giải thích; `area` của khoanh chú thích là tỷ lệ của ảnh gốc [x0,y0,x1,y1], xem ảnh gốc trước rồi ước lượng; trước khi khoanh dùng `crop` cắt bỏ vùng riêng tư.
+- **dataviz**: `note` ở góc dưới phải sẽ bị nhân vật nhỏ che, nguồn đổi sang ghi `src` (góc dưới trái).
+- **cam**: ống kính đẩy gần sẽ cắt mất thẻ, khi stickers có một hàng 4 thẻ thì đừng đẩy; pan chính là ống kính lia thẻ chuyên dụng.
+- Đầu cảnh phải nhanh chóng có thứ gì đó xuất hiện (tiêu đề gắn vào cue đầu tiên của nhịp này), nếu không trên contact sheet sẽ là màn hình trống.
+- tips của nhân vật nhỏ 6–16 chữ, nhắc lại ý chính của lời dẫn, không phát biểu quan điểm thay tác giả; nhắc nhở an toàn dùng `pose: "stop"`.
 
-## 补充 D · 贴纸组原语（`k: "group"`）
+## Bổ sung D · Primitive nhóm sticker (`k: "group"`)
 
-`primitives/sketch.js` 的 group：子元素坐标相对组中心，一起做「按上去」动画（from 放大倍数默认 1.3 → 1，spin 倾斜回正默认 8°，rot 最终角度）。
-- `card: true` + `w/h/color`：白边贴纸卡（10px 白边、圆角 30、投影随落下收紧、落定后高光划过）。
-- `filter: "diecut"` + `edge`：整组描一圈模切白边（8 方向白色 drop-shadow + 细描边 + 投影），用于插画、emoji。
-- 其他模板想贴纸化：把原来的若干元素包进一个 group（坐标改成相对组中心）即可。目前 stickers、say/cover 插画已接；pan、recap、checklist 还是原样式。
+group của `primitives/sketch.js`: toạ độ phần tử con tính theo tâm nhóm, cùng làm hoạt ảnh "ấn xuống" (from hệ số phóng to mặc định 1.3 → 1, spin góc nghiêng quay về thẳng mặc định 8°, rot là góc cuối cùng).
+- `card: true` + `w/h/color`: thẻ sticker viền trắng (viền trắng 10px, bo góc 30, bóng đổ co chặt theo lúc rơi xuống, sau khi định vị thì ánh sáng quét qua).
+- `filter: "diecut"` + `edge`: vẽ một vòng viền trắng cắt khuôn quanh cả nhóm (drop-shadow trắng 8 hướng + nét viền mảnh + bóng đổ), dùng cho minh hoạ, emoji.
+- Mẫu khác muốn sticker hoá: bọc vài phần tử ban đầu vào một group (đổi toạ độ thành tương đối so với tâm nhóm) là được. Hiện stickers, minh hoạ của say/cover đã nối; pan, recap, checklist vẫn kiểu ban đầu.

@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
-"""配音试听：按一份音色清单，用小米 MiMo 把同一段话读一遍，并给每条算几个客观指标。
+"""Nghe thử lồng tiếng: theo một danh sách giọng, dùng Google Gemini TTS đọc cùng một đoạn văn và tính vài chỉ số khách quan cho từng giọng.
 
-用法：python3 scripts/voice_audition.py <voices.json> <输出目录> [--ref 参照音色id]
+Cách dùng: python3 scripts/voice_audition.py <voices.json> <thư mục đầu ra> [--ref id giọng tham chiếu]
 
-voices.json：
-{"text": "要读的一段话",
+voices.json:
+{"text": "đoạn văn cần đọc",
  "voices": [
-   {"id": "moli-style", "name": "茉莉 · 讲课语气", "model": "mimo-v2.5-tts", "voice": "茉莉", "style": "语气说明"},
-   {"id": "host", "name": "男科普博主", "model": "mimo-v2.5-tts-voicedesign", "design": "音色描述"},
-   {"id": "host-clone", "name": "男科普博主 · 克隆锁定", "model": "mimo-v2.5-tts-voiceclone", "clone_from": "host"}
+   {"id": "sulafat", "name": "Sulafat · giọng giảng bài", "voice": "Sulafat"},
+   {"id": "gacrux", "name": "Gacrux", "model": "gemini-3.8-flash-tts", "voice": "Gacrux"}
  ]}
-已经生成过的（输出目录里有 <id>.wav）不重复调用。
+model mặc định gemini-3.8-flash-tts, director mặc định lấy từ tts_gemini.py ("{text}": chỉ gửi nguyên văn, vì gemini-3.8-flash-tts đọc to mọi chỉ dẫn). So sánh nhiều giọng có sẵn của Gemini (Sulafat, Gacrux, …) thì mỗi giọng một dòng.
+Giọng đã tạo rồi (thư mục đầu ra có <id>.wav) thì không gọi lại.
 
-输出：<id>.wav、<id>.mp3（响度归一），metrics.json：
-  时长、字/秒、基频中位（判断男女声）、语调起伏（半音标准差）、
-  与参照音色的音色相似度（平均对数梅尔谱的余弦相似度，用来检查设计音色每次生成是否一致）。
+Đầu ra: <id>.wav, <id>.mp3 (chuẩn hóa độ ồn), metrics.json:
+  thời lượng, chữ/giây, trung vị tần số cơ bản (phân biệt giọng nam nữ), độ lên xuống ngữ điệu (độ lệch chuẩn theo nửa cung),
+  độ tương đồng âm sắc với giọng tham chiếu (cosine similarity của phổ log-mel trung bình, dùng để kiểm tra giọng thiết kế có nhất quán giữa các lần tạo).
 """
-import base64
 import json
 import os
 import subprocess
@@ -27,26 +26,7 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from tts_mimo import env  # noqa: E402
-
-
-def call(key, base, body, tries=7):
-    last = ""
-    for k in range(tries):
-        r = subprocess.run(["curl", "-sS", "--max-time", "240", "-X", "POST", f"{base}/chat/completions",
-                            "-H", f"Authorization: Bearer {key}", "-H", "Content-Type: application/json", "--data-binary", "@-"],
-                           input=json.dumps(body, ensure_ascii=False), capture_output=True, text=True)
-        try:
-            d = json.loads(r.stdout)
-            if "choices" in d:
-                return d
-            last = str(d.get("error"))
-            wait = 10 * (k + 1) if "429" in last else 3
-        except Exception:  # noqa: BLE001
-            last, wait = (r.stdout or r.stderr)[:200], 3
-        print(f"  等 {wait}s 重试：{last[:80]}", file=sys.stderr)
-        time.sleep(wait)
-    raise RuntimeError(last)
+from tts_gemini import DEFAULT_DIRECTOR, DEFAULT_MODEL, DEFAULT_VOICE, call as tts_call, env, to_wav  # noqa: E402
 
 
 def pcm(path, sr=16000):
@@ -70,7 +50,7 @@ def f0_track(x, sr=16000, fmin=70, fmax=400, hop=160, win=640):
 
 
 def mel_profile(x, sr=16000, n_fft=512, hop=160, n_mels=40):
-    """有声帧的平均对数梅尔谱，当作「音色指纹」"""
+    """Phổ log-mel trung bình của các khung có tiếng, dùng làm 'dấu vân tay giọng'"""
     frames = np.lib.stride_tricks.sliding_window_view(x, n_fft)[::hop] * np.hanning(n_fft)
     spec = np.abs(np.fft.rfft(frames, axis=1)) ** 2
     energy = spec.sum(1)
@@ -93,28 +73,17 @@ def main():
     spec = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
     out = Path(sys.argv[2])
     out.mkdir(parents=True, exist_ok=True)
-    key, base = env()
+    key = env()
     text = spec["text"]
     for v in spec["voices"]:
         wav = out / f"{v['id']}.wav"
         if wav.exists():
             continue
-        msgs = [{"role": "assistant", "content": text}]
-        audio = {"format": "wav"}
-        if v.get("design"):
-            msgs.insert(0, {"role": "user", "content": v["design"]})
-        elif v.get("style"):
-            msgs.insert(0, {"role": "user", "content": v["style"]})
-        if v.get("voice"):
-            audio["voice"] = v["voice"]
-        if v.get("clone_from"):
-            ref = out / f"{v['clone_from']}.wav"
-            audio["voice"] = "data:audio/wav;base64," + base64.b64encode(ref.read_bytes()).decode()
         t0 = time.time()
-        d = call(key, base, {"model": v["model"], "messages": msgs, "audio": audio})
-        wav.write_bytes(base64.b64decode(d["choices"][0]["message"]["audio"]["data"]))
-        print(f"✓ {v['id']:18s} 合成 {time.time() - t0:4.1f}s")
-        time.sleep(4)  # MiMo 对连发请求限流（429），隔几秒更稳
+        prompt = v.get("director", DEFAULT_DIRECTOR).replace("{text}", text)
+        data, mime = tts_call(key, v.get("model", DEFAULT_MODEL), v.get("voice", DEFAULT_VOICE), prompt)
+        to_wav(data, mime, wav)
+        print(f"✓ {v['id']:18s} đã tổng hợp {time.time() - t0:4.1f}s")
     ref_id = sys.argv[sys.argv.index("--ref") + 1] if "--ref" in sys.argv else None
     profs, metrics = {}, []
     n = len([c for c in text if not c.isspace() and c not in "，。！？；：、,.!?;:“”「」"])
@@ -128,7 +97,7 @@ def main():
         dur = len(x) / 16000
         profs[v["id"]] = mel_profile(x)
         metrics.append({"id": v["id"], "name": v.get("name", v["id"]), "dur": round(dur, 2), "cps": round(n / dur, 2),
-                        "f0": int(np.median(f0)), "gender": "女声" if np.median(f0) > 165 else "男声",
+                        "f0": int(np.median(f0)), "gender": "giọng nữ" if np.median(f0) > 165 else "giọng nam",
                         "range_st": round(float(np.std(12 * np.log2(f0 / np.median(f0)))), 2)})
     if ref_id:
         r = profs[ref_id]
@@ -137,7 +106,7 @@ def main():
             m["sim_to_ref"] = round(float(np.dot(p, r) / (np.linalg.norm(p) * np.linalg.norm(r))), 3)
     (out / "metrics.json").write_text(json.dumps(metrics, ensure_ascii=False, indent=1), encoding="utf-8")
     for m in metrics:
-        print(f"{m['id']:18s} {m['gender']} 基频 {m['f0']:3d}Hz  起伏 {m['range_st']:.2f} 半音  {m['cps']:.2f} 字/秒" + (f"  与参照相似 {m['sim_to_ref']:.3f}" if ref_id else ""))
+        print(f"{m['id']:18s} {m['gender']} tần số cơ bản {m['f0']:3d}Hz  lên xuống {m['range_st']:.2f} nửa cung  {m['cps']:.2f} chữ/giây" + (f"  giống tham chiếu {m['sim_to_ref']:.3f}" if ref_id else ""))
 
 
 if __name__ == "__main__":

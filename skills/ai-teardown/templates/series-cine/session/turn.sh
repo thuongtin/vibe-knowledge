@@ -1,7 +1,7 @@
 #!/bin/zsh
-# 真实会话录制：在 SESSION_PROJ 里用 SESSION_CC 跑一轮（配置见同目录 session.env）。
-# 用法：session/turn.sh <轮次号> "<提示词>"     第 1 轮新开会话，之后自动 --continue 接着同一个会话
-# 注意：-p 模式下，它放到后台的渲染会在这一轮结束时被一起杀掉；要渲染就让它前台跑。
+# Ghi lại phiên thật: chạy một lượt bằng SESSION_CC trong SESSION_PROJ (cấu hình xem session.env cùng thư mục).
+# Cách dùng: session/turn.sh <số lượt> "<prompt>"     lượt 1 mở phiên mới, sau đó tự động --continue nối tiếp cùng một phiên
+# Chú ý: ở chế độ -p, phần render nó đẩy xuống nền sẽ bị giết cùng khi lượt này kết thúc; muốn render thì cho chạy ở tiền cảnh.
 set -e
 N=$1; PROMPT=$2
 HERE="${0:A:h}"
@@ -17,4 +17,4 @@ date +%s > "$HERE/turn$N.start"
 print -r -- "$PROMPT" > "$HERE/turn$N.prompt.txt"
 CLAUDE_CONFIG_DIR=${~SESSION_CONFIG} DISABLE_AUTOUPDATER=1 "$CC" -p "$PROMPT" $CONT --permission-mode ${SESSION_PERMISSION:-auto} --output-format stream-json --verbose > "$HERE/turn$N.jsonl" 2> "$HERE/turn$N.err"
 date +%s > "$HERE/turn$N.end"
-echo "第 $N 轮结束：$(( $(cat $HERE/turn$N.end) - $(cat $HERE/turn$N.start) )) 秒"
+echo "Lượt $N kết thúc: $(( $(cat $HERE/turn$N.end) - $(cat $HERE/turn$N.start) )) giây"

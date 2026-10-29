@@ -1,63 +1,63 @@
-# 10 · earshot 代码音效（两档通用，0 积分）
+# 10 · Hiệu ứng âm thanh bằng code earshot (dùng chung hai bậc, 0 điểm)
 
-来源：github.com/Leonxlnx/earshot（MIT，2963★）。252 个音效全部以「配方代码」存放，按编号几秒渲染出来，不联网、不需要模型；同一个音效换 seed 就是新的 take。另有听觉质检（timeline / sheet / critique），那部分要下载约 1.1 GB 模型，按需再装。
+Nguồn: github.com/Leonxlnx/earshot (MIT, 2963★). Toàn bộ 252 hiệu ứng âm thanh được lưu dưới dạng "mã công thức", render trong vài giây theo số thứ tự, không cần mạng, không cần mô hình; cùng một hiệu ứng đổi seed là có một take mới. Ngoài ra còn có kiểm tra chất lượng thính giác (timeline / sheet / critique), phần đó phải tải mô hình khoảng 1,1 GB, cài khi cần.
 
-## 安装（本机已装：~/tools/earshot，2026-10-27）
+## Cài đặt (máy này đã cài: ~/tools/earshot, 2026-10-27)
 
 ```bash
 git clone --depth 1 https://github.com/Leonxlnx/earshot ~/tools/earshot && cd ~/tools/earshot
-/usr/local/bin/python3.12 -m venv --system-site-packages .venv          # 复用 3.12 已有的 numpy/scipy/librosa/soundfile
-CERT=$(/usr/local/bin/python3.12 -c "import certifi;print(certifi.where())")   # 这台机器 python.org 版 pip 有证书问题
+/usr/local/bin/python3.12 -m venv --system-site-packages .venv          # tái dùng numpy/scipy/librosa/soundfile có sẵn của 3.12
+CERT=$(/usr/local/bin/python3.12 -c "import certifi;print(certifi.where())")   # pip bản python.org trên máy này có vấn đề về chứng chỉ
 .venv/bin/python -m pip install --cert "$CERT" pyloudnorm && .venv/bin/python -m pip install --cert "$CERT" --no-deps -e .
 PYTHONPATH= .venv/bin/python -m earshot sfx list          # 252 sounds in the bank
 ```
-音效库只依赖 numpy / scipy；没装 torch 和模型，所以 describe / match / timeline / critique 暂不可用。
+Thư viện âm thanh chỉ phụ thuộc numpy / scipy; chưa cài torch và mô hình, nên describe / match / timeline / critique tạm thời chưa dùng được.
 
-## 在片子里用
+## Dùng trong phim
 
-1. `new_film.py` 建系列时会给 finish.py 打 `patch_earshot.py` 补丁（已有系列：`python3 tools/patch_earshot.py <系列目录>`）。
-2. film.js：
+1. Khi `new_film.py` tạo series sẽ vá finish.py bằng `patch_earshot.py` (series đã có: `python3 tools/patch_earshot.py <thư mục series>`).
+2. film.js:
 ```js
 import { earshot, earshotRun } from "../../cine/engine/know.js";
 const ES = earshot(music);
-ES("cut_hit/punch", T("B06.nolie"));                          // 起音落在 at
-ES("whoosh_fast/tight", T("B06.one"), { align: "peak" });      // 最响点落在 at
+ES("cut_hit/punch", T("B06.nolie"));                          // điểm khởi âm rơi vào at
+ES("whoosh_fast/tight", T("B06.one"), { align: "peak" });      // điểm to nhất rơi vào at
 ES("pro_sub_drop/low", T("B10.die"), { gain: -6, pitch: "G1" });
-earshotRun(ES, "pro_typing_key/soft", t0, t1, 90);            // 逐字古文的打字声
+earshotRun(ES, "pro_typing_key/soft", t0, t1, 90);            // tiếng gõ phím cho văn cổ hiện từng chữ
 ```
-3. 渲染时 finish.py 自动调用 earshot 环境渲染，缓存在 `lessons/<课>/build/esfx/`，日志里每条打印「对齐到第几秒、提前了多少毫秒」。
-4. **不要同时再写 cine 内置的 sfx（slam / impact / chime 那套合成音）**，会叠成两层；earshot 已覆盖这些角色。
+3. Khi render, finish.py tự động gọi môi trường earshot để render, cache ở `lessons/<bài>/build/esfx/`, trong log mỗi mục in ra "căn tới giây thứ mấy, sớm bao nhiêu mili giây".
+4. **Đừng viết thêm sfx tích hợp sẵn của cine (bộ âm tổng hợp slam / impact / chime)**, sẽ chồng thành hai lớp; earshot đã bao phủ các vai trò này.
 
-## 知识片角色 → 推荐音效
+## Vai trò trong phim kiến thức → hiệu ứng đề xuất
 
-| 角色（我们片子里的时刻） | 推荐编号 | 对齐 | 增益 | 备注 |
+| Vai trò (khoảnh khắc trong phim của chúng ta) | Số hiệu đề xuất | Căn chỉnh | Gain | Ghi chú |
 |---|---|---|---|---|
-| 印章砸下 / 关键词 slam | `cut_hit/punch`、`pro_pop_in/deep` | onset | −8 | 全片 ≤4 次 |
-| 大揭晓 / 片名落定 | `pro_impact/short`、`impact/punch`（dur 1.5） | onset | −8 | 加 `pro_sub_drop/soft` 垫低频 |
-| 数字落定 | `pro_pop/thup`、`ui_pop/soft` | onset | −10 | |
-| 数字滚动 | `pro_hover_tick/soft` 连串 | onset | −16 | earshotRun 间隔 ≥66 ms |
-| 逐字古文 / 打字 | `pro_typing_key/soft` 连串，或 `pro_typing_run/soft` 一整段 | onset | −16 | 间隔 ≥87 ms |
-| 条款卡 / 元素弹入 | `pro_pop_in/round`、`ui_pop/step` | onset | −12 | 连续弹入每次换 seed |
-| 告示 / 翻页 / 卡片滑入 | `swipe/paper`、`swipe/cloth` | onset | −12 | |
-| 荧光笔划重点 | `swish/flick` | onset | −14 | 视觉调查 |
-| 红圈画出 | `pro_zip/arc` | onset | −14 | 视觉调查 |
-| 推近定格 / 截图 | `shutter/film`、`shutter/snap` | onset | −10 | |
-| 转场 / 快速飞入 | `whoosh_fast/tight`、`whoosh_fast/crisp` | **peak**，落在切点后约 +37 ms | −12 | |
-| 反转前的吸气 | `reverse_swell/cymbal`、`reverse_swell/short` | **peak**，切点后约 +42 ms | −10 | **全片最多 1 次** |
-| 紧张铺垫 | `riser/dark`、`pro_riser/air_gate` | 结束点卡在揭晓 | −14 | |
-| 倒台 / 悲剧 / 结局 | `pro_sub_drop/low`、`downlifter/sub_sink` | onset | −6 | 低频，留意响度 |
-| 冲突 / 变味（信→怕） | `cut_hit/rumble` | onset | −8 | |
-| 奖励 / 金币 / 兑现 | `mallet/glock`、`mallet/flourish`、`pro_notify/ding_2045` | onset | −10 | 可用 pitch 对上配乐调性 |
-| 两难按钮出现 / 选中 | `toggle/on`、`toggle/latch` | onset | −12 | |
-| 敲门 / 木头 / 竹简 | `knock/wood`、`knock/double`、`fit/hit/bamboo_tok` | onset（提前 40 ms） | −10 | |
-| 辟谣反转 / 出错 | `glitch/burst`、`pro_glitch/standard` | 结束点卡在切点 | −12 | |
-| 系列片头 | `logo_sting/soft_bloom`、`pro_logo_sting/swell_sting` | onset | −8 | |
-| 片尾闪光 | `shimmer/m3`、`pro_shimmer/m1` | onset | −14 | |
+| Con dấu đóng xuống / từ khóa slam | `cut_hit/punch`, `pro_pop_in/deep` | onset | −8 | cả phim ≤4 lần |
+| Công bố lớn / tên phim chốt | `pro_impact/short`, `impact/punch` (dur 1.5) | onset | −8 | thêm `pro_sub_drop/soft` làm nền tần số thấp |
+| Số chốt xuống | `pro_pop/thup`, `ui_pop/soft` | onset | −10 | |
+| Số cuộn | chuỗi `pro_hover_tick/soft` | onset | −16 | khoảng cách earshotRun ≥66 ms |
+| Văn cổ hiện từng chữ / gõ chữ | chuỗi `pro_typing_key/soft`, hoặc `pro_typing_run/soft` cả một đoạn | onset | −16 | khoảng cách ≥87 ms |
+| Thẻ điều khoản / phần tử bật vào | `pro_pop_in/round`, `ui_pop/step` | onset | −12 | bật vào liên tiếp thì mỗi lần đổi seed |
+| Cáo thị / lật trang / thẻ trượt vào | `swipe/paper`, `swipe/cloth` | onset | −12 | |
+| Bút dạ quang gạch điểm chính | `swish/flick` | onset | −14 | điều tra thị giác |
+| Vẽ vòng đỏ | `pro_zip/arc` | onset | −14 | điều tra thị giác |
+| Đẩy gần đóng băng / chụp màn hình | `shutter/film`, `shutter/snap` | onset | −10 | |
+| Chuyển cảnh / bay vào nhanh | `whoosh_fast/tight`, `whoosh_fast/crisp` | **peak**, rơi sau điểm cắt khoảng +37 ms | −12 | |
+| Hít vào trước cú đảo chiều | `reverse_swell/cymbal`, `reverse_swell/short` | **peak**, sau điểm cắt khoảng +42 ms | −10 | **cả phim tối đa 1 lần** |
+| Dồn nén căng thẳng | `riser/dark`, `pro_riser/air_gate` | điểm kết thúc khớp với lúc công bố | −14 | |
+| Sụp đổ / bi kịch / kết cục | `pro_sub_drop/low`, `downlifter/sub_sink` | onset | −6 | tần số thấp, chú ý độ lớn |
+| Xung đột / biến chất (tin → sợ) | `cut_hit/rumble` | onset | −8 | |
+| Phần thưởng / đồng xu / thực hiện lời hứa | `mallet/glock`, `mallet/flourish`, `pro_notify/ding_2045` | onset | −10 | có thể dùng pitch để khớp âm điệu nhạc nền |
+| Nút lựa chọn khó xử xuất hiện / được chọn | `toggle/on`, `toggle/latch` | onset | −12 | |
+| Gõ cửa / gỗ / thẻ tre | `knock/wood`, `knock/double`, `fit/hit/bamboo_tok` | onset (sớm 40 ms) | −10 | |
+| Bác bỏ tin đồn đảo chiều / lỗi | `glitch/burst`, `pro_glitch/standard` | điểm kết thúc khớp điểm cắt | −12 | |
+| Mở đầu series | `logo_sting/soft_bloom`, `pro_logo_sting/swell_sting` | onset | −8 | |
+| Chớp sáng cuối phim | `shimmer/m3`, `pro_shimmer/m1` | onset | −14 | |
 
-时机经验（earshot launch 预设实测的中位数）：轻触比画面切点早 60 ms，敲击早 40 ms，点击早 11 ms，弹入晚 30 ms，嗖声最响点晚 37 ms，反向镲最响点晚 42 ms。
+Kinh nghiệm về thời điểm (trung vị đo thực tế với preset launch của earshot): chạm nhẹ sớm hơn điểm cắt hình 60 ms, gõ sớm 40 ms, nhấp sớm 11 ms, bật vào muộn 30 ms, điểm to nhất của tiếng vút muộn 37 ms, điểm to nhất của chũm chọe ngược muộn 42 ms.
 
-## 听觉质检（要装模型，可选）
+## Kiểm tra chất lượng thính giác (phải cài mô hình, tùy chọn)
 
-`earshot timeline 成片.mp4 --video 成片.mp4`：整片的「听写稿」（每个声音事件的时间、响度、标签，声画同步偏差）；
-`earshot sheet 成片.mp4 -o sheet.png`：带视频帧、频谱、响度的标注图；`earshot critique 成片.mp4`：对照专业发布片打分并给出带时间点的修改建议。
-装法：`.venv/bin/python -m pip install torch --index-url https://download.pytorch.org/whl/cpu && .venv/bin/python -m pip install -e ".[mcp]" && .venv/bin/python -m earshot doctor --fetch`（约 1.1 GB）。
+`earshot timeline thanh-pham.mp4 --video thanh-pham.mp4`: "bản chép nghe" của cả phim (thời điểm, độ lớn, nhãn của từng sự kiện âm thanh, độ lệch đồng bộ âm hình);
+`earshot sheet thanh-pham.mp4 -o sheet.png`: ảnh chú thích kèm khung hình video, phổ tần, độ lớn; `earshot critique thanh-pham.mp4`: chấm điểm so với phim phát hành chuyên nghiệp và đưa ra đề xuất sửa kèm mốc thời gian.
+Cách cài: `.venv/bin/python -m pip install torch --index-url https://download.pytorch.org/whl/cpu && .venv/bin/python -m pip install -e ".[mcp]" && .venv/bin/python -m earshot doctor --fetch` (khoảng 1,1 GB).

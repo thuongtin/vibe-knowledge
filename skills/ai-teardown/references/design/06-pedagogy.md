@@ -1,61 +1,61 @@
-# 06 · 教学法手册
+# 06 · Sổ tay phương pháp sư phạm
 
-## 深度阶梯与时间预算（默认 4 分钟、讲到 L4）
+## Bậc thang độ sâu và ngân sách thời gian (mặc định 4 phút, giảng đến L4)
 
-| 层 | 讲什么 | 约占 | 4 分钟里 | 常用原语 |
+| Tầng | Nói gì | Chiếm khoảng | Trong 4 phút | Nguyên ngữ thường dùng |
 |---|---|---|---|---|
-| L0 钩子 | 一个具体场景，让人想知道「它怎么做到的」 | 6% | 15 秒 | Morph 速览、Title |
-| L1 是什么 | 一句话定义 + 一个类比；纠正一个常见误解 | 10% | 25 秒 | Analogy、Compare（myth） |
-| L2 怎么用 | 用户看得见的流程：交出去什么，拿回来什么 | 12% | 30 秒 | Morph、ChatUI |
-| L3 怎么工作 | 系统总图与核心机制，一层层推进 | 30% | 70 秒 | SystemMap、Loop、Pipeline、Terminal |
-| L4 为什么这样设计 | 关键取舍：训练方式、安全边界、上下文 | 22% | 50 秒 | Sandbox、Compare、Metric |
-| L5 边界 | 做不到什么、和同类差在哪、哪些没公开 | 12% | 30 秒 | Compare、未披露雾化 |
-| 收束 | 总图全亮，一句话复述 | 8% | 20 秒 | ConceptMap、EndCard |
+| L0 Mở đầu | Một tình huống cụ thể, để người xem muốn biết "nó làm được thế nào" | 6% | 15 giây | Morph xem nhanh, Title |
+| L1 Là gì | Định nghĩa một câu + một phép ví; sửa một hiểu lầm phổ biến | 10% | 25 giây | Analogy, Compare (myth) |
+| L2 Dùng thế nào | Quy trình người dùng nhìn thấy: giao đi cái gì, nhận về cái gì | 12% | 30 giây | Morph, ChatUI |
+| L3 Hoạt động thế nào | Sơ đồ tổng của hệ thống và cơ chế cốt lõi, đẩy dần từng tầng | 30% | 70 giây | SystemMap, Loop, Pipeline, Terminal |
+| L4 Vì sao thiết kế như vậy | Các đánh đổi then chốt: cách huấn luyện, ranh giới an toàn, ngữ cảnh | 22% | 50 giây | Sandbox, Compare, Metric |
+| L5 Ranh giới | Không làm được gì, khác loại tương tự ở đâu, điều gì chưa công khai | 12% | 30 giây | Compare, sương mù hoá phần chưa công bố |
+| Kết | Sơ đồ tổng sáng toàn bộ, nhắc lại bằng một câu | 8% | 20 giây | ConceptMap, EndCard |
 
-60 秒竖屏讲 L0–L2 加 1 个机制；8–12 分钟讲到 L5 并加小测；再长就按概念图拆成系列。
+Dọc 60 giây giảng L0–L2 cộng 1 cơ chế; 8–12 phút giảng đến L5 và thêm bài kiểm tra nhỏ; dài hơn nữa thì tách thành loạt theo sơ đồ khái niệm.
 
-## 每个概念四拍
+## Bốn nhịp cho mỗi khái niệm
 
-| 拍 | `move` | 做什么 | 例（Codex 的 Agent 循环） |
+| Nhịp | `move` | Làm gì | Ví dụ (vòng lặp Agent của Codex) |
 |---|---|---|---|
-| 问 | `ask` | 为什么需要它 | 「一次就把代码写对，很难。那它怎么知道自己写对了？」 |
-| 演 | `show` | 先看动画过程，不给术语 | 令牌绕圈：想一步、动手、看结果，第 2 轮、第 3 轮 |
-| 名 | `name` | 再给术语，落在已经看懂的画面上 | 「这个圈，就叫 Agent 循环。」 |
-| 归 | `place` | 放回总图点亮 | 镜头拉回，Codex 节点里的循环亮起 |
+| Hỏi | `ask` | Vì sao cần nó | "Viết đúng code ngay một lần rất khó. Vậy nó biết mình viết đúng bằng cách nào?" |
+| Diễn | `show` | Xem quá trình hoạt hình trước, chưa đưa thuật ngữ | Token chạy vòng: nghĩ một bước, ra tay, xem kết quả, vòng 2, vòng 3 |
+| Gọi tên | `name` | Rồi mới đưa thuật ngữ, đặt lên hình ảnh đã xem hiểu | "Vòng này gọi là vòng lặp Agent." |
+| Đặt về | `place` | Đặt về sơ đồ tổng và làm sáng | Máy quay kéo lại, vòng lặp trong nút Codex sáng lên |
 
-## 写稿规则
+## Quy tắc viết kịch bản
 
-1. 一个 beat 只引入一个新概念；先具体例子，再抽象概括。
-2. 术语第一次出现前先铺垫：先修关系写在 `concepts.json`，`check.py` 自动查顺序。
-3. 口语、第二人称，一句不超过 25 字（字幕一行 18 字，两行内读完）。
-4. 数字只能来自事实账本；`check.py` 逐个核对旁白里的数字。
-5. 英文产品名保留原文；TTS 读错的写进读音词典 `lexicon.json`，只改发音不改字幕。
-6. 画面放关键词不放整句；标注贴着对象，不另设图例区。
-7. 画面变化对齐到讲到的那个词：在旁白里插 `[[cue]]`，误差 ≤ 0.2 秒。
-8. 用压暗与点亮引导视线（`dim`、`lit`）；和概念无关的装饰不加。
-9. 每片至少处理一个常见误解（`misconceptions`），通常放在 L1 或 L5。
+1. Một beat chỉ đưa vào một khái niệm mới; ví dụ cụ thể trước, khái quát trừu tượng sau.
+2. Trước lần đầu xuất hiện của thuật ngữ phải có trải đường: quan hệ tiên quyết viết trong `concepts.json`, `check.py` tự kiểm thứ tự.
+3. Văn nói, ngôi thứ hai, mỗi câu không quá 25 chữ (phụ đề một dòng 18 chữ, đọc xong trong hai dòng).
+4. Con số chỉ được lấy từ sổ cái sự thật; `check.py` đối chiếu từng con số trong lời dẫn.
+5. Tên sản phẩm tiếng Anh giữ nguyên; chỗ TTS đọc sai ghi vào từ điển phát âm `lexicon.json`, chỉ sửa phát âm không sửa phụ đề.
+6. Trên hình đặt từ khoá không đặt cả câu; chú thích dán sát đối tượng, không lập khu chú giải riêng.
+7. Thay đổi hình ảnh khớp đúng vào từ đang nói: chèn `[[cue]]` trong lời dẫn, sai số ≤ 0,2 giây.
+8. Dùng làm tối và làm sáng để dẫn mắt (`dim`, `lit`); trang trí không liên quan đến khái niệm thì không thêm.
+9. Mỗi phim xử lý ít nhất một hiểu lầm phổ biến (`misconceptions`), thường đặt ở L1 hoặc L5.
 
-依据：Mayer 多媒体学习原则中的信号、分段、预训练、时空邻近、冗余、个性化。
+Căn cứ: các nguyên tắc học đa phương tiện của Mayer: tín hiệu, phân đoạn, huấn luyện trước, kề cận không-thời gian, dư thừa, cá nhân hoá.
 
-## 语速（实测）
+## Tốc độ nói (đo thực tế)
 
-edge-tts 云希（`zh-CN-YunxiNeural`），`rate -10%`：Spike 四段旁白平均约 3.6 字/秒（含停顿），落在目标 3.3–3.6 的上沿。讲解密集的段落用 `-12%`；团队 vlog 稿是 3.7–4.0，讲原理要慢一档。
+edge-tts Vân Hi (`zh-CN-YunxiNeural`), `rate -10%`: lời dẫn bốn đoạn Spike trung bình khoảng 3,6 chữ/giây (gồm quãng ngắt), nằm ở mép trên của mục tiêu 3,3–3,6. Đoạn giảng dày đặc dùng `-12%`; kịch bản vlog của nhóm là 3,7–4,0, giảng nguyên lý phải chậm hơn một bậc.
 
-## 题材原型与默认总图
+## Nguyên mẫu đề tài và sơ đồ tổng mặc định
 
-| 原型 | 例子 | 默认总图（节点 · 角色） | 典型概念顺序 |
+| Nguyên mẫu | Ví dụ | Sơ đồ tổng mặc định (nút · vai trò) | Thứ tự khái niệm điển hình |
 |---|---|---|---|
-| `agent` 智能体 / 编程助手 | Codex、Claude Code、Cursor、Manus | 你(user) → Agent(model) → 环境(env)；Agent 内部：模型 ⇄ 循环 ⇄ 工具，外套沙箱(boundary) | 是什么 → 怎么用 → 循环 → 工具 → 沙箱与审批 → 上下文 → 边界 |
-| `llm` 大语言模型 | GPT、DeepSeek、Qwen | 文字 → token → Transformer → 下一个 token；训练：预训练 → 微调 → 强化学习 | token → 预测下一个词 → 注意力 → 训练阶段 → 上下文窗口 → 幻觉 |
-| `reasoning` 推理模型 | o 系列、DeepSeek-R1 | 问题 → 思考链 → 答案；训练：可验证奖励的强化学习 | 先想后答 → 思考链 → 奖励 → 测试时计算 → 局限 |
-| `generative-media` 图像 / 视频生成 | Sora、Veo、Seedance | 文本条件 → 噪声 → 逐步去噪 → 画面；潜空间 | 噪声 → 去噪 → 潜空间 → 条件控制 → 时间一致性 |
-| `voice` 语音 | TTS、ASR、实时语音 | 声音 ⇄ token；流式；打断 | 切片 → 编码 → 流式 → 延迟 → 打断 |
-| `protocol` 协议 / 框架 | MCP、RAG、A2A | 谁向谁发请求、按什么顺序（时序图） | 角色 → 消息 → 发现 → 调用 → 安全边界 |
+| `agent` tác tử / trợ lý lập trình | Codex, Claude Code, Cursor, Manus | Bạn(user) → Agent(model) → môi trường(env); bên trong Agent: mô hình ⇄ vòng lặp ⇄ công cụ, bọc ngoài là hộp cát(boundary) | Là gì → dùng thế nào → vòng lặp → công cụ → hộp cát và phê duyệt → ngữ cảnh → ranh giới |
+| `llm` mô hình ngôn ngữ lớn | GPT, DeepSeek, Qwen | Chữ → token → Transformer → token kế tiếp; huấn luyện: tiền huấn luyện → tinh chỉnh → học tăng cường | token → dự đoán từ kế tiếp → chú ý → các giai đoạn huấn luyện → cửa sổ ngữ cảnh → ảo giác |
+| `reasoning` mô hình suy luận | dòng o, DeepSeek-R1 | Câu hỏi → chuỗi suy nghĩ → đáp án; huấn luyện: học tăng cường với phần thưởng có thể kiểm chứng | Nghĩ trước đáp sau → chuỗi suy nghĩ → phần thưởng → tính toán lúc kiểm thử → hạn chế |
+| `generative-media` sinh ảnh / video | Sora, Veo, Seedance | Điều kiện văn bản → nhiễu → khử nhiễu từng bước → hình; không gian ẩn | Nhiễu → khử nhiễu → không gian ẩn → điều khiển điều kiện → nhất quán theo thời gian |
+| `voice` giọng nói | TTS, ASR, giọng nói thời gian thực | Âm thanh ⇄ token; streaming; ngắt lời | Cắt lát → mã hoá → streaming → độ trễ → ngắt lời |
+| `protocol` giao thức / framework | MCP, RAG, A2A | Ai gửi yêu cầu cho ai, theo thứ tự nào (sơ đồ tuần tự) | Vai trò → thông điệp → khám phá → gọi → ranh giới an toàn |
 
-原型只给默认骨架，调研结果可以改写它。
+Nguyên mẫu chỉ cho khung xương mặc định, kết quả khảo sát có thể viết lại nó.
 
-## 学习目标与冷读盲测
+## Mục tiêu học tập và kiểm tra mù đọc nguội
 
-- `concepts.json` 的 `objectives` 写 5 道题，每题对应 L1–L4 的一个概念，只看讲稿和关键帧就应该答得出。
-- 出片前，派一个**没看过调研材料**的子 agent：只给它讲稿全文和每个 beat 中间的一帧截图，让它回答这 5 题。
-- 由另一个子 agent 按参考答案判分；≥ 4/5 算过。答错的题反查到对应 beat，重写那一拍（通常是「演」不够直观或「名」来得太早）。
+- `objectives` trong `concepts.json` viết 5 câu hỏi, mỗi câu ứng với một khái niệm của L1–L4, chỉ xem kịch bản và khung hình then chốt là phải trả lời được.
+- Trước khi ra phim, cử một agent con **chưa xem tài liệu khảo sát**: chỉ đưa nó toàn văn kịch bản và một khung hình giữa mỗi beat, cho nó trả lời 5 câu này.
+- Một agent con khác chấm theo đáp án tham chiếu; ≥ 4/5 là đạt. Câu sai thì truy ngược về beat tương ứng, viết lại nhịp đó (thường là "diễn" chưa đủ trực quan hoặc "gọi tên" đến quá sớm).

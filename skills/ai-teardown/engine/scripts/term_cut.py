@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""剪掉录屏帧里一段空等（例如等审批弹出前的长时间转圈）：python3 scripts/term_cut.py x.frames.json <起点> <终点>
-起点/终点写成「标记±秒」，如 submit+12 approve1-6。被剪那段的画面变化会合并成一帧，标记和总长一起前移。"""
+"""Cắt bỏ một đoạn chờ trống trong các khung quay màn hình (ví dụ vòng xoay dài trước khi hộp phê duyệt hiện ra): python3 scripts/term_cut.py x.frames.json <điểm-đầu> <điểm-cuối>
+Điểm đầu/điểm cuối viết dạng "dấu±giây", như submit+12 approve1-6. Các thay đổi hình ảnh của đoạn bị cắt sẽ gộp thành một khung, các dấu và tổng độ dài cùng dịch lên trước."""
 import json, re, sys
 p = sys.argv[1]; d = json.load(open(p)); m = d["marks"]
 def at(x):
@@ -15,4 +15,4 @@ for f in d["frames"]:
     out.append({**f, "t": round(f["t"] - gap, 3)})
 d["frames"] = out; d["marks"] = {k: (v if v <= a0 else round(v - gap, 3)) for k, v in m.items()}; d["duration"] = round(d["duration"] - gap, 3)
 json.dump(d, open(p, "w"), ensure_ascii=False, separators=(",", ":"))
-print(f"{p}：剪掉 {gap:.1f} 秒，标记 {d['marks']}")
+print(f"{p}: đã cắt {gap:.1f} giây, các dấu {d['marks']}")

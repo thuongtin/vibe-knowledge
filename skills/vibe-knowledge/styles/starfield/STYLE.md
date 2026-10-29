@@ -1,26 +1,26 @@
-# 星空光点 · STARFIELD
+# Điểm sáng sao trời · STARFIELD
 
-> 类别：视觉系统　|　风格图：`still.jpg`　|　样片源码：`_samples/styles_film.js → starfield()`
+> Loại: hệ thống thị giác | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles_film.js → starfield()`
 
-**一句话**：深蓝黑星空里，一颗金色光点是全片主角，概念变了，光点跟着变形。
+**Một câu**: Trong bầu trời sao xanh đen thẫm, một điểm sáng vàng là nhân vật chính của cả phim, khái niệm đổi thì điểm sáng biến hình theo.
 
-| 项 | 写法 |
+| Mục | Cách làm |
 |---|---|
-| 导演意图 | 安静、高级、让人想思考；信息少而准。 |
-| 材质 / 画法 | 画布星尘 + 发光的点和线，几乎没有具象画面。 |
-| 配色逻辑 | 底 #05070d · 文字 #eef0f6 · 金 #f2c46d（唯一的强调色）· 次级灰 #8a90a3。 |
-| 字体 | 宋体细字（Songti SC 300）做大字，Geist 英文小字配双语。 |
-| 动态 | 光点缓慢游走、画线；数字细字淡入；节奏慢于其他风格，但不拖（每 2–3 秒一个变化）。 |
-| 镜头语法 | 几乎不动，靠光点运动引导视线。 |
-| 声音 | 钢琴、氛围铺底、合成器长音；音效极少（一声轻钟）。 |
-| 标志镜头 | 金色光点从地平线升起，画出一条线（数轴 / 木头 / 时间线）。 |
+| Ý đồ đạo diễn | Tĩnh lặng, cao cấp, khiến người xem muốn suy ngẫm; thông tin ít mà chuẩn. |
+| Chất liệu / Cách vẽ | Bụi sao trên canvas + điểm và đường phát sáng, gần như không có hình ảnh cụ thể. |
+| Logic phối màu | Nền #05070d · chữ #eef0f6 · vàng #f2c46d (màu nhấn duy nhất) · xám phụ #8a90a3. |
+| Phông chữ | Chữ Tống nét mảnh (Songti SC 300) cho chữ lớn, chữ Anh nhỏ Geist đi kèm song ngữ. |
+| Chuyển động | Điểm sáng chậm rãi dạo đi, vẽ đường; số mảnh hiện dần; nhịp chậm hơn các phong cách khác nhưng không lê thê (cứ 2–3 giây có một thay đổi). |
+| Ngữ pháp máy quay | Gần như đứng yên, dựa vào chuyển động của điểm sáng để dẫn mắt. |
+| Âm thanh | Piano, nền ambient, nốt dài synth; hiệu ứng âm thanh rất ít (một tiếng chuông nhẹ). |
+| Cảnh đặc trưng | Điểm sáng vàng nhô lên từ đường chân trời, vẽ ra một đường thẳng (trục số / khúc gỗ / dòng thời gian). |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换强调色（金→冰蓝）、换英文小字内容、光点形状
-- **一改就变味**：加具象插画（会挤掉留白）、加快剪辑
-- **不能改**：去掉光点主角
+## Sửa được đến mức nào (dùng khi đổi thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi màu nhấn (vàng → xanh băng), đổi nội dung chữ Anh nhỏ, hình dạng điểm sáng
+- **Sửa là mất chất**: thêm minh họa cụ thể (làm mất khoảng trống), dựng nhanh hơn
+- **Không được sửa**: bỏ nhân vật chính là điểm sáng
 
-## 搭配
-- 适合母版：A 猜谜概念片（最佳）、F 六面轮转片
-- 不适合：需要大量人物和场景的历史故事
-- 增强档 Renoise 前缀：`Cinematic dark night scene, deep navy and black, a single warm golden light source, fine film grain, minimal, vast negative space, no text`
+## Kết hợp
+- Bản gốc phù hợp: A phim câu đố khái niệm (tốt nhất), F phim luân chuyển sáu mặt
+- Không phù hợp: truyện lịch sử cần nhiều nhân vật và bối cảnh
+- Tiền tố Renoise bản nâng cao: `Cinematic dark night scene, deep navy and black, a single warm golden light source, fine film grain, minimal, vast negative space, no text`

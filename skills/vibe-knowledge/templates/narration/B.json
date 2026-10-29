@@ -1,10 +1,11 @@
 {
- "_template": "母版 B · 两难选择片 · 定长 2:55 · 约 650–720 字",
- "_how": "把每拍 narration 换成正式旁白（口语、短句、每句 ≤22 字），保留需要的 [[cue]]（只用小写字母数字下划线），删掉 _guide。旁白里英文名不要带连字符。",
+ "_template": "Bản gốc B · phim lựa chọn khó xử · độ dài cố định 2:55 · khoảng 650–720 chữ",
+ "_how": "Thay narration của mỗi beat bằng lời dẫn chính thức (khẩu ngữ, câu ngắn, mỗi câu ≤22 chữ), giữ lại các [[cue]] cần thiết (chỉ dùng chữ thường, chữ số, dấu gạch dưới), xóa _guide. Tên tiếng Anh trong lời dẫn không được có dấu gạch nối.",
  "voice": {
-  "engine": "mimo",
-  "clone": "../../voice/host-ref.wav",
-  "style": "科技博主讲硬核冷知识：语速快、节奏紧凑，一句接一句不拖音，句间停顿很短；关键数字和关键词加重落下；有悬念感和网感，自然口语，不要播音腔，问句也干脆，不要一字一顿。"
+  "engine": "gemini",
+  "model": "gemini-3.8-flash-tts",
+  "voice": "Sulafat",
+  "lang": "vi"
  },
  "lexicon": {
   "AI": "A I"
@@ -12,53 +13,53 @@
  "beats": [
   {
    "id": "B01",
-   "_guide": "冷开场（≤45 字）：一句话讲完离奇事实，最后四个字是结果。[[fact]]",
-   "narration": "（待写）冷开场（≤45 字）：一句话讲完离奇事实，最后四个字是结果。[[fact]]"
+   "_guide": "Mở đầu lạnh (≤45 chữ): một câu nói xong sự thật kỳ lạ, bốn chữ cuối là kết quả.[[fact]]",
+   "narration": "(chưa viết) Mở đầu lạnh (≤45 chữ): một câu nói xong sự thật kỳ lạ, bốn chữ cuối là kết quả.[[fact]]"
   },
   {
    "id": "B02",
-   "_guide": "换你（≤35 字）：「换你：……你，……不……？」第二人称两难。[[you]]",
-   "narration": "（待写）换你（≤35 字）：「换你：……你，……不……？」第二人称两难。[[you]]"
+   "_guide": "Đến lượt bạn (≤35 chữ): \"Đến lượt bạn: ... bạn, ... hay không ...?\" tình huống khó xử ngôi thứ hai.[[you]]",
+   "narration": "(chưa viết) Đến lượt bạn (≤35 chữ): \"Đến lượt bạn: ... bạn, ... hay không ...?\" tình huống khó xử ngôi thứ hai.[[you]]"
   },
   {
    "id": "B03",
-   "_guide": "系列片头（≤15 字）：「如果你活在古代，第 N 期。」[[series]]",
-   "narration": "（待写）系列片头（≤15 字）：「如果你活在古代，第 N 期。」[[series]]"
+   "_guide": "Mở đầu series (≤15 chữ): \"Nếu bạn sống thời cổ đại, tập N.\"[[series]]",
+   "narration": "(chưa viết) Mở đầu series (≤15 chữ): \"Nếu bạn sống thời cổ đại, tập N.\"[[series]]"
   },
   {
    "id": "B04",
-   "_guide": "前情（≤110 字）：事件发生前的一个具体细节，让人物立起来；接一句「这条规矩一直用到今天」类的古今连接。[[before]]",
-   "narration": "（待写）前情（≤110 字）：事件发生前的一个具体细节，让人物立起来；接一句「这条规矩一直用到今天」类的古今连接。[[before]]"
+   "_guide": "Tiền đề (≤110 chữ): một chi tiết cụ thể trước khi sự kiện xảy ra, để nhân vật hiện lên; nối một câu kiểu \"quy tắc này dùng đến tận ngày nay\" để liên kết xưa và nay.[[before]]",
+   "narration": "(chưa viết) Tiền đề (≤110 chữ): một chi tiết cụ thể trước khi sự kiện xảy ra, để nhân vật hiện lên; nối một câu kiểu \"quy tắc này dùng đến tận ngày nay\" để liên kết xưa và nay.[[before]]"
   },
   {
    "id": "B05",
-   "_guide": "经过（≤130 字）：时间、地点、动作，数字一步步滚上去（计数器）。史书有分歧就两说并列。[[count]]",
-   "narration": "（待写）经过（≤130 字）：时间、地点、动作，数字一步步滚上去（计数器）。史书有分歧就两说并列。[[count]]"
+   "_guide": "Diễn biến (≤130 chữ): thời gian, địa điểm, hành động, con số tăng dần từng bước (bộ đếm). Nếu sử sách có bất đồng thì nêu song song hai thuyết.[[count]]",
+   "narration": "(chưa viết) Diễn biến (≤130 chữ): thời gian, địa điểm, hành động, con số tăng dần từng bước (bộ đếm). Nếu sử sách có bất đồng thì nêu song song hai thuyết.[[count]]"
   },
   {
    "id": "B06",
-   "_guide": "等待（≤80 字）：倒计时，写普通人这段时间在做什么。[[wait]]",
-   "narration": "（待写）等待（≤80 字）：倒计时，写普通人这段时间在做什么。[[wait]]"
+   "_guide": "Chờ đợi (≤80 chữ): đếm ngược, viết người bình thường trong khoảng thời gian này đang làm gì.[[wait]]",
+   "narration": "(chưa viết) Chờ đợi (≤80 chữ): đếm ngược, viết người bình thường trong khoảng thời gian này đang làm gì.[[wait]]"
   },
   {
    "id": "B07",
-   "_guide": "揭晓（≤50 字）：结果。停顿。[[reveal]]",
-   "narration": "（待写）揭晓（≤50 字）：结果。停顿。[[reveal]]"
+   "_guide": "Công bố (≤50 chữ): kết quả. Ngắt nghỉ.[[reveal]]",
+   "narration": "(chưa viết) Công bố (≤50 chữ): kết quả. Ngắt nghỉ.[[reveal]]"
   },
   {
    "id": "B08",
-   "_guide": "反转（≤110 字）：另一位史家 / 后人怎么拆穿或质疑，原话上屏。[[doubt]]",
-   "narration": "（待写）反转（≤110 字）：另一位史家 / 后人怎么拆穿或质疑，原话上屏。[[doubt]]"
+   "_guide": "Đảo chiều (≤110 chữ): một sử gia khác / người đời sau vạch trần hoặc nghi ngờ thế nào, nguyên văn hiện lên màn hình.[[doubt]]",
+   "narration": "(chưa viết) Đảo chiều (≤110 chữ): một sử gia khác / người đời sau vạch trần hoặc nghi ngờ thế nào, nguyên văn hiện lên màn hình.[[doubt]]"
   },
   {
    "id": "B09",
-   "_guide": "对照组（≤70 字）：另一个时代照做，结果完全不同。[[contrast]]",
-   "narration": "（待写）对照组（≤70 字）：另一个时代照做，结果完全不同。[[contrast]]"
+   "_guide": "Nhóm đối chứng (≤70 chữ): một thời đại khác làm y như vậy, kết quả hoàn toàn khác.[[contrast]]",
+   "narration": "(chưa viết) Nhóm đối chứng (≤70 chữ): một thời đại khác làm y như vậy, kết quả hoàn toàn khác.[[contrast]]"
   },
   {
    "id": "B10",
-   "_guide": "收尾回问（≤50 字）：再问一遍 B02，出现两个按钮。[[ask]] 下期预告一句。",
-   "narration": "（待写）收尾回问（≤50 字）：再问一遍 B02，出现两个按钮。[[ask]] 下期预告一句。"
+   "_guide": "Hỏi lại khi kết (≤50 chữ): hỏi lại B02 một lần nữa, xuất hiện hai nút.[[ask]] Báo trước tập sau một câu.",
+   "narration": "(chưa viết) Hỏi lại khi kết (≤50 chữ): hỏi lại B02 một lần nữa, xuất hiện hai nút.[[ask]] Báo trước tập sau một câu."
   }
  ]
 }

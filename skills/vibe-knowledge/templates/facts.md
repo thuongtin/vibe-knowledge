@@ -1,17 +1,17 @@
-# 事实清单
+# Danh sách dữ kiện
 
-> 规则：旁白和画面上的每一个数字、人名、年份、引文都要在这里有一行；没有出处的不上屏。
-> 来源分级：T1 原始文献 / 官方页面 / 论文原文；T2 权威二手（教科书、百科词条带引用、主流媒体）；T3 社区（只能当线索）。
-> 史书或研究之间有分歧：两说都列，旁白里说「一说……」，脚注里两个数都写。
+> Quy tắc: mọi con số, tên người, năm tháng, trích dẫn trong lời dẫn và trên hình ảnh đều phải có một dòng ở đây; không có nguồn thì không lên màn hình.
+> Phân cấp nguồn: T1 tài liệu gốc / trang chính thức / bản gốc bài báo; T2 nguồn thứ cấp có uy tín (giáo trình, mục bách khoa có trích dẫn, truyền thông chính thống); T3 cộng đồng (chỉ dùng làm manh mối).
+> Sử sách hoặc các nghiên cứu có bất đồng: liệt kê cả hai thuyết, trong lời dẫn nói "có thuyết cho rằng...", trong chú thích ghi cả hai con số.
 
-| # | 事实（上屏写法） | 出处（书名卷数 / 论文作者年份 / 链接） | 级别 | 原文摘录 | 用在哪一拍 |
+| # | Dữ kiện (cách viết trên màn hình) | Nguồn (tên sách và quyển / tác giả và năm bài báo / liên kết) | Cấp | Trích nguyên văn | Dùng ở nhịp nào |
 |---|---|---|---|---|---|
 | 1 |  |  | T1 |  | B01 |
 
-## 示意性画面
-- 哪些画面是 AI 生成的示意（脚注写「为示意」/ 角标「AI 示意图」）：
+## Hình ảnh mang tính minh hoạ
+- Những hình ảnh nào là minh hoạ do AI tạo (chú thích ghi "chỉ mang tính minh hoạ" / nhãn góc "Hình minh hoạ AI"):
 
-## 对抗审查记录
-- 钩子是否在 3 秒内让人参与：
-- 每一屏字数是否 ≤ 8 字关键词（字幕除外）：
-- 有没有无出处的断言：
+## Nhật ký rà soát đối kháng
+- Phần mở đầu thu hút (hook) có khiến người xem tham gia trong 3 giây không:
+- Mỗi màn hình có ≤ 8 từ khoá không (trừ phụ đề):
+- Có khẳng định nào không có nguồn không:

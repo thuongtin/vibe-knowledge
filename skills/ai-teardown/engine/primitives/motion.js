@@ -1,12 +1,12 @@
 /**
- * 动效图元（挂在手绘层 SketchLayer 里用，item.k 是下面这些名字）。全部只依赖 t，逐帧渲染同一时刻永远同一画面。
+ * Phần tử chuyển động (gắn vào lớp vẽ tay SketchLayer để dùng, item.k là các tên dưới đây). Tất cả chỉ phụ thuộc vào t, render từng khung ở cùng một thời điểm thì hình ảnh luôn giống nhau.
  *
- *   {k:"lottie",  data, x,y,w,h, at, loop, speed, until}     Lottie 动画（canvas 渲染：实测 SVG 渲染同一帧会抖，canvas 稳定）
- *   {k:"count",   x,y, from,to, at, dur, prefix,suffix, digits, size, color, anchor}   数字滚动
- *   {k:"bars",    x,y,w,h, items:[{label,value,color,at}], max, unit, at}            柱状图生长（x,y 为图表左上角）
- *   {k:"line",    x,y,w,h, values, labels, at, dur, color, unit}                     折线一笔画出 + 面积淡入 + 末端脉冲点
- *   {k:"dotmap",  x,y,w,h, dots, at, arcs:[{from,to,at,dur,color}], pins:[{ll,label,at,color}]}  点阵地图 + 飞线 + 脉冲标点
- *   {k:"kinetic", x,y, text, size, weight, at, per, color, accent, anchor}           大字逐字弹出（*词* 用强调色）
+ *   {k:"lottie",  data, x,y,w,h, at, loop, speed, until}     Hoạt họa Lottie (render bằng canvas: đo thực tế thấy render SVG cùng một khung bị rung, canvas thì ổn định)
+ *   {k:"count",   x,y, from,to, at, dur, prefix,suffix, digits, size, color, anchor}   số chạy cuộn
+ *   {k:"bars",    x,y,w,h, items:[{label,value,color,at}], max, unit, at}            biểu đồ cột lớn dần (x,y là góc trên trái của biểu đồ)
+ *   {k:"line",    x,y,w,h, values, labels, at, dur, color, unit}                     đường gấp khúc vẽ một nét + vùng diện tích mờ hiện dần + điểm xung ở đầu mút
+ *   {k:"dotmap",  x,y,w,h, dots, at, arcs:[{from,to,at,dur,color}], pins:[{ll,label,at,color}]}  bản đồ chấm + đường bay + ghim xung
+ *   {k:"kinetic", x,y, text, size, weight, at, per, color, accent, anchor}           chữ lớn bật ra từng chữ (*từ* dùng màu nhấn)
  */
 import lottie from "../assets/vendor/lottie_canvas.min.js";
 import { h, s, setStyle, setAttr } from "../runtime/dom.js";
@@ -24,7 +24,7 @@ export const MOTION = {
   lottie(el, it, i, E) {
     const box = h("div", { class: "it", style: { left: `${it.x - it.w / 2}px`, top: `${it.y - it.h / 2}px`, width: `${it.w}px`, height: `${it.h}px` } });
     el.append(box);
-    // lottie-web 会改动传入的数据，每个实例各拷一份
+    // lottie-web sẽ sửa dữ liệu truyền vào, mỗi instance sao chép riêng một bản
     const a = lottie.loadAnimation({ container: box, renderer: "canvas", loop: false, autoplay: false, animationData: JSON.parse(JSON.stringify(it.data)),
       rendererSettings: { preserveAspectRatio: "xMidYMid meet", clearCanvas: true } });
     const d = it.data, n = d.op - d.ip, fr = d.fr * (it.speed ?? 1);
@@ -41,11 +41,11 @@ export const MOTION = {
       },
     };
   },
-  /** 开源线条图标（IconPark / Lucide / Tabler，Iconify 格式）：一笔笔描出来，填色随后淡入，画完轻轻晃一下 */
+  /** Icon nét mã nguồn mở (IconPark / Lucide / Tabler, định dạng Iconify): vẽ ra từng nét, màu tô mờ hiện dần sau đó, vẽ xong thì lắc nhẹ một cái */
   icon(el, it, i, E) {
     const box = h("div", { class: "it", style: { left: `${it.x - it.w / 2}px`, top: `${it.y - it.h / 2}px`, width: `${it.w}px`, height: `${it.h}px` } });
     const svg = ico(it.name, it.w, { draw: true, stroke: it.stroke ?? null });
-    // 多色 IconPark 换成当前皮肤的颜色：描边正文色、主填充强调色、内描边白、内填充浅色
+    // IconPark nhiều màu đổi sang màu của skin hiện tại: nét viền là màu chữ chính, tô chính là màu nhấn, nét viền trong là trắng, tô trong là màu nhạt
     const acc = E.COLORS[it.tone ?? "blue"] ?? it.tone ?? E.COLORS.blue;
     for (const [k, v] of Object.entries({ "--ic-s": E.COLORS.ink, "--ic-f": acc, "--ic-i": "#fff", "--ic-if": `${acc}33` })) svg.style.setProperty(k, v);
     svg.style.color = it.color ?? E.COLORS.ink;
@@ -62,7 +62,7 @@ export const MOTION = {
       },
     };
   },
-  /** 插画（内嵌 SVG，如 IconPark 插画库）：轮廓先一笔笔描出来，色块随后淡入；画完轻轻浮动 */
+  /** Hình minh họa (SVG nhúng, như thư viện minh họa IconPark): đường viền được vẽ từng nét trước, các mảng màu mờ hiện dần sau đó; vẽ xong thì trôi nhẹ */
   illus(el, it, i, E) {
     const box = h("div", { class: "it", style: { left: `${it.x - it.w / 2}px`, top: `${it.y - it.h / 2}px`, width: `${it.w}px`, height: `${it.h}px` } });
     box.innerHTML = it.svg;
@@ -81,7 +81,7 @@ export const MOTION = {
         p.render(t);
         const q = clamp01((t - it.at) / dur);
         if (q !== last) {
-          // 线条错开着画（按出现顺序分批），前 70% 画完；填色在后 60% 淡入
+          // Các nét vẽ so le (chia lô theo thứ tự xuất hiện), vẽ xong trong 70% đầu; tô màu mờ hiện dần ở 60% sau
           const n = stroked.length;
           stroked.forEach((el2, k) => { const k0 = (k / Math.max(1, n)) * 0.35; el2.setAttribute("stroke-dashoffset", (1 - clamp01((q - k0) / 0.35)).toFixed(4)); });
           const f = clamp01((q - 0.4) / 0.6).toFixed(3);
@@ -92,8 +92,8 @@ export const MOTION = {
       },
     };
   },
-  // 节点写了 tone 就用同色系便签底，颜色和图标一致（不写则按序轮换）
-  /** 流程 / 架构图：AntV X6（MIT）排好节点和直角圆弧连线，逐帧驱动：节点弹出、连线一笔画出、画完后虚线流动 */
+  // Node có ghi tone thì dùng nền giấy nhớ cùng tông, màu khớp với icon (không ghi thì xoay vòng theo thứ tự)
+  /** Sơ đồ quy trình / kiến trúc: AntV X6 (MIT) sắp xếp node và đường nối góc vuông bo tròn, điều khiển từng khung: node bật ra, đường nối vẽ một nét, vẽ xong thì nét đứt chảy */
   diagram(el, it, i, E) {
     const box = h("div", { class: "it", style: { left: `${it.x}px`, top: `${it.y}px`, width: `${it.w}px`, height: `${it.h}px` } });
     el.append(box);
@@ -120,7 +120,7 @@ export const MOTION = {
       const view = g.findViewByCell(cell).container;
       const line = [...view.querySelectorAll("path")].find((p2) => p2.getAttribute("stroke") === col) ?? view.querySelector("path:last-of-type");
       line.setAttribute("pathLength", "1"); line.setAttribute("stroke-dasharray", "1 1"); line.setAttribute("stroke-dashoffset", "1");
-      // 流动虚线：同一条路径再叠一层
+      // Nét đứt chảy: cùng một đường dẫn chồng thêm một lớp
       const flow = line.cloneNode(); flow.removeAttribute("marker-end"); flow.removeAttribute("marker-start");
       flow.setAttribute("stroke", E.COLORS[e.flowColor ?? "coral"] ?? E.COLORS.coral); flow.setAttribute("stroke-width", "5"); flow.setAttribute("stroke-linecap", "round");
       flow.setAttribute("pathLength", "100"); flow.setAttribute("stroke-dasharray", "7 11"); flow.setAttribute("opacity", "0");
@@ -150,7 +150,7 @@ export const MOTION = {
       },
     };
   },
-  /** 录屏回放：一串帧图按 fps 切换（GIF 拆出来的），外框同截图 */
+  /** Phát lại bản quay màn hình: một chuỗi ảnh khung chuyển theo fps (tách từ GIF), khung ngoài giống ảnh chụp */
   flip(el, it, i, E) {
     const plain = E.K.photo === "plain", [px, py] = E.K.pad;
     const box = h("div", { class: `it ${plain ? "pl" : "ph"}`, style: { left: `${it.x - it.w / 2}px`, top: `${it.y - it.h / 2}px`, width: `${it.w}px`, height: `${it.h}px` } });
@@ -223,7 +223,7 @@ export const MOTION = {
     const v = it.values, n = v.length, lo = Math.min(...v), hi = Math.max(...v), pad = (hi - lo) * 0.15 || 1;
     const X = (k) => (k / (n - 1)) * it.w, Y = (val) => it.h - ((val - lo + pad) / (hi - lo + 2 * pad)) * it.h;
     const pts = v.map((val, k) => [X(k), Y(val)]);
-    // Catmull-Rom → 三次贝塞尔，平滑曲线
+    // Catmull-Rom → Bézier bậc ba, đường cong mượt
     let d = `M${pts[0][0]},${pts[0][1]}`;
     for (let k = 0; k < n - 1; k++) {
       const p0 = pts[k - 1] ?? pts[k], p1 = pts[k], p2 = pts[k + 1], p3 = pts[k + 2] ?? p2;
@@ -254,7 +254,7 @@ export const MOTION = {
         setStyle(svg, "opacity", (clamp01((t - it.at + 0.3) / 0.3) * g).toFixed(3));
         setAttr(path, "stroke-dashoffset", (1 - p).toFixed(4));
         setAttr(area, "opacity", clamp01((t - it.at - dur * 0.7) / 0.6).toFixed(3));
-        // 末端点跟着线头走，画完后脉冲
+        // Điểm đầu mút chạy theo đầu đường, vẽ xong thì phát xung
         const L = path.getTotalLength(), pt = path.getPointAtLength(L * p);
         setAttr(dot, "cx", pt.x.toFixed(1)); setAttr(dot, "cy", pt.y.toFixed(1)); setAttr(dot, "opacity", t >= it.at ? 1 : 0);
         const ph = ((t - it.at - dur) % 1.4) / 1.4;
@@ -267,7 +267,7 @@ export const MOTION = {
     const lon0 = -180, lon1 = 180, lat0 = 76, lat1 = -56;
     const P = ([lon, lat]) => [it.x + ((lon - lon0) / (lon1 - lon0)) * it.w, it.y + ((lat0 - lat) / (lat0 - lat1)) * it.h];
     const svg = s("svg", { class: "ink", viewBox: "-960 -540 1920 1080" });
-    // 点阵按经度分 24 条带：进场时从西往东扫亮
+    // Bản đồ chấm chia thành 24 dải theo kinh độ: khi vào cảnh quét sáng từ tây sang đông
     const bands = Array.from({ length: 24 }, () => s("g", { opacity: 0 }));
     const r = Math.max(1.6, (it.w / 225) * 0.36);
     for (const ll of it.dots) {
@@ -308,7 +308,7 @@ export const MOTION = {
           const dur = q.a.dur ?? 1.4, p = cubicInOut(clamp01((t - q.a.at) / dur));
           setAttr(q.path, "stroke-dashoffset", (1 - p).toFixed(4));
           setAttr(q.src, "opacity", (t >= q.a.at ? g : 0).toFixed(3));
-          // 画完后，一颗亮点沿线循环跑（像货物在运）
+          // Vẽ xong, một điểm sáng chạy vòng dọc theo đường (như hàng hóa đang được vận chuyển)
           const loop = t > q.a.at + dur ? ((t - q.a.at - dur) % 2.2) / 2.2 : p;
           const L = q.path.getTotalLength(), pt = q.path.getPointAtLength(L * loop);
           setAttr(q.comet, "cx", pt.x.toFixed(1)); setAttr(q.comet, "cy", pt.y.toFixed(1));

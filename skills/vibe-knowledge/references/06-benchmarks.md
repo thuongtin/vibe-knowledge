@@ -1,19 +1,19 @@
-# 06 · 对标证据（2026-10-27 实测）
+# 06 · Bằng chứng đối chuẩn (đo thực tế 2026-10-27)
 
-完整报告：`~/Desktop/knowledge-video-research/分析报告.md`（时间轴拼图在 sheets/，屏幕字逐行在 ocr_out/）。
+Báo cáo đầy đủ: `~/Desktop/knowledge-video-research/分析报告.md` (ảnh ghép dòng thời gian ở sheets/, chữ trên màn hình từng dòng ở ocr_out/).
 
-| 作者 · 作品 | 时长 | 赞 / 藏 | 旁白 | 母版 |
+| Tác giả · Tác phẩm | Thời lượng | Thích / Lưu | Lời dẫn | Bản gốc |
 |---|---|---|---|---|
-| 电子智人《信息论·惊奇之学》 | 5:00 4K | 142 万 / 35 万 | 无 | A |
-| Iwanau《唐太宗放死囚回家》 | 2:55 | 22.7 万 / 2.7 万 | 无 | B |
-| 骑老爷爷过马路被罚300《opus家族史》 | 2:57 | 17.3 万 / 3.0 万 | 无 | D |
-| 骑老爷爷《悟了》 | 0:45 | 1.9 万 / 5378 | 无 | F |
-| 墨有意思《兰道尔原理》 | 2:12 竖屏 | 4.2 万 / 1.5 万（转 2.4 万） | 无 | C |
-| FredTao《高考政治七本书》 | 3:47 | 2.0 万 / 6617 | 有 | D |
-| 考蛙蛙《行测加强削弱》 | 7:46 | 2966 / 1602 | 无 | E |
-| 熹天取经《朱雀三号》 | 24:02 | 7077 / 684 | 真人口播 | 传统深度解析 |
+| Điện tử Trí nhân “Lý thuyết thông tin · Khoa học của sự ngạc nhiên” | 5:00 4K | 1,42 triệu / 350 nghìn | Không | A |
+| Iwanau “Đường Thái Tông thả tử tù về nhà” | 2:55 | 227 nghìn / 27 nghìn | Không | B |
+| Cõng ông cụ qua đường bị phạt 300 “Lịch sử gia tộc opus” | 2:57 | 173 nghìn / 30 nghìn | Không | D |
+| Cõng ông cụ “Ngộ rồi” | 0:45 | 19 nghìn / 5378 | Không | F |
+| Mặc Hữu Ý Tứ “Nguyên lý Landauer” | 2:12 màn hình dọc | 42 nghìn / 15 nghìn (chia sẻ 24 nghìn) | Không | C |
+| FredTao “Bảy cuốn sách chính trị thi đại học” | 3:47 | 20 nghìn / 6617 | Có | D |
+| Khảo Oa Oa “Củng cố và làm yếu lập luận trong thi hành chính” | 7:46 | 2966 / 1602 | Không | E |
+| Hi Thiên Thủ Kinh “Chu Tước số 3” | 24:02 | 7077 / 684 | Người thật thuyết minh | Phân tích chuyên sâu truyền thống |
 
-这些作品的共性：开头让观众参与、标题延后、一个主道具贯穿、每句挂出处、结尾回问。
-我们在它们之上加：**克隆音色旁白 + Renoise 动态镜头 + 定制配乐 + 逐个音效**（见 02-premium.md）。
+Điểm chung của các tác phẩm này: mở đầu cho khán giả tham gia, tiêu đề đến muộn, một đạo cụ chính xuyên suốt, mỗi câu đều gắn nguồn, kết thúc bằng câu hỏi quay lại.
+Chúng ta bổ sung thêm: **lời dẫn bằng giọng nhân bản + ống kính động Renoise + nhạc nền tùy biến + từng hiệu ứng âm thanh** (xem 02-premium.md).
 
-陆三金《流程全拆解：如何用 Claude 做资讯类视频》里公开的经验：AI 一次出片后脚本还要人工改 6–7 轮；常见失败是钩子不直接、屏幕字太多。
+Kinh nghiệm được công khai trong Lục Tam Kim “Phân tích toàn bộ quy trình: dùng Claude làm video tin tức thế nào”: sau khi AI ra phim một lần, kịch bản vẫn phải sửa tay 6–7 vòng; thất bại thường gặp là móc câu không trực tiếp, chữ trên màn hình quá nhiều.

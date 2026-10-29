@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ai-teardown.local/schemas/brief.schema.json",
-  "title": "brief.json · 立项",
-  "description": "讲哪个 AI、给谁看、多长、什么画幅与配音。第 1 步产出，后面所有步骤都读它。",
+  "title": "brief.json · Lập dự án",
+  "description": "Nói về AI nào, cho ai xem, dài bao lâu, khung hình và lồng tiếng ra sao. Sản phẩm của bước 1, mọi bước sau đều đọc nó.",
   "type": "object",
   "required": ["subject", "audience", "duration_s", "aspects", "language", "voice", "theme", "as_of"],
   "additionalProperties": false,
@@ -12,15 +12,15 @@
       "required": ["name", "resolved", "archetype"],
       "additionalProperties": false,
       "properties": {
-        "name": { "type": "string", "description": "用户输入的名字，如 Codex" },
-        "resolved": { "type": "string", "description": "消歧后的实体全称与范围" },
-        "not": { "type": "array", "items": { "type": "string" }, "description": "明确排除的同名实体" },
+        "name": { "type": "string", "description": "Tên người dùng nhập, ví dụ Codex" },
+        "resolved": { "type": "string", "description": "Tên đầy đủ và phạm vi của thực thể sau khi phân biệt nghĩa" },
+        "not": { "type": "array", "items": { "type": "string" }, "description": "Các thực thể trùng tên bị loại trừ rõ ràng" },
         "vendor": { "type": "string" },
-        "version_anchor": { "type": "string", "description": "讲的是哪个版本或哪一代模型" },
+        "version_anchor": { "type": "string", "description": "Nói về phiên bản hoặc thế hệ mô hình nào" },
         "archetype": { "enum": ["agent", "llm", "reasoning", "generative-media", "voice", "protocol"] }
       }
     },
-    "audience": { "enum": ["novice", "tech-literate", "developer"], "description": "默认 tech-literate：懂点技术的非开发者" },
+    "audience": { "enum": ["novice", "tech-literate", "developer"], "description": "Mặc định tech-literate: người không phải lập trình viên nhưng hiểu chút về kỹ thuật" },
     "duration_s": { "type": "integer", "minimum": 30, "maximum": 1200 },
     "depth_ceiling": { "enum": ["L2", "L3", "L4", "L5"], "default": "L4" },
     "aspects": { "type": "array", "items": { "enum": ["16:9", "9:16"] }, "minItems": 1, "uniqueItems": true },
@@ -31,10 +31,10 @@
       "required": ["engine", "id"],
       "additionalProperties": false,
       "properties": {
-        "engine": { "enum": ["edge-tts", "mimo", "elevenlabs", "openai", "say", "file"] },
-        "id": { "type": "string", "description": "音色 id，如 zh-CN-YunxiNeural" },
-        "rate": { "type": "string", "pattern": "^[+-]\\d{1,2}%$", "description": "edge-tts 语速偏移，如 -5%" },
-        "lexicon": { "type": "string", "description": "读音词典路径" }
+        "engine": { "enum": ["edge-tts", "gemini", "mimo", "elevenlabs", "openai", "say", "file"] },
+        "id": { "type": "string", "description": "id giọng, ví dụ zh-CN-YunxiNeural" },
+        "rate": { "type": "string", "pattern": "^[+-]\\d{1,2}%$", "description": "Độ lệch tốc độ nói của edge-tts, ví dụ -5%" },
+        "lexicon": { "type": "string", "description": "Đường dẫn từ điển cách đọc" }
       }
     },
     "theme": { "enum": ["blueprint", "editorial", "chalk"] },
@@ -50,6 +50,6 @@
       }
     },
     "interactive": { "enum": ["none", "sync", "lab"], "default": "sync" },
-    "auto": { "type": "boolean", "default": false, "description": "true 时跳过三个确认点" }
+    "auto": { "type": "boolean", "default": false, "description": "Khi true thì bỏ qua ba điểm xác nhận" }
   }
 }

@@ -1515,14 +1515,14 @@ BLIP_PLAN = _blip_plan()
 CARD_PLAN = _card_plan()
 
 
-# 开场打字用真实按键录音（CC0，见 sfx/README.md），不再用合成的咔嗒声
+# Phần gõ chữ mở đầu dùng bản ghi âm phím thật (CC0, xem sfx/README.md), không còn dùng tiếng lách cách tổng hợp
 SFX_DIR = Path(__file__).resolve().parent.parent / "sfx"
 KEY_ORDER = [1, 4, 2, 7, 3, 5, 8, 6, 2, 4, 1, 3]
 
 
 @lru_cache(maxsize=None)
 def real_key(name):
-    """读一个按键录音：转 48 kHz 单声道、峰值归一，返回 (信号, 峰值位置秒)。"""
+    """Đọc một bản ghi âm phím: chuyển sang 48 kHz đơn kênh, chuẩn hoá đỉnh, trả về (tín hiệu, vị trí đỉnh tính bằng giây)."""
     with wave.open(str(SFX_DIR / f"{name}.wav"), "rb") as w:
         sr, ch, sw, n = w.getframerate(), w.getnchannels(), w.getsampwidth(), w.getnframes()
         raw = np.frombuffer(w.readframes(n), dtype=np.int16 if sw == 2 else np.int32).astype(float)
@@ -1537,7 +1537,7 @@ def real_key(name):
 
 def place_key(m, t, name, gain, pan, sends):
     x, pk = real_key(name)
-    m.add("ui", t - max(0.0, pk - 0.002), x, gain=gain, pan=pan, sends=sends)   # 按键的「接触」对准字出现的那一帧
+    m.add("ui", t - max(0.0, pk - 0.002), x, gain=gain, pan=pan, sends=sends)   # "Điểm chạm" của phím căn đúng khung hình lúc chữ xuất hiện
 
 
 def cue_keyclick(m, c, i):

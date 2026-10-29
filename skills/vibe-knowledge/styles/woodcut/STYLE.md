@@ -1,26 +1,26 @@
-# 木刻 · WOODCUT
+# Khắc gỗ · WOODCUT
 
-> 家族：东方　|　档位：增强档 · 每段约 2 张生图（mj-v8.2，4 积分/张）　|　风格图：`still.jpg`　|　样片源码：`_samples/styles4_film.js → woodcut()`
+> Họ: Phương Đông | Mức: nâng cao · mỗi đoạn khoảng 2 ảnh tạo (mj-v8.2, 4 điểm/ảnh) | Ảnh phong cách: `still.jpg` | Mã nguồn mẫu: `_samples/styles4_film.js → woodcut()`
 
-**一句话**：黑白版画一刀一刀刻出来，刀痕方向跟着画面斜线，红色木刻印压字，高潮硬切第二版并顿一下。
+**Một câu**: tranh khắc đen trắng được khắc từng nhát dao, hướng vết dao theo đường chéo của khung hình, dấu ấn khắc gỗ đỏ đè lên chữ, cao trào cắt cứng sang bản khắc thứ hai rồi khựng lại một nhịp.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 新兴木刻的力量感：黑白硬对比、刀痕可见，适合讲「人」推动的转折。 |
-| 材质 / 画法 | 增强档：2 张 mj-v8.2 黑白木刻。代码：340 道楔形刀痕按时间累积成 clip 路径，1.3 秒后整版显出；字放红 / 黑实心块里。 |
-| 配色逻辑 | 纸 #EFE6D2 · 墨 #141210 · 印红 #C8102E（只给数字和结论） |
-| 字体 | 宋体 900 竖排，放在实心色块里反白 |
-| 动态 | 刀痕楔形逐道生长（0.12 秒一道，70% 斜向）；字块盖章式 1.5 → 1 缩放；高潮硬切第二版，1.1 → 1.02 顿一下。 |
-| 镜头语法 | 锁定 + 极慢推近；只在高潮顿一下。 |
-| 声音 | 刻刀、木屑、压印；低音鼓。 |
-| 标志镜头 | 画面被一道道刀痕刻出来；「五十金」红块盖在扛木人旁边。 |
+| Ý đồ đạo diễn | Sức mạnh của phong trào khắc gỗ mới: tương phản đen trắng gắt, vết dao hiện rõ, phù hợp kể những bước ngoặt do "con người" thúc đẩy. |
+| Chất liệu / Cách vẽ | Mức nâng cao: 2 ảnh khắc gỗ đen trắng mj-v8.2. Code: 340 vết dao hình nêm tích luỹ theo thời gian thành đường clip, sau 1.3 giây toàn bản hiện ra; chữ đặt trong khối đặc đỏ / đen. |
+| Logic màu | Giấy #EFE6D2 · mực #141210 · đỏ ấn #C8102E (chỉ dành cho con số và kết luận) |
+| Phông chữ | Song (Tống thể) 900 dọc, đặt trong khối màu đặc, chữ trắng nền đậm |
+| Chuyển động | Các vết dao hình nêm mọc dần từng nhát (0.12 giây một nhát, 70% chéo); khối chữ co giãn kiểu đóng dấu 1.5 → 1; cao trào cắt cứng sang bản thứ hai, 1.1 → 1.02 khựng một nhịp. |
+| Ngữ pháp ống kính | Cố định + đẩy gần cực chậm; chỉ khựng một nhịp ở cao trào. |
+| Âm thanh | Dao khắc, mùn gỗ, in ấn; trống trầm. |
+| Cảnh đặc trưng | Hình ảnh được khắc ra từng nhát dao; khối đỏ "năm mươi vàng" đóng bên cạnh người vác gỗ. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换刀痕方向、换印红
-- **一改就变味**：提示词写「1930s」等年代词不写清人物时代（服饰会被带成近代）
-- **不能改**：加彩色
+## Có thể sửa đến mức nào (dùng khi chuyển thành "phong cách của tôi")
+- **Sửa thoải mái**: đổi hướng vết dao, đổi màu đỏ ấn
+- **Sửa là mất chất**: prompt viết các từ chỉ niên đại như "1930s" mà không nói rõ thời đại của nhân vật (trang phục sẽ bị kéo về cận đại)
+- **Không được sửa**: thêm màu
 
-## 搭配
-- 适合母版：两难选择 B、一条主线 D
-- 不适合：轻松生活、消费
-- 增强档 Renoise 前缀：`Chinese woodcut print, bold black and white relief carving, rough gouge marks and expressive hatching, high contrast, off-white rice paper, empty paper on the left third, no modern clothing (写明人物所属时代与服饰，如 ancient Warring States China, long hemp robes, hair tied in topknots)`
+## Kết hợp
+- Mẫu gốc phù hợp: lựa chọn khó xử B, một mạch chính D
+- Không phù hợp: đời sống nhẹ nhàng, tiêu dùng
+- Tiền tố Renoise của mức nâng cao: `Chinese woodcut print, bold black and white relief carving, rough gouge marks and expressive hatching, high contrast, off-white rice paper, empty paper on the left third, no modern clothing (ghi rõ thời đại và trang phục của nhân vật, ví dụ ancient Warring States China, long hemp robes, hair tied in topknots)`

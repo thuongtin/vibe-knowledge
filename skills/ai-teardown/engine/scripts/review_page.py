@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""文案审阅页：把系列里每一节的旁白稿（script.md + narration.json + 核查账本）汇成一个页面，给用户逐节确认。
+"""Trang duyệt văn án: gom bản lời dẫn của từng bài trong series (script.md + narration.json + sổ cái kiểm chứng) thành một trang, để người dùng xác nhận từng bài.
 
-用法：python3 scripts/review_page.py <系列目录> <输出目录> [--from 2] [--to 12]
-每节显示：字数、拍数、预计时长（按每秒 4.3 字）、核实/未核实的事实数、script.md 全文（每拍旁白、画面建议、依据），
-以及 claims.md（核查结论，折叠）。
+Cách dùng: python3 scripts/review_page.py <thư mục series> <thư mục xuất> [--from 2] [--to 12]
+Mỗi bài hiển thị: số chữ, số nhịp, thời lượng dự kiến (tính 4,3 chữ mỗi giây), số sự thật đã/chưa kiểm chứng, toàn văn script.md (lời dẫn từng nhịp, gợi ý hình ảnh, căn cứ),
+cùng claims.md (kết luận kiểm chứng, thu gọn).
 """
 import html
 import json
@@ -64,12 +64,12 @@ def main():
     rows, secs, nav = [], [], []
     for n in range(lo, hi + 1):
         L = sd / "lessons" / f"{n:02d}"
-        title = S["lessons"][n - 1]["title"] if n - 1 < len(S.get("lessons", [])) else f"第 {n} 节"
+        title = S["lessons"][n - 1]["title"] if n - 1 < len(S.get("lessons", [])) else f"Bài {n}"
         nav.append(f'<a href="#l{n:02d}"><b>{n}</b>{E(title)}</a>')
         nj, sm = L / "narration.json", L / "script.md"
         if not nj.exists():
-            rows.append(f'<tr><td>{n}</td><td>{E(title)}</td><td colspan="5" class="missing">还没写好</td></tr>')
-            secs.append(f'<section id="l{n:02d}"><h2>第 {n} 节 · {E(title)}</h2><p class="missing">文案还没写好。</p></section>')
+            rows.append(f'<tr><td>{n}</td><td>{E(title)}</td><td colspan="5" class="missing">Chưa viết xong</td></tr>')
+            secs.append(f'<section id="l{n:02d}"><h2>Bài {n} · {E(title)}</h2><p class="missing">Văn án chưa viết xong.</p></section>')
             continue
         beats = json.loads(nj.read_text(encoding="utf-8"))["beats"]
         chars = sum(len(CUE.sub("", b["narration"])) for b in beats)
@@ -83,23 +83,23 @@ def main():
         body = markdown.markdown(sm.read_text(encoding="utf-8"), extensions=["tables"]) if sm.exists() else \
             "<ol>" + "".join(f"<li>{E(CUE.sub('', b['narration']))}</li>" for b in beats) + "</ol>"
         claims = L / "research/claims.md"
-        cl = f'<details><summary>核查结论（claims.md）</summary><div class="md">{markdown.markdown(claims.read_text(encoding="utf-8"), extensions=["tables"])}</div></details>' if claims.exists() else ""
-        secs.append(f"""<section id="l{n:02d}"><h2>第 {n} 节 · {E(title)}</h2>
-<div class="stats"><span class="pill">{chars} 字 · {len(beats)} 拍</span><span class="pill">约 {int(est // 60)} 分 {int(est % 60)} 秒</span>
-<span class="pill ok">核实 {ver} 条</span>{f'<span class="pill warn">未核实 {unv} 条（没进旁白）</span>' if unv else ''}</div>
+        cl = f'<details><summary>Kết luận kiểm chứng (claims.md)</summary><div class="md">{markdown.markdown(claims.read_text(encoding="utf-8"), extensions=["tables"])}</div></details>' if claims.exists() else ""
+        secs.append(f"""<section id="l{n:02d}"><h2>Bài {n} · {E(title)}</h2>
+<div class="stats"><span class="pill">{chars} chữ · {len(beats)} nhịp</span><span class="pill">khoảng {int(est // 60)} phút {int(est % 60)} giây</span>
+<span class="pill ok">Đã kiểm chứng {ver} mục</span>{f'<span class="pill warn">Chưa kiểm chứng {unv} mục (chưa đưa vào lời dẫn)</span>' if unv else ''}</div>
 <div class="md">{body}</div>{cl}</section>""")
-    page = f"""<title>AI 入门课文案审阅</title>
+    page = f"""<title>Duyệt văn án Khoá nhập môn AI</title>
 <style>{CSS}</style>
 <div class="wrap"><nav>{''.join(nav)}</nav><main>
-<h1>AI 入门课 · 第 {lo}–{hi} 节文案</h1>
-<p class="lede">每节的旁白原文、画面建议和依据都在下面。确认后按这份文案录音、做画面；要改哪句，直接告诉我节号和拍号（如「第 5 节 B07」）。</p>
-<div class="tbl"><table><thead><tr><th>节</th><th>标题</th><th>字数</th><th>拍数</th><th>预计时长</th><th>核实</th><th>未核实</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
+<h1>Khoá nhập môn AI · Văn án bài {lo}–{hi}</h1>
+<p class="lede">Nguyên văn lời dẫn, gợi ý hình ảnh và căn cứ của mỗi bài đều ở bên dưới. Sau khi xác nhận sẽ thu âm và làm hình theo văn án này; muốn sửa câu nào, cứ báo số bài và số nhịp (như "Bài 5 B07").</p>
+<div class="tbl"><table><thead><tr><th>Bài</th><th>Tiêu đề</th><th>Số chữ</th><th>Số nhịp</th><th>Thời lượng dự kiến</th><th>Đã kiểm chứng</th><th>Chưa kiểm chứng</th></tr></thead><tbody>{''.join(rows)}</tbody></table></div>
 {''.join(secs)}
 </main></div>
 """
     out.mkdir(parents=True, exist_ok=True)
     (out / "index.html").write_text(page, encoding="utf-8")
-    print(f"→ {out / 'index.html'}（{len(page) // 1024} KB）")
+    print(f"→ {out / 'index.html'} ({len(page) // 1024} KB)")
 
 
 if __name__ == "__main__":

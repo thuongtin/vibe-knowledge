@@ -1,26 +1,26 @@
-# 铜版博物 · COPPERPLATE
+# Bác vật bản đồng · COPPERPLATE
 
-> 家族：图解与设计　|　档位：增强档 · 每段约 2 张生图（mj-v8.2，4 积分/张）　|　风格图：`still.jpg`　|　样片源码：`_samples/styles7_film.js → copper()`
+> Họ: Đồ giải và thiết kế | Bậc: Bản nâng cao · mỗi đoạn khoảng 2 ảnh tạo sinh (mj-v8.2, 4 điểm/ảnh) | Ảnh phong cách: `still.jpg` | Mã nguồn bản mẫu: `_samples/styles7_film.js → copper()`
 
-**一句话**：45° 排线把灰度铜版一道道刻出来，淡彩晚一拍渗进去，左页铜版体图注逐条出现，高潮翻到标本页并编号。
+**Một câu**: Các nét gạch 45° khắc bản đồng xám từng đường một, màu nhạt thấm vào chậm một nhịp, chú thích kiểu bản đồng ở trang trái hiện ra từng dòng, cao trào lật sang trang tiêu bản và đánh số.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 18 世纪百科全书铜版图谱：先刻线、后上色，用编号和图注讲清楚每个部件。 |
-| 材质 / 画法 | 增强档：2 张 mj-v8.2（图版 + 标本页，4 积分/张）。代码：离屏灰度版（ctx.filter grayscale + contrast）→ 440 道 45° 排线累积 clip 显影 → 原彩图 alpha 渗入；翻页 = 第二张从右侧推入带阴影；编号圆圈 + 左页图例。 |
-| 配色逻辑 | 旧纸 #EFE6D2 · 墨 #3A2E22 · 标题红 #7A1E14 · 淡彩跟着原图 |
-| 字体 | 宋体（图注、PL. / Fig. 编号斜体）+ Geist 字距 6 的 PL. 标号 |
-| 动态 | 排线 1.35 秒从左下往右上扫完；1.5 秒后彩色 0.9 秒渗入；图注逐条上浮；翻页 0.45 秒；编号圆圈 1.6 → 1 落下。 |
-| 镜头语法 | 锁定（整页）。 |
-| 声音 | 刻刀划铜、翻书页；巴洛克羽管键琴。 |
-| 标志镜头 | 灰色铜版被一道道 45° 排线刻出来，几秒后淡彩慢慢渗进去。 |
+| Ý đồ đạo diễn | Bản vẽ bản đồng bách khoa toàn thư thế kỷ 18: khắc nét trước, tô màu sau, dùng số hiệu và chú thích giải thích rõ từng bộ phận. |
+| Chất liệu / cách vẽ | Bản nâng cao: 2 ảnh mj-v8.2 (bản vẽ + trang tiêu bản, 4 điểm/ảnh). Code: bản xám ngoài màn hình (ctx.filter grayscale + contrast) → 440 nét gạch 45° cộng dồn clip để hiện hình → ảnh màu gốc thấm vào bằng alpha; lật trang = ảnh thứ hai đẩy vào từ bên phải kèm bóng đổ; vòng tròn đánh số + chú giải ở trang trái. |
+| Logic phối màu | Giấy cũ #EFE6D2 · mực #3A2E22 · đỏ tiêu đề #7A1E14 · màu nhạt theo ảnh gốc |
+| Phông chữ | Font Tống thể (chú thích, số PL. / Fig. nghiêng) + nhãn PL. dùng Geist giãn chữ 6 |
+| Chuyển động | Nét gạch quét xong từ dưới trái lên trên phải trong 1,35 giây; sau 1,5 giây màu thấm vào trong 0,9 giây; chú thích nổi lên từng dòng; lật trang 0,45 giây; vòng tròn đánh số rơi xuống từ 1,6 → 1. |
+| Ngữ pháp ống kính | Cố định (cả trang). |
+| Âm thanh | Tiếng dao khắc rạch đồng, lật trang sách; đàn harpsichord Baroque. |
+| Cảnh đặc trưng | Bản đồng xám được khắc ra bằng từng nét gạch 45°, vài giây sau màu nhạt từ từ thấm vào. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换图版内容、换图注字段
-- **一改就变味**：提示词不写 no text（MJ 会自己写伪拉丁文）
-- **不能改**：一开始就是全彩（失去刻线 → 上色的过程）
+## Có thể sửa đến mức nào (dùng khi đổi thành “phong cách của tôi”)
+- **Cứ yên tâm sửa**: đổi nội dung bản vẽ, đổi trường chú thích
+- **Sửa là mất chất**: prompt không viết no text (MJ sẽ tự viết chữ giả La-tinh)
+- **Không được sửa**: ngay từ đầu đã đủ màu (mất quá trình khắc nét → tô màu)
 
-## 搭配
-- 适合母版：一条主线 D、猜谜概念 A
-- 不适合：快节奏热点、社会新闻
-- 增强档 Renoise 前缀：`antique copperplate engraving plate from an 18th-century encyclopedia, fine cross-hatching and stipple, hand-colored with faded watercolor washes, thin double border frame, aged cream paper with foxing, empty paper on the left third, no text, no letters, no numbers, no labels`
+## Phối hợp
+- Phù hợp bản gốc: một mạch chính D, khái niệm giải đố A
+- Không phù hợp: tin nóng nhịp nhanh, tin xã hội
+- Tiền tố Renoise bản nâng cao: `antique copperplate engraving plate from an 18th-century encyclopedia, fine cross-hatching and stipple, hand-colored with faded watercolor washes, thin double border frame, aged cream paper with foxing, empty paper on the left third, no text, no letters, no numbers, no labels`

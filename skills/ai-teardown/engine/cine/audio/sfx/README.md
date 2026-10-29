@@ -1,7 +1,7 @@
-# 音效来源
+# Nguồn hiệu ứng âm thanh
 
-| 文件 | 用途 | 来源 | 授权 |
+| Tệp | Công dụng | Nguồn | Giấy phép |
 |---|---|---|---|
-| key-1..8.wav、key-space.wav | 开场打字（12 个字 + 回车） | 真实 Cherry KC 1000 按键录音，「Keyboard Sounds」by unicaegames，https://opengameart.org/content/keyboard-sounds | CC0（公有领域，可商用、免署名；片尾仍注明出处） |
+| key-1..8.wav, key-space.wav | Gõ chữ mở đầu (12 chữ + Enter) | Ghi âm phím Cherry KC 1000 thật, "Keyboard Sounds" by unicaegames, https://opengameart.org/content/keyboard-sounds | CC0 (phạm vi công cộng, dùng thương mại được, không cần ghi tên; cuối phim vẫn ghi rõ nguồn) |
 
-其余配乐与音效都由 tools/score.py 用代码合成。
+Các nhạc nền và hiệu ứng âm thanh còn lại đều do tools/score.py tổng hợp bằng mã.

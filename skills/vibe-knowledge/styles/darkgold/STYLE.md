@@ -1,26 +1,26 @@
-# 暗金线描 · DARK GOLD
+# Nét vàng tối · DARK GOLD
 
-> 类别：视觉系统　|　风格图：`still.jpg`　|　样片源码：`_samples/styles_film.js → darkgold()`
+> Loại: hệ thống thị giác | Ảnh phong cách: `still.jpg` | Mã phim mẫu: `_samples/styles_film.js → darkgold()`
 
-**一句话**：炭黑底上琥珀色发光线条一笔笔画出场景和小人，像会发光的手账。
+**Một câu**: Trên nền than đen, nét phát sáng màu hổ phách vẽ từng nét ra cảnh và người que, như cuốn sổ tay phát sáng.
 
-| 项 | 写法 |
+| Mục | Cách viết |
 |---|---|
-| 导演意图 | 亲切、有共鸣，「这说的就是我」。 |
-| 材质 / 画法 | SVG 描边线稿（stroke-dashoffset 画出来），带外发光；道具贯穿全片（电量条、小黑板）。 |
-| 配色逻辑 | 底 #0b0a08 · 线 #f0b44c · 警示 #ff6a3d · 文字 #f4ead6。 |
-| 字体 | NotoSC 900 关键词，数字大而粗。 |
-| 动态 | 线条按笔画顺序画出（每笔 0.9 秒、相邻错开 0.18 秒），电量条增减。 |
-| 镜头语法 | 固定画面，靠线条生长和道具变化推进。 |
-| 声音 | 轻快钢琴或 lo-fi 鼓点；「叮」「嗒」等轻音效。 |
-| 标志镜头 | 一个会变化的道具（电量条 / 4 格小黑板）贯穿全片。 |
+| Ý đồ đạo diễn | Thân thiện, đồng cảm, "đúng là nói mình". |
+| Chất liệu / cách vẽ | Nét vẽ viền SVG (vẽ ra bằng stroke-dashoffset), có phát sáng ngoài; đạo cụ xuyên suốt cả phim (thanh pin, bảng đen nhỏ). |
+| Logic phối màu | Nền #0b0a08 · nét #f0b44c · cảnh báo #ff6a3d · chữ #f4ead6. |
+| Phông chữ | NotoSC 900 từ khoá, số to và đậm. |
+| Chuyển động | Nét vẽ ra theo thứ tự nét (mỗi nét 0,9 giây, các nét kề lệch nhau 0,18 giây), thanh pin tăng giảm. |
+| Ngữ pháp ống kính | Khung cố định, tiến triển nhờ nét mọc ra và đạo cụ thay đổi. |
+| Âm thanh | Piano nhẹ nhàng hoặc nhịp trống lo-fi; hiệu ứng nhẹ như "ting", "tách". |
+| Cảnh đặc trưng | Một đạo cụ biến đổi (thanh pin / bảng đen nhỏ 4 ô) xuyên suốt cả phim. |
 
-## 能改到什么程度（改成「我的风格」时用）
-- **放心改**：换道具、换线色（琥珀→青绿）、换乐器
-- **一改就变味**：改成实心填色（会变成扁平插画）
-- **不能改**：去掉线描和发光
+## Có thể sửa đến mức nào (dùng khi làm thành "phong cách của tôi")
+- **Cứ yên tâm sửa**: đổi đạo cụ, đổi màu nét (hổ phách→xanh lục lam), đổi nhạc cụ
+- **Sửa là mất vị**: đổi thành tô đặc (sẽ thành minh hoạ phẳng)
+- **Không được sửa**: bỏ nét vẽ và phát sáng
 
-## 搭配
-- 适合母版：C 痛点原理片（最佳，竖屏）、D 一条主线片
-- 不适合：需要真实史料图像的考证
-- 增强档 Renoise 前缀：`Minimal line-art illustration, glowing amber lines on charcoal black, warm rim light, editorial, lots of empty space, no text`
+## Cách phối
+- Mẫu gốc phù hợp: C phim nguyên lý điểm đau (tốt nhất, dọc), D phim một mạch chính
+- Không phù hợp: khảo chứng cần hình ảnh sử liệu thật
+- Tiền tố Renoise cấp tăng cường: `Minimal line-art illustration, glowing amber lines on charcoal black, warm rim light, editorial, lots of empty space, no text`
